@@ -9,6 +9,7 @@ package com.tyuan.manager.web.controller;
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.tyuan.manager.annotation.Log;
 import com.tyuan.manager.service.ServiceException;
 import com.tyuan.manager.web.PermissionConstant;
 import com.tyuan.manager.web.RouteConstant;
@@ -37,6 +38,7 @@ public class SysRoleController {
 
     @RequiresPermissions(PermissionConstant.SYS_ROLE_LIST)
     @PostMapping(RouteConstant.ROUTER_SYS_ROLE)
+    @Log(value = "查看角色列表")
     public ResultTable list(@RequestBody SysRoleTableParamsVo requestParam) {
         ResultTable resultTable = new ResultTable();
         try {
@@ -65,6 +67,7 @@ public class SysRoleController {
 
     @RequiresPermissions(PermissionConstant.SYS_ROLE_LIST)
     @GetMapping(RouteConstant.ROUTER_SYS_ROLE)
+    @Log(value = "查看角色")
     public ResultData get(@RequestParam(value = "id", required = false) Long id) {
         try {
 
@@ -94,6 +97,7 @@ public class SysRoleController {
 
     @RequiresPermissions(PermissionConstant.SYS_ROLE_DEL)
     @PostMapping(RouteConstant.ROUTER_SYS_ROLE_DEL)
+    @Log(value = "删除角色")
     public ResultData del(@RequestBody DeleteVo deleteVo) {
         try {
             service.del(deleteVo);
@@ -107,8 +111,8 @@ public class SysRoleController {
 
     @RequiresPermissions(PermissionConstant.SYS_ROLE_ADD)
     @PostMapping(RouteConstant.ROUTER_SYS_ROLE_ADD)
+    @Log(value = "添加角色")
     public ResultData add(@RequestBody @Validated SysRoleVo k) {
-
         try {
             service.add(k);
             return new ResultData();
@@ -121,6 +125,7 @@ public class SysRoleController {
 
     @RequiresPermissions(PermissionConstant.SYS_ROLE_EDIT)
     @PostMapping(RouteConstant.ROUTER_SYS_ROLE_EDIT)
+    @Log(value = "修改角色")
     public ResultData edit(@RequestBody @Validated SysRoleVo k) {
         try {
             service.edit(k);
@@ -150,8 +155,9 @@ public class SysRoleController {
         return resultData;
     }
 
-    @RequiresPermissions(PermissionConstant.SYS_ROLE_LIST)
+    @RequiresPermissions(PermissionConstant.SYS_ROLE_BIND_USER)
     @PostMapping(RouteConstant.ROUTER_SYS_ROLE_BIND_USER)
+    @Log(value = "绑定用户")
     public ResultData bindUser(@PathVariable("roleId") Long roleId,
                                @PathVariable("userId") Long userId) {
         ResultData resultData = new ResultData();
@@ -159,8 +165,9 @@ public class SysRoleController {
         return resultData;
     }
 
-    @RequiresPermissions(PermissionConstant.SYS_ROLE_LIST)
+    @RequiresPermissions(PermissionConstant.SYS_ROLE_BIND_USER)
     @PostMapping(RouteConstant.ROUTER_SYS_ROLE_UNBIND_USER)
+    @Log(value = "解绑用户")
     public ResultData unbindUser(@PathVariable("roleId") Long roleId,
                                  @PathVariable("userId") Long userId) {
         ResultData resultData = new ResultData();

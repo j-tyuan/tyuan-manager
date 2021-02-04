@@ -5,8 +5,10 @@
  */
 package com.tyuan.manager.web.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.tyuan.manager.annotation.Log;
 import com.tyuan.manager.service.ServiceException;
 import com.tyuan.manager.service.SysPermissionService;
 import com.tyuan.manager.service.SysRoleService;
@@ -28,6 +30,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
@@ -60,7 +63,6 @@ public class SysController {
 
     @Resource
     private RedisTemplate redisTemplate;
-
 
     @PostMapping(RouteConstant.ROUTER_SYS_LOGIN_ACCOUNT)
     public LoginResult loginAccount(@RequestBody LoginVo loginVo,
@@ -132,6 +134,16 @@ public class SysController {
         return resultData;
     }
 
+    @GetMapping(RouteConstant.ROUTER_PERMISSION)
+    public ResultData permission(@ModelAttribute("userToken") String userToken) {
+        ResultData resultData = new ResultData();
+        Map map = Maps.newHashMap();
+        map.put("permission", userInfoCacheService.getPerm(userToken));
+        map.put("role", userInfoCacheService.getRole(userToken));
+        resultData.setData(map);
+        resultData.setErrorCode(ErrorCodeConsts.SUCCESS);
+        return resultData;
+    }
 
     /**
      * 更新用户缓存信息

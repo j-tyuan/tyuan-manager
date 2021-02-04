@@ -7,6 +7,7 @@
 package com.tyuan.manager.web.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.tyuan.manager.annotation.Log;
 import com.tyuan.manager.service.ServiceException;
 import com.tyuan.manager.service.SysDictService;
 import com.tyuan.manager.web.PermissionConstant;
@@ -35,6 +36,7 @@ public class SysDictController {
 
     @RequiresPermissions(PermissionConstant.SYS_DICT_LIST)
     @PostMapping(RouteConstant.ROUTER_SYS_DICT)
+    @Log(value = "查看字典")
     public ResultTable list(@RequestBody SysDictTableParamsVo requestParam) {
         ResultTable table = new ResultTable();
         try {
@@ -48,6 +50,7 @@ public class SysDictController {
 
     @RequiresPermissions(PermissionConstant.SYS_DICT_DEL)
     @PostMapping(RouteConstant.ROUTER_SYS_DICT_DEL)
+    @Log(value = "删除字典")
     public ResultData del(@RequestBody DeleteVo deleteVo) {
         try {
             service.del(deleteVo);
@@ -61,6 +64,7 @@ public class SysDictController {
 
     @RequiresPermissions(PermissionConstant.SYS_DICT_ADD)
     @PostMapping(RouteConstant.ROUTER_SYS_DICT_ADD)
+    @Log(value = "添加字典")
     public ResultData add(@RequestBody @Validated SysDictVo k) throws ServiceException {
 
         service.add(k);
@@ -69,6 +73,7 @@ public class SysDictController {
 
     @RequiresPermissions(PermissionConstant.SYS_DICT_EDIT)
     @PostMapping(RouteConstant.ROUTER_SYS_DICT_EDIT)
+    @Log(value = "修改字典")
     public ResultData edit(@RequestBody @Validated SysDictVo k) {
         try {
             service.edit(k);

@@ -5,9 +5,11 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import java.io.Serializable;
+
 @Setter
 @Getter
-public class SysDictVo extends SysDict {
+public class SysDictVo extends SysDict implements Serializable {
 
     @NotEmpty(message = "值不许为空")
     private String value;

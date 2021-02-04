@@ -23,6 +23,11 @@ public class RouteConstant {
     public static final String ROUTER_CURRENT_USER_INFO = "/api/currentUser";
 
     /**
+     * 权限
+     */
+    public static final String ROUTER_PERMISSION = "/api/permission";
+
+    /**
      * 获取全部
      */
     public static final String ROUTER_ALL = "/api/all";
@@ -92,4 +97,9 @@ public class RouteConstant {
      */
     public static final String ROUTER_MONITOR_REDIS_KEYS = "/api/monitor/redis/keys";
     public static final String ROUTER_MONITOR_REDIS_GET_VALUE = "/api/monitor/redis/getVal";
+
+    /**
+     * 日志
+     */
+    public static final String ROUTER_SYS_LOG = "/api/sys/log";
 }

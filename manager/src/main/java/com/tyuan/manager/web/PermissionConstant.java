@@ -21,7 +21,7 @@ public class PermissionConstant {
     public final static String SYS_ROLE_ADD = "sys:role:add";
     public final static String SYS_ROLE_EDIT = "sys:role:edit";
     public final static String SYS_ROLE_DEL = "sys:role:del";
-
+    public final static String SYS_ROLE_BIND_USER = "sys:role:binduser";
 
     /**
      * 权限
@@ -62,4 +62,9 @@ public class PermissionConstant {
      */
     public final static String MONITOR_REDIS_KEYS = "monitor:redis:keys";
     public final static String MONITOR_REDIS_GET_VALUE = "monitor:redis:getval";
+
+    /**
+     * 字典权限
+     */
+    public final static String SYS_LOG_LIST = "sys:log:list";
 }

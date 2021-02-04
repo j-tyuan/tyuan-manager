@@ -13,13 +13,19 @@ public class UserInfoHolder {
 
 
     public static String getUserName() {
-
-        return (String) THREAD_LOCAL.get().get("account");
+        Map map = THREAD_LOCAL.get();
+        if (null == map) {
+            return null;
+        }
+        return (String) map.get("account");
     }
 
     public static Long getUserId() {
-
-        return (Long) THREAD_LOCAL.get().get("id");
+        Map map = THREAD_LOCAL.get();
+        if (null == map) {
+            return null;
+        }
+        return (Long) map.get("id");
     }
 
     public static void put(Map map) {

@@ -39,7 +39,6 @@ public class MonitorRedisController {
     public ResultData getValue(@RequestParam("key") String key) {
 
         ResultData resultData = new ResultData();
-
         RedisValueVo valueVo = monitorRedisService.getValue(key);
         resultData.setData(valueVo);
 

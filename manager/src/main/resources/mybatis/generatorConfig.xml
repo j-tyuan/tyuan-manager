@@ -18,9 +18,9 @@
 
         <!--jdbc的数据库连接-->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="your mysql url"
-                        userId="your username"
-                        password="your password">
+                        connectionURL="jdbc:mysql://rm-bp1g992ma0n02wy1h5o.mysql.rds.aliyuncs.com/vpn_manage"
+                        userId="imengyao_dev"
+                        password="123456aA">
         </jdbcConnection>
 
         <!--非必须，类型处理器，在数据库类型和java类型之间的转换控制-->
@@ -116,12 +116,13 @@
                 selectByExampleQueryId="true">
              <generatedKey column="id" sqlStatement="MySql" identity="true"/>
          </table>
-         <table tableName="sys_log" domainObjectName="SysLog"
-                enableCountByExample="true" enableUpdateByExample="true"
-                enableDeleteByExample="true" enableSelectByExample="true"
-                selectByExampleQueryId="true">
-             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
-         </table>-->
+-->
+        <table tableName="sys_log" domainObjectName="SysLog"
+               enableCountByExample="true" enableUpdateByExample="true"
+               enableDeleteByExample="true" enableSelectByExample="true"
+               selectByExampleQueryId="true">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
         <!--      <table tableName="sys_param" domainObjectName="SysParam"
                      enableCountByExample="true" enableUpdateByExample="true"
                      enableDeleteByExample="true" enableSelectByExample="true"

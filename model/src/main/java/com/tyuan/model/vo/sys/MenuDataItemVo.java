@@ -10,11 +10,12 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.util.CollectionUtils;
 
+import java.io.Serializable;
 import java.util.*;
 
 @Setter
 @Getter
-public class MenuDataItemVo {
+public class MenuDataItemVo implements Serializable {
 
     private List<MenuDataItemVo> children;
 

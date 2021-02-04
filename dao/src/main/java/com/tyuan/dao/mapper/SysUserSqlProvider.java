@@ -58,83 +58,83 @@ public class SysUserSqlProvider {
     public String insertSelective(SysUser record) {
         BEGIN();
         INSERT_INTO("sys_user");
-
+        
         if (record.getCreateDate() != null) {
             VALUES("create_date", "#{createDate,jdbcType=TIMESTAMP}");
         }
-
+        
         if (record.getUpdateDate() != null) {
             VALUES("update_date", "#{updateDate,jdbcType=TIMESTAMP}");
         }
-
+        
         if (record.getAccount() != null) {
             VALUES("account", "#{account,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getPassword() != null) {
             VALUES("password", "#{password,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getNo() != null) {
             VALUES("no", "#{no,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getName() != null) {
             VALUES("name", "#{name,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getEmail() != null) {
             VALUES("email", "#{email,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getPhone() != null) {
             VALUES("phone", "#{phone,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getMobile() != null) {
             VALUES("mobile", "#{mobile,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getUserType() != null) {
             VALUES("user_type", "#{userType,jdbcType=INTEGER}");
         }
-
+        
         if (record.getPhoto() != null) {
             VALUES("photo", "#{photo,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getLoginIp() != null) {
             VALUES("login_ip", "#{loginIp,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getLoginDate() != null) {
             VALUES("login_date", "#{loginDate,jdbcType=TIMESTAMP}");
         }
-
+        
         if (record.getLoginFlag() != null) {
             VALUES("login_flag", "#{loginFlag,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getCreateBy() != null) {
             VALUES("create_by", "#{createBy,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getUpdateBy() != null) {
             VALUES("update_by", "#{updateBy,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getRemarks() != null) {
             VALUES("remarks", "#{remarks,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getDelFlag() != null) {
             VALUES("del_flag", "#{delFlag,jdbcType=BIT}");
         }
-
+        
         if (record.getDisabled() != null) {
             VALUES("disabled", "#{disabled,jdbcType=BIT}");
         }
-
+        
         return SQL();
     }
 
@@ -172,11 +172,11 @@ public class SysUserSqlProvider {
         SELECT("disabled");
         FROM("sys_user");
         applyWhere(example, false);
-
+        
         if (example != null && example.getOrderByClause() != null) {
             ORDER_BY(example.getOrderByClause());
         }
-
+        
         return SQL();
     }
 
@@ -189,90 +189,90 @@ public class SysUserSqlProvider {
     public String updateByExampleSelective(Map<String, Object> parameter) {
         SysUser record = (SysUser) parameter.get("record");
         SysUserExample example = (SysUserExample) parameter.get("example");
-
+        
         BEGIN();
         UPDATE("sys_user");
-
+        
         if (record.getId() != null) {
             SET("id = #{record.id,jdbcType=BIGINT}");
         }
-
+        
         if (record.getCreateDate() != null) {
             SET("create_date = #{record.createDate,jdbcType=TIMESTAMP}");
         }
-
+        
         if (record.getUpdateDate() != null) {
             SET("update_date = #{record.updateDate,jdbcType=TIMESTAMP}");
         }
-
+        
         if (record.getAccount() != null) {
             SET("account = #{record.account,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getPassword() != null) {
             SET("password = #{record.password,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getNo() != null) {
             SET("no = #{record.no,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getName() != null) {
             SET("name = #{record.name,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getEmail() != null) {
             SET("email = #{record.email,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getPhone() != null) {
             SET("phone = #{record.phone,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getMobile() != null) {
             SET("mobile = #{record.mobile,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getUserType() != null) {
             SET("user_type = #{record.userType,jdbcType=INTEGER}");
         }
-
+        
         if (record.getPhoto() != null) {
             SET("photo = #{record.photo,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getLoginIp() != null) {
             SET("login_ip = #{record.loginIp,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getLoginDate() != null) {
             SET("login_date = #{record.loginDate,jdbcType=TIMESTAMP}");
         }
-
+        
         if (record.getLoginFlag() != null) {
             SET("login_flag = #{record.loginFlag,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getCreateBy() != null) {
             SET("create_by = #{record.createBy,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getUpdateBy() != null) {
             SET("update_by = #{record.updateBy,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getRemarks() != null) {
             SET("remarks = #{record.remarks,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getDelFlag() != null) {
             SET("del_flag = #{record.delFlag,jdbcType=BIT}");
         }
-
+        
         if (record.getDisabled() != null) {
             SET("disabled = #{record.disabled,jdbcType=BIT}");
         }
-
+        
         applyWhere(example, true);
         return SQL();
     }
@@ -286,7 +286,7 @@ public class SysUserSqlProvider {
     public String updateByExample(Map<String, Object> parameter) {
         BEGIN();
         UPDATE("sys_user");
-
+        
         SET("id = #{record.id,jdbcType=BIGINT}");
         SET("create_date = #{record.createDate,jdbcType=TIMESTAMP}");
         SET("update_date = #{record.updateDate,jdbcType=TIMESTAMP}");
@@ -307,7 +307,7 @@ public class SysUserSqlProvider {
         SET("remarks = #{record.remarks,jdbcType=VARCHAR}");
         SET("del_flag = #{record.delFlag,jdbcType=BIT}");
         SET("disabled = #{record.disabled,jdbcType=BIT}");
-
+        
         SysUserExample example = (SysUserExample) parameter.get("example");
         applyWhere(example, true);
         return SQL();
@@ -322,85 +322,85 @@ public class SysUserSqlProvider {
     public String updateByPrimaryKeySelective(SysUser record) {
         BEGIN();
         UPDATE("sys_user");
-
+        
         if (record.getCreateDate() != null) {
             SET("create_date = #{createDate,jdbcType=TIMESTAMP}");
         }
-
+        
         if (record.getUpdateDate() != null) {
             SET("update_date = #{updateDate,jdbcType=TIMESTAMP}");
         }
-
+        
         if (record.getAccount() != null) {
             SET("account = #{account,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getPassword() != null) {
             SET("password = #{password,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getNo() != null) {
             SET("no = #{no,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getName() != null) {
             SET("name = #{name,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getEmail() != null) {
             SET("email = #{email,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getPhone() != null) {
             SET("phone = #{phone,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getMobile() != null) {
             SET("mobile = #{mobile,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getUserType() != null) {
             SET("user_type = #{userType,jdbcType=INTEGER}");
         }
-
+        
         if (record.getPhoto() != null) {
             SET("photo = #{photo,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getLoginIp() != null) {
             SET("login_ip = #{loginIp,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getLoginDate() != null) {
             SET("login_date = #{loginDate,jdbcType=TIMESTAMP}");
         }
-
+        
         if (record.getLoginFlag() != null) {
             SET("login_flag = #{loginFlag,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getCreateBy() != null) {
             SET("create_by = #{createBy,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getUpdateBy() != null) {
             SET("update_by = #{updateBy,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getRemarks() != null) {
             SET("remarks = #{remarks,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getDelFlag() != null) {
             SET("del_flag = #{delFlag,jdbcType=BIT}");
         }
-
+        
         if (record.getDisabled() != null) {
             SET("disabled = #{disabled,jdbcType=BIT}");
         }
-
+        
         WHERE("id = #{id,jdbcType=BIGINT}");
-
+        
         return SQL();
     }
 
@@ -414,7 +414,7 @@ public class SysUserSqlProvider {
         if (example == null) {
             return;
         }
-
+        
         String parmPhrase1;
         String parmPhrase1_th;
         String parmPhrase2;
@@ -436,7 +436,7 @@ public class SysUserSqlProvider {
             parmPhrase3 = "#{oredCriteria[%d].allCriteria[%d].value[%d]}";
             parmPhrase3_th = "#{oredCriteria[%d].allCriteria[%d].value[%d],typeHandler=%s}";
         }
-
+        
         StringBuilder sb = new StringBuilder();
         List<Criteria> oredCriteria = example.getOredCriteria();
         boolean firstCriteria = true;
@@ -448,7 +448,7 @@ public class SysUserSqlProvider {
                 } else {
                     sb.append(" or ");
                 }
-
+                
                 sb.append('(');
                 List<Criterion> criterions = criteria.getAllCriteria();
                 boolean firstCriterion = true;
@@ -459,7 +459,7 @@ public class SysUserSqlProvider {
                     } else {
                         sb.append(" and ");
                     }
-
+                    
                     if (criterion.isNoValue()) {
                         sb.append(criterion.getCondition());
                     } else if (criterion.isSingleValue()) {
@@ -497,7 +497,7 @@ public class SysUserSqlProvider {
                 sb.append(')');
             }
         }
-
+        
         if (sb.length() > 0) {
             WHERE(sb.toString());
         }

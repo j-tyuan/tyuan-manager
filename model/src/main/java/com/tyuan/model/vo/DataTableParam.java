@@ -9,13 +9,14 @@ package com.tyuan.model.vo;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 @Getter
 @Setter
-public class DataTableParam {
+public class DataTableParam implements Serializable {
 
     //开始页
     private int pageSize;

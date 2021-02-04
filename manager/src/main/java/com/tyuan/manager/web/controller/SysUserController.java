@@ -1,6 +1,7 @@
 package com.tyuan.manager.web.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.tyuan.manager.annotation.Log;
 import com.tyuan.manager.cache.UserInfoCacheService;
 import com.tyuan.manager.service.ServiceException;
 import com.tyuan.manager.web.PermissionConstant;
@@ -35,6 +36,7 @@ public class SysUserController {
 
     @RequiresPermissions(PermissionConstant.SYS_USER_LIST)
     @GetMapping(RouteConstant.ROUTER_SYS_USER_ALL)
+    @Log(value = "查看用户列表")
     public ResultData list(@RequestParam(value = "name", required = false) String name,
                            @RequestParam(value = "phone", required = false) String phone) {
         ResultData resultData = new ResultData();
@@ -50,6 +52,7 @@ public class SysUserController {
 
     @RequiresPermissions(PermissionConstant.SYS_USER_LIST)
     @PostMapping(RouteConstant.ROUTER_SYS_USER)
+    @Log(value = "查看用户列表")
     public ResultTable list(@RequestBody SysUserTableParamsVo requestParam) {
         ResultTable resultTable = new ResultTable();
         try {
@@ -71,6 +74,7 @@ public class SysUserController {
 
     @RequiresPermissions(PermissionConstant.SYS_USER_DEL)
     @PostMapping(RouteConstant.ROUTER_SYS_USER_DEL)
+    @Log(value = "删除用户")
     public ResultData del(@RequestBody DeleteVo deleteVo) {
         try {
             sysUserService.del(deleteVo);
@@ -84,9 +88,9 @@ public class SysUserController {
 
     @RequiresPermissions(PermissionConstant.SYS_USER_ADD)
     @PostMapping(RouteConstant.ROUTER_SYS_USER_ADD)
+    @Log(value = "添加用户")
     public ResultData add(@RequestBody @Validated SysUserVo k) {
         try {
-
             sysUserService.add(k);
             return new ResultData();
         } catch (ServiceException e) {
@@ -98,6 +102,7 @@ public class SysUserController {
 
     @RequiresPermissions(PermissionConstant.SYS_USER_EDIT)
     @PostMapping(RouteConstant.ROUTER_SYS_USER_EDIT)
+    @Log(value = "修改用户")
     public ResultData edit(@RequestBody @Validated SysUserVo k) {
         try {
             sysUserService.edit(k);
@@ -111,6 +116,7 @@ public class SysUserController {
 
     @RequiresPermissions(PermissionConstant.SYS_USER_DISABLE)
     @PostMapping(RouteConstant.ROUTER_SYS_DISABLE)
+    @Log(value = "修改用户状态")
     public ResultData disable(@PathVariable(value = "uid") Long userId,
                               @PathVariable(value = "disable", required = false) Integer disable) {
         try {

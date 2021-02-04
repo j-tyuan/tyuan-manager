@@ -4,13 +4,14 @@ import com.tyuan.model.pojo.SysPermission;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 @Setter
 @Getter
-public class PermissionTreeVo {
+public class PermissionTreeVo implements Serializable {
 
     private List<PermissionTreeVo> children;
 

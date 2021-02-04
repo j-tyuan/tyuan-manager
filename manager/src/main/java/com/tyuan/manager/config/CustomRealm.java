@@ -24,6 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 
+import javax.annotation.Resource;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -31,41 +32,28 @@ import java.util.Map;
 @Configuration
 public class CustomRealm extends AuthorizingRealm {
 
-    @Autowired
+    @Resource
     // 必须要延迟加载
     @Lazy
     UserInfoCacheService userInfoCacheService;
 
-    @Autowired
-    SysUserService sysUserService;
-
-    @Autowired
-    SysRoleService roleService;
-
-    @Autowired
-    SysPermissionService sysPermissionService;
-
-
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-
         String token = (String) principalCollection.getPrimaryPrincipal();
-
         SimpleAuthorizationInfo simpleAuthenticationInfo = new SimpleAuthorizationInfo();
 
         // 在缓存中拿到用户的角色信息，角色信息在用户登陆的时候加载到缓存
         List<String> roles = (List<String>) userInfoCacheService.getRole(token);
         if (CollectionUtils.isNotEmpty(roles)) {
-
             simpleAuthenticationInfo.addRoles(roles);
         }
 
         // 在缓存中拿到用户的权限信息，权限信息在用户登陆的时候加载到缓存
         List<String> perm = (List<String>) userInfoCacheService.getPerm(token);
         if (CollectionUtils.isNotEmpty(perm)) {
-
             simpleAuthenticationInfo.addStringPermissions(perm);
         }
+
         //添加 认证用户 权限，公共权限
         simpleAuthenticationInfo.addStringPermission("authc");
 
