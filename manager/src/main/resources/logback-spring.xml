@@ -1,0 +1,49 @@
+<configuration scan="false" scanPeriod="60 seconds" debug="false">
+
+    <!-- 日志路径-->
+    <property name="LOG_PATH" value="logs"/>
+    <contextName>${appName}</contextName>
+
+    <!-- 控制台输出-->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%-5level %d{yyyy-MM-dd HH:mm:ss.SSS} ${PID}-[%thread] %highlight(%logger{36}) - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 日期分割日志-->
+    <appender name="RollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <totalSizeCap>1GB</totalSizeCap>
+        </rollingPolicy>
+
+        <encoder>
+            <pattern>%-5level %d{yyyy-MM-dd HH:mm:ss.SSS} ${PID}-[%thread] %highlight(%logger{36}) - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 根据spring配置多环境日志-->
+    <springProfile name="dev">
+        <root level="debug">
+            <appender-ref ref="STDOUT"/>
+        </root>
+    </springProfile>
+
+    <springProfile name="test">
+        <root level="debug">
+            <appender-ref ref="RollingFile"/>
+        </root>
+    </springProfile>
+
+    <springProfile name="prod">
+        <root level="warn">
+            <appender-ref ref="RollingFile"/>
+        </root>
+        <root level="info">
+            <appender-ref ref="RollingFile"/>
+        </root>
+    </springProfile>
+
+</configuration>

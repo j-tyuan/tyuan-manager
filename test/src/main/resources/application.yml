@@ -1,0 +1,18 @@
+server:
+  port: 8081
+spring:
+  profiles:
+    active: dev
+  application:
+    name: proxy-test
+  thymeleaf:
+    prefix: classpath:/thymeleaf/
+    suffix: .html
+    mode: LEGACYHTML5
+    encoding: UTF-8
+    content-type: text/html
+    cache: false
+  resources:
+    static-locations: classpath:/static/,/weblibs/
+  mvc:
+    static-path-pattern: static/**

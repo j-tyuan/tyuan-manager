@@ -1,0 +1,6 @@
+server:
+  port: 8080
+spring:
+  #开发环境(====(
+  profiles:
+    active: dev,local
