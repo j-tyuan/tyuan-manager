@@ -102,4 +102,5 @@ public class RouteConstant {
      * 日志
      */
     public static final String ROUTER_SYS_LOG = "/api/sys/log";
+    public static final String ROUTER_SYS_LOG_TYPE = "/api/sys/log/type";
 }

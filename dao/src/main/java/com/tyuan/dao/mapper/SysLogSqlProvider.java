@@ -68,7 +68,7 @@ public class SysLogSqlProvider {
         }
         
         if (record.getType() != null) {
-            VALUES("type", "#{type,jdbcType=BIT}");
+            VALUES("type", "#{type,jdbcType=INTEGER}");
         }
         
         if (record.getTitle() != null) {
@@ -97,6 +97,10 @@ public class SysLogSqlProvider {
         
         if (record.getMethod() != null) {
             VALUES("method", "#{method,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getDuration() != null) {
+            VALUES("duration", "#{duration,jdbcType=INTEGER}");
         }
         
         if (record.getParams() != null) {
@@ -133,6 +137,7 @@ public class SysLogSqlProvider {
         SELECT("user_agent");
         SELECT("request_uri");
         SELECT("method");
+        SELECT("duration");
         SELECT("params");
         SELECT("exception");
         FROM("sys_log");
@@ -168,6 +173,7 @@ public class SysLogSqlProvider {
         SELECT("user_agent");
         SELECT("request_uri");
         SELECT("method");
+        SELECT("duration");
         FROM("sys_log");
         applyWhere(example, false);
         
@@ -204,7 +210,7 @@ public class SysLogSqlProvider {
         }
         
         if (record.getType() != null) {
-            SET("type = #{record.type,jdbcType=BIT}");
+            SET("type = #{record.type,jdbcType=INTEGER}");
         }
         
         if (record.getTitle() != null) {
@@ -235,6 +241,10 @@ public class SysLogSqlProvider {
             SET("method = #{record.method,jdbcType=VARCHAR}");
         }
         
+        if (record.getDuration() != null) {
+            SET("duration = #{record.duration,jdbcType=INTEGER}");
+        }
+        
         if (record.getParams() != null) {
             SET("params = #{record.params,jdbcType=LONGVARCHAR}");
         }
@@ -260,7 +270,7 @@ public class SysLogSqlProvider {
         SET("id = #{record.id,jdbcType=BIGINT}");
         SET("request_id = #{record.requestId,jdbcType=VARCHAR}");
         SET("create_date = #{record.createDate,jdbcType=TIMESTAMP}");
-        SET("type = #{record.type,jdbcType=BIT}");
+        SET("type = #{record.type,jdbcType=INTEGER}");
         SET("title = #{record.title,jdbcType=VARCHAR}");
         SET("user_id = #{record.userId,jdbcType=BIGINT}");
         SET("user_name = #{record.userName,jdbcType=VARCHAR}");
@@ -268,6 +278,7 @@ public class SysLogSqlProvider {
         SET("user_agent = #{record.userAgent,jdbcType=VARCHAR}");
         SET("request_uri = #{record.requestUri,jdbcType=VARCHAR}");
         SET("method = #{record.method,jdbcType=VARCHAR}");
+        SET("duration = #{record.duration,jdbcType=INTEGER}");
         SET("params = #{record.params,jdbcType=LONGVARCHAR}");
         SET("exception = #{record.exception,jdbcType=LONGVARCHAR}");
         
@@ -289,7 +300,7 @@ public class SysLogSqlProvider {
         SET("id = #{record.id,jdbcType=BIGINT}");
         SET("request_id = #{record.requestId,jdbcType=VARCHAR}");
         SET("create_date = #{record.createDate,jdbcType=TIMESTAMP}");
-        SET("type = #{record.type,jdbcType=BIT}");
+        SET("type = #{record.type,jdbcType=INTEGER}");
         SET("title = #{record.title,jdbcType=VARCHAR}");
         SET("user_id = #{record.userId,jdbcType=BIGINT}");
         SET("user_name = #{record.userName,jdbcType=VARCHAR}");
@@ -297,6 +308,7 @@ public class SysLogSqlProvider {
         SET("user_agent = #{record.userAgent,jdbcType=VARCHAR}");
         SET("request_uri = #{record.requestUri,jdbcType=VARCHAR}");
         SET("method = #{record.method,jdbcType=VARCHAR}");
+        SET("duration = #{record.duration,jdbcType=INTEGER}");
         
         SysLogExample example = (SysLogExample) parameter.get("example");
         applyWhere(example, true);
@@ -322,7 +334,7 @@ public class SysLogSqlProvider {
         }
         
         if (record.getType() != null) {
-            SET("type = #{type,jdbcType=BIT}");
+            SET("type = #{type,jdbcType=INTEGER}");
         }
         
         if (record.getTitle() != null) {
@@ -351,6 +363,10 @@ public class SysLogSqlProvider {
         
         if (record.getMethod() != null) {
             SET("method = #{method,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getDuration() != null) {
+            SET("duration = #{duration,jdbcType=INTEGER}");
         }
         
         if (record.getParams() != null) {

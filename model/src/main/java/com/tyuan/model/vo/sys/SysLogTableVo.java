@@ -16,4 +16,8 @@ public class SysLogTableVo extends DataTableParam {
 
     private String title;
 
+    private Integer type;
+
+    private String requestId;
+
 }

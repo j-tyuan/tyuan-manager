@@ -11,16 +11,16 @@ import com.tyuan.model.vo.sys.SysParamTableVo;
  * @version 1.0
  * @date 2021/2/4 6:48 下午
  */
-public interface SysLogService extends BaseService<SysLogWithBLOBs>  {
-
+public interface SysLogService extends BaseService<SysLogWithBLOBs> {
 
 
     PageInfo getByParams(SysLogTableVo param);
 
+
     /**
-     * 保存异常
+     *
      * @param requestId
-     * @param exception
      */
-    void saveExceptionInfo(String requestId,String exception);
+    void updateByRequestId(String requestId, SysLogWithBLOBs sysLogWithBLOBs);
+
 }

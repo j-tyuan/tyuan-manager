@@ -1,5 +1,8 @@
 package com.tyuan.manager.annotation;
 
+
+import com.tyuan.manager.aop.LogAspect;
+
 import java.lang.annotation.*;
 
 /**
@@ -13,4 +16,7 @@ import java.lang.annotation.*;
 public @interface Log {
 
     String value() default "";
+
+    LogAspect.LogType type();
+
 }

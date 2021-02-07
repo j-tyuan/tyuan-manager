@@ -17,7 +17,7 @@ public class UserInfoHolder {
         if (null == map) {
             return null;
         }
-        return (String) map.get("account");
+        return (String) map.get("name");
     }
 
     public static Long getUserId() {

@@ -54,7 +54,12 @@ public class SysLogServiceImpl implements SysLogService {
         if (null != param.getUserId()) {
             criteria.andUserIdEqualTo(param.getUserId());
         }
-
+        if (null != param.getType()) {
+            criteria.andTypeEqualTo(param.getType());
+        }
+        if (StringUtils.isNotBlank(param.getRequestId())) {
+            criteria.andRequestIdEqualTo(param.getRequestId());
+        }
         PageHelper.offsetPage(param.getOffset(), param.getPageSize())
                 .setOrderBy("create_date desc");
         List<SysLogWithBLOBs> result = sysLogMapper.selectByExampleWithBLOBs(example);
@@ -62,18 +67,12 @@ public class SysLogServiceImpl implements SysLogService {
     }
 
     @Override
-    public void saveExceptionInfo(String requestId, String exception) {
+    public void updateByRequestId(String requestId, SysLogWithBLOBs withBLOBs) {
         SysLogExample sysLogExample = new SysLogExample();
         sysLogExample.createCriteria().andRequestIdEqualTo(requestId);
-        List<SysLog> list = sysLogMapper.selectByExample(sysLogExample);
-        if (CollectionUtils.isEmpty(list)) {
-            logger.error("保存操作异常时，找不到用户");
-            return;
-        }
-        SysLogWithBLOBs sysLog = new SysLogWithBLOBs();
-        sysLog.setException(exception);
-        sysLogMapper.updateByExampleSelective(sysLog, sysLogExample);
+        sysLogMapper.updateByExampleSelective(withBLOBs, sysLogExample);
     }
+
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class}, isolation = Isolation.DEFAULT)

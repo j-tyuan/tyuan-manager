@@ -8,6 +8,7 @@ package com.tyuan.manager.web.controller;
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Lists;
 import com.tyuan.manager.annotation.Log;
+import com.tyuan.manager.aop.LogAspect;
 import com.tyuan.manager.service.ServiceException;
 import com.tyuan.manager.web.PermissionConstant;
 import com.tyuan.manager.web.RouteConstant;
@@ -35,7 +36,7 @@ public class SysSourceController {
 
     @RequiresPermissions(PermissionConstant.SYS_SOURCE_LIST)
     @PostMapping(RouteConstant.ROUTER_SYS_SOURCE)
-    @Log(value = "查看资源列表")
+    @Log(type = LogAspect.LogType.SELECT, value = "查看资源列表")
     public ResultTable list(@RequestBody SysSourceTableParamsVo requestParam) {
         ResultTable table = new ResultTable();
         try {
@@ -68,7 +69,7 @@ public class SysSourceController {
 
     @RequiresPermissions(PermissionConstant.SYS_SOURCE_DEL)
     @PostMapping(RouteConstant.ROUTER_SYS_SOURCE_DEL)
-    @Log(value = "删除资源")
+    @Log(type = LogAspect.LogType.DEL, value = "删除资源")
     public ResultData del(@RequestBody DeleteVo deleteVo) {
         try {
 
@@ -83,7 +84,7 @@ public class SysSourceController {
 
     @RequiresPermissions(PermissionConstant.SYS_SOURCE_ADD)
     @PostMapping(RouteConstant.ROUTER_SYS_SOURCE_ADD)
-    @Log(value = "添加资源")
+    @Log(type = LogAspect.LogType.ADD, value = "添加资源")
     public ResultData add(@RequestBody @Validated SysUrlVo k) {
         try {
             sysSourceService.add(k);
@@ -97,7 +98,7 @@ public class SysSourceController {
 
     @RequiresPermissions(PermissionConstant.SYS_SOURCE_EDIT)
     @PostMapping(RouteConstant.ROUTER_SYS_SOURCE_EDIT)
-    @Log(value = "修改资源")
+    @Log(type = LogAspect.LogType.EDIT, value = "修改资源")
     public ResultData edit(@RequestBody @Validated SysUrlVo k) {
         try {
             sysSourceService.edit(k);

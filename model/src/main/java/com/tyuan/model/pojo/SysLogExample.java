@@ -395,52 +395,52 @@ public class SysLogExample {
             return (Criteria) this;
         }
 
-        public Criteria andTypeEqualTo(Boolean value) {
+        public Criteria andTypeEqualTo(Integer value) {
             addCriterion("type =", value, "type");
             return (Criteria) this;
         }
 
-        public Criteria andTypeNotEqualTo(Boolean value) {
+        public Criteria andTypeNotEqualTo(Integer value) {
             addCriterion("type <>", value, "type");
             return (Criteria) this;
         }
 
-        public Criteria andTypeGreaterThan(Boolean value) {
+        public Criteria andTypeGreaterThan(Integer value) {
             addCriterion("type >", value, "type");
             return (Criteria) this;
         }
 
-        public Criteria andTypeGreaterThanOrEqualTo(Boolean value) {
+        public Criteria andTypeGreaterThanOrEqualTo(Integer value) {
             addCriterion("type >=", value, "type");
             return (Criteria) this;
         }
 
-        public Criteria andTypeLessThan(Boolean value) {
+        public Criteria andTypeLessThan(Integer value) {
             addCriterion("type <", value, "type");
             return (Criteria) this;
         }
 
-        public Criteria andTypeLessThanOrEqualTo(Boolean value) {
+        public Criteria andTypeLessThanOrEqualTo(Integer value) {
             addCriterion("type <=", value, "type");
             return (Criteria) this;
         }
 
-        public Criteria andTypeIn(List<Boolean> values) {
+        public Criteria andTypeIn(List<Integer> values) {
             addCriterion("type in", values, "type");
             return (Criteria) this;
         }
 
-        public Criteria andTypeNotIn(List<Boolean> values) {
+        public Criteria andTypeNotIn(List<Integer> values) {
             addCriterion("type not in", values, "type");
             return (Criteria) this;
         }
 
-        public Criteria andTypeBetween(Boolean value1, Boolean value2) {
+        public Criteria andTypeBetween(Integer value1, Integer value2) {
             addCriterion("type between", value1, value2, "type");
             return (Criteria) this;
         }
 
-        public Criteria andTypeNotBetween(Boolean value1, Boolean value2) {
+        public Criteria andTypeNotBetween(Integer value1, Integer value2) {
             addCriterion("type not between", value1, value2, "type");
             return (Criteria) this;
         }
@@ -922,6 +922,66 @@ public class SysLogExample {
 
         public Criteria andMethodNotBetween(String value1, String value2) {
             addCriterion("method not between", value1, value2, "method");
+            return (Criteria) this;
+        }
+
+        public Criteria andDurationIsNull() {
+            addCriterion("duration is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDurationIsNotNull() {
+            addCriterion("duration is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDurationEqualTo(Integer value) {
+            addCriterion("duration =", value, "duration");
+            return (Criteria) this;
+        }
+
+        public Criteria andDurationNotEqualTo(Integer value) {
+            addCriterion("duration <>", value, "duration");
+            return (Criteria) this;
+        }
+
+        public Criteria andDurationGreaterThan(Integer value) {
+            addCriterion("duration >", value, "duration");
+            return (Criteria) this;
+        }
+
+        public Criteria andDurationGreaterThanOrEqualTo(Integer value) {
+            addCriterion("duration >=", value, "duration");
+            return (Criteria) this;
+        }
+
+        public Criteria andDurationLessThan(Integer value) {
+            addCriterion("duration <", value, "duration");
+            return (Criteria) this;
+        }
+
+        public Criteria andDurationLessThanOrEqualTo(Integer value) {
+            addCriterion("duration <=", value, "duration");
+            return (Criteria) this;
+        }
+
+        public Criteria andDurationIn(List<Integer> values) {
+            addCriterion("duration in", values, "duration");
+            return (Criteria) this;
+        }
+
+        public Criteria andDurationNotIn(List<Integer> values) {
+            addCriterion("duration not in", values, "duration");
+            return (Criteria) this;
+        }
+
+        public Criteria andDurationBetween(Integer value1, Integer value2) {
+            addCriterion("duration between", value1, value2, "duration");
+            return (Criteria) this;
+        }
+
+        public Criteria andDurationNotBetween(Integer value1, Integer value2) {
+            addCriterion("duration not between", value1, value2, "duration");
             return (Criteria) this;
         }
     }
