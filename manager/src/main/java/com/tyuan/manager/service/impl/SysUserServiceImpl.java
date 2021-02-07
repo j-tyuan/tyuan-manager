@@ -6,6 +6,8 @@ import com.tyuan.manager.utils.UserInfoHolder;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.tyuan.model.ErrorCodeConsts;
+import com.tyuan.model.SysParamConsts;
+import com.tyuan.model.cache.CacheConstant;
 import com.tyuan.model.pojo.SysRole;
 import com.tyuan.model.pojo.SysUser;
 import com.tyuan.model.pojo.SysUserExample;
@@ -18,6 +20,8 @@ import com.tyuan.manager.service.SysRoleService;
 import com.tyuan.manager.service.SysUserService;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.data.redis.core.HashOperations;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,6 +45,9 @@ public class SysUserServiceImpl implements SysUserService {
 
     private SysPermissionService sysPermissionService;
 
+    @Resource
+    private RedisTemplate redisTemplate;
+
     @Override
     public PageInfo getByParams(SysUserTableParamsVo param) {
         SysUserExample example = new SysUserExample();
@@ -60,6 +67,8 @@ public class SysUserServiceImpl implements SysUserService {
         if (null != param.getLoginDate()) {
             criteria.andLoginDateGreaterThanOrEqualTo(loginDate);
         }
+        // 只允许查看普通用户
+        criteria.andUserTypeNotEqualTo(USER_TYPE.SYS.getType());
 
         PageHelper.offsetPage(param.getOffset(), param.getPageSize()).setOrderBy("update_date desc");
         List<SysUser> result = cSysUserMapper.selectByExample(example);
@@ -80,6 +89,8 @@ public class SysUserServiceImpl implements SysUserService {
         if (StringUtils.isNotBlank(phone)) {
             criteria.andNameLike(MessageFormat.format(like, phone));
         }
+        //只允许查看普通用户
+        criteria.andUserTypeNotEqualTo(USER_TYPE.SYS.getType());
         List<SysUser> result = cSysUserMapper.selectByExample(example);
         return result;
     }
@@ -94,9 +105,23 @@ public class SysUserServiceImpl implements SysUserService {
         if (StringUtils.isBlank(pass)) {
             throw new ServiceException(ErrorCodeConsts.ERROR, "密码不许为空");
         }
+
+        SysUserExample example = new SysUserExample();
+        example.createCriteria().andNoEqualTo(sysUser.getNo());
+        example.or().andAccountEqualTo(sysUser.getAccount());
+        List<SysUser> list = cSysUserMapper.selectByExample(example);
+        if (CollectionUtils.isNotEmpty(list)) {
+            throw new ServiceException(ErrorCodeConsts.ERROR, "员工编号或账号重复");
+        }
+        example.clear();
+        example.createCriteria().andAccountEqualTo(sysUser.getAccount());
+
+
         pass = DigestUtils.md5DigestAsHex(pass.getBytes());
         sysUser.setPassword(pass);
-        sysUser.setUserType(0);
+
+        // 只允许创建普通用户
+        sysUser.setUserType(USER_TYPE.ORDINARY.getType());
         cSysUserMapper.insertSelective(sysUser);
     }
 
@@ -118,14 +143,18 @@ public class SysUserServiceImpl implements SysUserService {
         }
         sysUser.setAccount(null);
         sysUser.setUpdateBy(UserInfoHolder.getUserName());
-        sysUser.setUserType(0);
+
+        //只允许修改普通用户
+        sysUser.setUserType(USER_TYPE.ORDINARY.getType());
         cSysUserMapper.updateByPrimaryKeySelective(sysUser);
     }
 
     @Override
     public SysUser getByAccount(String account) {
         SysUserExample example = new SysUserExample();
-        example.createCriteria().andAccountEqualTo(account);
+        example.createCriteria()
+                .andAccountEqualTo(account)
+                .andUserTypeNotEqualTo(USER_TYPE.ORDINARY.getType());
         List<SysUser> list = cSysUserMapper.selectByExample(example);
         if (CollectionUtils.isEmpty(list)) {
             return null;
@@ -203,8 +232,8 @@ public class SysUserServiceImpl implements SysUserService {
         if (null == user) {
             throw new ServiceException(ErrorCodeConsts.ERROR, "未找到用户");
         }
-        if (user.getUserType() == 1) {
-            throw new ServiceException(ErrorCodeConsts.ERROR, "无法禁系统用户");
+        if (USER_TYPE.SYS.getType() == user.getUserType()) {
+            throw new ServiceException(ErrorCodeConsts.ERROR, "无法禁用系统用户");
         }
         SysUser sysUser = new SysUser();
         sysUser.setId(userId);

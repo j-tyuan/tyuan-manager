@@ -16,6 +16,22 @@ import java.util.List;
  */
 public interface SysUserService extends BaseService<SysUser> {
 
+    enum USER_TYPE {
+
+        ORDINARY(0),
+        SYS(1);
+
+        private int type;
+
+        private USER_TYPE(int type) {
+            this.type = type;
+        }
+
+        public int getType() {
+            return type;
+        }
+    }
+
     PageInfo getByParams(SysUserTableParamsVo param);
 
     /**

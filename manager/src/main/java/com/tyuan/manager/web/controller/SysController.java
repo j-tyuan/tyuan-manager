@@ -162,6 +162,11 @@ public class SysController {
         userInfoCacheService.leaveMessage(sysUser.getId(), "你的账号已在其它地方登陆");
 
         userTokenCacheService.put(sysUser.getId(), userToken, map, exp);
+        if (sysUser.getUserType() == 1) {
+            userInfoCacheService.putRole(userToken, Lists.newArrayList("sys"), exp);
+            userInfoCacheService.putPerm(userToken, Lists.newArrayList("sys"), exp);
+            return;
+        }
         List<SysRole> roles = sysRoleService.getRoleByUserId(sysUser.getId());
         List<String> roleCodes = Lists.newArrayList();
         List<String> perms = Lists.newArrayList();

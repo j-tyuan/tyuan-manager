@@ -57,7 +57,6 @@ public class CustomRealm extends AuthorizingRealm {
         //添加 认证用户 权限，公共权限
         simpleAuthenticationInfo.addStringPermission("authc");
 
-
         return simpleAuthenticationInfo;
     }
 
@@ -66,12 +65,11 @@ public class CustomRealm extends AuthorizingRealm {
         if (authenticationToken.getPrincipal() == null) {
             return null;
         }
-
         // 获取用户的token，有时间对token与IP绑定及增加校验
         String token = authenticationToken.getPrincipal().toString();
-
         // 根据token在缓存中拿到用户信息
         Map user = (Map) userInfoCacheService.get(token);
+
         if (user == null) {
             return null;
         } else {
@@ -100,10 +98,10 @@ public class CustomRealm extends AuthorizingRealm {
      */
     @Override
     protected boolean isPermitted(Permission permission, AuthorizationInfo info) {
-        Collection<String> list = info.getRoles();
+        Collection<String> list = info.getStringPermissions();
         if (CollectionUtils.isNotEmpty(list)) {
             for (String item : list) {
-                if ("admin".equals(item)) {
+                if ("sys".equals(item)) {
                     return true;
                 }
             }
@@ -118,7 +116,7 @@ public class CustomRealm extends AuthorizingRealm {
         Collection<String> list = info.getRoles();
         if (CollectionUtils.isNotEmpty(list)) {
             for (String item : list) {
-                if ("admin".equals(item)) {
+                if ("sys".equals(item)) {
                     return true;
                 }
             }
