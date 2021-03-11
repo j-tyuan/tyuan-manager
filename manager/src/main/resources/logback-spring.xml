@@ -31,6 +31,13 @@
         </root>
     </springProfile>
 
+    <springProfile name="review">
+        <root level="debug">
+            <appender-ref ref="STDOUT"/>
+        </root>
+    </springProfile>
+
+
     <springProfile name="test">
         <root level="debug">
             <appender-ref ref="RollingFile"/>

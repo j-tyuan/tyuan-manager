@@ -1,5 +1,6 @@
 package com.tyuan.manager.web.controller;
 
+import com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException;
 import com.tyuan.manager.utils.UserInfoHolder;
 import com.tyuan.manager.web.WebConstant;
 import com.tyuan.manager.service.ServiceException;
@@ -9,6 +10,7 @@ import org.apache.shiro.authz.AuthorizationException;
 import org.apache.shiro.authz.UnauthorizedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import java.sql.SQLException;
 
 @ControllerAdvice
 public class SuperController {
@@ -52,6 +55,17 @@ public class SuperController {
         return resultData
                 .setErrorMessage("权限不足")
                 .setErrorCode(ErrorCodeConsts.ERROR_NO_PERMISSION);
+    }
+
+    @ResponseBody
+    @ExceptionHandler(BadSqlGrammarException.class)
+    public ResultData badSqlGrammarException(Exception e) {
+        ResultData resultData = new ResultData();
+        e.printStackTrace();
+        logger.warn("演示版本不允许操作 {}  -  {}", UserInfoHolder.getUserId(), UserInfoHolder.getUserName());
+        return resultData
+                .setErrorMessage("当前为演示版本，您的操作被禁止")
+                .setErrorCode(ErrorCodeConsts.ERROR);
     }
 
 

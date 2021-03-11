@@ -159,7 +159,8 @@ public class SysController {
         map.put("account", sysUser.getAccount());
         map.put("name", sysUser.getName());
 
-        userInfoCacheService.leaveMessage(sysUser.getId(), "你的账号已在其它地方登陆");
+        // TODO 演示版本，此功能暂时不使用
+        //userInfoCacheService.leaveMessage(sysUser.getId(), "你的账号已在其它地方登陆");
 
         userTokenCacheService.put(sysUser.getId(), userToken, map, exp);
         if (sysUser.getUserType() == 1) {

@@ -31,7 +31,8 @@ build/
 
 ### VS Code ###
 .vscode/
-application-local.yml
+application-dev-local.yml
+application-review-local.yml
 logs/
 .DS_Store
 

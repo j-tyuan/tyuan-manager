@@ -34,8 +34,7 @@ config:
 #datasource
 spring:
   profiles:
-    # 这是本地文件，为了安全起见没有开放出来，如果你没有可以删除，这个配置中涉及到datasource的配置
-    include: dev-local
+    include: review-local
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url: ${datasource.url}
