@@ -6,6 +6,7 @@
 package com.tyuan.manager.utils;
 
 import com.tyuan.common.utils.Tools;
+import jdk.nashorn.internal.objects.annotations.Setter;
 
 public class RequestContext {
 
@@ -15,6 +16,10 @@ public class RequestContext {
         Context context = new Context();
         context.setRequestId(Tools.generateUUID());
         context.setStartTime(System.currentTimeMillis());
+        LOCAL_CONTEXT.set(context);
+    }
+
+    public static void setContext(Context context) {
         LOCAL_CONTEXT.set(context);
     }
 
@@ -34,7 +39,7 @@ public class RequestContext {
         LOCAL_CONTEXT.remove();
     }
 
-    private static class Context {
+    public static class Context {
 
         private String requestId;
 
@@ -65,5 +70,6 @@ public class RequestContext {
         public void setEndTime(long endTime) {
             this.endTime = endTime;
         }
+
     }
 }

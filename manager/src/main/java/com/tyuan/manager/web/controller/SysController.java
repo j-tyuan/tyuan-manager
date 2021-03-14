@@ -30,6 +30,7 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,6 +41,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+
+import static com.tyuan.model.cache.CacheConstant.TEST_VISIT;
 
 @RestController
 public class SysController {
@@ -161,6 +164,9 @@ public class SysController {
 
         // TODO 演示版本，此功能暂时不使用
         //userInfoCacheService.leaveMessage(sysUser.getId(), "你的账号已在其它地方登陆");
+        ValueOperations valueOperations = redisTemplate.opsForValue();
+        valueOperations.increment(TEST_VISIT, 1);
+        // TODO 演示版本
 
         userTokenCacheService.put(sysUser.getId(), userToken, map, exp);
         if (sysUser.getUserType() == 1) {

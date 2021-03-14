@@ -38,7 +38,7 @@ public class AccountController {
         try {
             long size = multipartFile.getSize();
             // 2m
-            if (size / 1024 / 1024 < 2) {
+            if (2 * 1024 * 1024 < size) {
                 result.setErrorCode(ErrorCodeConsts.ERROR);
                 result.setErrorMessage("超出限制");
                 return result;

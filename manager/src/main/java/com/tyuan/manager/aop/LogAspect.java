@@ -28,6 +28,7 @@ import java.lang.reflect.Method;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 @Aspect
 @Component
@@ -43,96 +44,116 @@ public class LogAspect {
     @Before("logPointCut()")
     public void saveSysLog(JoinPoint joinPoint) {
         RequestContext.initContext();
-        //保存日志
-        SysLogWithBLOBs sysLog = new SysLogWithBLOBs();
+
+        String requestId = RequestContext.getRequestId();
+        RequestContext.Context context = RequestContext.get();
+        //获取用户ip地址
+        RequestContextHolder.getRequestAttributes();
+        ServletRequestAttributes httpServletRequest = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        String addr = IPUtils.getIpAddr(httpServletRequest.getRequest());
+        String userName = UserInfoHolder.getUserName();
+        Long userId = UserInfoHolder.getUserId();
         //从切面织入点处通过反射机制获取织入点处的方法
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         //获取切入点所在的方法
         Method method = signature.getMethod();
-
-        //获取操作
-        Log var = method.getAnnotation(Log.class);
-        if (var != null) {
-            String value = var.value();
-            sysLog.setTitle(value);//保存获取的操作
-        }
-        //获取请求的类名
-        String className = joinPoint.getTarget().getClass().getName();
         //获取请求的方法名
         String methodName = method.getName();
-        sysLog.setMethod(className + "." + methodName);
-
+        //获取请求的类名
+        String className = joinPoint.getTarget().getClass().getName();
         //请求的参数
         Object[] args = joinPoint.getArgs();
-        List params = Lists.newArrayList();
-        for (Object o : args) {
-            if (o instanceof Serializable) {
-                params.add(o);
+
+        // 异步处理日志
+        CompletableFuture.runAsync(() -> {
+            //保存日志
+            SysLogWithBLOBs sysLog = new SysLogWithBLOBs();
+            //获取操作
+            Log var = method.getAnnotation(Log.class);
+            if (var != null) {
+                String value = var.value();
+                sysLog.setTitle(value);//保存获取的操作
             }
-        }
-
-        sysLog.setType(var.type().getType());
-        //将参数所在的数组转换成json
-        sysLog.setUserAgent(JSONObject.toJSONString(params));
-
-        sysLog.setRequestId(RequestContext.getRequestId());
-        sysLog.setCreateDate(new Date());
-
-        sysLog.setUserName(UserInfoHolder.getUserName());
-        sysLog.setUserId(UserInfoHolder.getUserId());
-
-        //获取用户ip地址
-        RequestContextHolder.getRequestAttributes();
-
-        ServletRequestAttributes httpServletRequest = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-        String addr = IPUtils.getIpAddr(httpServletRequest.getRequest());
-        sysLog.setRemoteAddr(addr);
-
-        try {
-            //调用service保存SysLog实体类到数据库
-            sysLogService.add(sysLog);
-        } catch (Exception e) {
-            e.fillInStackTrace();
-        }
-
+            sysLog.setMethod(className + "." + methodName);
+            List params = Lists.newArrayList();
+            for (Object o : args) {
+                if (o instanceof Serializable) {
+                    params.add(o);
+                }
+            }
+            sysLog.setType(var.type().getType());
+            //将参数所在的数组转换成json
+            sysLog.setUserAgent(JSONObject.toJSONString(params));
+            sysLog.setRequestId(requestId);
+            sysLog.setCreateDate(new Date());
+            sysLog.setUserName(userName);
+            sysLog.setUserId(userId);
+            sysLog.setRemoteAddr(addr);
+            sysLog.setDuration(-1);
+            try {
+                //调用service保存SysLog实体类到数据库
+                synchronized (context) {
+                    sysLogService.add(sysLog);
+                }
+            } catch (Exception e) {
+                e.fillInStackTrace();
+            }
+        });
     }
 
     @AfterThrowing(pointcut = "logPointCut()", throwing = "e")
     public void handleThrowing(JoinPoint joinPoint, Exception e) {
-
+        Long time = System.currentTimeMillis() - RequestContext.getStartTime();
+        String requestId = RequestContext.getRequestId();
         String className = joinPoint.getTarget().getClass().getName();
         String methodName = joinPoint.getSignature().getName();
-
         Object[] args = joinPoint.getArgs();
-        //开始打log
-        Map map = Maps.newHashMap();
-        map.put("异常信息", e.toString());
-        map.put("类", className);
-        map.put("方法", methodName);
-
-        StringBuilder builder = new StringBuilder();
-        for (int i = 0; i < args.length; i++) {
-            builder.append(args[i].toString());
-        }
-        map.put("参数", builder.toString());
-
-        SysLogWithBLOBs withBLOBs = new SysLogWithBLOBs();
-        withBLOBs.setException(JSONObject.toJSONString(map, SerializerFeature.WriteMapNullValue));
-        Long time = System.currentTimeMillis() - RequestContext.getStartTime();
-        withBLOBs.setDuration(time.intValue());
-        sysLogService.updateByRequestId(RequestContext.getRequestId(), withBLOBs);
-
+        RequestContext.Context context = RequestContext.get();
         RequestContext.remove();
+        CompletableFuture.runAsync(() -> {
+            //开始打log
+            Map map = Maps.newHashMap();
+            map.put("异常信息", e.toString());
+            map.put("类", className);
+            map.put("方法", methodName);
+
+            StringBuilder builder = new StringBuilder();
+            for (int i = 0; i < args.length; i++) {
+                builder.append(args[i].toString());
+            }
+            map.put("参数", builder.toString());
+
+            SysLogWithBLOBs withBLOBs = new SysLogWithBLOBs();
+            withBLOBs.setException(JSONObject.toJSONString(map, SerializerFeature.WriteMapNullValue));
+            withBLOBs.setDuration(time.intValue());
+            try {
+                synchronized (context) {
+                    sysLogService.updateByRequestId(requestId, withBLOBs);
+                }
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
+        });
     }
 
     @AfterReturning(pointcut = "logPointCut()")
     public void afterReturning() {
-        SysLogWithBLOBs withBLOBs = new SysLogWithBLOBs();
         Long time = System.currentTimeMillis() - RequestContext.getStartTime();
-        withBLOBs.setDuration(time.intValue());
-        sysLogService.updateByRequestId(RequestContext.getRequestId(), withBLOBs);
-
+        String requestId = RequestContext.getRequestId();
+        RequestContext.Context context = RequestContext.get();
         RequestContext.remove();
+        CompletableFuture.runAsync(() -> {
+            SysLogWithBLOBs withBLOBs = new SysLogWithBLOBs();
+            withBLOBs.setDuration(time.intValue());
+            // 需要等待，日志插入完成后才能执行更改操作
+            synchronized (context) {
+                try {
+                    sysLogService.updateByRequestId(requestId, withBLOBs);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     public enum LogType {
@@ -158,4 +179,5 @@ public class LogAspect {
             return name;
         }
     }
+
 }

@@ -111,4 +111,10 @@ public class RouteConstant {
      */
     public static final String ROUTER_SYS_LOG = "/api/sys/log";
     public static final String ROUTER_SYS_LOG_TYPE = "/api/sys/log/type";
+
+
+    /**
+     * 测试接口
+     */
+    public static final String ROUTER_TEST_VISIT = "/api/test/visit";
 }
