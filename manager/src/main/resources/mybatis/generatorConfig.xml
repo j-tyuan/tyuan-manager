@@ -18,7 +18,7 @@
 
         <!--jdbc的数据库连接-->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://rm-bp1g992ma0n02wy1h5o.mysql.rds.aliyuncs.com/vpn_manage"
+                        connectionURL="jdbc:mysql://rm-bp1g992ma0n02wy1h5o.mysql.rds.aliyuncs.com/base_manager"
                         userId="imengyao_dev"
                         password="123456aA">
         </jdbcConnection>
@@ -66,12 +66,18 @@
                selectByExampleQueryId="true">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>-->
-        <table tableName="sys_user" domainObjectName="SysUser"
+        <table tableName="sys_user_web_layout" domainObjectName="SysUserWebLayout"
                enableCountByExample="true" enableUpdateByExample="true"
                enableDeleteByExample="true" enableSelectByExample="true"
                selectByExampleQueryId="true">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
+       <!-- <table tableName="sys_user" domainObjectName="SysUser"
+               enableCountByExample="true" enableUpdateByExample="true"
+               enableDeleteByExample="true" enableSelectByExample="true"
+               selectByExampleQueryId="true">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>-->
         <!--<table tableName="sys_user_role" domainObjectName="SysUserRole"
                enableCountByExample="true" enableUpdateByExample="true"
                enableDeleteByExample="true" enableSelectByExample="true"

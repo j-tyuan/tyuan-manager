@@ -3,4 +3,4 @@ server:
 spring:
   #开发环境
   profiles:
-    active: review
+    active: dev

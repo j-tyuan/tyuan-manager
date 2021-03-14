@@ -42,6 +42,14 @@ public class RouteConstant {
     public static final String ROUTER_SYS_SOURCE_EDIT = "/api/sys/source/edit";
 
     /**
+     * 账号
+     */
+    public static final String ROUTER_ACCOUNT_CUSTOM_LAYOUT = "/api/account/custom/layout";
+    public static final String ROUTER_ACCOUNT_SETTING = "/api/account/setting";
+    public static final String ROUTER_ACCOUNT_PHOTO = "/api/account/photo";
+    public static final String ROUTER_ACCOUNT = "/api/account";
+
+    /**
      * 用户
      */
     public static final String ROUTER_SYS_USER_ALL = "/api/sys/users";
