@@ -8,8 +8,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 @MapperScan(basePackages = {
-        "com.tyuan.dao.mapper",
-        "com.tyuan.dao.customize"})
+        "com.tyuan.dao.base.mapper",
+        "com.tyuan.dao.base.customize"})
 // 开启缓存
 @EnableCaching
 // 开启定时任务

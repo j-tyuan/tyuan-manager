@@ -33,7 +33,7 @@
 
         <!-- targetPackage：生成的实体类所在的包 -->
         <!-- targetProject：生成的实体类所在的硬盘位置 -->
-        <javaModelGenerator targetPackage="com.tyuan.model.pojo"
+        <javaModelGenerator targetPackage="com.tyuan.model.base.pojo"
                             targetProject="../model/src/main/java">
             <!-- 是否允许子包 -->
             <property name="enableSubPackages" value="false"/>
@@ -54,11 +54,17 @@
 
         <!-- targetPackage 和 targetProject：生成的 interface 文件的包和位置 -->
         <javaClientGenerator type="ANNOTATEDMAPPER"
-                             targetPackage="com.tyuan.dao.mapper"
+                             targetPackage="com.tyuan.dao.base.mapper"
                              targetProject="../dao/src/main/java">
             <!-- 针对 oracle 数据库的一个配置，是否把 schema 作为字包名 -->
             <property name="enableSubPackages" value="false"/>
         </javaClientGenerator>
+        <table tableName="sys_institution" domainObjectName="SysInstitution"
+               enableCountByExample="true" enableUpdateByExample="true"
+               enableDeleteByExample="true" enableSelectByExample="true"
+               selectByExampleQueryId="true">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
 
         <!--<table tableName="sys_role" domainObjectName="SysRole"
                enableCountByExample="true" enableUpdateByExample="true"
@@ -66,12 +72,12 @@
                selectByExampleQueryId="true">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>-->
-        <table tableName="sys_user_web_layout" domainObjectName="SysUserWebLayout"
+<!--        <table tableName="sys_user_web_layout" domainObjectName="SysUserWebLayout"
                enableCountByExample="true" enableUpdateByExample="true"
                enableDeleteByExample="true" enableSelectByExample="true"
                selectByExampleQueryId="true">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
-        </table>
+        </table>-->
        <!-- <table tableName="sys_user" domainObjectName="SysUser"
                enableCountByExample="true" enableUpdateByExample="true"
                enableDeleteByExample="true" enableSelectByExample="true"
