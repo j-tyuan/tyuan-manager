@@ -102,6 +102,8 @@
                 <executions>
                     <execution>
                         <id>Generate MyBatis Artifacts</id>
+                        <!-- 打包排除 -->
+                        <phase>deploy</phase>
                         <goals>
                             <goal>generate</goal>
                         </goals>
@@ -110,4 +112,5 @@
             </plugin>
         </plugins>
     </build>
+
 </project>

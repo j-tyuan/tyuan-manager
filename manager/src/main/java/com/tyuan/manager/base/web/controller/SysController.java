@@ -7,8 +7,7 @@ package com.tyuan.manager.base.web.controller;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.tyuan.manager.base.annotation.Log;
-import com.tyuan.manager.base.service.ServiceException;
+import com.tyuan.common.exception.ServiceException;
 import com.tyuan.manager.base.service.SysPermissionService;
 import com.tyuan.manager.base.service.SysRoleService;
 import com.tyuan.manager.base.service.SysUserService;

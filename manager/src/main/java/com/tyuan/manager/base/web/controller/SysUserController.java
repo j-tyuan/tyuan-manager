@@ -1,10 +1,10 @@
 package com.tyuan.manager.base.web.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.tyuan.common.exception.ServiceException;
 import com.tyuan.manager.base.annotation.Log;
 import com.tyuan.manager.base.aop.LogAspect;
 import com.tyuan.manager.base.cache.UserInfoCacheService;
-import com.tyuan.manager.base.service.ServiceException;
 import com.tyuan.manager.base.web.PermissionConstant;
 import com.tyuan.manager.base.web.RouteConstant;
 import com.tyuan.manager.base.service.SysUserService;
@@ -116,7 +116,7 @@ public class SysUserController {
     }
 
     @RequiresPermissions(PermissionConstant.SYS_USER_DISABLE)
-    @PostMapping(RouteConstant.ROUTER_SYS_DISABLE)
+    @PostMapping(RouteConstant.ROUTER_SYS_USER_DISABLE)
     @Log(type = LogAspect.LogType.EDIT, value = "修改用户状态")
     public ResultData disable(@PathVariable(value = "uid") Long userId,
                               @PathVariable(value = "disable", required = false) Integer disable) {
@@ -130,4 +130,20 @@ public class SysUserController {
                     .setErrorMessage(e.getMessage());
         }
     }
+
+    @RequiresPermissions(PermissionConstant.SYS_USER_LIST)
+    @GetMapping(RouteConstant.ROUTER_SYS_USER_FETCH)
+    public ResultData fetch(@PathVariable(value = "value") String value) {
+        try {
+            ResultData resultData = new ResultData();
+            List list = sysUserService.fetch(value);
+            resultData.setData(list);
+            return resultData;
+        } catch (ServiceException e) {
+            return new ResultData()
+                    .setErrorCode(ErrorCodeConsts.ERROR)
+                    .setErrorMessage(e.getMessage());
+        }
+    }
+
 }

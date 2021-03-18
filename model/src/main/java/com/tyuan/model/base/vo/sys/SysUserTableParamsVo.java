@@ -15,4 +15,6 @@ public class SysUserTableParamsVo extends DataTableParam {
     private String phone;
 
     private String loginDate;
+
+    private Long instId;
 }

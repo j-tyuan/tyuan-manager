@@ -1,9 +1,9 @@
 package com.tyuan.manager.base.web.controller;
 
+import com.tyuan.common.exception.ServiceException;
 import com.tyuan.manager.base.annotation.Log;
 import com.tyuan.manager.base.aop.LogAspect;
 import com.tyuan.manager.base.service.AccountService;
-import com.tyuan.manager.base.service.ServiceException;
 import com.tyuan.manager.base.web.RouteConstant;
 import com.tyuan.model.base.ErrorCodeConsts;
 import com.tyuan.model.base.ResultData;

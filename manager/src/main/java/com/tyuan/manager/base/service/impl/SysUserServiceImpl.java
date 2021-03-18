@@ -2,17 +2,21 @@ package com.tyuan.manager.base.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.tyuan.common.exception.ServiceException;
+import com.tyuan.common.utils.TreeUtils;
 import com.tyuan.dao.base.customize.CSysUserMapper;
+import com.tyuan.dao.base.mapper.OrganizationInstitutionMapper;
+import com.tyuan.manager.base.cache.LocalCache;
 import com.tyuan.manager.base.service.SysPermissionService;
 import com.tyuan.manager.base.service.SysRoleService;
 import com.tyuan.manager.base.service.SysUserService;
 import com.tyuan.manager.base.utils.DateUtil;
 import com.tyuan.manager.base.utils.UserInfoHolder;
 import com.tyuan.model.base.ErrorCodeConsts;
-import com.tyuan.model.base.pojo.SysRole;
-import com.tyuan.model.base.pojo.SysUser;
-import com.tyuan.model.base.pojo.SysUserExample;
+import com.tyuan.model.base.pojo.*;
+import com.tyuan.model.base.pojo.custom.COrganizationInstitution;
 import com.tyuan.model.base.vo.DeleteVo;
 import com.tyuan.model.base.vo.sys.SysUserTableParamsVo;
 import com.tyuan.model.base.vo.sys.UserAuthVo;
@@ -30,6 +34,8 @@ import java.text.MessageFormat;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.regex.Pattern;
 
 @Service
 public class SysUserServiceImpl implements SysUserService {
@@ -40,29 +46,47 @@ public class SysUserServiceImpl implements SysUserService {
     @Resource
     private SysRoleService sysRoleService;
 
-    private SysPermissionService sysPermissionService;
-
     @Resource
-    private RedisTemplate redisTemplate;
+    OrganizationInstitutionMapper organizationInstitutionMapper;
 
     @Override
     public PageInfo getByParams(SysUserTableParamsVo param) {
         SysUserExample example = new SysUserExample();
         SysUserExample.Criteria criteria = example.createCriteria();
 
+        boolean flag = false;
         String like = "%{0}%";
         if (StringUtils.isNotBlank(param.getName())) {
             criteria.andNameLike(MessageFormat.format(like, param.getName()));
+            flag = true;
         }
         if (StringUtils.isNotBlank(param.getAccount())) {
             criteria.andAccountEqualTo(param.getAccount());
+            flag = true;
         }
         if (StringUtils.isNotBlank(param.getPhone())) {
             criteria.andPhoneEqualTo(param.getPhone());
+            flag = true;
         }
         Date loginDate = DateUtil.format(param.getLoginDate());
         if (null != param.getLoginDate()) {
             criteria.andLoginDateGreaterThanOrEqualTo(loginDate);
+            flag = true;
+        }
+        // 如果没有其它 必要的查询参数 且机构id不为空的话，就按照机构来查询，否则就去除机构这个条件
+        if (!flag && null != param.getInstId()) {
+            List<COrganizationInstitution> list = LocalCache.SYS_INSTITUTION.getData();
+            List<COrganizationInstitution> child = TreeUtils.getChild(list, param.getInstId());
+            List<Long> ids = Lists.newArrayList();
+            if (CollectionUtils.isNotEmpty(child)) {
+                ids.add(param.getInstId());
+                child.forEach(e -> {
+                    ids.add(e.getId());
+                });
+                criteria.andInstIdIn(ids);
+            } else {
+                criteria.andInstIdEqualTo(param.getInstId());
+            }
         }
         // 只允许查看普通用户
         criteria.andUserTypeNotEqualTo(USER_TYPE.SYS.getType());
@@ -95,7 +119,11 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class}, isolation = Isolation.DEFAULT)
     public void add(SysUser sysUser) throws ServiceException {
-
+        OrganizationInstitution institution = organizationInstitutionMapper.selectByPrimaryKey(sysUser.getInstId());
+        if (null == institution) {
+            throw new ServiceException(ErrorCodeConsts.ERROR, "机构未找到");
+        }
+        sysUser.setInstName(institution.getInstName());
         sysUser.setCreateBy(UserInfoHolder.getUserName());
         sysUser.setUpdateBy(UserInfoHolder.getUserName());
         String pass = sysUser.getPassword();
@@ -104,15 +132,11 @@ public class SysUserServiceImpl implements SysUserService {
         }
 
         SysUserExample example = new SysUserExample();
-        example.createCriteria().andNoEqualTo(sysUser.getNo());
         example.or().andAccountEqualTo(sysUser.getAccount());
         List<SysUser> list = cSysUserMapper.selectByExample(example);
         if (CollectionUtils.isNotEmpty(list)) {
-            throw new ServiceException(ErrorCodeConsts.ERROR, "员工编号或账号重复");
+            throw new ServiceException(ErrorCodeConsts.ERROR, "账号重复");
         }
-        example.clear();
-        example.createCriteria().andAccountEqualTo(sysUser.getAccount());
-
 
         pass = DigestUtils.md5DigestAsHex(pass.getBytes());
         sysUser.setPassword(pass);
@@ -120,6 +144,19 @@ public class SysUserServiceImpl implements SysUserService {
         // 只允许创建普通用户
         sysUser.setUserType(USER_TYPE.ORDINARY.getType());
         cSysUserMapper.insertSelective(sysUser);
+
+        // 插入完成后，得到最后一个ID，根据最后一个ID生成员工编号
+        String c = String.valueOf(sysUser.getId());
+        StringBuilder sb = new StringBuilder();
+        sb.append("T");
+        for (int i = 5; i > c.length(); i--) {
+            sb.append("0");
+        }
+        sb.append(c);
+        SysUser newUser = new SysUser();
+        newUser.setUserNo(sb.toString());
+        newUser.setId(sysUser.getId());
+        cSysUserMapper.updateByPrimaryKeySelective(newUser);
     }
 
     @Override
@@ -138,7 +175,16 @@ public class SysUserServiceImpl implements SysUserService {
         } else {
             sysUser.setPassword(null);
         }
+        Long instId = sysUser.getInstId();
+        if (null != instId) {
+            OrganizationInstitution institution = organizationInstitutionMapper.selectByPrimaryKey(instId);
+            if (null == institution) {
+                throw new ServiceException(ErrorCodeConsts.ERROR, "机构未找到");
+            }
+            sysUser.setInstName(institution.getInstName());
+        }
         sysUser.setAccount(null);
+        sysUser.setUserNo(null);
         sysUser.setUpdateBy(UserInfoHolder.getUserName());
 
         //只允许修改普通用户
@@ -179,6 +225,37 @@ public class SysUserServiceImpl implements SysUserService {
         }
         sysUser.setPassword(null);
         return sysUser;
+    }
+
+    @Override
+    public List fetch(String value) {
+        SysUserExample example = new SysUserExample();
+        List<SysUser> list;
+        Pattern pattern = Pattern.compile("^\\d{1,11}$");
+        if (pattern.matcher(value).find()) {
+            Long l = Long.parseLong(value);
+            example.or().andIdEqualTo(l);
+            // 查找手机号
+            example.or().andPhoneLike(MessageFormat.format("{0}%", value));
+            list = cSysUserMapper.selectByExample(example);
+        } else {
+            String like = "%{0}%";
+            example.or().andNameLike(MessageFormat.format(like, value));
+            example.or().andAccountLike(MessageFormat.format(like, value));
+            // 工号
+            list = cSysUserMapper.selectByExample(example);
+        }
+
+        List<Map> maps = Lists.newArrayList();
+        list.forEach(e -> {
+            Map map = Maps.newHashMap();
+            map.put("id", e.getId());
+            map.put("name", e.getName());
+            map.put("email", e.getEmail());
+            map.put("account", e.getAccount());
+            maps.add(map);
+        });
+        return list;
     }
 
     public void updateUserLoginInfo(HttpServletRequest request, long userId) {

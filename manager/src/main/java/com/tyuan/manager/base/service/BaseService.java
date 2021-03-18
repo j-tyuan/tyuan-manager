@@ -5,6 +5,7 @@
  */
 package com.tyuan.manager.base.service;
 
+import com.tyuan.common.exception.ServiceException;
 import com.tyuan.model.base.vo.DeleteVo;
 
 /**

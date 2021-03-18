@@ -67,4 +67,12 @@ public class PermissionConstant {
      * 字典权限
      */
     public final static String SYS_LOG_LIST = "sys:log:list";
+
+    /**
+     * 参数权限
+     */
+    public final static String SYS_ORGANIZATION_INSTITUTION = "sys:organization:institution";
+    public final static String SYS_ORGANIZATION_INSTITUTION_ADD = "sys:organization:institution:add";
+    public final static String SYS_ORGANIZATION_INSTITUTION_EDIT = "sys:organization:institution:edit";
+    public final static String SYS_ORGANIZATION_INSTITUTION_DEL = "sys:organization:institution:del";
 }

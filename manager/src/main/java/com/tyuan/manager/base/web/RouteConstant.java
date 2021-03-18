@@ -58,7 +58,9 @@ public class RouteConstant {
     public static final String ROUTER_SYS_USER_EDIT = "/api/sys/user/edit";
     public static final String ROUTER_SYS_USER_DEL = "/api/sys/user/del";
     public static final String ROUTER_SYS_USER_AUTH = "/api/sys/user/auth/{uid}";
-    public static final String ROUTER_SYS_DISABLE = "/api/sys/user/disable/{uid}/{disable}";
+    public static final String ROUTER_SYS_USER_DISABLE = "/api/sys/user/disable/{uid}/{disable}";
+    public static final String ROUTER_SYS_USER_FETCH = "/api/sys/user/fetch/{value}";
+
 
     /**
      * 角色
@@ -112,6 +114,13 @@ public class RouteConstant {
     public static final String ROUTER_SYS_LOG = "/api/sys/log";
     public static final String ROUTER_SYS_LOG_TYPE = "/api/sys/log/type";
 
+    /**
+     * 机构
+     */
+    public static final String ROUTER_ORGANIZATION_INSTITUTION = "/api/org/inst";
+    public static final String ROUTER_ORGANIZATION_INSTITUTION_ADD = "/api/org/inst/add";
+    public static final String ROUTER_ORGANIZATION_INSTITUTION_EDIT = "/api/org/inst/edit";
+    public static final String ROUTER_ORGANIZATION_INSTITUTION_DEL = "/api/org/inst/del";
 
     /**
      * 测试接口

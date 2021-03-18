@@ -6,6 +6,11 @@ logging:
 
 scheduled:
   # 系统参数刷新时间
+  institution:
+    refresh:
+      cron: '20 * * * * ?'
+
+  # 系统参数刷新时间
   param:
     refresh:
       cron: '5 * * * * ?'

@@ -1,6 +1,7 @@
 package com.tyuan.manager.base.service;
 
 import com.github.pagehelper.PageInfo;
+import com.tyuan.common.exception.ServiceException;
 import com.tyuan.model.base.pojo.SysUser;
 import com.tyuan.model.base.vo.sys.SysUserTableParamsVo;
 import com.tyuan.model.base.vo.sys.UserAuthVo;
@@ -99,4 +100,13 @@ public interface SysUserService extends BaseService<SysUser> {
      * @return
      */
     SysUser getById(Long id);
+
+    /**
+     *  海选用户
+     *
+     * @param value
+     * @return
+     */
+    List fetch(String value);
+
 }

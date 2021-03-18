@@ -7,9 +7,9 @@
 package com.tyuan.manager.base.web.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.tyuan.common.exception.ServiceException;
 import com.tyuan.manager.base.annotation.Log;
 import com.tyuan.manager.base.aop.LogAspect;
-import com.tyuan.manager.base.service.ServiceException;
 import com.tyuan.manager.base.service.SysParamService;
 import com.tyuan.manager.base.web.PermissionConstant;
 import com.tyuan.manager.base.web.RouteConstant;

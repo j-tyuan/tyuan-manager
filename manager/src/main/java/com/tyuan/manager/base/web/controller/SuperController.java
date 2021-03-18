@@ -1,8 +1,8 @@
 package com.tyuan.manager.base.web.controller;
 
+import com.tyuan.common.exception.ServiceException;
 import com.tyuan.manager.base.utils.UserInfoHolder;
 import com.tyuan.manager.base.web.WebConstant;
-import com.tyuan.manager.base.service.ServiceException;
 import com.tyuan.model.base.ErrorCodeConsts;
 import com.tyuan.model.base.ResultData;
 import org.apache.shiro.authz.AuthorizationException;
