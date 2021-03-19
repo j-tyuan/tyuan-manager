@@ -7,15 +7,18 @@ import com.tyuan.model.base.vo.sys.SysUserTableParamsVo;
 import com.tyuan.model.base.vo.sys.UserAuthVo;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author: dev@tyuan.design
  * @DateTime: 2020/6/29 16:33
  */
 public interface SysUserService extends BaseService<SysUser> {
+
 
     enum USER_TYPE {
 
@@ -52,7 +55,6 @@ public interface SysUserService extends BaseService<SysUser> {
      * @param sysUser
      * @throws ServiceException
      */
-    @Transactional(rollbackFor = {RuntimeException.class, Error.class}, isolation = Isolation.DEFAULT)
     void add(SysUser sysUser) throws ServiceException;
 
     /**
@@ -61,7 +63,6 @@ public interface SysUserService extends BaseService<SysUser> {
      * @param sysUser
      * @throws ServiceException
      */
-    @Transactional(rollbackFor = {RuntimeException.class, Error.class}, isolation = Isolation.DEFAULT)
     void edit(SysUser sysUser) throws ServiceException;
 
     /**
@@ -102,11 +103,18 @@ public interface SysUserService extends BaseService<SysUser> {
     SysUser getById(Long id);
 
     /**
-     *  海选用户
+     * 海选用户
      *
      * @param value
      * @return
      */
     List fetch(String value);
 
+    /**
+     * 用户数据后置处理
+     *
+     * @param users
+     * @return
+     */
+    List<Map> userPostProcessor(List<SysUser> users);
 }

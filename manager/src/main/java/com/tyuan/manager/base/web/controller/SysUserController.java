@@ -5,6 +5,7 @@ import com.tyuan.common.exception.ServiceException;
 import com.tyuan.manager.base.annotation.Log;
 import com.tyuan.manager.base.aop.LogAspect;
 import com.tyuan.manager.base.cache.UserInfoCacheService;
+import com.tyuan.manager.base.service.SysUserAvatarService;
 import com.tyuan.manager.base.web.PermissionConstant;
 import com.tyuan.manager.base.web.RouteConstant;
 import com.tyuan.manager.base.service.SysUserService;
@@ -17,6 +18,7 @@ import com.tyuan.model.base.vo.sys.SysUserVo;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -31,6 +33,9 @@ public class SysUserController {
 
     @Resource
     SysUserService sysUserService;
+
+    @Resource
+    SysUserAvatarService sysUserAvatarService;
 
     @Resource
     private UserInfoCacheService userInfoCacheService;
@@ -146,4 +151,19 @@ public class SysUserController {
         }
     }
 
+
+    @RequiresPermissions(PermissionConstant.SYS_USER_EDIT)
+    @PostMapping(RouteConstant.ROUTER_SYS_USER_AVATAR)
+    public ResultData updateAvatar(@RequestParam("avatar") MultipartFile multipartFile) {
+        ResultData result = new ResultData();
+        try {
+            Long id = sysUserAvatarService.updateAvatar(multipartFile);
+            result.setData(id);
+            return result;
+        } catch (ServiceException e) {
+            result.setErrorCode(e.getStatus());
+            result.setErrorMessage(e.getMessage());
+            return result;
+        }
+    }
 }

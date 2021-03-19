@@ -31,9 +31,9 @@ public class AccountController {
         return new ResultData();
     }
 
-    @PostMapping(RouteConstant.ROUTER_ACCOUNT_PHOTO)
+    @PostMapping(RouteConstant.ROUTER_ACCOUNT_AVATAR)
     @Log(type = LogAspect.LogType.EDIT, value = "用户修改头像")
-    public ResultData accountPhoto(@RequestParam("avatar") MultipartFile multipartFile) {
+    public ResultData accountAvatar(@RequestParam("avatar") MultipartFile multipartFile) {
         ResultData result = new ResultData();
         try {
             long size = multipartFile.getSize();
@@ -43,7 +43,7 @@ public class AccountController {
                 result.setErrorMessage("超出限制");
                 return result;
             }
-            accountService.accountPhoto(multipartFile);
+            accountService.accountAvatar(multipartFile);
             return result;
         } catch (ServiceException e) {
             result.setErrorCode(e.getStatus());

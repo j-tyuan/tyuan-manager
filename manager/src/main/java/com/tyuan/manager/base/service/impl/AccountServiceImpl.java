@@ -11,11 +11,14 @@ import com.tyuan.common.exception.ServiceException;
 import com.tyuan.dao.base.mapper.SysUserMapper;
 import com.tyuan.dao.base.mapper.SysUserWebLayoutMapper;
 import com.tyuan.manager.base.service.AccountService;
+import com.tyuan.manager.base.service.SysUserAvatarService;
 import com.tyuan.manager.base.utils.UserInfoHolder;
 import com.tyuan.model.base.ErrorCodeConsts;
 import com.tyuan.model.base.pojo.SysUser;
 import com.tyuan.model.base.pojo.SysUserWebLayout;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
@@ -30,6 +33,9 @@ public class AccountServiceImpl implements AccountService {
 
     @Resource
     SysUserMapper sysUserMapper;
+
+    @Resource
+    SysUserAvatarService sysUserAvatarService;
 
     @Override
     public void customLayout(Map customLayoutVo) {
@@ -68,23 +74,26 @@ public class AccountServiceImpl implements AccountService {
         Map map = Maps.newHashMap();
         String layStr = layout.getLayoutStructure();
         map.put("layout", JSONObject.parse(layStr));
+
         SysUser sysUser = sysUserMapper.selectByPrimaryKey(uid);
-        map.put("account", sysUser);
+        sysUser.setPassword(null);
+        Map userMap = (Map) JSONObject.toJSON(sysUser);
+        String avatar = sysUserAvatarService.getAvatarById(sysUser.getAvatarId());
+        userMap.put("avatar", avatar);
+        map.put("account", userMap);
+
         return map;
     }
 
     @Override
-    public void accountPhoto(MultipartFile multipartFile) throws ServiceException {
+    @Transactional(rollbackFor = {RuntimeException.class, Error.class}, isolation = Isolation.DEFAULT)
+    public void accountAvatar(MultipartFile multipartFile) throws ServiceException {
         try {
-            byte[] bytes = multipartFile.getBytes();
             Long uid = UserInfoHolder.getUserId();
-
             SysUser record = new SysUser();
             record.setId(uid);
-
-            String base64Str = Base64.getEncoder().encodeToString(bytes);
-            String base64Encode = "data:" + multipartFile.getContentType() + ";base64," + base64Str;
-            record.setPhoto(base64Encode);
+            Long id = sysUserAvatarService.updateAvatar(multipartFile);
+            record.setAvatarId(id);
             sysUserMapper.updateByPrimaryKeySelective(record);
         } catch (Exception e) {
             e.printStackTrace();

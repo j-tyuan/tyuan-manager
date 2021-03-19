@@ -37,5 +37,5 @@ public interface AccountService {
      * 修改头像
      * @param multipartFile
      */
-    void accountPhoto(MultipartFile multipartFile) throws ServiceException;
+    void accountAvatar(MultipartFile multipartFile) throws ServiceException;
 }

@@ -1,5 +1,6 @@
 package com.tyuan.manager.base.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Lists;
@@ -8,9 +9,11 @@ import com.tyuan.common.exception.ServiceException;
 import com.tyuan.common.utils.TreeUtils;
 import com.tyuan.dao.base.customize.CSysUserMapper;
 import com.tyuan.dao.base.mapper.OrganizationInstitutionMapper;
+import com.tyuan.dao.base.mapper.SysUserAvatarMapper;
 import com.tyuan.manager.base.cache.LocalCache;
 import com.tyuan.manager.base.service.SysPermissionService;
 import com.tyuan.manager.base.service.SysRoleService;
+import com.tyuan.manager.base.service.SysUserAvatarService;
 import com.tyuan.manager.base.service.SysUserService;
 import com.tyuan.manager.base.utils.DateUtil;
 import com.tyuan.manager.base.utils.UserInfoHolder;
@@ -27,15 +30,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.text.MessageFormat;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 @Service
 public class SysUserServiceImpl implements SysUserService {
@@ -45,6 +47,9 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Resource
     private SysRoleService sysRoleService;
+
+    @Resource
+    private SysUserAvatarService sysUserAvatarService;
 
     @Resource
     OrganizationInstitutionMapper organizationInstitutionMapper;
@@ -93,10 +98,9 @@ public class SysUserServiceImpl implements SysUserService {
 
         PageHelper.offsetPage(param.getOffset(), param.getPageSize()).setOrderBy("update_date desc");
         List<SysUser> result = cSysUserMapper.selectByExample(example);
-        result.stream().forEach(e -> {
-            e.setPassword(null);
-        });
-        return new PageInfo<>(result);
+        List<Map> newUserList = userPostProcessor(result);
+
+        return new PageInfo<>(newUserList);
     }
 
     @Override
@@ -218,7 +222,6 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Override
     public SysUser getById(Long id) {
-
         SysUser sysUser = cSysUserMapper.selectByPrimaryKey(id);
         if (sysUser == null) {
             return null;
@@ -317,4 +320,26 @@ public class SysUserServiceImpl implements SysUserService {
         UserInfoHolder.getUserId();
     }
 
+    @Override
+    public List<Map> userPostProcessor(List<SysUser> users) {
+        users.stream().forEach(e -> {
+            e.setPassword(null);
+        });
+        List<Long> avatarIds = users.stream().map(e -> e.getAvatarId()).collect(Collectors.toList());
+        List<SysUserAvatar> avatars = sysUserAvatarService.getByIds(avatarIds);
+        List<Map> newUserList = users.stream().map(e -> {
+            Map map = (Map) JSONObject.toJSON(e);
+            Iterator<SysUserAvatar> iterator = avatars.iterator();
+            while (iterator.hasNext()) {
+                SysUserAvatar item = iterator.next();
+                if (e.getAvatarId() == item.getId()) {
+                    map.put("avatar", item.getUserAvatar());
+                    iterator.remove();
+                    break;
+                }
+            }
+            return map;
+        }).collect(Collectors.toList());
+        return newUserList;
+    }
 }

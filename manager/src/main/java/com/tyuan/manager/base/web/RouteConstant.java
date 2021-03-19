@@ -46,7 +46,7 @@ public class RouteConstant {
      */
     public static final String ROUTER_ACCOUNT_CUSTOM_LAYOUT = "/api/account/custom/layout";
     public static final String ROUTER_ACCOUNT_SETTING = "/api/account/setting";
-    public static final String ROUTER_ACCOUNT_PHOTO = "/api/account/photo";
+    public static final String ROUTER_ACCOUNT_AVATAR = "/api/account/avatar";
     public static final String ROUTER_ACCOUNT = "/api/account";
 
     /**
@@ -60,6 +60,7 @@ public class RouteConstant {
     public static final String ROUTER_SYS_USER_AUTH = "/api/sys/user/auth/{uid}";
     public static final String ROUTER_SYS_USER_DISABLE = "/api/sys/user/disable/{uid}/{disable}";
     public static final String ROUTER_SYS_USER_FETCH = "/api/sys/user/fetch/{value}";
+    public static final String ROUTER_SYS_USER_AVATAR = "/api/sys/user/avatar";
 
 
     /**

@@ -1,11 +1,12 @@
 package com.tyuan.dao.base.customize;
 
 import com.tyuan.dao.base.mapper.SysUserMapper;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.InsertProvider;
-import org.apache.ibatis.annotations.Param;
+import com.tyuan.model.base.pojo.SysUser;
+import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.type.JdbcType;
 
 import java.util.List;
+import java.util.Map;
 
 public interface CSysUserMapper extends SysUserMapper {
 
@@ -29,4 +30,5 @@ public interface CSysUserMapper extends SysUserMapper {
             "where user_id = #{userId,jdbcType=BIGINT}"
     })
     void unBindByUserId(Long userId);
+
 }

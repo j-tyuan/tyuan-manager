@@ -1584,6 +1584,66 @@ public class SysUserExample {
             addCriterion("user_no not between", value1, value2, "userNo");
             return (Criteria) this;
         }
+
+        public Criteria andAvatarIdIsNull() {
+            addCriterion("avatar_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAvatarIdIsNotNull() {
+            addCriterion("avatar_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAvatarIdEqualTo(Long value) {
+            addCriterion("avatar_id =", value, "avatarId");
+            return (Criteria) this;
+        }
+
+        public Criteria andAvatarIdNotEqualTo(Long value) {
+            addCriterion("avatar_id <>", value, "avatarId");
+            return (Criteria) this;
+        }
+
+        public Criteria andAvatarIdGreaterThan(Long value) {
+            addCriterion("avatar_id >", value, "avatarId");
+            return (Criteria) this;
+        }
+
+        public Criteria andAvatarIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("avatar_id >=", value, "avatarId");
+            return (Criteria) this;
+        }
+
+        public Criteria andAvatarIdLessThan(Long value) {
+            addCriterion("avatar_id <", value, "avatarId");
+            return (Criteria) this;
+        }
+
+        public Criteria andAvatarIdLessThanOrEqualTo(Long value) {
+            addCriterion("avatar_id <=", value, "avatarId");
+            return (Criteria) this;
+        }
+
+        public Criteria andAvatarIdIn(List<Long> values) {
+            addCriterion("avatar_id in", values, "avatarId");
+            return (Criteria) this;
+        }
+
+        public Criteria andAvatarIdNotIn(List<Long> values) {
+            addCriterion("avatar_id not in", values, "avatarId");
+            return (Criteria) this;
+        }
+
+        public Criteria andAvatarIdBetween(Long value1, Long value2) {
+            addCriterion("avatar_id between", value1, value2, "avatarId");
+            return (Criteria) this;
+        }
+
+        public Criteria andAvatarIdNotBetween(Long value1, Long value2) {
+            addCriterion("avatar_id not between", value1, value2, "avatarId");
+            return (Criteria) this;
+        }
     }
 
     /**
