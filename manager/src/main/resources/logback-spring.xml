@@ -71,7 +71,7 @@
         </root>
     </springProfile>
 
-    <springProfile name="test">
+    <springProfile name="review">
         <root level="debug">
             <appender-ref ref="detail"/>
             <appender-ref ref="warn"/>

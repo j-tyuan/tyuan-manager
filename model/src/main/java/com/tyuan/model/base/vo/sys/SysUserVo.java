@@ -8,6 +8,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.Pattern;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @Author: dev@tyuan.design
@@ -60,5 +61,9 @@ public class SysUserVo extends SysUser implements Serializable {
      */
     @Pattern(regexp = "^1(3|4|5|7|8)\\d{9}$", message = "移动号码格式错误")
     private String mobile;
+
+
+    // 角色ID
+    private List<Long> roleIds;
 
 }

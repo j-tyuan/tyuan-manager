@@ -50,9 +50,6 @@ public class SysController {
     UserInfoCacheService userTokenCacheService;
 
     @Resource
-    private SysRoleService sysRoleService;
-
-    @Resource
     private SysPermissionService sysPermissionService;
 
     @Resource
@@ -173,7 +170,7 @@ public class SysController {
             userInfoCacheService.putPerm(userToken, Lists.newArrayList("sys"), exp);
             return;
         }
-        List<SysRole> roles = sysRoleService.getRoleByUserId(sysUser.getId());
+        List<SysRole> roles = sysUserService.getRoleByUserId(sysUser.getId());
         List<String> roleCodes = Lists.newArrayList();
         List<String> perms = Lists.newArrayList();
 

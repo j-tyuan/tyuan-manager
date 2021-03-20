@@ -19,8 +19,8 @@ public class SysRoleVo extends SysRole implements Serializable {
      *
      * @mbggenerated
      */
-    @NotEmpty(message = "名称不允许为空")
-    @Pattern(regexp = "^[a-z]*$", message = "只允许英文字母")
+    @NotEmpty(message = "编码不允许为空")
+    @Pattern(regexp = "^[0-9A-Z]*$", message = "只允许大写字母或数字")
     private String code;
 
     /**

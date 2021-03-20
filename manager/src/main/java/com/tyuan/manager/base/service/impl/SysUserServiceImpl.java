@@ -8,11 +8,11 @@ import com.google.common.collect.Maps;
 import com.tyuan.common.exception.ServiceException;
 import com.tyuan.common.utils.TreeUtils;
 import com.tyuan.dao.base.customize.CSysUserMapper;
+import com.tyuan.dao.base.customize.CSysUserRoleMapper;
 import com.tyuan.dao.base.mapper.OrganizationInstitutionMapper;
-import com.tyuan.dao.base.mapper.SysUserAvatarMapper;
+import com.tyuan.dao.base.mapper.SysRoleMapper;
 import com.tyuan.manager.base.cache.LocalCache;
-import com.tyuan.manager.base.service.SysPermissionService;
-import com.tyuan.manager.base.service.SysRoleService;
+import com.tyuan.manager.base.cache.UserInfoCacheService;
 import com.tyuan.manager.base.service.SysUserAvatarService;
 import com.tyuan.manager.base.service.SysUserService;
 import com.tyuan.manager.base.utils.DateUtil;
@@ -22,15 +22,13 @@ import com.tyuan.model.base.pojo.*;
 import com.tyuan.model.base.pojo.custom.COrganizationInstitution;
 import com.tyuan.model.base.vo.DeleteVo;
 import com.tyuan.model.base.vo.sys.SysUserTableParamsVo;
-import com.tyuan.model.base.vo.sys.UserAuthVo;
+import com.tyuan.model.base.vo.sys.SysUserVo;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -46,13 +44,19 @@ public class SysUserServiceImpl implements SysUserService {
     private CSysUserMapper cSysUserMapper;
 
     @Resource
-    private SysRoleService sysRoleService;
+    private CSysUserRoleMapper csysUserRoleMapper;
 
     @Resource
     private SysUserAvatarService sysUserAvatarService;
 
     @Resource
     OrganizationInstitutionMapper organizationInstitutionMapper;
+
+    @Resource
+    SysRoleMapper sysRoleMapper;
+
+    @Resource
+    UserInfoCacheService userInfoCacheService;
 
     @Override
     public PageInfo getByParams(SysUserTableParamsVo param) {
@@ -122,7 +126,7 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class}, isolation = Isolation.DEFAULT)
-    public void add(SysUser sysUser) throws ServiceException {
+    public void add(SysUserVo sysUser) throws ServiceException {
         OrganizationInstitution institution = organizationInstitutionMapper.selectByPrimaryKey(sysUser.getInstId());
         if (null == institution) {
             throw new ServiceException(ErrorCodeConsts.ERROR, "机构未找到");
@@ -161,11 +165,17 @@ public class SysUserServiceImpl implements SysUserService {
         newUser.setUserNo(sb.toString());
         newUser.setId(sysUser.getId());
         cSysUserMapper.updateByPrimaryKeySelective(newUser);
+
+        List<Long> roles = sysUser.getRoleIds();
+        if (CollectionUtils.isNotEmpty(roles)) {
+            cSysUserMapper.bindRole(sysUser.getId(), roles);
+        }
+
     }
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class}, isolation = Isolation.DEFAULT)
-    public void edit(SysUser sysUser) throws ServiceException {
+    public void edit(SysUserVo sysUser) throws ServiceException {
 
         Long id = sysUser.getId();
         SysUser val = cSysUserMapper.selectByPrimaryKey(id);
@@ -191,9 +201,15 @@ public class SysUserServiceImpl implements SysUserService {
         sysUser.setUserNo(null);
         sysUser.setUpdateBy(UserInfoHolder.getUserName());
 
-        //只允许修改普通用户
+        // 只允许修改普通用户
         sysUser.setUserType(USER_TYPE.ORDINARY.getType());
         cSysUserMapper.updateByPrimaryKeySelective(sysUser);
+
+        // 先解除绑定后在绑定
+        cSysUserMapper.unBindByUserId(sysUser.getId());
+        if (CollectionUtils.isNotEmpty(sysUser.getRoleIds())) {
+            cSysUserMapper.bindRole(sysUser.getId(), sysUser.getRoleIds());
+        }
     }
 
     @Override
@@ -273,37 +289,6 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class}, isolation = Isolation.DEFAULT)
-    public void editAuth(Long userId, UserAuthVo vo) {
-        List<Long> roleIds = vo.getRoleIds();
-
-        // 防止当前用户添加不属于他自己角色的角色
-        Iterator<Long> iterator = roleIds.iterator();
-        while (iterator.hasNext()) {
-            Long roleId = iterator.next();
-            if (!sysRoleService.hasRoleById(roleId)) {
-                iterator.remove();
-            }
-        }
-
-        Long id = userId;
-        // 防止当前用户删除不属于他自己角色的角色
-        List<SysRole> list = sysRoleService.getRoleByUserId(id);
-        Iterator<SysRole> sysRoleIterator = list.iterator();
-        while (sysRoleIterator.hasNext()) {
-            SysRole item = sysRoleIterator.next();
-            if (!sysRoleService.hasRoleById(item.getId())) {
-                roleIds.add(item.getId());
-            }
-        }
-        cSysUserMapper.unBindByUserId(id);
-        if (CollectionUtils.isEmpty(roleIds)) {
-            return;
-        }
-        cSysUserMapper.bindRole(id, roleIds);
-    }
-
-    @Override
-    @Transactional(rollbackFor = {Exception.class, Error.class}, isolation = Isolation.DEFAULT)
     public void disable(Long userId, Integer disable) throws ServiceException {
         SysUser user = cSysUserMapper.selectByPrimaryKey(userId);
         if (null == user) {
@@ -341,5 +326,22 @@ public class SysUserServiceImpl implements SysUserService {
             return map;
         }).collect(Collectors.toList());
         return newUserList;
+    }
+
+    @Override
+    public List<Long> getRoleIdsByUserId(Long uid) {
+        return csysUserRoleMapper.getRoleIdsByUid(uid);
+    }
+
+    @Override
+    public List<SysRole> getRoleByUserId(Long uid) {
+        List<Long> ids = this.getRoleIdsByUserId(uid);
+        if (CollectionUtils.isNotEmpty(ids)){
+            return Lists.newArrayList();
+        }
+        SysRoleExample sysRoleExample = new SysRoleExample();
+        sysRoleExample.createCriteria().andIdIn(ids);
+        List<SysRole> sysRoles = sysRoleMapper.selectByExample(sysRoleExample);
+        return sysRoles;
     }
 }

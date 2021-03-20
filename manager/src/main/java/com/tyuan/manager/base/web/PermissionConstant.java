@@ -21,7 +21,7 @@ public class PermissionConstant {
     public final static String SYS_ROLE_ADD = "sys:role:add";
     public final static String SYS_ROLE_EDIT = "sys:role:edit";
     public final static String SYS_ROLE_DEL = "sys:role:del";
-    public final static String SYS_ROLE_BIND_USER = "sys:role:binduser";
+    public final static String SYS_ROLE_BIND_ROLE = "sys:role:binduser";
 
     /**
      * 权限

@@ -57,11 +57,10 @@ public class RouteConstant {
     public static final String ROUTER_SYS_USER_ADD = "/api/sys/user/add";
     public static final String ROUTER_SYS_USER_EDIT = "/api/sys/user/edit";
     public static final String ROUTER_SYS_USER_DEL = "/api/sys/user/del";
-    public static final String ROUTER_SYS_USER_AUTH = "/api/sys/user/auth/{uid}";
     public static final String ROUTER_SYS_USER_DISABLE = "/api/sys/user/disable/{uid}/{disable}";
     public static final String ROUTER_SYS_USER_FETCH = "/api/sys/user/fetch/{value}";
     public static final String ROUTER_SYS_USER_AVATAR = "/api/sys/user/avatar";
-
+    public static final String ROUTER_SYS_USER_ROLE_GET_BY_ID = "/api/sys/user/{userId}/role";
 
     /**
      * 角色
@@ -70,12 +69,10 @@ public class RouteConstant {
     public static final String ROUTER_SYS_ROLE_ADD = "/api/sys/role/add";
     public static final String ROUTER_SYS_ROLE_EDIT = "/api/sys/role/edit";
     public static final String ROUTER_SYS_ROLE_DEL = "/api/sys/role/del";
-    public static final String ROUTER_SYS_ROLE_BY_USER_ID = "/api/sys/role/getByUserId";
     public static final String ROUTER_SYS_ROLE_AUTH = "/api/sys/role/auth/{id}";
-    public static final String ROUTER_SYS_ROLE_USER = "/api/sys/role/{roleId}/user";
+    public static final String ROUTER_SYS_ROLE_GET_BIND_USER = "/api/sys/role/{roleId}/user";
     public static final String ROUTER_SYS_ROLE_BIND_USER = "/api/sys/role/{roleId}/user/{userId}/bind";
     public static final String ROUTER_SYS_ROLE_UNBIND_USER = "/api/sys/role/{roleId}/user/{userId}/unbind";
-
 
     /**
      * 权限

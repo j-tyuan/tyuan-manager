@@ -10,6 +10,7 @@ import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Lists;
 import com.tyuan.common.exception.ServiceException;
 import com.tyuan.dao.base.customize.CSysRolePermissionMapper;
+import com.tyuan.dao.base.customize.CSysUserRoleMapper;
 import com.tyuan.dao.base.mapper.SysRoleMapper;
 import com.tyuan.dao.base.mapper.SysUserRoleMapper;
 import com.tyuan.manager.base.cache.UserInfoCacheService;
@@ -42,7 +43,7 @@ public class SysRoleServiceImpl implements SysRoleService {
     SysRoleMapper sysRoleMapper;
 
     @Resource
-    SysUserRoleMapper sysUserRoleMapper;
+    CSysUserRoleMapper csysUserRoleMapper;
 
     @Resource
     CSysRolePermissionMapper cSysRolePermissionMapper;
@@ -86,7 +87,9 @@ public class SysRoleServiceImpl implements SysRoleService {
         }
 
         sysRoleMapper.insertSelective(sysRole);
-        cSysRolePermissionMapper.batchBind(sysRole.getId(), sysRole.getPermissionIds());
+        if (CollectionUtils.isNotEmpty(sysRole.getPermissionIds())){
+            cSysRolePermissionMapper.batchBind(sysRole.getId(), sysRole.getPermissionIds());
+        }
     }
 
     @Override
@@ -118,28 +121,6 @@ public class SysRoleServiceImpl implements SysRoleService {
     }
 
     @Override
-    public List<SysRole> getRoleByUserId(Long uid) {
-
-        SysUserRoleExample example = new SysUserRoleExample();
-        example.createCriteria().andUserIdEqualTo(uid);
-
-        List<SysUserRole> roleUsers = sysUserRoleMapper.selectByExample(example);
-        if (CollectionUtils.isEmpty(roleUsers)) {
-            return new ArrayList<>();
-        }
-
-        List<Long> ids = new ArrayList<>();
-        for (SysUserRole item : roleUsers) {
-            ids.add(item.getRoleId() + 0L);
-        }
-
-        SysRoleExample sysRoleExample = new SysRoleExample();
-        sysRoleExample.createCriteria().andIdIn(ids);
-        List<SysRole> sysRoles = sysRoleMapper.selectByExample(sysRoleExample);
-        return sysRoles;
-    }
-
-    @Override
     public SysRole getById(Long id) {
         return sysRoleMapper.selectByPrimaryKey(id);
     }
@@ -148,41 +129,6 @@ public class SysRoleServiceImpl implements SysRoleService {
     public List<SysRole> getAll() {
         List<SysRole> all = sysRoleMapper.selectByExample(null);
         return all;
-    }
-
-    @Override
-    public List<Long> getBindUserById(Long id) {
-        SysUserRoleExample example = new SysUserRoleExample();
-        example.createCriteria().andRoleIdEqualTo(id);
-        List<SysUserRole> roles = sysUserRoleMapper.selectByExample(example);
-        List<Long> longs = roles.stream().map(e -> e.getUserId()).collect(Collectors.toList());
-        return longs;
-    }
-
-    @Override
-    @Transactional(rollbackFor = {Exception.class, Error.class}, isolation = Isolation.DEFAULT)
-    public void bindUser(Long roleId, Long userId) {
-        SysUserRole record = new SysUserRole();
-        record.setRoleId(roleId);
-        record.setUserId(userId);
-        sysUserRoleMapper.insertSelective(record);
-        userInfoCacheService.leaveMessage(userId, "你的权限发生改变，请重新登陆");
-    }
-
-    @Override
-    @Transactional(rollbackFor = {Exception.class, Error.class}, isolation = Isolation.DEFAULT)
-    public void unbindUser(Long roleId, Long userId) {
-        SysUserRoleExample example = new SysUserRoleExample();
-        example.createCriteria()
-                .andRoleIdEqualTo(roleId)
-                .andUserIdEqualTo(userId);
-        List<SysUserRole> list = sysUserRoleMapper.selectByExample(example);
-        if (CollectionUtils.isEmpty(list)) {
-            return;
-        }
-        Long id = list.get(0).getId();
-        sysUserRoleMapper.deleteByPrimaryKey(id);
-        userInfoCacheService.leaveMessage(userId, "你的权限发生改变，请重新登陆");
     }
 
     public void filterRoles(List<SysRole> sysRoles) {
@@ -218,5 +164,41 @@ public class SysRoleServiceImpl implements SysRoleService {
             return Lists.newArrayList();
         }
         return permissionIds;
+    }
+
+
+    @Override
+    public List<Long> getBindUserById(Long id) {
+        SysUserRoleExample example = new SysUserRoleExample();
+        example.createCriteria().andRoleIdEqualTo(id);
+        List<SysUserRole> roles = csysUserRoleMapper.selectByExample(example);
+        List<Long> longs = roles.stream().map(e -> e.getUserId()).collect(Collectors.toList());
+        return longs;
+    }
+
+    @Override
+    @Transactional(rollbackFor = {Exception.class, Error.class}, isolation = Isolation.DEFAULT)
+    public void bindUser(Long roleId, Long userId) {
+        SysUserRole record = new SysUserRole();
+        record.setRoleId(roleId);
+        record.setUserId(userId);
+        csysUserRoleMapper.insertSelective(record);
+        userInfoCacheService.leaveMessage(userId, "你的权限发生改变，请重新登陆");
+    }
+
+    @Override
+    @Transactional(rollbackFor = {Exception.class, Error.class}, isolation = Isolation.DEFAULT)
+    public void unbindUser(Long roleId, Long userId) {
+        SysUserRoleExample example = new SysUserRoleExample();
+        example.createCriteria()
+                .andRoleIdEqualTo(roleId)
+                .andUserIdEqualTo(userId);
+        List<SysUserRole> list = csysUserRoleMapper.selectByExample(example);
+        if (CollectionUtils.isEmpty(list)) {
+            return;
+        }
+        Long id = list.get(0).getId();
+        csysUserRoleMapper.deleteByPrimaryKey(id);
+        userInfoCacheService.leaveMessage(userId, "你的权限发生改变，请重新登陆");
     }
 }

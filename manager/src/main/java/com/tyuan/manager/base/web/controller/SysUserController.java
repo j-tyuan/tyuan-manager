@@ -166,4 +166,13 @@ public class SysUserController {
             return result;
         }
     }
+
+    @RequiresPermissions(PermissionConstant.SYS_USER_LIST)
+    @GetMapping(RouteConstant.ROUTER_SYS_USER_ROLE_GET_BY_ID)
+    public ResultData getRoleIdsByUserId(@PathVariable(value = "userId") Long id) {
+        ResultData resultData = new ResultData();
+        List roles = sysUserService.getRoleIdsByUserId(id);
+        resultData.setData(roles);
+        return resultData;
+    }
 }

@@ -2,8 +2,10 @@ package com.tyuan.manager.base.service;
 
 import com.github.pagehelper.PageInfo;
 import com.tyuan.common.exception.ServiceException;
+import com.tyuan.model.base.pojo.SysRole;
 import com.tyuan.model.base.pojo.SysUser;
 import com.tyuan.model.base.vo.sys.SysUserTableParamsVo;
+import com.tyuan.model.base.vo.sys.SysUserVo;
 import com.tyuan.model.base.vo.sys.UserAuthVo;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,7 +19,7 @@ import java.util.Map;
  * @Author: dev@tyuan.design
  * @DateTime: 2020/6/29 16:33
  */
-public interface SysUserService extends BaseService<SysUser> {
+public interface SysUserService extends BaseService<SysUserVo> {
 
 
     enum USER_TYPE {
@@ -55,7 +57,7 @@ public interface SysUserService extends BaseService<SysUser> {
      * @param sysUser
      * @throws ServiceException
      */
-    void add(SysUser sysUser) throws ServiceException;
+    void add(SysUserVo sysUser) throws ServiceException;
 
     /**
      * 修改用户
@@ -63,7 +65,7 @@ public interface SysUserService extends BaseService<SysUser> {
      * @param sysUser
      * @throws ServiceException
      */
-    void edit(SysUser sysUser) throws ServiceException;
+    void edit(SysUserVo sysUser) throws ServiceException;
 
     /**
      * 根据账号获取用户信息
@@ -80,13 +82,6 @@ public interface SysUserService extends BaseService<SysUser> {
      * @param userId
      */
     void updateUserLoginInfo(HttpServletRequest request, long userId);
-
-    /**
-     * 更新用户角色
-     *
-     * @param vo
-     */
-    void editAuth(Long userId, UserAuthVo vo) throws ServiceException;
 
     /**
      * 启用或禁用用户
@@ -117,4 +112,20 @@ public interface SysUserService extends BaseService<SysUser> {
      * @return
      */
     List<Map> userPostProcessor(List<SysUser> users);
+
+    /**
+     * 根据用户ID 获取全部的角色信息
+     *
+     * @param uid
+     * @return
+     */
+    List<Long> getRoleIdsByUserId(Long uid);
+
+    /**
+     * 根据用户ID 获取全部的角色信息
+     *
+     * @param uid
+     * @return
+     */
+    List<SysRole> getRoleByUserId(Long uid);
 }

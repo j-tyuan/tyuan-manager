@@ -17,22 +17,6 @@ public interface SysRoleService extends BaseService<SysRoleVo> {
     PageInfo<SysRole> getByParams(SysRoleTableParamsVo param);
 
     /**
-     * 根据用户ID 获取全部的角色信息
-     *
-     * @param uid
-     * @return
-     */
-    List<SysRole> getRoleByUserId(Long uid);
-
-
-    /**
-     * 过滤角色
-     *
-     * @param roles
-     */
-    void filterRoles(List<SysRole> roles);
-
-    /**
      * 是否包涵角色
      *
      * @return
@@ -52,13 +36,14 @@ public interface SysRoleService extends BaseService<SysRoleVo> {
     SysRole getById(Long id);
 
     /**
-     *
      * @return
      */
     List<SysRole> getAll();
 
+
     /**
      * 根据角色ID获取
+     *
      * @param id
      * @return
      */
@@ -66,6 +51,7 @@ public interface SysRoleService extends BaseService<SysRoleVo> {
 
     /**
      * 绑定用户
+     *
      * @param roleId
      * @param userId
      * @return
@@ -74,6 +60,7 @@ public interface SysRoleService extends BaseService<SysRoleVo> {
 
     /**
      * 解绑用户
+     *
      * @param roleId
      * @param userId
      */
