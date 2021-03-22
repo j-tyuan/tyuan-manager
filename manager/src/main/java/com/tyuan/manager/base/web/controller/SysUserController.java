@@ -40,21 +40,6 @@ public class SysUserController {
     @Resource
     private UserInfoCacheService userInfoCacheService;
 
-    @RequiresPermissions(PermissionConstant.SYS_USER_LIST)
-    @GetMapping(RouteConstant.ROUTER_SYS_USER_ALL)
-    @Log(type = LogAspect.LogType.SELECT, value = "查看用户列表")
-    public ResultData list(@RequestParam(value = "name", required = false) String name,
-                           @RequestParam(value = "phone", required = false) String phone) {
-        ResultData resultData = new ResultData();
-        try {
-            List list = sysUserService.getAll(name, phone);
-            resultData.setData(list);
-            return resultData;
-        } catch (Exception e) {
-            return resultData;
-        }
-    }
-
 
     @RequiresPermissions(PermissionConstant.SYS_USER_LIST)
     @PostMapping(RouteConstant.ROUTER_SYS_USER)

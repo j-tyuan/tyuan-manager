@@ -33,8 +33,7 @@ public class SysPermissionServiceImpl implements SysPermissionService {
 
     @Override
     public List<SysPermission> getAll() {
-        List<SysPermission> cache = LocalCache.SYS_PERMISSION.getData();
-        return Lists.newArrayList(cache);
+        return LocalCache.SYS_PERMISSION.getData();
     }
 
     @Override

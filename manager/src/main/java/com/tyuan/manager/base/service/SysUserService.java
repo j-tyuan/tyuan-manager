@@ -4,6 +4,8 @@ import com.github.pagehelper.PageInfo;
 import com.tyuan.common.exception.ServiceException;
 import com.tyuan.model.base.pojo.SysRole;
 import com.tyuan.model.base.pojo.SysUser;
+import com.tyuan.model.base.pojo.SysUserExample;
+import com.tyuan.model.base.vo.DataTableParam;
 import com.tyuan.model.base.vo.sys.SysUserTableParamsVo;
 import com.tyuan.model.base.vo.sys.SysUserVo;
 import com.tyuan.model.base.vo.sys.UserAuthVo;
@@ -38,18 +40,34 @@ public interface SysUserService extends BaseService<SysUserVo> {
         }
     }
 
+
+    /**
+     * 根据入参获取 SysUserExample
+     * 使用场景：通用SysUserExample
+     *
+     * @param param
+     * @return
+     */
+    SysUserExample getUserExampleByParams(SysUserTableParamsVo param);
+
+    /**
+     * 获取用户列表
+     * 使用场景：用户管理前端列表
+     *
+     * @param param
+     * @return
+     */
     PageInfo getByParams(SysUserTableParamsVo param);
 
     /**
-     * 根据手机号或者用户名获取用户信息
-     * 如果两个都为null返回所有用户
-     * 日后有大量用户，可以考虑使用 getByParams
+     * 获取用户列表
+     * 使用场景：用户管理前端列表、其它模块
      *
-     * @param name  用户
-     * @param phone 手机号
+     * @param sysUserExample
+     * @param param
      * @return
      */
-    List<SysUser> getAll(String name, String phone);
+    PageInfo getByExample(SysUserExample sysUserExample, DataTableParam param);
 
     /**
      * 绑定用户

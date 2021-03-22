@@ -20,6 +20,7 @@ import com.tyuan.manager.base.utils.UserInfoHolder;
 import com.tyuan.model.base.ErrorCodeConsts;
 import com.tyuan.model.base.pojo.*;
 import com.tyuan.model.base.pojo.custom.COrganizationInstitution;
+import com.tyuan.model.base.vo.DataTableParam;
 import com.tyuan.model.base.vo.DeleteVo;
 import com.tyuan.model.base.vo.sys.SysUserTableParamsVo;
 import com.tyuan.model.base.vo.sys.SysUserVo;
@@ -58,12 +59,15 @@ public class SysUserServiceImpl implements SysUserService {
     @Resource
     UserInfoCacheService userInfoCacheService;
 
-    @Override
-    public PageInfo getByParams(SysUserTableParamsVo param) {
+    public SysUserExample getUserExampleByParams(SysUserTableParamsVo param) {
         SysUserExample example = new SysUserExample();
         SysUserExample.Criteria criteria = example.createCriteria();
 
         boolean flag = false;
+        if (StringUtils.isNotBlank(param.getUserNo())) {
+            criteria.andUserNoEqualTo(param.getUserNo());
+            flag = true;
+        }
         String like = "%{0}%";
         if (StringUtils.isNotBlank(param.getName())) {
             criteria.andNameLike(MessageFormat.format(like, param.getName()));
@@ -99,29 +103,24 @@ public class SysUserServiceImpl implements SysUserService {
         }
         // 只允许查看普通用户
         criteria.andUserTypeNotEqualTo(USER_TYPE.SYS.getType());
-
-        PageHelper.offsetPage(param.getOffset(), param.getPageSize()).setOrderBy("update_date desc");
-        List<SysUser> result = cSysUserMapper.selectByExample(example);
-        List<Map> newUserList = userPostProcessor(result);
-
-        return new PageInfo<>(newUserList);
+        return example;
     }
 
     @Override
-    public List<SysUser> getAll(String name, String phone) {
-        SysUserExample example = new SysUserExample();
-        SysUserExample.Criteria criteria = example.createCriteria();
-        String like = "%{0}%";
-        if (StringUtils.isNotBlank(name)) {
-            criteria.andNameLike(MessageFormat.format(like, name));
-        }
-        if (StringUtils.isNotBlank(phone)) {
-            criteria.andNameLike(MessageFormat.format(like, phone));
-        }
-        //只允许查看普通用户
-        criteria.andUserTypeNotEqualTo(USER_TYPE.SYS.getType());
-        List<SysUser> result = cSysUserMapper.selectByExample(example);
-        return result;
+    public PageInfo getByExample(SysUserExample sysUserExample, DataTableParam param) {
+        PageHelper.offsetPage(param.getOffset(), param.getPageSize()).setOrderBy("update_date desc");
+        List<SysUser> result = cSysUserMapper.selectByExample(sysUserExample);
+        PageInfo pageInfo = new PageInfo<>(result);
+        List<Map> newUserList = userPostProcessor(result);
+        pageInfo.setList(newUserList);
+        return pageInfo;
+    }
+
+
+    @Override
+    public PageInfo getByParams(SysUserTableParamsVo param) {
+        SysUserExample sysUserExample = getUserExampleByParams(param);
+        return getByExample(sysUserExample, param);
     }
 
     @Override
@@ -336,7 +335,7 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     public List<SysRole> getRoleByUserId(Long uid) {
         List<Long> ids = this.getRoleIdsByUserId(uid);
-        if (CollectionUtils.isNotEmpty(ids)){
+        if (CollectionUtils.isNotEmpty(ids)) {
             return Lists.newArrayList();
         }
         SysRoleExample sysRoleExample = new SysRoleExample();

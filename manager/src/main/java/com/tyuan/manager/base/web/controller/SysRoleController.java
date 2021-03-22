@@ -19,6 +19,7 @@ import com.tyuan.model.base.ResultData;
 import com.tyuan.model.base.ResultTable;
 import com.tyuan.model.base.pojo.SysRole;
 import com.tyuan.model.base.vo.DeleteVo;
+import com.tyuan.model.base.vo.sys.RoleUserTableParamsVo;
 import com.tyuan.model.base.vo.sys.SysRoleTableParamsVo;
 import com.tyuan.model.base.vo.sys.SysRoleVo;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -120,35 +121,6 @@ public class SysRoleController {
         ResultData resultData = new ResultData();
         List<Long> longs = service.getAuthIdByRoleId(id);
         resultData.setData(longs);
-        return resultData;
-    }
-
-    @RequiresPermissions(PermissionConstant.SYS_ROLE_LIST)
-    @GetMapping(RouteConstant.ROUTER_SYS_ROLE_GET_BIND_USER)
-    public ResultData getBindUserById(@PathVariable("roleId") Long id) {
-        ResultData resultData = new ResultData();
-        List<Long> longs = service.getBindUserById(id);
-        resultData.setData(longs);
-        return resultData;
-    }
-
-    @RequiresPermissions(PermissionConstant.SYS_ROLE_BIND_ROLE)
-    @PostMapping(RouteConstant.ROUTER_SYS_ROLE_BIND_USER)
-    @Log(type = LogAspect.LogType.EDIT, value = "绑定用户")
-    public ResultData bindUser(@PathVariable("roleId") Long roleId,
-                               @PathVariable("userId") Long userId) {
-        ResultData resultData = new ResultData();
-        service.bindUser(roleId, userId);
-        return resultData;
-    }
-
-    @RequiresPermissions(PermissionConstant.SYS_ROLE_BIND_ROLE)
-    @PostMapping(RouteConstant.ROUTER_SYS_ROLE_UNBIND_USER)
-    @Log(type = LogAspect.LogType.EDIT, value = "解绑用户")
-    public ResultData unbindUser(@PathVariable("roleId") Long roleId,
-                                 @PathVariable("userId") Long userId) {
-        ResultData resultData = new ResultData();
-        service.unbindUser(roleId, userId);
         return resultData;
     }
 }

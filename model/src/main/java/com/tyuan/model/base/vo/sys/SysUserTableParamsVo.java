@@ -8,6 +8,8 @@ import lombok.Setter;
 @Getter
 public class SysUserTableParamsVo extends DataTableParam {
 
+    private String userNo;
+
     private String name;
 
     private String account;

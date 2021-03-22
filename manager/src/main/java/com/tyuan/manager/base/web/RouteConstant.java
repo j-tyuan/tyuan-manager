@@ -70,9 +70,14 @@ public class RouteConstant {
     public static final String ROUTER_SYS_ROLE_EDIT = "/api/sys/role/edit";
     public static final String ROUTER_SYS_ROLE_DEL = "/api/sys/role/del";
     public static final String ROUTER_SYS_ROLE_AUTH = "/api/sys/role/auth/{id}";
-    public static final String ROUTER_SYS_ROLE_GET_BIND_USER = "/api/sys/role/{roleId}/user";
-    public static final String ROUTER_SYS_ROLE_BIND_USER = "/api/sys/role/{roleId}/user/{userId}/bind";
-    public static final String ROUTER_SYS_ROLE_UNBIND_USER = "/api/sys/role/{roleId}/user/{userId}/unbind";
+
+    /**
+     * 用户角色
+     */
+    public static final String ROUTER_SYS_ROLE_USER = "/api/sys/role/user";
+    public static final String ROUTER_SYS_ROLE_USER_BIND = "/api/sys/role/user/bind";
+    public static final String ROUTER_SYS_ROLE_USER_UNBIND = "/api/sys/role/user/unbind";
+
 
     /**
      * 权限

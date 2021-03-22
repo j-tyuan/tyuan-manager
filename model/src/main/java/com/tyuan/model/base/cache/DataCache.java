@@ -8,4 +8,5 @@ import lombok.Setter;
 public class DataCache<T> extends Cache {
 
     private T data;
+
 }

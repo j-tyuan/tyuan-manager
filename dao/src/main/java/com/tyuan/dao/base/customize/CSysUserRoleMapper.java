@@ -1,11 +1,9 @@
 package com.tyuan.dao.base.customize;
 
 import com.tyuan.dao.base.mapper.SysUserRoleMapper;
-import com.tyuan.dao.base.mapper.SysUserRoleSqlProvider;
-import com.tyuan.model.base.pojo.SysUserRole;
-import com.tyuan.model.base.pojo.SysUserRoleExample;
-import org.apache.ibatis.annotations.*;
-import org.apache.ibatis.type.JdbcType;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.SelectProvider;
 
 import java.util.List;
 
@@ -18,4 +16,10 @@ public interface CSysUserRoleMapper extends SysUserRoleMapper {
             "where user_id = #{userId,jdbcType=BIGINT}"
     })
     List<Long> getRoleIdsByUid(Long userId);
+
+    /**
+     * 批量绑定用户
+     */
+    @SelectProvider(type = CSysUserRoleSqlProvider.class, method = "batchInsert")
+    void batchInsert(@Param("roleId") Long roleId, @Param("userIds") List<Long> userIds);
 }

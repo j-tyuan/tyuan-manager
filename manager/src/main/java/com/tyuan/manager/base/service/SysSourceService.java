@@ -7,13 +7,12 @@ package com.tyuan.manager.base.service;
 
 import com.github.pagehelper.PageInfo;
 import com.tyuan.model.base.pojo.SysSource;
+import com.tyuan.model.base.pojo.custom.CSysSource;
 import com.tyuan.model.base.vo.sys.SysSourceTableParamsVo;
 
 import java.util.List;
 
 public interface SysSourceService extends BaseService<SysSource> {
-
-    PageInfo<SysSource> getByParams(SysSourceTableParamsVo param);
 
     /**
      * 鉴权
@@ -21,7 +20,7 @@ public interface SysSourceService extends BaseService<SysSource> {
      * @param list
      * @return
      */
-    List<SysSource> authority(List<SysSource> list);
+    List<CSysSource> authorityFilter(List<CSysSource> list);
 
     /**
      * 根据pid获取数据
@@ -32,13 +31,11 @@ public interface SysSourceService extends BaseService<SysSource> {
     List<SysSource> getByParentId(long parentId);
 
     /**
-     *
      * @return
      */
-    List<SysSource> getAll();
+    List<CSysSource> getAll();
 
     /**
-     *
      * @param id
      * @return
      */

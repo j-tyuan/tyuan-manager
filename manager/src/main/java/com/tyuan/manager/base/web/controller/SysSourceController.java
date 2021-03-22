@@ -7,9 +7,12 @@ package com.tyuan.manager.base.web.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Lists;
+import com.tyuan.common.ITree;
 import com.tyuan.common.exception.ServiceException;
+import com.tyuan.common.utils.TreeUtils;
 import com.tyuan.manager.base.annotation.Log;
 import com.tyuan.manager.base.aop.LogAspect;
+import com.tyuan.manager.base.cache.LocalCache;
 import com.tyuan.manager.base.web.PermissionConstant;
 import com.tyuan.manager.base.web.RouteConstant;
 import com.tyuan.manager.base.service.SysSourceService;
@@ -17,6 +20,7 @@ import com.tyuan.model.base.ErrorCodeConsts;
 import com.tyuan.model.base.ResultData;
 import com.tyuan.model.base.ResultTable;
 import com.tyuan.model.base.pojo.SysSource;
+import com.tyuan.model.base.pojo.custom.CSysSource;
 import com.tyuan.model.base.vo.DeleteVo;
 import com.tyuan.model.base.vo.sys.SysSourceTableParamsVo;
 import com.tyuan.model.base.vo.sys.SysUrlVo;
@@ -25,6 +29,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @RestController
@@ -33,37 +39,15 @@ public class SysSourceController {
     @Resource
     SysSourceService sysSourceService;
 
-
-    @RequiresPermissions(PermissionConstant.SYS_SOURCE_LIST)
-    @PostMapping(RouteConstant.ROUTER_SYS_SOURCE)
-    @Log(type = LogAspect.LogType.SELECT, value = "查看资源列表")
-    public ResultTable list(@RequestBody SysSourceTableParamsVo requestParam) {
-        ResultTable table = new ResultTable();
-        try {
-            PageInfo pageInfo = sysSourceService.getByParams(requestParam);
-            table.setPageInfo(pageInfo);
-            return table;
-        } catch (Exception e) {
-            return table;
-        }
-    }
-
     @RequiresPermissions(PermissionConstant.SYS_SOURCE_LIST)
     @GetMapping(RouteConstant.ROUTER_SYS_SOURCE)
-    public ResultData get(@RequestParam(value = "parentId", required = false) Long parentId,
-                          @RequestParam(value = "id", required = false) Long id) {
-
+    public ResultData getAll() {
         ResultData resultData = new ResultData();
-        resultData.setErrorCode(ErrorCodeConsts.SUCCESS);
-        List<SysSource> sourcesList = Lists.newArrayList();
-        if (null != parentId) {
-            sourcesList = sysSourceService.getByParentId(parentId);
-        } else {
-            SysSource sysSource = sysSourceService.getById(id);
-            sourcesList.add(sysSource);
-        }
-        resultData.setData(sourcesList);
-
+        List<CSysSource> list = sysSourceService.getAll();
+        List<ITree> newList = TreeUtils.tree(list, 0L);
+        // 排序
+        Collections.sort(newList, Comparator.comparingLong(o -> o.getSort()));
+        resultData.setData(newList);
         return resultData;
     }
 
@@ -72,7 +56,6 @@ public class SysSourceController {
     @Log(type = LogAspect.LogType.DEL, value = "删除资源")
     public ResultData del(@RequestBody DeleteVo deleteVo) {
         try {
-
             sysSourceService.del(deleteVo);
             return new ResultData();
         } catch (ServiceException e) {

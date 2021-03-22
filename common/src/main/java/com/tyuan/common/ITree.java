@@ -24,7 +24,17 @@ public interface ITree extends Serializable {
      */
     Long getParentId();
 
+    /**
+     * 排序，不强制实现
+     *
+     * @return
+     */
+    default Long getSort() {
+        return 0L;
+    }
+
     List<ITree> getChildren();
+
 
     void setChildren(List<ITree> trees);
 }

@@ -7,7 +7,10 @@ package com.tyuan.common.utils;
 
 import com.google.common.collect.Lists;
 import com.tyuan.common.ITree;
+import org.apache.commons.collections4.CollectionUtils;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class TreeUtils {
@@ -46,10 +49,14 @@ public class TreeUtils {
     public static List<ITree> tree(List<? extends ITree> list, Long pid) {
         List<ITree> result = Lists.newArrayList();
         list.forEach(e -> {
-            ITree abstractTree = e;
+            ITree item = e;
             if (e.getParentId() == pid) {
-                abstractTree.setChildren(tree(list, e.getId()));
-                result.add(abstractTree);
+                List<ITree> iTrees = tree(list, e.getId());
+                if (CollectionUtils.isNotEmpty(iTrees)) {
+                    Collections.sort(iTrees, Comparator.comparingLong(o -> o.getSort()));
+                    item.setChildren(iTrees);
+                }
+                result.add(item);
             }
         });
         return result.size() == 0 ? null : result;

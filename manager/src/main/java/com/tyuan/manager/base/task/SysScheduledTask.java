@@ -12,6 +12,7 @@ import com.tyuan.model.base.cache.CacheConstant;
 import com.tyuan.model.base.cache.DataCache;
 import com.tyuan.model.base.pojo.*;
 import com.tyuan.model.base.pojo.custom.COrganizationInstitution;
+import com.tyuan.model.base.pojo.custom.CSysSource;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
 import org.springframework.data.redis.core.HashOperations;
@@ -80,7 +81,7 @@ public class SysScheduledTask {
     @Scheduled(cron = "${scheduled.menu.refresh.cron}")
     public void refreshMenu() {
         checkLoadCache(LocalCache.SYS_SOURCE, cSysSourceMapper, (cache) -> {
-            List<SysSource> sysSources = cSysSourceMapper.selectByExample(null);
+            List<CSysSource> sysSources = cSysSourceMapper.getAll();
             cache.setData(sysSources);
             LocalCache.SYS_SOURCE = cache;
         });

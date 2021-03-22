@@ -34,17 +34,9 @@ public class OrganizationInstitutionServiceImpl implements OrganizationInstituti
     @Resource
     COrganizationInstitutionMapper corganizeInstitutionMapper;
 
-    @Resource
-    SysScheduledTask sysScheduledTask;
-
     @Override
     public List<COrganizationInstitution> getAll() {
-        List<COrganizationInstitution> list = LocalCache.SYS_INSTITUTION.getData();
-        if (CollectionUtils.isEmpty(list)) {
-            sysScheduledTask.refreshInstitution();
-            return LocalCache.SYS_INSTITUTION.getData();
-        }
-        return list;
+        return corganizeInstitutionMapper.getAll();
     }
 
     @Override
@@ -60,8 +52,6 @@ public class OrganizationInstitutionServiceImpl implements OrganizationInstituti
             throw new ServiceException(ErrorCodeConsts.ERROR, "上级节点不存在，请刷新页面后尝试");
         }
         corganizeInstitutionMapper.insertSelective(sysInstitution);
-        // 更新缓存，不要异步
-        sysScheduledTask.refreshInstitution();
     }
 
     @Override
@@ -77,8 +67,6 @@ public class OrganizationInstitutionServiceImpl implements OrganizationInstituti
         }
         sysInstitution.setInstCode(null);
         corganizeInstitutionMapper.updateByPrimaryKeySelective(sysInstitution);
-        // 更新缓存，不要异步
-        sysScheduledTask.refreshInstitution();
     }
 
 
@@ -98,8 +86,6 @@ public class OrganizationInstitutionServiceImpl implements OrganizationInstituti
             }
             corganizeInstitutionMapper.deleteByPrimaryKey(id);
         }
-        // 更新缓存，不要异步
-        sysScheduledTask.refreshInstitution();
     }
 
     private OrganizationInstitution getByCode(String code) {

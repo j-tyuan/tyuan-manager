@@ -7,6 +7,7 @@ package com.tyuan.manager.base.service;
 
 import com.github.pagehelper.PageInfo;
 import com.tyuan.model.base.pojo.SysRole;
+import com.tyuan.model.base.vo.sys.RoleUserTableParamsVo;
 import com.tyuan.model.base.vo.sys.SysRoleTableParamsVo;
 import com.tyuan.model.base.vo.sys.SysRoleVo;
 
@@ -42,12 +43,11 @@ public interface SysRoleService extends BaseService<SysRoleVo> {
 
 
     /**
-     * 根据角色ID获取
+     * 获取用户
      *
-     * @param id
      * @return
      */
-    List<Long> getBindUserById(Long id);
+    PageInfo getUser(RoleUserTableParamsVo paramsVo);
 
     /**
      * 绑定用户

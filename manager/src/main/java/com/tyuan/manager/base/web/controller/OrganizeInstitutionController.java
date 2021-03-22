@@ -7,6 +7,7 @@
 package com.tyuan.manager.base.web.controller;
 
 import com.tyuan.common.exception.ServiceException;
+import com.tyuan.common.utils.TreeUtils;
 import com.tyuan.manager.base.annotation.Log;
 import com.tyuan.manager.base.aop.LogAspect;
 import com.tyuan.manager.base.service.OrganizationInstitutionService;
@@ -66,7 +67,8 @@ public class OrganizeInstitutionController {
     public ResultData getAll() throws ServiceException {
         ResultData resultData = new ResultData();
         List list = sysInstitutionService.getAll();
-        resultData.setData(list);
+        List newList = TreeUtils.tree(list, 0L);
+        resultData.setData(newList);
         return resultData;
 
     }

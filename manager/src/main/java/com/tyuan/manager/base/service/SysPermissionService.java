@@ -32,13 +32,14 @@ public interface SysPermissionService extends BaseService<SysPermission> {
     List<PermissionTreeVo> getByFormat();
 
     /**
-     *
      * @param id
      * @return
      */
     SysPermission getById(Long id);
 
     /**
+     * 此列表中数据为全局数据，禁止对里面数据做任何操作。否则与导致意外情况
+     * 只允许读取
      *
      * @return
      */

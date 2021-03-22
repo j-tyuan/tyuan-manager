@@ -15,10 +15,12 @@ import com.tyuan.dao.base.mapper.SysRoleMapper;
 import com.tyuan.dao.base.mapper.SysUserRoleMapper;
 import com.tyuan.manager.base.cache.UserInfoCacheService;
 import com.tyuan.manager.base.service.SysRoleService;
+import com.tyuan.manager.base.service.SysUserService;
 import com.tyuan.manager.base.utils.UserInfoHolder;
 import com.tyuan.model.base.ErrorCodeConsts;
 import com.tyuan.model.base.pojo.*;
 import com.tyuan.model.base.vo.DeleteVo;
+import com.tyuan.model.base.vo.sys.RoleUserTableParamsVo;
 import com.tyuan.model.base.vo.sys.SysRoleTableParamsVo;
 import com.tyuan.model.base.vo.sys.SysRoleVo;
 import org.apache.commons.collections.CollectionUtils;
@@ -50,6 +52,9 @@ public class SysRoleServiceImpl implements SysRoleService {
 
     @Resource
     UserInfoCacheService userInfoCacheService;
+
+    @Resource
+    SysUserService sysUserService;
 
     @Override
     public PageInfo<SysRole> getByParams(SysRoleTableParamsVo param) {
@@ -87,7 +92,7 @@ public class SysRoleServiceImpl implements SysRoleService {
         }
 
         sysRoleMapper.insertSelective(sysRole);
-        if (CollectionUtils.isNotEmpty(sysRole.getPermissionIds())){
+        if (CollectionUtils.isNotEmpty(sysRole.getPermissionIds())) {
             cSysRolePermissionMapper.batchBind(sysRole.getId(), sysRole.getPermissionIds());
         }
     }
@@ -104,7 +109,7 @@ public class SysRoleServiceImpl implements SysRoleService {
         sysRoleMapper.updateByPrimaryKeySelective(sysRole);
 
         cSysRolePermissionMapper.unBindByRoleId(sysRole.getId());
-        if (CollectionUtils.isNotEmpty(sysRole.getPermissionIds())){
+        if (CollectionUtils.isNotEmpty(sysRole.getPermissionIds())) {
             cSysRolePermissionMapper.batchBind(sysRole.getId(), sysRole.getPermissionIds());
         }
     }
@@ -168,12 +173,26 @@ public class SysRoleServiceImpl implements SysRoleService {
 
 
     @Override
-    public List<Long> getBindUserById(Long id) {
+    public PageInfo getUser(RoleUserTableParamsVo paramsVo) {
         SysUserRoleExample example = new SysUserRoleExample();
-        example.createCriteria().andRoleIdEqualTo(id);
+        example.createCriteria().andRoleIdEqualTo(paramsVo.getRoleId());
         List<SysUserRole> roles = csysUserRoleMapper.selectByExample(example);
         List<Long> longs = roles.stream().map(e -> e.getUserId()).collect(Collectors.toList());
-        return longs;
+
+        SysUserExample sysUserExample = sysUserService.getUserExampleByParams(paramsVo);
+        List<SysUserExample.Criteria> criterias = sysUserExample.getOredCriteria();
+        SysUserExample.Criteria criteria = criterias.get(0);
+        if (paramsVo.getSearchType() == 1) {
+            // 如果没有用户绑定此角色，直接返回空pageInfo对象
+            if (CollectionUtils.isNotEmpty(longs)) {
+                criteria.andIdIn(longs);
+            } else {
+                return new PageInfo();
+            }
+        } else if (CollectionUtils.isNotEmpty(longs) && paramsVo.getSearchType() == 2){
+            criteria.andIdNotIn(longs);
+        }
+        return sysUserService.getByExample(sysUserExample, paramsVo);
     }
 
     @Override
