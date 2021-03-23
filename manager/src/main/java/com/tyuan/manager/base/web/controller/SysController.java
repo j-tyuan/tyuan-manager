@@ -8,13 +8,13 @@ package com.tyuan.manager.base.web.controller;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.tyuan.common.exception.ServiceException;
+import com.tyuan.manager.base.cache.UserInfoCacheService;
+import com.tyuan.manager.base.service.SysLoginLogService;
 import com.tyuan.manager.base.service.SysPermissionService;
-import com.tyuan.manager.base.service.SysRoleService;
 import com.tyuan.manager.base.service.SysUserService;
 import com.tyuan.manager.base.utils.UserInfoHolder;
 import com.tyuan.manager.base.web.RouteConstant;
 import com.tyuan.manager.base.web.WebConstant;
-import com.tyuan.manager.base.cache.UserInfoCacheService;
 import com.tyuan.model.base.ErrorCodeConsts;
 import com.tyuan.model.base.LoginResult;
 import com.tyuan.model.base.ResultData;
@@ -41,8 +41,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import static com.tyuan.model.base.cache.CacheConstant.TEST_VISIT;
-
 @RestController
 public class SysController {
 
@@ -60,6 +58,9 @@ public class SysController {
 
     @Resource
     private RedisTemplate redisTemplate;
+
+    @Resource
+    SysLoginLogService sysLoginLogService;
 
     @PostMapping(RouteConstant.ROUTER_SYS_LOGIN_ACCOUNT)
     public LoginResult loginAccount(@RequestBody LoginVo loginVo,
@@ -102,11 +103,9 @@ public class SysController {
 
         // 更新登陆信息
         sysUserService.updateUserLoginInfo(request, sysUser.getId());
-
         // 更新用户的缓存信息
-        updateCache(sysUser, token);
+        updateCache(request, sysUser, token);
         loginResult.setStatus("ok");
-
         return loginResult;
     }
 
@@ -148,7 +147,7 @@ public class SysController {
      * @param sysUser
      * @param userToken
      */
-    private void updateCache(SysUser sysUser, String userToken) {
+    private void updateCache(HttpServletRequest request, SysUser sysUser, String userToken) {
 
         String expStr = (String) redisTemplate.opsForHash().get(CacheConstant.SYS_PARAM_MAP, SysParamConsts.LOGIN_EXPIRES);
         Long exp = Long.valueOf(expStr);
@@ -160,11 +159,13 @@ public class SysController {
 
         // TODO 演示版本，此功能暂时不使用
         //userInfoCacheService.leaveMessage(sysUser.getId(), "你的账号已在其它地方登陆");
-        ValueOperations valueOperations = redisTemplate.opsForValue();
-        valueOperations.increment(TEST_VISIT, 1);
         // TODO 演示版本
 
+        // 添加登陆日志
+        sysLoginLogService.add(sysUser, request);
+
         userTokenCacheService.put(sysUser.getId(), userToken, map, exp);
+        // 超级用户
         if (sysUser.getUserType() == 1) {
             userInfoCacheService.putRole(userToken, Lists.newArrayList("sys"), exp);
             userInfoCacheService.putPerm(userToken, Lists.newArrayList("sys"), exp);

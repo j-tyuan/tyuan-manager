@@ -28,8 +28,4 @@ public class CacheConstant {
      */
     public static final String SYS_PARAM_MAP = "MANAGE:SYS:PARAM:MAP";
 
-    /**
-     * 用于测试缓存
-     */
-    public static final String TEST_VISIT = "MANAGE:TEST:VISIT";
 }

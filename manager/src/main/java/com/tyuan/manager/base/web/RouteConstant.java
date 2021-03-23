@@ -12,6 +12,7 @@ public class RouteConstant {
      */
     public static final String ROUTER_SYS_LOGIN_ACCOUNT = "/api/login/account";
 
+
     /**
      * 退出
      */
@@ -116,6 +117,11 @@ public class RouteConstant {
      */
     public static final String ROUTER_SYS_LOG = "/api/sys/log";
     public static final String ROUTER_SYS_LOG_TYPE = "/api/sys/log/type";
+
+    /**
+     * 登陆日志
+     */
+    public static final String ROUTER_SYS_LOG_LOGIN_LIST = "/api/sys/log/login";
 
     /**
      * 机构

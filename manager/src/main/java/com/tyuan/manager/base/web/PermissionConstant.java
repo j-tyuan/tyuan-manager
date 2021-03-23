@@ -76,6 +76,11 @@ public class PermissionConstant {
     public final static String SYS_LOG_LIST = "sys:log:list";
 
     /**
+     *
+     */
+    public final static String SYS_LOG_LOGIN_LIST = "sys:log:login";
+
+    /**
      * 参数权限
      */
     public final static String SYS_ORGANIZATION_INSTITUTION = "sys:organization:institution";
