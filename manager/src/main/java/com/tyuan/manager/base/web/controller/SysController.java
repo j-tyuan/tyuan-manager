@@ -157,7 +157,8 @@ public class SysController {
         map.put("account", sysUser.getAccount());
         map.put("name", sysUser.getName());
 
-        userInfoCacheService.leaveMessage(sysUser.getId(), "你的账号已在其它地方登陆");
+        // 允许多设备登陆
+        //userInfoCacheService.leaveMessage(sysUser.getId(), "你的账号已在其它地方登陆");
 
         // 添加登陆日志
         sysLoginLogService.add(sysUser, request);
