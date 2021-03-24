@@ -26,4 +26,11 @@ public class TestController {
         resultData.setData(0);
         return resultData;
     }
+
+    @GetMapping("/api/notices")
+    public ResultData notices() {
+        ResultData resultData = new ResultData();
+        resultData.setData(0);
+        return resultData;
+    }
 }
