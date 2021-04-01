@@ -37,7 +37,7 @@ public class InitData {
             List<Map<String, Object>> maps = excelAnalysis.get(names);
             insertTable(names, maps);
         }
-
+        fileInputStream.close();
     }
 
     private void insertTable(String name, List<Map<String, Object>> maps) throws SQLException {
