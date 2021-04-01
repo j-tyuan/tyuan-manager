@@ -59,6 +59,9 @@ public class SysUserServiceImpl implements SysUserService {
     @Resource
     UserInfoCacheService userInfoCacheService;
 
+    private static final Pattern PATTERN = Pattern.compile("^\\d{1,11}$");
+
+    @Override
     public SysUserExample getUserExampleByParams(SysUserTableParamsVo param) {
         SysUserExample example = new SysUserExample();
         SysUserExample.Criteria criteria = example.createCriteria();
@@ -249,8 +252,7 @@ public class SysUserServiceImpl implements SysUserService {
     public List fetch(String value) {
         SysUserExample example = new SysUserExample();
         List<SysUser> list;
-        Pattern pattern = Pattern.compile("^\\d{1,11}$");
-        if (pattern.matcher(value).find()) {
+        if (PATTERN.matcher(value).find()) {
             Long l = Long.parseLong(value);
             example.or().andIdEqualTo(l);
             // 查找手机号
@@ -276,6 +278,7 @@ public class SysUserServiceImpl implements SysUserService {
         return list;
     }
 
+    @Override
     public void updateUserLoginInfo(HttpServletRequest request, long userId) {
 
         // 更新登陆信息
@@ -316,7 +319,7 @@ public class SysUserServiceImpl implements SysUserService {
             Iterator<SysUserAvatar> iterator = avatars.iterator();
             while (iterator.hasNext()) {
                 SysUserAvatar item = iterator.next();
-                if (e.getAvatarId() == item.getId()) {
+                if (e.getAvatarId().equals(item.getId())) {
                     map.put("avatar", item.getUserAvatar());
                     iterator.remove();
                     break;

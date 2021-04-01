@@ -100,7 +100,7 @@ public class SysSourceServiceImpl implements SysSourceService {
             Iterator<SysPermission> permIterator = permissions.iterator();
             while (permIterator.hasNext()) {
                 SysPermission sysPower = permIterator.next();
-                if (sysPower.getId() == sysSource.getPermissionId()) {
+                if (sysPower.getId().equals(sysSource.getPermissionId())) {
                     try {
                         //有权限
                         SecurityUtils.getSubject().checkPermission(sysPower.getPermission());

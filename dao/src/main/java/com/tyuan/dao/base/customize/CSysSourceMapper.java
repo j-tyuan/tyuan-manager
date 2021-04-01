@@ -18,6 +18,7 @@ public interface CSysSourceMapper extends SysSourceMapper, ICacheInfo {
      *
      * @return
      */
+    @Override
     @Select("select update_date, b.c total " +
             " from sys_source, " +
             "  (select count(*) c from sys_source) as b " +

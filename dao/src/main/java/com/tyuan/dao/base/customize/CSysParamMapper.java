@@ -16,6 +16,7 @@ public interface CSysParamMapper extends SysParamMapper, ICacheInfo {
      *
      * @return
      */
+    @Override
     @Select("select update_date, b.c total " +
             " from sys_param, " +
             "  (select count(*) c from sys_param) as b " +

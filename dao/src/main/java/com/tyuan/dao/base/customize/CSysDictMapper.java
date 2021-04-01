@@ -16,6 +16,7 @@ public interface CSysDictMapper extends SysDictMapper, ICacheInfo {
      *
      * @return
      */
+    @Override
     @Select("select update_date, b.c total " +
             " from sys_dict, " +
             "  (select count(*) c from sys_dict) as b " +

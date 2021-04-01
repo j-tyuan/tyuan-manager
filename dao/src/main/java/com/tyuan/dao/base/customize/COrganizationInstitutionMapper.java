@@ -26,6 +26,7 @@ public interface COrganizationInstitutionMapper extends OrganizationInstitutionM
      *
      * @return
      */
+    @Override
     @Select("select update_date, b.c total " +
             " from organization_institution, " +
             "  (select count(*) c from organization_institution) as b " +

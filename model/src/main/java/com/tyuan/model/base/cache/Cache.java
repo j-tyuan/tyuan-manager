@@ -52,8 +52,12 @@ public class Cache {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Cache cache = (Cache) o;
         return updateTime == cache.updateTime &&
                 total == cache.total;

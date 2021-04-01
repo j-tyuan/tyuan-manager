@@ -50,7 +50,7 @@ public class TreeUtils {
         List<ITree> result = Lists.newArrayList();
         list.forEach(e -> {
             ITree item = e;
-            if (e.getParentId() == pid) {
+            if (e.getParentId().equals(pid)) {
                 List<ITree> iTrees = tree(list, e.getId());
                 if (CollectionUtils.isNotEmpty(iTrees)) {
                     Collections.sort(iTrees, Comparator.comparingLong(o -> o.getSort()));

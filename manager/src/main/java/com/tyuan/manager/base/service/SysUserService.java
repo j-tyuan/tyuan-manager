@@ -75,6 +75,7 @@ public interface SysUserService extends BaseService<SysUserVo> {
      * @param sysUser
      * @throws ServiceException
      */
+    @Override
     void add(SysUserVo sysUser) throws ServiceException;
 
     /**
@@ -83,6 +84,7 @@ public interface SysUserService extends BaseService<SysUserVo> {
      * @param sysUser
      * @throws ServiceException
      */
+    @Override
     void edit(SysUserVo sysUser) throws ServiceException;
 
     /**
