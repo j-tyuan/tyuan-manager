@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.springmg</groupId>
+        <groupId>org.tyuan</groupId>
         <artifactId>parent</artifactId>
         <version>1.0</version>
     </parent>
@@ -16,8 +16,8 @@
     <dependencies>
         <dependency>
             <groupId>${project.parent.groupId}</groupId>
-            <artifactId>mg-common</artifactId>
-            <version>${spring-mg.version}</version>
+            <artifactId>tyuan-common</artifactId>
+            <version>${tyuanversion}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
