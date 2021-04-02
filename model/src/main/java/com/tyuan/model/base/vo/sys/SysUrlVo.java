@@ -1,9 +1,9 @@
 package com.tyuan.model.base.vo.sys;
 
 import com.tyuan.model.base.pojo.SysSource;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.validator.constraints.NotEmpty;
 
 import java.io.Serializable;
 

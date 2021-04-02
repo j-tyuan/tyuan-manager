@@ -1,12 +1,12 @@
 package com.tyuan.model.base.vo.sys;
 
 import com.tyuan.model.base.pojo.SysUser;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotEmpty;
 
-import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.util.List;
 

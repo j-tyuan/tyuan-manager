@@ -6,10 +6,10 @@
 package com.tyuan.model.base.vo.sys;
 
 import com.tyuan.model.base.pojo.OrganizationInstitution;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Getter
