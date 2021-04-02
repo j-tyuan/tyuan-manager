@@ -9,22 +9,19 @@
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.3.9.RELEASE</version>
     </parent>
-
-
-    <groupId>com.tyuan</groupId>
+    <groupId>org.springmg</groupId>
     <artifactId>parent</artifactId>
     <packaging>pom</packaging>
     <version>1.0</version>
 
     <modules>
-        <module>common</module>
+        <module>mg-common</module>
         <module>test</module>
-        <module>manager</module>
-        <module>model</module>
-        <module>dao</module>
+        <module>mg-service</module>
     </modules>
 
     <properties>
+        <spring-mg.version>1.0</spring-mg.version>
         <lombok.version>1.18.6</lombok.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
@@ -223,6 +220,23 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
+        </dependency>
+
+
+
+
+        <!-- Druid -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
+            <version>1.1.22</version>
+        </dependency>
+
+        <!-- MySQL -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.16</version>
         </dependency>
     </dependencies>
 </project>
