@@ -34,7 +34,7 @@
         <!-- targetPackage：生成的实体类所在的包 -->
         <!-- targetProject：生成的实体类所在的硬盘位置 -->
         <javaModelGenerator targetPackage="org.tyuan.model.pojo"
-                            targetProject="../model/src/main/java">
+                            targetProject="../tyuan-model/src/main/java">
             <!-- 是否允许子包 -->
             <property name="enableSubPackages" value="false"/>
             <!-- 是否对modal添加构造函数 -->
@@ -55,7 +55,7 @@
         <!-- targetPackage 和 targetProject：生成的 interface 文件的包和位置 -->
         <javaClientGenerator type="ANNOTATEDMAPPER"
                              targetPackage="org.tyuan.dao.base.mapper"
-                             targetProject="../dao/src/main/java">
+                             targetProject="../tyuan-dao/src/main/java">
             <!-- 针对 oracle 数据库的一个配置，是否把 schema 作为字包名 -->
             <property name="enableSubPackages" value="false"/>
         </javaClientGenerator>
