@@ -1,9 +1,4 @@
 /**
- * @version 1.0
- * @author jiangguiqi@aliyun.com
- * @date 2021/2/5 11:39 上午
- */
-/**
  * Copyright (c) 2020-2038, Jiangguiqi 齐 (author@tyuan.design).
  * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
