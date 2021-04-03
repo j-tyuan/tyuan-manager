@@ -17,7 +17,7 @@
         <dependency>
             <groupId>${project.parent.groupId}</groupId>
             <artifactId>tyuan-common</artifactId>
-            <version>${tyuanversion}</version>
+            <version>${tyuan-version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
