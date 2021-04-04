@@ -23,8 +23,8 @@ public class SysParamConsts {
     public static final String LOGIN_EXPIRES = "login.expires";
 
     /**
-     * 员工编号自增
+     * 水印
      */
-    public static final String USER_NO_AUTO_INCREMENT = "user.no.auto_increment";
+    public static final String SYS_WATER_MARK = "sys.watermark";
 }
 

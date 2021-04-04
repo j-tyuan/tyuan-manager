@@ -19,6 +19,7 @@ import com.google.common.collect.Lists;
 import org.tyuan.common.ITree;
 import org.apache.commons.collections4.CollectionUtils;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -47,6 +48,55 @@ public class TreeUtils {
             }
         }
         return ids;
+    }
+
+    /**
+     * 获取平铺后的机构信息
+     *
+     * @param data
+     * @param id
+     * @return
+     */
+    public static List getChildAndFlat(List<? extends ITree> data, final Long id) {
+        List child = getChild(data, id);
+        if (CollectionUtils.isEmpty(child)) {
+            return Lists.newArrayList();
+        }
+        return flat(child);
+    }
+
+    /**
+     * 获取平铺后的机构ID
+     *
+     * @param data
+     * @param id
+     * @return
+     */
+    public static List getChildIdAndFlat(List<? extends ITree> data, final Long id) {
+        List<ITree> childAndFlat = getChildAndFlat(data, id);
+        if (CollectionUtils.isEmpty(childAndFlat)) {
+            return Lists.newArrayList();
+        }
+        return childAndFlat.stream().mapToLong(e -> e.getId()).collect(ArrayList::new, ArrayList::add, ArrayList::addAll);
+    }
+
+
+    /**
+     * 平铺
+     *
+     * @param data
+     * @return
+     */
+    public static List flat(List<? extends ITree> data) {
+        List list = Lists.newArrayList();
+        for (ITree iTree : data) {
+            list.add(iTree);
+            List<ITree> children = iTree.getChildren();
+            if (CollectionUtils.isNotEmpty(children)) {
+                list.addAll(flat(children));
+            }
+        }
+        return list;
     }
 
     /**

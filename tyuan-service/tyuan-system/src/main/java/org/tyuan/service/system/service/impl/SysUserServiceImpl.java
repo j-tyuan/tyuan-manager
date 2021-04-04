@@ -47,10 +47,7 @@ import org.tyuan.service.system.service.SysUserService;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.text.MessageFormat;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -75,7 +72,7 @@ public class SysUserServiceImpl implements SysUserService {
     private static final Pattern PATTERN = Pattern.compile("^\\d{1,11}$");
 
     @Override
-    public SysUserExample getUserExampleByParams(SysUserTableParamsVo param) {
+    public SysUserExample getUserExampleByParams(SysUserTableParamsVo param, List<COrganizationInstitution> treeInst) {
         SysUserExample example = new SysUserExample();
         SysUserExample.Criteria criteria = example.createCriteria();
 
@@ -103,16 +100,11 @@ public class SysUserServiceImpl implements SysUserService {
             flag = true;
         }
         // 如果没有其它 必要的查询参数 且机构id不为空的话，就按照机构来查询，否则就去除机构这个条件
-        if (!flag && null != param.getInstId()) {
-            List<COrganizationInstitution> list = cOrganizationInstitutionMapper.getAll();
-            List<COrganizationInstitution> child = TreeUtils.getChild(list, param.getInstId());
-            List<Long> ids = Lists.newArrayList();
-            if (CollectionUtils.isNotEmpty(child)) {
-                ids.add(param.getInstId());
-                child.forEach(e -> {
-                    ids.add(e.getId());
-                });
-                criteria.andInstIdIn(ids);
+        if (!flag && null != param.getInstId() && CollectionUtils.isNotEmpty(treeInst)) {
+            // 获取当前机构的所有子节点Id
+            List childIdAndFlat = TreeUtils.getChildIdAndFlat(treeInst, param.getInstId());
+            if (CollectionUtils.isNotEmpty(childIdAndFlat)) {
+                criteria.andInstIdIn(childIdAndFlat);
             } else {
                 criteria.andInstIdEqualTo(param.getInstId());
             }
@@ -134,8 +126,8 @@ public class SysUserServiceImpl implements SysUserService {
 
 
     @Override
-    public PageInfo getByParams(SysUserTableParamsVo param) {
-        SysUserExample sysUserExample = getUserExampleByParams(param);
+    public PageInfo getByParams(SysUserTableParamsVo param, List<COrganizationInstitution> treeInst) {
+        SysUserExample sysUserExample = getUserExampleByParams(param, treeInst);
         return getByExample(sysUserExample, param);
     }
 

@@ -82,8 +82,18 @@ public class SysParamServerImpl implements SysParamService {
     public List<SysParam> getAll() {
         HashOperations hashoperations = redisTemplate.opsForHash();
         List<SysParam> sysParams = (List<SysParam>) hashoperations.entries(CacheConstant.SYS_PARAM_INFO);
-
         return sysParams;
+    }
+
+    @Override
+    public SysParam getByKey(String key) {
+        SysParamExample example = new SysParamExample();
+        example.createCriteria().andParamKeyEqualTo(key);
+        List<SysParam> sysParams = cSysParamMapper.selectByExampleWithBLOBs(example);
+        if (CollectionUtils.isNotEmpty(sysParams)) {
+            return sysParams.get(0);
+        }
+        return null;
     }
 
     @Override
@@ -123,6 +133,10 @@ public class SysParamServerImpl implements SysParamService {
     @Override
     @Transactional(rollbackFor = {Exception.class, Error.class}, isolation = Isolation.DEFAULT)
     public void edit(SysParam sysParam) throws ServiceException {
+        if (null == sysParam.getId()) {
+            add(sysParam);
+            return;
+        }
         sysParam.setUpdateBy(UserInfoHolder.getUserName());
         sysParam.setParamKey(null);
         sysParam.setCreateBy(null);

@@ -20,6 +20,7 @@ import org.tyuan.common.exception.ServiceException;
 import org.tyuan.service.system.model.pojo.SysRole;
 import org.tyuan.service.system.model.pojo.SysUser;
 import org.tyuan.service.system.model.pojo.SysUserExample;
+import org.tyuan.service.system.model.pojo.custom.COrganizationInstitution;
 import org.tyuan.service.system.model.vo.DataTableParam;
 import org.tyuan.service.system.model.vo.sys.SysUserTableParamsVo;
 import org.tyuan.service.system.model.vo.sys.SysUserVo;
@@ -59,7 +60,7 @@ public interface SysUserService extends BaseService<SysUserVo> {
      * @param param
      * @return
      */
-    SysUserExample getUserExampleByParams(SysUserTableParamsVo param);
+    SysUserExample getUserExampleByParams(SysUserTableParamsVo param, List<COrganizationInstitution> treeInst);
 
     /**
      * 获取用户列表
@@ -68,7 +69,7 @@ public interface SysUserService extends BaseService<SysUserVo> {
      * @param param
      * @return
      */
-    PageInfo getByParams(SysUserTableParamsVo param);
+    PageInfo getByParams(SysUserTableParamsVo param, List<COrganizationInstitution> treeInst);
 
     /**
      * 获取用户列表
