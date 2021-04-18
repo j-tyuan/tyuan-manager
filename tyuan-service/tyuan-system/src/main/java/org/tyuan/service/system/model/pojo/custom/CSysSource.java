@@ -26,5 +26,10 @@ import java.util.List;
 @Setter
 public class CSysSource extends SysSource implements ITree {
 
+    @Override
+    public Long getSort() {
+        return this.getSourceSort();
+    }
+
     List<ITree> children;
 }

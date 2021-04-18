@@ -45,6 +45,14 @@ public class SysUserRoleSqlProvider {
         SQL sql = new SQL();
         sql.INSERT_INTO("sys_user_role");
         
+        if (record.getCreateTime() != null) {
+            sql.VALUES("create_time", "#{createTime,jdbcType=TIMESTAMP}");
+        }
+        
+        if (record.getUpdateTime() != null) {
+            sql.VALUES("update_time", "#{updateTime,jdbcType=TIMESTAMP}");
+        }
+        
         if (record.getUserId() != null) {
             sql.VALUES("user_id", "#{userId,jdbcType=BIGINT}");
         }
@@ -69,6 +77,8 @@ public class SysUserRoleSqlProvider {
         } else {
             sql.SELECT("id");
         }
+        sql.SELECT("create_time");
+        sql.SELECT("update_time");
         sql.SELECT("user_id");
         sql.SELECT("role_id");
         sql.FROM("sys_user_role");
@@ -98,6 +108,14 @@ public class SysUserRoleSqlProvider {
             sql.SET("id = #{record.id,jdbcType=BIGINT}");
         }
         
+        if (record.getCreateTime() != null) {
+            sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
+        }
+        
+        if (record.getUpdateTime() != null) {
+            sql.SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
+        }
+        
         if (record.getUserId() != null) {
             sql.SET("user_id = #{record.userId,jdbcType=BIGINT}");
         }
@@ -121,6 +139,8 @@ public class SysUserRoleSqlProvider {
         sql.UPDATE("sys_user_role");
         
         sql.SET("id = #{record.id,jdbcType=BIGINT}");
+        sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
+        sql.SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
         sql.SET("user_id = #{record.userId,jdbcType=BIGINT}");
         sql.SET("role_id = #{record.roleId,jdbcType=BIGINT}");
         
@@ -138,6 +158,14 @@ public class SysUserRoleSqlProvider {
     public String updateByPrimaryKeySelective(SysUserRole record) {
         SQL sql = new SQL();
         sql.UPDATE("sys_user_role");
+        
+        if (record.getCreateTime() != null) {
+            sql.SET("create_time = #{createTime,jdbcType=TIMESTAMP}");
+        }
+        
+        if (record.getUpdateTime() != null) {
+            sql.SET("update_time = #{updateTime,jdbcType=TIMESTAMP}");
+        }
         
         if (record.getUserId() != null) {
             sql.SET("user_id = #{userId,jdbcType=BIGINT}");

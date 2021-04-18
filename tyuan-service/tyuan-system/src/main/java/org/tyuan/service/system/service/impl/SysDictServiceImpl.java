@@ -67,19 +67,19 @@ public class SysDictServiceImpl implements SysDictService {
         SysDictExample.Criteria criteria = example.createCriteria();
 
         String like = "%{0}%";
-        String label = param.getLabel();
+        String label = param.getDictLabel();
         if (StringUtils.isNotBlank(label)) {
-            criteria.andLabelLike(MessageFormat.format(like, label));
+            criteria.andDictLabelLike(MessageFormat.format(like, label));
         }
-        String type = param.getType();
+        String type = param.getDictType();
         if (StringUtils.isNotBlank(type) && !"all".equals(type)) {
-            criteria.andTypeEqualTo(param.getType());
+            criteria.andDictTypeEqualTo(param.getDictType());
         }
         if (null != param.getParentId()) {
             criteria.andParentIdEqualTo(param.getParentId());
         }
         PageHelper.offsetPage(param.getOffset(), param.getPageSize())
-                .setOrderBy("update_date desc");
+                .setOrderBy("update_time desc");
         List<SysDict> result = csysDictMapper.selectByExample(example);
 
         return new PageInfo(result);
@@ -89,14 +89,14 @@ public class SysDictServiceImpl implements SysDictService {
     @Transactional(rollbackFor = {Exception.class, Error.class}, isolation = Isolation.DEFAULT)
     public void add(SysDict sysDict) throws ServiceException {
 
-        String label = sysDict.getLabel();
+        String label = sysDict.getDictLabel();
         if (StringUtils.isBlank(label)) {
 
             logger.info("{} - 【添加字典失败】info：{}", UserInfoHolder.getUserName(), "label 为null");
             throw new ServiceException(ErrorCodeConsts.ERROR_INFO_LACK, "参数错误");
         }
 
-        if (StringUtils.isBlank(sysDict.getValue())) {
+        if (StringUtils.isBlank(sysDict.getDictValue())) {
 
             logger.info("{} - 【添加字典失败】info：{}", UserInfoHolder.getUserName(), "value 为null");
             throw new ServiceException(ErrorCodeConsts.ERROR_INFO_LACK, "参数错误");
@@ -106,8 +106,8 @@ public class SysDictServiceImpl implements SysDictService {
         sysDict.setUpdateBy(UserInfoHolder.getUserName());
 
         Date today = new Date();
-        sysDict.setUpdateDate(today);
-        sysDict.setCreateDate(today);
+        sysDict.setUpdateTime(today);
+        sysDict.setCreateTime(today);
 
         csysDictMapper.insertSelective(sysDict);
         logger.info("{} - 【添加字典成功】info：label - {}", UserInfoHolder.getUserName(), label);
@@ -125,7 +125,7 @@ public class SysDictServiceImpl implements SysDictService {
         }
 
         sysDict.setUpdateBy(UserInfoHolder.getUserName());
-        sysDict.setUpdateDate(new Date());
+        sysDict.setUpdateTime(new Date());
         csysDictMapper.updateByPrimaryKeySelective(sysDict);
 
         logger.info("{} - 【字典修改成功】info： {}", UserInfoHolder.getUserName(), id);
@@ -149,7 +149,7 @@ public class SysDictServiceImpl implements SysDictService {
     public SysDict getByLabel(String label) {
 
         SysDictExample example = new SysDictExample();
-        example.createCriteria().andLabelEqualTo(label);
+        example.createCriteria().andDictLabelEqualTo(label);
         List<SysDict> dicts = csysDictMapper.selectByExample(example);
 
         if (CollectionUtils.isNotEmpty(dicts)) {

@@ -58,14 +58,6 @@ public class SysPermissionController {
         return resultData;
     }
 
-/*    @GetMapping(RouteConstant.ROUTER_SYS_PERMISSION)
-    @RequiresPermissions(PermissionConstant.SYS_PERMISSION)
-    public ResultData getByFormat() {
-        ResultData resultData = new ResultData();
-        resultData.setData(sysPowerService.getByFormat());
-        return resultData;
-    }*/
-
     @GetMapping(RouteConstant.ROUTER_SYS_PERMISSION)
     @RequiresPermissions(PermissionConstant.SYS_PERMISSION)
     public ResultData getAll() {

@@ -27,10 +27,10 @@ import java.io.Serializable;
 public class SysDictVo extends SysDict implements Serializable {
 
     @NotEmpty(message = "值不许为空")
-    private String value;
+    private String dictValue;
 
     @NotEmpty(message = "标签不允许为空")
-    private String label;
+    private String dictLabel;
 
 
 }

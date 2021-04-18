@@ -44,9 +44,9 @@ spring:
     include: dev-local
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://rm-bp1g992ma0n02wy1h5o.mysql.rds.aliyuncs.com/base_manager?useSSL=false&useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
-    username: jiangguiqi
-    password: joson_jiang_7410
+    url: ${datasource.url}
+    username: ${datasource.username}
+    password: ${datasource.password}
   redis:
     # Redis数据库索引（默认为0）
     database: 1

@@ -55,14 +55,14 @@ public interface SysMdictMapper {
      * @mbg.generated
      */
     @Insert({
-        "insert into sys_mdict (create_date, update_date, ",
-        "parent_id, name, sort, ",
-        "description, create_by, ",
+        "insert into sys_mdict (create_time, update_time, ",
+        "parent_id, mdict_name, ",
+        "mdict_sort, create_by, ",
         "update_by, remarks, ",
         "del_flag)",
-        "values (#{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}, ",
-        "#{parentId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{sort,jdbcType=DECIMAL}, ",
-        "#{description,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, ",
+        "values (#{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, ",
+        "#{parentId,jdbcType=BIGINT}, #{mdictName,jdbcType=VARCHAR}, ",
+        "#{mdictSort,jdbcType=DECIMAL}, #{createBy,jdbcType=VARCHAR}, ",
         "#{updateBy,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, ",
         "#{delFlag,jdbcType=BIT})"
     })
@@ -88,12 +88,11 @@ public interface SysMdictMapper {
     @SelectProvider(type=SysMdictSqlProvider.class, method="selectByExample")
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
-        @Result(column="create_date", property="createDate", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="update_date", property="updateDate", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="update_time", property="updateTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="parent_id", property="parentId", jdbcType=JdbcType.BIGINT),
-        @Result(column="name", property="name", jdbcType=JdbcType.VARCHAR),
-        @Result(column="sort", property="sort", jdbcType=JdbcType.DECIMAL),
-        @Result(column="description", property="description", jdbcType=JdbcType.VARCHAR),
+        @Result(column="mdict_name", property="mdictName", jdbcType=JdbcType.VARCHAR),
+        @Result(column="mdict_sort", property="mdictSort", jdbcType=JdbcType.DECIMAL),
         @Result(column="create_by", property="createBy", jdbcType=JdbcType.VARCHAR),
         @Result(column="update_by", property="updateBy", jdbcType=JdbcType.VARCHAR),
         @Result(column="remarks", property="remarks", jdbcType=JdbcType.VARCHAR),
@@ -109,19 +108,18 @@ public interface SysMdictMapper {
      */
     @Select({
         "select",
-        "id, create_date, update_date, parent_id, name, sort, description, create_by, ",
+        "id, create_time, update_time, parent_id, mdict_name, mdict_sort, create_by, ",
         "update_by, remarks, del_flag",
         "from sys_mdict",
         "where id = #{id,jdbcType=BIGINT}"
     })
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
-        @Result(column="create_date", property="createDate", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="update_date", property="updateDate", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="update_time", property="updateTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="parent_id", property="parentId", jdbcType=JdbcType.BIGINT),
-        @Result(column="name", property="name", jdbcType=JdbcType.VARCHAR),
-        @Result(column="sort", property="sort", jdbcType=JdbcType.DECIMAL),
-        @Result(column="description", property="description", jdbcType=JdbcType.VARCHAR),
+        @Result(column="mdict_name", property="mdictName", jdbcType=JdbcType.VARCHAR),
+        @Result(column="mdict_sort", property="mdictSort", jdbcType=JdbcType.DECIMAL),
         @Result(column="create_by", property="createBy", jdbcType=JdbcType.VARCHAR),
         @Result(column="update_by", property="updateBy", jdbcType=JdbcType.VARCHAR),
         @Result(column="remarks", property="remarks", jdbcType=JdbcType.VARCHAR),
@@ -164,12 +162,11 @@ public interface SysMdictMapper {
      */
     @Update({
         "update sys_mdict",
-        "set create_date = #{createDate,jdbcType=TIMESTAMP},",
-          "update_date = #{updateDate,jdbcType=TIMESTAMP},",
+        "set create_time = #{createTime,jdbcType=TIMESTAMP},",
+          "update_time = #{updateTime,jdbcType=TIMESTAMP},",
           "parent_id = #{parentId,jdbcType=BIGINT},",
-          "name = #{name,jdbcType=VARCHAR},",
-          "sort = #{sort,jdbcType=DECIMAL},",
-          "description = #{description,jdbcType=VARCHAR},",
+          "mdict_name = #{mdictName,jdbcType=VARCHAR},",
+          "mdict_sort = #{mdictSort,jdbcType=DECIMAL},",
           "create_by = #{createBy,jdbcType=VARCHAR},",
           "update_by = #{updateBy,jdbcType=VARCHAR},",
           "remarks = #{remarks,jdbcType=VARCHAR},",

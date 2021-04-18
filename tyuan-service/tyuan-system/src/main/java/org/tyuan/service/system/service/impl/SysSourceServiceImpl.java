@@ -77,7 +77,7 @@ public class SysSourceServiceImpl implements SysSourceService {
         }
 
         sysSource.setUpdateBy(UserInfoHolder.getUserName());
-        sysSource.setUpdateDate(new Date());
+        sysSource.setUpdateTime(new Date());
 
         csysSourceMapper.updateByPrimaryKeySelective(sysSource);
 

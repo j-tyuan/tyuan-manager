@@ -25,11 +25,11 @@ public class SysUserTableParamsVo extends DataTableParam {
 
     private String userNo;
 
-    private String name;
+    private String userName;
 
-    private String account;
+    private String userAccount;
 
-    private String phone;
+    private String userPhone;
 
     private String loginDate;
 

@@ -45,6 +45,14 @@ public class OrganizationInstitutionSqlProvider {
         SQL sql = new SQL();
         sql.INSERT_INTO("organization_institution");
         
+        if (record.getCreateTime() != null) {
+            sql.VALUES("create_time", "#{createTime,jdbcType=TIMESTAMP}");
+        }
+        
+        if (record.getUpdateTime() != null) {
+            sql.VALUES("update_time", "#{updateTime,jdbcType=TIMESTAMP}");
+        }
+        
         if (record.getParentId() != null) {
             sql.VALUES("parent_id", "#{parentId,jdbcType=BIGINT}");
         }
@@ -73,16 +81,8 @@ public class OrganizationInstitutionSqlProvider {
             sql.VALUES("inst_status", "#{instStatus,jdbcType=INTEGER}");
         }
         
-        if (record.getInstDesc() != null) {
-            sql.VALUES("inst_desc", "#{instDesc,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getCreateDate() != null) {
-            sql.VALUES("create_date", "#{createDate,jdbcType=TIMESTAMP}");
-        }
-        
-        if (record.getUpdateDate() != null) {
-            sql.VALUES("update_date", "#{updateDate,jdbcType=TIMESTAMP}");
+        if (record.getRemarks() != null) {
+            sql.VALUES("remarks", "#{remarks,jdbcType=VARCHAR}");
         }
         
         return sql.toString();
@@ -101,6 +101,8 @@ public class OrganizationInstitutionSqlProvider {
         } else {
             sql.SELECT("id");
         }
+        sql.SELECT("create_time");
+        sql.SELECT("update_time");
         sql.SELECT("parent_id");
         sql.SELECT("inst_code");
         sql.SELECT("inst_name");
@@ -108,9 +110,7 @@ public class OrganizationInstitutionSqlProvider {
         sql.SELECT("owner_user_id");
         sql.SELECT("inst_sort");
         sql.SELECT("inst_status");
-        sql.SELECT("inst_desc");
-        sql.SELECT("create_date");
-        sql.SELECT("update_date");
+        sql.SELECT("remarks");
         sql.FROM("organization_institution");
         applyWhere(sql, example, false);
         
@@ -136,6 +136,14 @@ public class OrganizationInstitutionSqlProvider {
         
         if (record.getId() != null) {
             sql.SET("id = #{record.id,jdbcType=BIGINT}");
+        }
+        
+        if (record.getCreateTime() != null) {
+            sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
+        }
+        
+        if (record.getUpdateTime() != null) {
+            sql.SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
         }
         
         if (record.getParentId() != null) {
@@ -166,16 +174,8 @@ public class OrganizationInstitutionSqlProvider {
             sql.SET("inst_status = #{record.instStatus,jdbcType=INTEGER}");
         }
         
-        if (record.getInstDesc() != null) {
-            sql.SET("inst_desc = #{record.instDesc,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getCreateDate() != null) {
-            sql.SET("create_date = #{record.createDate,jdbcType=TIMESTAMP}");
-        }
-        
-        if (record.getUpdateDate() != null) {
-            sql.SET("update_date = #{record.updateDate,jdbcType=TIMESTAMP}");
+        if (record.getRemarks() != null) {
+            sql.SET("remarks = #{record.remarks,jdbcType=VARCHAR}");
         }
         
         applyWhere(sql, example, true);
@@ -193,6 +193,8 @@ public class OrganizationInstitutionSqlProvider {
         sql.UPDATE("organization_institution");
         
         sql.SET("id = #{record.id,jdbcType=BIGINT}");
+        sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
+        sql.SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
         sql.SET("parent_id = #{record.parentId,jdbcType=BIGINT}");
         sql.SET("inst_code = #{record.instCode,jdbcType=VARCHAR}");
         sql.SET("inst_name = #{record.instName,jdbcType=VARCHAR}");
@@ -200,9 +202,7 @@ public class OrganizationInstitutionSqlProvider {
         sql.SET("owner_user_id = #{record.ownerUserId,jdbcType=BIGINT}");
         sql.SET("inst_sort = #{record.instSort,jdbcType=INTEGER}");
         sql.SET("inst_status = #{record.instStatus,jdbcType=INTEGER}");
-        sql.SET("inst_desc = #{record.instDesc,jdbcType=VARCHAR}");
-        sql.SET("create_date = #{record.createDate,jdbcType=TIMESTAMP}");
-        sql.SET("update_date = #{record.updateDate,jdbcType=TIMESTAMP}");
+        sql.SET("remarks = #{record.remarks,jdbcType=VARCHAR}");
         
         OrganizationInstitutionExample example = (OrganizationInstitutionExample) parameter.get("example");
         applyWhere(sql, example, true);
@@ -218,6 +218,14 @@ public class OrganizationInstitutionSqlProvider {
     public String updateByPrimaryKeySelective(OrganizationInstitution record) {
         SQL sql = new SQL();
         sql.UPDATE("organization_institution");
+        
+        if (record.getCreateTime() != null) {
+            sql.SET("create_time = #{createTime,jdbcType=TIMESTAMP}");
+        }
+        
+        if (record.getUpdateTime() != null) {
+            sql.SET("update_time = #{updateTime,jdbcType=TIMESTAMP}");
+        }
         
         if (record.getParentId() != null) {
             sql.SET("parent_id = #{parentId,jdbcType=BIGINT}");
@@ -247,16 +255,8 @@ public class OrganizationInstitutionSqlProvider {
             sql.SET("inst_status = #{instStatus,jdbcType=INTEGER}");
         }
         
-        if (record.getInstDesc() != null) {
-            sql.SET("inst_desc = #{instDesc,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getCreateDate() != null) {
-            sql.SET("create_date = #{createDate,jdbcType=TIMESTAMP}");
-        }
-        
-        if (record.getUpdateDate() != null) {
-            sql.SET("update_date = #{updateDate,jdbcType=TIMESTAMP}");
+        if (record.getRemarks() != null) {
+            sql.SET("remarks = #{remarks,jdbcType=VARCHAR}");
         }
         
         sql.WHERE("id = #{id,jdbcType=BIGINT}");

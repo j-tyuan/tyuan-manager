@@ -55,9 +55,9 @@ public interface SysUserAvatarMapper {
      * @mbg.generated
      */
     @Insert({
-        "insert into sys_user_avatar (create_date, update_date, ",
+        "insert into sys_user_avatar (create_time, update_time, ",
         "user_avatar)",
-        "values (#{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}, ",
+        "values (#{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, ",
         "#{userAvatar,jdbcType=LONGVARCHAR})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Long.class)
@@ -82,8 +82,8 @@ public interface SysUserAvatarMapper {
     @SelectProvider(type=SysUserAvatarSqlProvider.class, method="selectByExampleWithBLOBs")
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
-        @Result(column="create_date", property="createDate", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="update_date", property="updateDate", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="update_time", property="updateTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="user_avatar", property="userAvatar", jdbcType=JdbcType.LONGVARCHAR)
     })
     List<SysUserAvatar> selectByExampleWithBLOBs(SysUserAvatarExample example);
@@ -97,8 +97,8 @@ public interface SysUserAvatarMapper {
     @SelectProvider(type=SysUserAvatarSqlProvider.class, method="selectByExample")
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
-        @Result(column="create_date", property="createDate", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="update_date", property="updateDate", jdbcType=JdbcType.TIMESTAMP)
+        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="update_time", property="updateTime", jdbcType=JdbcType.TIMESTAMP)
     })
     List<SysUserAvatar> selectByExample(SysUserAvatarExample example);
 
@@ -110,14 +110,14 @@ public interface SysUserAvatarMapper {
      */
     @Select({
         "select",
-        "id, create_date, update_date, user_avatar",
+        "id, create_time, update_time, user_avatar",
         "from sys_user_avatar",
         "where id = #{id,jdbcType=BIGINT}"
     })
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
-        @Result(column="create_date", property="createDate", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="update_date", property="updateDate", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="update_time", property="updateTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="user_avatar", property="userAvatar", jdbcType=JdbcType.LONGVARCHAR)
     })
     SysUserAvatar selectByPrimaryKey(Long id);
@@ -166,8 +166,8 @@ public interface SysUserAvatarMapper {
      */
     @Update({
         "update sys_user_avatar",
-        "set create_date = #{createDate,jdbcType=TIMESTAMP},",
-          "update_date = #{updateDate,jdbcType=TIMESTAMP},",
+        "set create_time = #{createTime,jdbcType=TIMESTAMP},",
+          "update_time = #{updateTime,jdbcType=TIMESTAMP},",
           "user_avatar = #{userAvatar,jdbcType=LONGVARCHAR}",
         "where id = #{id,jdbcType=BIGINT}"
     })
@@ -181,8 +181,8 @@ public interface SysUserAvatarMapper {
      */
     @Update({
         "update sys_user_avatar",
-        "set create_date = #{createDate,jdbcType=TIMESTAMP},",
-          "update_date = #{updateDate,jdbcType=TIMESTAMP}",
+        "set create_time = #{createTime,jdbcType=TIMESTAMP},",
+          "update_time = #{updateTime,jdbcType=TIMESTAMP}",
         "where id = #{id,jdbcType=BIGINT}"
     })
     int updateByPrimaryKey(SysUserAvatar record);

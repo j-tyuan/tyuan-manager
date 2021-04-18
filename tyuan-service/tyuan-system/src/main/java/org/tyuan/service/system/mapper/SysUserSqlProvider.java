@@ -45,32 +45,32 @@ public class SysUserSqlProvider {
         SQL sql = new SQL();
         sql.INSERT_INTO("sys_user");
         
-        if (record.getCreateDate() != null) {
-            sql.VALUES("create_date", "#{createDate,jdbcType=TIMESTAMP}");
+        if (record.getCreateTime() != null) {
+            sql.VALUES("create_time", "#{createTime,jdbcType=TIMESTAMP}");
         }
         
-        if (record.getUpdateDate() != null) {
-            sql.VALUES("update_date", "#{updateDate,jdbcType=TIMESTAMP}");
+        if (record.getUpdateTime() != null) {
+            sql.VALUES("update_time", "#{updateTime,jdbcType=TIMESTAMP}");
         }
         
-        if (record.getAccount() != null) {
-            sql.VALUES("account", "#{account,jdbcType=VARCHAR}");
+        if (record.getUserAccount() != null) {
+            sql.VALUES("user_account", "#{userAccount,jdbcType=VARCHAR}");
         }
         
-        if (record.getPassword() != null) {
-            sql.VALUES("password", "#{password,jdbcType=VARCHAR}");
+        if (record.getUserPwd() != null) {
+            sql.VALUES("user_pwd", "#{userPwd,jdbcType=VARCHAR}");
         }
         
-        if (record.getName() != null) {
-            sql.VALUES("name", "#{name,jdbcType=VARCHAR}");
+        if (record.getUserName() != null) {
+            sql.VALUES("user_name", "#{userName,jdbcType=VARCHAR}");
         }
         
-        if (record.getEmail() != null) {
-            sql.VALUES("email", "#{email,jdbcType=VARCHAR}");
+        if (record.getUserEmail() != null) {
+            sql.VALUES("user_email", "#{userEmail,jdbcType=VARCHAR}");
         }
         
-        if (record.getPhone() != null) {
-            sql.VALUES("phone", "#{phone,jdbcType=VARCHAR}");
+        if (record.getUserPhone() != null) {
+            sql.VALUES("user_phone", "#{userPhone,jdbcType=VARCHAR}");
         }
         
         if (record.getInstId() != null) {
@@ -145,13 +145,13 @@ public class SysUserSqlProvider {
         } else {
             sql.SELECT("id");
         }
-        sql.SELECT("create_date");
-        sql.SELECT("update_date");
-        sql.SELECT("account");
-        sql.SELECT("password");
-        sql.SELECT("name");
-        sql.SELECT("email");
-        sql.SELECT("phone");
+        sql.SELECT("create_time");
+        sql.SELECT("update_time");
+        sql.SELECT("user_account");
+        sql.SELECT("user_pwd");
+        sql.SELECT("user_name");
+        sql.SELECT("user_email");
+        sql.SELECT("user_phone");
         sql.SELECT("inst_id");
         sql.SELECT("inst_name");
         sql.SELECT("mobile");
@@ -193,32 +193,32 @@ public class SysUserSqlProvider {
             sql.SET("id = #{record.id,jdbcType=BIGINT}");
         }
         
-        if (record.getCreateDate() != null) {
-            sql.SET("create_date = #{record.createDate,jdbcType=TIMESTAMP}");
+        if (record.getCreateTime() != null) {
+            sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         }
         
-        if (record.getUpdateDate() != null) {
-            sql.SET("update_date = #{record.updateDate,jdbcType=TIMESTAMP}");
+        if (record.getUpdateTime() != null) {
+            sql.SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
         }
         
-        if (record.getAccount() != null) {
-            sql.SET("account = #{record.account,jdbcType=VARCHAR}");
+        if (record.getUserAccount() != null) {
+            sql.SET("user_account = #{record.userAccount,jdbcType=VARCHAR}");
         }
         
-        if (record.getPassword() != null) {
-            sql.SET("password = #{record.password,jdbcType=VARCHAR}");
+        if (record.getUserPwd() != null) {
+            sql.SET("user_pwd = #{record.userPwd,jdbcType=VARCHAR}");
         }
         
-        if (record.getName() != null) {
-            sql.SET("name = #{record.name,jdbcType=VARCHAR}");
+        if (record.getUserName() != null) {
+            sql.SET("user_name = #{record.userName,jdbcType=VARCHAR}");
         }
         
-        if (record.getEmail() != null) {
-            sql.SET("email = #{record.email,jdbcType=VARCHAR}");
+        if (record.getUserEmail() != null) {
+            sql.SET("user_email = #{record.userEmail,jdbcType=VARCHAR}");
         }
         
-        if (record.getPhone() != null) {
-            sql.SET("phone = #{record.phone,jdbcType=VARCHAR}");
+        if (record.getUserPhone() != null) {
+            sql.SET("user_phone = #{record.userPhone,jdbcType=VARCHAR}");
         }
         
         if (record.getInstId() != null) {
@@ -292,13 +292,13 @@ public class SysUserSqlProvider {
         sql.UPDATE("sys_user");
         
         sql.SET("id = #{record.id,jdbcType=BIGINT}");
-        sql.SET("create_date = #{record.createDate,jdbcType=TIMESTAMP}");
-        sql.SET("update_date = #{record.updateDate,jdbcType=TIMESTAMP}");
-        sql.SET("account = #{record.account,jdbcType=VARCHAR}");
-        sql.SET("password = #{record.password,jdbcType=VARCHAR}");
-        sql.SET("name = #{record.name,jdbcType=VARCHAR}");
-        sql.SET("email = #{record.email,jdbcType=VARCHAR}");
-        sql.SET("phone = #{record.phone,jdbcType=VARCHAR}");
+        sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
+        sql.SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
+        sql.SET("user_account = #{record.userAccount,jdbcType=VARCHAR}");
+        sql.SET("user_pwd = #{record.userPwd,jdbcType=VARCHAR}");
+        sql.SET("user_name = #{record.userName,jdbcType=VARCHAR}");
+        sql.SET("user_email = #{record.userEmail,jdbcType=VARCHAR}");
+        sql.SET("user_phone = #{record.userPhone,jdbcType=VARCHAR}");
         sql.SET("inst_id = #{record.instId,jdbcType=BIGINT}");
         sql.SET("inst_name = #{record.instName,jdbcType=VARCHAR}");
         sql.SET("mobile = #{record.mobile,jdbcType=VARCHAR}");
@@ -329,32 +329,32 @@ public class SysUserSqlProvider {
         SQL sql = new SQL();
         sql.UPDATE("sys_user");
         
-        if (record.getCreateDate() != null) {
-            sql.SET("create_date = #{createDate,jdbcType=TIMESTAMP}");
+        if (record.getCreateTime() != null) {
+            sql.SET("create_time = #{createTime,jdbcType=TIMESTAMP}");
         }
         
-        if (record.getUpdateDate() != null) {
-            sql.SET("update_date = #{updateDate,jdbcType=TIMESTAMP}");
+        if (record.getUpdateTime() != null) {
+            sql.SET("update_time = #{updateTime,jdbcType=TIMESTAMP}");
         }
         
-        if (record.getAccount() != null) {
-            sql.SET("account = #{account,jdbcType=VARCHAR}");
+        if (record.getUserAccount() != null) {
+            sql.SET("user_account = #{userAccount,jdbcType=VARCHAR}");
         }
         
-        if (record.getPassword() != null) {
-            sql.SET("password = #{password,jdbcType=VARCHAR}");
+        if (record.getUserPwd() != null) {
+            sql.SET("user_pwd = #{userPwd,jdbcType=VARCHAR}");
         }
         
-        if (record.getName() != null) {
-            sql.SET("name = #{name,jdbcType=VARCHAR}");
+        if (record.getUserName() != null) {
+            sql.SET("user_name = #{userName,jdbcType=VARCHAR}");
         }
         
-        if (record.getEmail() != null) {
-            sql.SET("email = #{email,jdbcType=VARCHAR}");
+        if (record.getUserEmail() != null) {
+            sql.SET("user_email = #{userEmail,jdbcType=VARCHAR}");
         }
         
-        if (record.getPhone() != null) {
-            sql.SET("phone = #{phone,jdbcType=VARCHAR}");
+        if (record.getUserPhone() != null) {
+            sql.SET("user_phone = #{userPhone,jdbcType=VARCHAR}");
         }
         
         if (record.getInstId() != null) {

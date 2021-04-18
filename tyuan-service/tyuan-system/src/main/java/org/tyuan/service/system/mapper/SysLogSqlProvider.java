@@ -1,12 +1,13 @@
 package org.tyuan.service.system.mapper;
 
-import java.util.List;
-import java.util.Map;
 import org.apache.ibatis.jdbc.SQL;
+import org.tyuan.service.system.model.pojo.SysLogExample;
 import org.tyuan.service.system.model.pojo.SysLogExample.Criteria;
 import org.tyuan.service.system.model.pojo.SysLogExample.Criterion;
-import org.tyuan.service.system.model.pojo.SysLogExample;
 import org.tyuan.service.system.model.pojo.SysLogWithBLOBs;
+
+import java.util.List;
+import java.util.Map;
 
 public class SysLogSqlProvider {
     /**
@@ -44,59 +45,59 @@ public class SysLogSqlProvider {
     public String insertSelective(SysLogWithBLOBs record) {
         SQL sql = new SQL();
         sql.INSERT_INTO("sys_log");
-        
+
         if (record.getRequestId() != null) {
             sql.VALUES("request_id", "#{requestId,jdbcType=VARCHAR}");
         }
-        
-        if (record.getCreateDate() != null) {
-            sql.VALUES("create_date", "#{createDate,jdbcType=TIMESTAMP}");
+
+        if (record.getCreateTime() != null) {
+            sql.VALUES("create_time", "#{createTime,jdbcType=TIMESTAMP}");
         }
-        
-        if (record.getType() != null) {
-            sql.VALUES("type", "#{type,jdbcType=INTEGER}");
+
+        if (record.getLogType() != null) {
+            sql.VALUES("log_type", "#{logType,jdbcType=INTEGER}");
         }
-        
-        if (record.getTitle() != null) {
-            sql.VALUES("title", "#{title,jdbcType=VARCHAR}");
+
+        if (record.getLogTitle() != null) {
+            sql.VALUES("log_title", "#{logTitle,jdbcType=VARCHAR}");
         }
-        
+
         if (record.getUserId() != null) {
             sql.VALUES("user_id", "#{userId,jdbcType=BIGINT}");
         }
-        
+
         if (record.getUserName() != null) {
             sql.VALUES("user_name", "#{userName,jdbcType=VARCHAR}");
         }
-        
+
         if (record.getRemoteAddr() != null) {
             sql.VALUES("remote_addr", "#{remoteAddr,jdbcType=VARCHAR}");
         }
-        
+
         if (record.getUserAgent() != null) {
             sql.VALUES("user_agent", "#{userAgent,jdbcType=VARCHAR}");
         }
-        
+
         if (record.getRequestUri() != null) {
             sql.VALUES("request_uri", "#{requestUri,jdbcType=VARCHAR}");
         }
-        
+
         if (record.getMethod() != null) {
             sql.VALUES("method", "#{method,jdbcType=VARCHAR}");
         }
-        
+
         if (record.getDuration() != null) {
             sql.VALUES("duration", "#{duration,jdbcType=INTEGER}");
         }
-        
+
         if (record.getParams() != null) {
             sql.VALUES("params", "#{params,jdbcType=LONGVARCHAR}");
         }
-        
+
         if (record.getException() != null) {
             sql.VALUES("exception", "#{exception,jdbcType=LONGVARCHAR}");
         }
-        
+
         return sql.toString();
     }
 
@@ -114,9 +115,9 @@ public class SysLogSqlProvider {
             sql.SELECT("id");
         }
         sql.SELECT("request_id");
-        sql.SELECT("create_date");
-        sql.SELECT("type");
-        sql.SELECT("title");
+        sql.SELECT("create_time");
+        sql.SELECT("log_type");
+        sql.SELECT("log_title");
         sql.SELECT("user_id");
         sql.SELECT("user_name");
         sql.SELECT("remote_addr");
@@ -128,11 +129,11 @@ public class SysLogSqlProvider {
         sql.SELECT("exception");
         sql.FROM("sys_log");
         applyWhere(sql, example, false);
-        
+
         if (example != null && example.getOrderByClause() != null) {
             sql.ORDER_BY(example.getOrderByClause());
         }
-        
+
         return sql.toString();
     }
 
@@ -150,9 +151,9 @@ public class SysLogSqlProvider {
             sql.SELECT("id");
         }
         sql.SELECT("request_id");
-        sql.SELECT("create_date");
-        sql.SELECT("type");
-        sql.SELECT("title");
+        sql.SELECT("create_time");
+        sql.SELECT("log_type");
+        sql.SELECT("log_title");
         sql.SELECT("user_id");
         sql.SELECT("user_name");
         sql.SELECT("remote_addr");
@@ -162,11 +163,11 @@ public class SysLogSqlProvider {
         sql.SELECT("duration");
         sql.FROM("sys_log");
         applyWhere(sql, example, false);
-        
+
         if (example != null && example.getOrderByClause() != null) {
             sql.ORDER_BY(example.getOrderByClause());
         }
-        
+
         return sql.toString();
     }
 
@@ -179,66 +180,66 @@ public class SysLogSqlProvider {
     public String updateByExampleSelective(Map<String, Object> parameter) {
         SysLogWithBLOBs record = (SysLogWithBLOBs) parameter.get("record");
         SysLogExample example = (SysLogExample) parameter.get("example");
-        
+
         SQL sql = new SQL();
         sql.UPDATE("sys_log");
-        
+
         if (record.getId() != null) {
             sql.SET("id = #{record.id,jdbcType=BIGINT}");
         }
-        
+
         if (record.getRequestId() != null) {
             sql.SET("request_id = #{record.requestId,jdbcType=VARCHAR}");
         }
-        
-        if (record.getCreateDate() != null) {
-            sql.SET("create_date = #{record.createDate,jdbcType=TIMESTAMP}");
+
+        if (record.getCreateTime() != null) {
+            sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         }
-        
-        if (record.getType() != null) {
-            sql.SET("type = #{record.type,jdbcType=INTEGER}");
+
+        if (record.getLogType() != null) {
+            sql.SET("log_type = #{record.logType,jdbcType=INTEGER}");
         }
-        
-        if (record.getTitle() != null) {
-            sql.SET("title = #{record.title,jdbcType=VARCHAR}");
+
+        if (record.getLogTitle() != null) {
+            sql.SET("log_title = #{record.logTitle,jdbcType=VARCHAR}");
         }
-        
+
         if (record.getUserId() != null) {
             sql.SET("user_id = #{record.userId,jdbcType=BIGINT}");
         }
-        
+
         if (record.getUserName() != null) {
             sql.SET("user_name = #{record.userName,jdbcType=VARCHAR}");
         }
-        
+
         if (record.getRemoteAddr() != null) {
             sql.SET("remote_addr = #{record.remoteAddr,jdbcType=VARCHAR}");
         }
-        
+
         if (record.getUserAgent() != null) {
             sql.SET("user_agent = #{record.userAgent,jdbcType=VARCHAR}");
         }
-        
+
         if (record.getRequestUri() != null) {
             sql.SET("request_uri = #{record.requestUri,jdbcType=VARCHAR}");
         }
-        
+
         if (record.getMethod() != null) {
             sql.SET("method = #{record.method,jdbcType=VARCHAR}");
         }
-        
+
         if (record.getDuration() != null) {
             sql.SET("duration = #{record.duration,jdbcType=INTEGER}");
         }
-        
+
         if (record.getParams() != null) {
             sql.SET("params = #{record.params,jdbcType=LONGVARCHAR}");
         }
-        
+
         if (record.getException() != null) {
             sql.SET("exception = #{record.exception,jdbcType=LONGVARCHAR}");
         }
-        
+
         applyWhere(sql, example, true);
         return sql.toString();
     }
@@ -252,12 +253,12 @@ public class SysLogSqlProvider {
     public String updateByExampleWithBLOBs(Map<String, Object> parameter) {
         SQL sql = new SQL();
         sql.UPDATE("sys_log");
-        
+
         sql.SET("id = #{record.id,jdbcType=BIGINT}");
         sql.SET("request_id = #{record.requestId,jdbcType=VARCHAR}");
-        sql.SET("create_date = #{record.createDate,jdbcType=TIMESTAMP}");
-        sql.SET("type = #{record.type,jdbcType=INTEGER}");
-        sql.SET("title = #{record.title,jdbcType=VARCHAR}");
+        sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
+        sql.SET("log_type = #{record.logType,jdbcType=INTEGER}");
+        sql.SET("log_title = #{record.logTitle,jdbcType=VARCHAR}");
         sql.SET("user_id = #{record.userId,jdbcType=BIGINT}");
         sql.SET("user_name = #{record.userName,jdbcType=VARCHAR}");
         sql.SET("remote_addr = #{record.remoteAddr,jdbcType=VARCHAR}");
@@ -267,7 +268,7 @@ public class SysLogSqlProvider {
         sql.SET("duration = #{record.duration,jdbcType=INTEGER}");
         sql.SET("params = #{record.params,jdbcType=LONGVARCHAR}");
         sql.SET("exception = #{record.exception,jdbcType=LONGVARCHAR}");
-        
+
         SysLogExample example = (SysLogExample) parameter.get("example");
         applyWhere(sql, example, true);
         return sql.toString();
@@ -282,12 +283,12 @@ public class SysLogSqlProvider {
     public String updateByExample(Map<String, Object> parameter) {
         SQL sql = new SQL();
         sql.UPDATE("sys_log");
-        
+
         sql.SET("id = #{record.id,jdbcType=BIGINT}");
         sql.SET("request_id = #{record.requestId,jdbcType=VARCHAR}");
-        sql.SET("create_date = #{record.createDate,jdbcType=TIMESTAMP}");
-        sql.SET("type = #{record.type,jdbcType=INTEGER}");
-        sql.SET("title = #{record.title,jdbcType=VARCHAR}");
+        sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
+        sql.SET("log_type = #{record.logType,jdbcType=INTEGER}");
+        sql.SET("log_title = #{record.logTitle,jdbcType=VARCHAR}");
         sql.SET("user_id = #{record.userId,jdbcType=BIGINT}");
         sql.SET("user_name = #{record.userName,jdbcType=VARCHAR}");
         sql.SET("remote_addr = #{record.remoteAddr,jdbcType=VARCHAR}");
@@ -295,7 +296,7 @@ public class SysLogSqlProvider {
         sql.SET("request_uri = #{record.requestUri,jdbcType=VARCHAR}");
         sql.SET("method = #{record.method,jdbcType=VARCHAR}");
         sql.SET("duration = #{record.duration,jdbcType=INTEGER}");
-        
+
         SysLogExample example = (SysLogExample) parameter.get("example");
         applyWhere(sql, example, true);
         return sql.toString();
@@ -310,61 +311,61 @@ public class SysLogSqlProvider {
     public String updateByPrimaryKeySelective(SysLogWithBLOBs record) {
         SQL sql = new SQL();
         sql.UPDATE("sys_log");
-        
+
         if (record.getRequestId() != null) {
             sql.SET("request_id = #{requestId,jdbcType=VARCHAR}");
         }
-        
-        if (record.getCreateDate() != null) {
-            sql.SET("create_date = #{createDate,jdbcType=TIMESTAMP}");
+
+        if (record.getCreateTime() != null) {
+            sql.SET("create_time = #{createTime,jdbcType=TIMESTAMP}");
         }
-        
-        if (record.getType() != null) {
-            sql.SET("type = #{type,jdbcType=INTEGER}");
+
+        if (record.getLogType() != null) {
+            sql.SET("log_type = #{logType,jdbcType=INTEGER}");
         }
-        
-        if (record.getTitle() != null) {
-            sql.SET("title = #{title,jdbcType=VARCHAR}");
+
+        if (record.getLogTitle() != null) {
+            sql.SET("log_title = #{logTitle,jdbcType=VARCHAR}");
         }
-        
+
         if (record.getUserId() != null) {
             sql.SET("user_id = #{userId,jdbcType=BIGINT}");
         }
-        
+
         if (record.getUserName() != null) {
             sql.SET("user_name = #{userName,jdbcType=VARCHAR}");
         }
-        
+
         if (record.getRemoteAddr() != null) {
             sql.SET("remote_addr = #{remoteAddr,jdbcType=VARCHAR}");
         }
-        
+
         if (record.getUserAgent() != null) {
             sql.SET("user_agent = #{userAgent,jdbcType=VARCHAR}");
         }
-        
+
         if (record.getRequestUri() != null) {
             sql.SET("request_uri = #{requestUri,jdbcType=VARCHAR}");
         }
-        
+
         if (record.getMethod() != null) {
             sql.SET("method = #{method,jdbcType=VARCHAR}");
         }
-        
+
         if (record.getDuration() != null) {
             sql.SET("duration = #{duration,jdbcType=INTEGER}");
         }
-        
+
         if (record.getParams() != null) {
             sql.SET("params = #{params,jdbcType=LONGVARCHAR}");
         }
-        
+
         if (record.getException() != null) {
             sql.SET("exception = #{exception,jdbcType=LONGVARCHAR}");
         }
-        
+
         sql.WHERE("id = #{id,jdbcType=BIGINT}");
-        
+
         return sql.toString();
     }
 
@@ -378,7 +379,7 @@ public class SysLogSqlProvider {
         if (example == null) {
             return;
         }
-        
+
         String parmPhrase1;
         String parmPhrase1_th;
         String parmPhrase2;
@@ -400,7 +401,7 @@ public class SysLogSqlProvider {
             parmPhrase3 = "#{oredCriteria[%d].allCriteria[%d].value[%d]}";
             parmPhrase3_th = "#{oredCriteria[%d].allCriteria[%d].value[%d],typeHandler=%s}";
         }
-        
+
         StringBuilder sb = new StringBuilder();
         List<Criteria> oredCriteria = example.getOredCriteria();
         boolean firstCriteria = true;
@@ -412,7 +413,7 @@ public class SysLogSqlProvider {
                 } else {
                     sb.append(" or ");
                 }
-                
+
                 sb.append('(');
                 List<Criterion> criterions = criteria.getAllCriteria();
                 boolean firstCriterion = true;
@@ -423,7 +424,7 @@ public class SysLogSqlProvider {
                     } else {
                         sb.append(" and ");
                     }
-                    
+
                     if (criterion.isNoValue()) {
                         sb.append(criterion.getCondition());
                     } else if (criterion.isSingleValue()) {
@@ -461,7 +462,7 @@ public class SysLogSqlProvider {
                 sb.append(')');
             }
         }
-        
+
         if (sb.length() > 0) {
             sql.WHERE(sb.toString());
         }

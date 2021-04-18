@@ -51,7 +51,7 @@ public class SysLogServiceImpl implements SysLogService {
 
         String title = param.getTitle();
         if (StringUtils.isNotBlank(title)) {
-            criteria.andTitleLike(MessageFormat.format(like, title));
+            criteria.andLogTitleLike(MessageFormat.format(like, title));
         }
         if (StringUtils.isNotBlank(param.getMethod())) {
             criteria.andMethodLike(MessageFormat.format(like, param.getMethod()));
@@ -62,14 +62,14 @@ public class SysLogServiceImpl implements SysLogService {
         if (null != param.getUserId()) {
             criteria.andUserIdEqualTo(param.getUserId());
         }
-        if (null != param.getType()) {
-            criteria.andTypeEqualTo(param.getType());
+        if (null != param.getLogType()) {
+            criteria.andLogTypeEqualTo(param.getLogType());
         }
         if (StringUtils.isNotBlank(param.getRequestId())) {
             criteria.andRequestIdEqualTo(param.getRequestId());
         }
         PageHelper.offsetPage(param.getOffset(), param.getPageSize())
-                .setOrderBy("create_date desc");
+                .setOrderBy("create_time desc");
         List<SysLogWithBLOBs> result = sysLogMapper.selectByExampleWithBLOBs(example);
         return new PageInfo(result);
     }

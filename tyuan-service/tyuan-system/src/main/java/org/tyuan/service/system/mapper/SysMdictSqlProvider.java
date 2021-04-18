@@ -45,28 +45,24 @@ public class SysMdictSqlProvider {
         SQL sql = new SQL();
         sql.INSERT_INTO("sys_mdict");
         
-        if (record.getCreateDate() != null) {
-            sql.VALUES("create_date", "#{createDate,jdbcType=TIMESTAMP}");
+        if (record.getCreateTime() != null) {
+            sql.VALUES("create_time", "#{createTime,jdbcType=TIMESTAMP}");
         }
         
-        if (record.getUpdateDate() != null) {
-            sql.VALUES("update_date", "#{updateDate,jdbcType=TIMESTAMP}");
+        if (record.getUpdateTime() != null) {
+            sql.VALUES("update_time", "#{updateTime,jdbcType=TIMESTAMP}");
         }
         
         if (record.getParentId() != null) {
             sql.VALUES("parent_id", "#{parentId,jdbcType=BIGINT}");
         }
         
-        if (record.getName() != null) {
-            sql.VALUES("name", "#{name,jdbcType=VARCHAR}");
+        if (record.getMdictName() != null) {
+            sql.VALUES("mdict_name", "#{mdictName,jdbcType=VARCHAR}");
         }
         
-        if (record.getSort() != null) {
-            sql.VALUES("sort", "#{sort,jdbcType=DECIMAL}");
-        }
-        
-        if (record.getDescription() != null) {
-            sql.VALUES("description", "#{description,jdbcType=VARCHAR}");
+        if (record.getMdictSort() != null) {
+            sql.VALUES("mdict_sort", "#{mdictSort,jdbcType=DECIMAL}");
         }
         
         if (record.getCreateBy() != null) {
@@ -101,12 +97,11 @@ public class SysMdictSqlProvider {
         } else {
             sql.SELECT("id");
         }
-        sql.SELECT("create_date");
-        sql.SELECT("update_date");
+        sql.SELECT("create_time");
+        sql.SELECT("update_time");
         sql.SELECT("parent_id");
-        sql.SELECT("name");
-        sql.SELECT("sort");
-        sql.SELECT("description");
+        sql.SELECT("mdict_name");
+        sql.SELECT("mdict_sort");
         sql.SELECT("create_by");
         sql.SELECT("update_by");
         sql.SELECT("remarks");
@@ -138,28 +133,24 @@ public class SysMdictSqlProvider {
             sql.SET("id = #{record.id,jdbcType=BIGINT}");
         }
         
-        if (record.getCreateDate() != null) {
-            sql.SET("create_date = #{record.createDate,jdbcType=TIMESTAMP}");
+        if (record.getCreateTime() != null) {
+            sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         }
         
-        if (record.getUpdateDate() != null) {
-            sql.SET("update_date = #{record.updateDate,jdbcType=TIMESTAMP}");
+        if (record.getUpdateTime() != null) {
+            sql.SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
         }
         
         if (record.getParentId() != null) {
             sql.SET("parent_id = #{record.parentId,jdbcType=BIGINT}");
         }
         
-        if (record.getName() != null) {
-            sql.SET("name = #{record.name,jdbcType=VARCHAR}");
+        if (record.getMdictName() != null) {
+            sql.SET("mdict_name = #{record.mdictName,jdbcType=VARCHAR}");
         }
         
-        if (record.getSort() != null) {
-            sql.SET("sort = #{record.sort,jdbcType=DECIMAL}");
-        }
-        
-        if (record.getDescription() != null) {
-            sql.SET("description = #{record.description,jdbcType=VARCHAR}");
+        if (record.getMdictSort() != null) {
+            sql.SET("mdict_sort = #{record.mdictSort,jdbcType=DECIMAL}");
         }
         
         if (record.getCreateBy() != null) {
@@ -193,12 +184,11 @@ public class SysMdictSqlProvider {
         sql.UPDATE("sys_mdict");
         
         sql.SET("id = #{record.id,jdbcType=BIGINT}");
-        sql.SET("create_date = #{record.createDate,jdbcType=TIMESTAMP}");
-        sql.SET("update_date = #{record.updateDate,jdbcType=TIMESTAMP}");
+        sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
+        sql.SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
         sql.SET("parent_id = #{record.parentId,jdbcType=BIGINT}");
-        sql.SET("name = #{record.name,jdbcType=VARCHAR}");
-        sql.SET("sort = #{record.sort,jdbcType=DECIMAL}");
-        sql.SET("description = #{record.description,jdbcType=VARCHAR}");
+        sql.SET("mdict_name = #{record.mdictName,jdbcType=VARCHAR}");
+        sql.SET("mdict_sort = #{record.mdictSort,jdbcType=DECIMAL}");
         sql.SET("create_by = #{record.createBy,jdbcType=VARCHAR}");
         sql.SET("update_by = #{record.updateBy,jdbcType=VARCHAR}");
         sql.SET("remarks = #{record.remarks,jdbcType=VARCHAR}");
@@ -219,28 +209,24 @@ public class SysMdictSqlProvider {
         SQL sql = new SQL();
         sql.UPDATE("sys_mdict");
         
-        if (record.getCreateDate() != null) {
-            sql.SET("create_date = #{createDate,jdbcType=TIMESTAMP}");
+        if (record.getCreateTime() != null) {
+            sql.SET("create_time = #{createTime,jdbcType=TIMESTAMP}");
         }
         
-        if (record.getUpdateDate() != null) {
-            sql.SET("update_date = #{updateDate,jdbcType=TIMESTAMP}");
+        if (record.getUpdateTime() != null) {
+            sql.SET("update_time = #{updateTime,jdbcType=TIMESTAMP}");
         }
         
         if (record.getParentId() != null) {
             sql.SET("parent_id = #{parentId,jdbcType=BIGINT}");
         }
         
-        if (record.getName() != null) {
-            sql.SET("name = #{name,jdbcType=VARCHAR}");
+        if (record.getMdictName() != null) {
+            sql.SET("mdict_name = #{mdictName,jdbcType=VARCHAR}");
         }
         
-        if (record.getSort() != null) {
-            sql.SET("sort = #{sort,jdbcType=DECIMAL}");
-        }
-        
-        if (record.getDescription() != null) {
-            sql.SET("description = #{description,jdbcType=VARCHAR}");
+        if (record.getMdictSort() != null) {
+            sql.SET("mdict_sort = #{mdictSort,jdbcType=DECIMAL}");
         }
         
         if (record.getCreateBy() != null) {

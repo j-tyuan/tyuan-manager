@@ -55,8 +55,10 @@ public interface SysUserWebLayoutMapper {
      * @mbg.generated
      */
     @Insert({
-        "insert into sys_user_web_layout (user_id, layout_structure)",
-        "values (#{userId,jdbcType=BIGINT}, #{layoutStructure,jdbcType=LONGVARCHAR})"
+        "insert into sys_user_web_layout (create_time, update_time, ",
+        "user_id, layout_structure)",
+        "values (#{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, ",
+        "#{userId,jdbcType=BIGINT}, #{layoutStructure,jdbcType=LONGVARCHAR})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Long.class)
     int insert(SysUserWebLayout record);
@@ -80,6 +82,8 @@ public interface SysUserWebLayoutMapper {
     @SelectProvider(type=SysUserWebLayoutSqlProvider.class, method="selectByExampleWithBLOBs")
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
+        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="update_time", property="updateTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="user_id", property="userId", jdbcType=JdbcType.BIGINT),
         @Result(column="layout_structure", property="layoutStructure", jdbcType=JdbcType.LONGVARCHAR)
     })
@@ -94,6 +98,8 @@ public interface SysUserWebLayoutMapper {
     @SelectProvider(type=SysUserWebLayoutSqlProvider.class, method="selectByExample")
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
+        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="update_time", property="updateTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="user_id", property="userId", jdbcType=JdbcType.BIGINT)
     })
     List<SysUserWebLayout> selectByExample(SysUserWebLayoutExample example);
@@ -106,12 +112,14 @@ public interface SysUserWebLayoutMapper {
      */
     @Select({
         "select",
-        "id, user_id, layout_structure",
+        "id, create_time, update_time, user_id, layout_structure",
         "from sys_user_web_layout",
         "where id = #{id,jdbcType=BIGINT}"
     })
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
+        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="update_time", property="updateTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="user_id", property="userId", jdbcType=JdbcType.BIGINT),
         @Result(column="layout_structure", property="layoutStructure", jdbcType=JdbcType.LONGVARCHAR)
     })
@@ -161,7 +169,9 @@ public interface SysUserWebLayoutMapper {
      */
     @Update({
         "update sys_user_web_layout",
-        "set user_id = #{userId,jdbcType=BIGINT},",
+        "set create_time = #{createTime,jdbcType=TIMESTAMP},",
+          "update_time = #{updateTime,jdbcType=TIMESTAMP},",
+          "user_id = #{userId,jdbcType=BIGINT},",
           "layout_structure = #{layoutStructure,jdbcType=LONGVARCHAR}",
         "where id = #{id,jdbcType=BIGINT}"
     })
@@ -175,7 +185,9 @@ public interface SysUserWebLayoutMapper {
      */
     @Update({
         "update sys_user_web_layout",
-        "set user_id = #{userId,jdbcType=BIGINT}",
+        "set create_time = #{createTime,jdbcType=TIMESTAMP},",
+          "update_time = #{updateTime,jdbcType=TIMESTAMP},",
+          "user_id = #{userId,jdbcType=BIGINT}",
         "where id = #{id,jdbcType=BIGINT}"
     })
     int updateByPrimaryKey(SysUserWebLayout record);

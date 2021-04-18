@@ -45,32 +45,28 @@ public class SysDictSqlProvider {
         SQL sql = new SQL();
         sql.INSERT_INTO("sys_dict");
         
-        if (record.getCreateDate() != null) {
-            sql.VALUES("create_date", "#{createDate,jdbcType=TIMESTAMP}");
+        if (record.getCreateTime() != null) {
+            sql.VALUES("create_time", "#{createTime,jdbcType=TIMESTAMP}");
         }
         
-        if (record.getUpdateDate() != null) {
-            sql.VALUES("update_date", "#{updateDate,jdbcType=TIMESTAMP}");
+        if (record.getUpdateTime() != null) {
+            sql.VALUES("update_time", "#{updateTime,jdbcType=TIMESTAMP}");
         }
         
-        if (record.getValue() != null) {
-            sql.VALUES("value", "#{value,jdbcType=VARCHAR}");
+        if (record.getDictValue() != null) {
+            sql.VALUES("dict_value", "#{dictValue,jdbcType=VARCHAR}");
         }
         
-        if (record.getLabel() != null) {
-            sql.VALUES("label", "#{label,jdbcType=VARCHAR}");
+        if (record.getDictLabel() != null) {
+            sql.VALUES("dict_label", "#{dictLabel,jdbcType=VARCHAR}");
         }
         
-        if (record.getType() != null) {
-            sql.VALUES("type", "#{type,jdbcType=VARCHAR}");
+        if (record.getDictType() != null) {
+            sql.VALUES("dict_type", "#{dictType,jdbcType=VARCHAR}");
         }
         
-        if (record.getDescription() != null) {
-            sql.VALUES("description", "#{description,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getSort() != null) {
-            sql.VALUES("sort", "#{sort,jdbcType=DECIMAL}");
+        if (record.getDictSort() != null) {
+            sql.VALUES("dict_sort", "#{dictSort,jdbcType=DECIMAL}");
         }
         
         if (record.getParentId() != null) {
@@ -109,13 +105,12 @@ public class SysDictSqlProvider {
         } else {
             sql.SELECT("id");
         }
-        sql.SELECT("create_date");
-        sql.SELECT("update_date");
-        sql.SELECT("value");
-        sql.SELECT("label");
-        sql.SELECT("type");
-        sql.SELECT("description");
-        sql.SELECT("sort");
+        sql.SELECT("create_time");
+        sql.SELECT("update_time");
+        sql.SELECT("dict_value");
+        sql.SELECT("dict_label");
+        sql.SELECT("dict_type");
+        sql.SELECT("dict_sort");
         sql.SELECT("parent_id");
         sql.SELECT("create_by");
         sql.SELECT("update_by");
@@ -148,32 +143,28 @@ public class SysDictSqlProvider {
             sql.SET("id = #{record.id,jdbcType=BIGINT}");
         }
         
-        if (record.getCreateDate() != null) {
-            sql.SET("create_date = #{record.createDate,jdbcType=TIMESTAMP}");
+        if (record.getCreateTime() != null) {
+            sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         }
         
-        if (record.getUpdateDate() != null) {
-            sql.SET("update_date = #{record.updateDate,jdbcType=TIMESTAMP}");
+        if (record.getUpdateTime() != null) {
+            sql.SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
         }
         
-        if (record.getValue() != null) {
-            sql.SET("value = #{record.value,jdbcType=VARCHAR}");
+        if (record.getDictValue() != null) {
+            sql.SET("dict_value = #{record.dictValue,jdbcType=VARCHAR}");
         }
         
-        if (record.getLabel() != null) {
-            sql.SET("label = #{record.label,jdbcType=VARCHAR}");
+        if (record.getDictLabel() != null) {
+            sql.SET("dict_label = #{record.dictLabel,jdbcType=VARCHAR}");
         }
         
-        if (record.getType() != null) {
-            sql.SET("type = #{record.type,jdbcType=VARCHAR}");
+        if (record.getDictType() != null) {
+            sql.SET("dict_type = #{record.dictType,jdbcType=VARCHAR}");
         }
         
-        if (record.getDescription() != null) {
-            sql.SET("description = #{record.description,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getSort() != null) {
-            sql.SET("sort = #{record.sort,jdbcType=DECIMAL}");
+        if (record.getDictSort() != null) {
+            sql.SET("dict_sort = #{record.dictSort,jdbcType=DECIMAL}");
         }
         
         if (record.getParentId() != null) {
@@ -211,13 +202,12 @@ public class SysDictSqlProvider {
         sql.UPDATE("sys_dict");
         
         sql.SET("id = #{record.id,jdbcType=BIGINT}");
-        sql.SET("create_date = #{record.createDate,jdbcType=TIMESTAMP}");
-        sql.SET("update_date = #{record.updateDate,jdbcType=TIMESTAMP}");
-        sql.SET("value = #{record.value,jdbcType=VARCHAR}");
-        sql.SET("label = #{record.label,jdbcType=VARCHAR}");
-        sql.SET("type = #{record.type,jdbcType=VARCHAR}");
-        sql.SET("description = #{record.description,jdbcType=VARCHAR}");
-        sql.SET("sort = #{record.sort,jdbcType=DECIMAL}");
+        sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
+        sql.SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
+        sql.SET("dict_value = #{record.dictValue,jdbcType=VARCHAR}");
+        sql.SET("dict_label = #{record.dictLabel,jdbcType=VARCHAR}");
+        sql.SET("dict_type = #{record.dictType,jdbcType=VARCHAR}");
+        sql.SET("dict_sort = #{record.dictSort,jdbcType=DECIMAL}");
         sql.SET("parent_id = #{record.parentId,jdbcType=BIGINT}");
         sql.SET("create_by = #{record.createBy,jdbcType=VARCHAR}");
         sql.SET("update_by = #{record.updateBy,jdbcType=VARCHAR}");
@@ -239,32 +229,28 @@ public class SysDictSqlProvider {
         SQL sql = new SQL();
         sql.UPDATE("sys_dict");
         
-        if (record.getCreateDate() != null) {
-            sql.SET("create_date = #{createDate,jdbcType=TIMESTAMP}");
+        if (record.getCreateTime() != null) {
+            sql.SET("create_time = #{createTime,jdbcType=TIMESTAMP}");
         }
         
-        if (record.getUpdateDate() != null) {
-            sql.SET("update_date = #{updateDate,jdbcType=TIMESTAMP}");
+        if (record.getUpdateTime() != null) {
+            sql.SET("update_time = #{updateTime,jdbcType=TIMESTAMP}");
         }
         
-        if (record.getValue() != null) {
-            sql.SET("value = #{value,jdbcType=VARCHAR}");
+        if (record.getDictValue() != null) {
+            sql.SET("dict_value = #{dictValue,jdbcType=VARCHAR}");
         }
         
-        if (record.getLabel() != null) {
-            sql.SET("label = #{label,jdbcType=VARCHAR}");
+        if (record.getDictLabel() != null) {
+            sql.SET("dict_label = #{dictLabel,jdbcType=VARCHAR}");
         }
         
-        if (record.getType() != null) {
-            sql.SET("type = #{type,jdbcType=VARCHAR}");
+        if (record.getDictType() != null) {
+            sql.SET("dict_type = #{dictType,jdbcType=VARCHAR}");
         }
         
-        if (record.getDescription() != null) {
-            sql.SET("description = #{description,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getSort() != null) {
-            sql.SET("sort = #{sort,jdbcType=DECIMAL}");
+        if (record.getDictSort() != null) {
+            sql.SET("dict_sort = #{dictSort,jdbcType=DECIMAL}");
         }
         
         if (record.getParentId() != null) {

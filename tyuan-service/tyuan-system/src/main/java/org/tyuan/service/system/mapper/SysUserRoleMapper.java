@@ -55,8 +55,10 @@ public interface SysUserRoleMapper {
      * @mbg.generated
      */
     @Insert({
-        "insert into sys_user_role (user_id, role_id)",
-        "values (#{userId,jdbcType=BIGINT}, #{roleId,jdbcType=BIGINT})"
+        "insert into sys_user_role (create_time, update_time, ",
+        "user_id, role_id)",
+        "values (#{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, ",
+        "#{userId,jdbcType=BIGINT}, #{roleId,jdbcType=BIGINT})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Long.class)
     int insert(SysUserRole record);
@@ -80,6 +82,8 @@ public interface SysUserRoleMapper {
     @SelectProvider(type=SysUserRoleSqlProvider.class, method="selectByExample")
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
+        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="update_time", property="updateTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="user_id", property="userId", jdbcType=JdbcType.BIGINT),
         @Result(column="role_id", property="roleId", jdbcType=JdbcType.BIGINT)
     })
@@ -93,12 +97,14 @@ public interface SysUserRoleMapper {
      */
     @Select({
         "select",
-        "id, user_id, role_id",
+        "id, create_time, update_time, user_id, role_id",
         "from sys_user_role",
         "where id = #{id,jdbcType=BIGINT}"
     })
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
+        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="update_time", property="updateTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="user_id", property="userId", jdbcType=JdbcType.BIGINT),
         @Result(column="role_id", property="roleId", jdbcType=JdbcType.BIGINT)
     })
@@ -139,7 +145,9 @@ public interface SysUserRoleMapper {
      */
     @Update({
         "update sys_user_role",
-        "set user_id = #{userId,jdbcType=BIGINT},",
+        "set create_time = #{createTime,jdbcType=TIMESTAMP},",
+          "update_time = #{updateTime,jdbcType=TIMESTAMP},",
+          "user_id = #{userId,jdbcType=BIGINT},",
           "role_id = #{roleId,jdbcType=BIGINT}",
         "where id = #{id,jdbcType=BIGINT}"
     })

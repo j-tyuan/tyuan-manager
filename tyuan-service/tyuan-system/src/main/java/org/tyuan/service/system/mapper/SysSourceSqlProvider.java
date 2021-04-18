@@ -45,36 +45,36 @@ public class SysSourceSqlProvider {
         SQL sql = new SQL();
         sql.INSERT_INTO("sys_source");
         
-        if (record.getCreateDate() != null) {
-            sql.VALUES("create_date", "#{createDate,jdbcType=TIMESTAMP}");
+        if (record.getCreateTime() != null) {
+            sql.VALUES("create_time", "#{createTime,jdbcType=TIMESTAMP}");
         }
         
-        if (record.getUpdateDate() != null) {
-            sql.VALUES("update_date", "#{updateDate,jdbcType=TIMESTAMP}");
+        if (record.getUpdateTime() != null) {
+            sql.VALUES("update_time", "#{updateTime,jdbcType=TIMESTAMP}");
         }
         
         if (record.getParentId() != null) {
             sql.VALUES("parent_id", "#{parentId,jdbcType=BIGINT}");
         }
         
-        if (record.getName() != null) {
-            sql.VALUES("name", "#{name,jdbcType=VARCHAR}");
+        if (record.getSourceName() != null) {
+            sql.VALUES("source_name", "#{sourceName,jdbcType=VARCHAR}");
         }
         
-        if (record.getSort() != null) {
-            sql.VALUES("sort", "#{sort,jdbcType=DECIMAL}");
+        if (record.getSourceSort() != null) {
+            sql.VALUES("source_sort", "#{sourceSort,jdbcType=DECIMAL}");
         }
         
-        if (record.getHref() != null) {
-            sql.VALUES("href", "#{href,jdbcType=VARCHAR}");
+        if (record.getSourceHref() != null) {
+            sql.VALUES("source_href", "#{sourceHref,jdbcType=VARCHAR}");
         }
         
-        if (record.getTarget() != null) {
-            sql.VALUES("target", "#{target,jdbcType=VARCHAR}");
+        if (record.getSourceTarget() != null) {
+            sql.VALUES("source_target", "#{sourceTarget,jdbcType=VARCHAR}");
         }
         
-        if (record.getIcon() != null) {
-            sql.VALUES("icon", "#{icon,jdbcType=VARCHAR}");
+        if (record.getSourceIcon() != null) {
+            sql.VALUES("source_icon", "#{sourceIcon,jdbcType=VARCHAR}");
         }
         
         if (record.getIsLeaf() != null) {
@@ -121,14 +121,14 @@ public class SysSourceSqlProvider {
         } else {
             sql.SELECT("id");
         }
-        sql.SELECT("create_date");
-        sql.SELECT("update_date");
+        sql.SELECT("create_time");
+        sql.SELECT("update_time");
         sql.SELECT("parent_id");
-        sql.SELECT("name");
-        sql.SELECT("sort");
-        sql.SELECT("href");
-        sql.SELECT("target");
-        sql.SELECT("icon");
+        sql.SELECT("source_name");
+        sql.SELECT("source_sort");
+        sql.SELECT("source_href");
+        sql.SELECT("source_target");
+        sql.SELECT("source_icon");
         sql.SELECT("is_leaf");
         sql.SELECT("is_show");
         sql.SELECT("permission_id");
@@ -163,36 +163,36 @@ public class SysSourceSqlProvider {
             sql.SET("id = #{record.id,jdbcType=BIGINT}");
         }
         
-        if (record.getCreateDate() != null) {
-            sql.SET("create_date = #{record.createDate,jdbcType=TIMESTAMP}");
+        if (record.getCreateTime() != null) {
+            sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         }
         
-        if (record.getUpdateDate() != null) {
-            sql.SET("update_date = #{record.updateDate,jdbcType=TIMESTAMP}");
+        if (record.getUpdateTime() != null) {
+            sql.SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
         }
         
         if (record.getParentId() != null) {
             sql.SET("parent_id = #{record.parentId,jdbcType=BIGINT}");
         }
         
-        if (record.getName() != null) {
-            sql.SET("name = #{record.name,jdbcType=VARCHAR}");
+        if (record.getSourceName() != null) {
+            sql.SET("source_name = #{record.sourceName,jdbcType=VARCHAR}");
         }
         
-        if (record.getSort() != null) {
-            sql.SET("sort = #{record.sort,jdbcType=DECIMAL}");
+        if (record.getSourceSort() != null) {
+            sql.SET("source_sort = #{record.sourceSort,jdbcType=DECIMAL}");
         }
         
-        if (record.getHref() != null) {
-            sql.SET("href = #{record.href,jdbcType=VARCHAR}");
+        if (record.getSourceHref() != null) {
+            sql.SET("source_href = #{record.sourceHref,jdbcType=VARCHAR}");
         }
         
-        if (record.getTarget() != null) {
-            sql.SET("target = #{record.target,jdbcType=VARCHAR}");
+        if (record.getSourceTarget() != null) {
+            sql.SET("source_target = #{record.sourceTarget,jdbcType=VARCHAR}");
         }
         
-        if (record.getIcon() != null) {
-            sql.SET("icon = #{record.icon,jdbcType=VARCHAR}");
+        if (record.getSourceIcon() != null) {
+            sql.SET("source_icon = #{record.sourceIcon,jdbcType=VARCHAR}");
         }
         
         if (record.getIsLeaf() != null) {
@@ -238,14 +238,14 @@ public class SysSourceSqlProvider {
         sql.UPDATE("sys_source");
         
         sql.SET("id = #{record.id,jdbcType=BIGINT}");
-        sql.SET("create_date = #{record.createDate,jdbcType=TIMESTAMP}");
-        sql.SET("update_date = #{record.updateDate,jdbcType=TIMESTAMP}");
+        sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
+        sql.SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
         sql.SET("parent_id = #{record.parentId,jdbcType=BIGINT}");
-        sql.SET("name = #{record.name,jdbcType=VARCHAR}");
-        sql.SET("sort = #{record.sort,jdbcType=DECIMAL}");
-        sql.SET("href = #{record.href,jdbcType=VARCHAR}");
-        sql.SET("target = #{record.target,jdbcType=VARCHAR}");
-        sql.SET("icon = #{record.icon,jdbcType=VARCHAR}");
+        sql.SET("source_name = #{record.sourceName,jdbcType=VARCHAR}");
+        sql.SET("source_sort = #{record.sourceSort,jdbcType=DECIMAL}");
+        sql.SET("source_href = #{record.sourceHref,jdbcType=VARCHAR}");
+        sql.SET("source_target = #{record.sourceTarget,jdbcType=VARCHAR}");
+        sql.SET("source_icon = #{record.sourceIcon,jdbcType=VARCHAR}");
         sql.SET("is_leaf = #{record.isLeaf,jdbcType=BIT}");
         sql.SET("is_show = #{record.isShow,jdbcType=BIT}");
         sql.SET("permission_id = #{record.permissionId,jdbcType=BIGINT}");
@@ -269,36 +269,36 @@ public class SysSourceSqlProvider {
         SQL sql = new SQL();
         sql.UPDATE("sys_source");
         
-        if (record.getCreateDate() != null) {
-            sql.SET("create_date = #{createDate,jdbcType=TIMESTAMP}");
+        if (record.getCreateTime() != null) {
+            sql.SET("create_time = #{createTime,jdbcType=TIMESTAMP}");
         }
         
-        if (record.getUpdateDate() != null) {
-            sql.SET("update_date = #{updateDate,jdbcType=TIMESTAMP}");
+        if (record.getUpdateTime() != null) {
+            sql.SET("update_time = #{updateTime,jdbcType=TIMESTAMP}");
         }
         
         if (record.getParentId() != null) {
             sql.SET("parent_id = #{parentId,jdbcType=BIGINT}");
         }
         
-        if (record.getName() != null) {
-            sql.SET("name = #{name,jdbcType=VARCHAR}");
+        if (record.getSourceName() != null) {
+            sql.SET("source_name = #{sourceName,jdbcType=VARCHAR}");
         }
         
-        if (record.getSort() != null) {
-            sql.SET("sort = #{sort,jdbcType=DECIMAL}");
+        if (record.getSourceSort() != null) {
+            sql.SET("source_sort = #{sourceSort,jdbcType=DECIMAL}");
         }
         
-        if (record.getHref() != null) {
-            sql.SET("href = #{href,jdbcType=VARCHAR}");
+        if (record.getSourceHref() != null) {
+            sql.SET("source_href = #{sourceHref,jdbcType=VARCHAR}");
         }
         
-        if (record.getTarget() != null) {
-            sql.SET("target = #{target,jdbcType=VARCHAR}");
+        if (record.getSourceTarget() != null) {
+            sql.SET("source_target = #{sourceTarget,jdbcType=VARCHAR}");
         }
         
-        if (record.getIcon() != null) {
-            sql.SET("icon = #{icon,jdbcType=VARCHAR}");
+        if (record.getSourceIcon() != null) {
+            sql.SET("source_icon = #{sourceIcon,jdbcType=VARCHAR}");
         }
         
         if (record.getIsLeaf() != null) {

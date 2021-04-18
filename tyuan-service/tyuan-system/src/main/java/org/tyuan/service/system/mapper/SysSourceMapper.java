@@ -1,21 +1,11 @@
 package org.tyuan.service.system.mapper;
 
-import java.util.List;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.DeleteProvider;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.InsertProvider;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Results;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.SelectKey;
-import org.apache.ibatis.annotations.SelectProvider;
-import org.apache.ibatis.annotations.Update;
-import org.apache.ibatis.annotations.UpdateProvider;
+import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.type.JdbcType;
 import org.tyuan.service.system.model.pojo.SysSource;
 import org.tyuan.service.system.model.pojo.SysSourceExample;
+
+import java.util.List;
 
 public interface SysSourceMapper {
     /**
@@ -55,15 +45,17 @@ public interface SysSourceMapper {
      * @mbg.generated
      */
     @Insert({
-        "insert into sys_source (create_date, update_date, ",
-        "parent_id, name, sort, ",
-        "href, target, icon, ",
+        "insert into sys_source (create_time, update_time, ",
+        "parent_id, source_name, ",
+        "source_sort, source_href, ",
+        "source_target, source_icon, ",
         "is_leaf, is_show, permission_id, ",
         "create_by, update_by, ",
         "remarks, del_flag)",
-        "values (#{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}, ",
-        "#{parentId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{sort,jdbcType=DECIMAL}, ",
-        "#{href,jdbcType=VARCHAR}, #{target,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, ",
+        "values (#{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, ",
+        "#{parentId,jdbcType=BIGINT}, #{sourceName,jdbcType=VARCHAR}, ",
+        "#{sourceSort,jdbcType=DECIMAL}, #{sourceHref,jdbcType=VARCHAR}, ",
+        "#{sourceTarget,jdbcType=VARCHAR}, #{sourceIcon,jdbcType=VARCHAR}, ",
         "#{isLeaf,jdbcType=BIT}, #{isShow,jdbcType=BIT}, #{permissionId,jdbcType=BIGINT}, ",
         "#{createBy,jdbcType=VARCHAR}, #{updateBy,jdbcType=VARCHAR}, ",
         "#{remarks,jdbcType=VARCHAR}, #{delFlag,jdbcType=BIT})"
@@ -90,14 +82,14 @@ public interface SysSourceMapper {
     @SelectProvider(type=SysSourceSqlProvider.class, method="selectByExample")
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
-        @Result(column="create_date", property="createDate", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="update_date", property="updateDate", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="update_time", property="updateTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="parent_id", property="parentId", jdbcType=JdbcType.BIGINT),
-        @Result(column="name", property="name", jdbcType=JdbcType.VARCHAR),
-        @Result(column="sort", property="sort", jdbcType=JdbcType.DECIMAL),
-        @Result(column="href", property="href", jdbcType=JdbcType.VARCHAR),
-        @Result(column="target", property="target", jdbcType=JdbcType.VARCHAR),
-        @Result(column="icon", property="icon", jdbcType=JdbcType.VARCHAR),
+        @Result(column="source_name", property="sourceName", jdbcType=JdbcType.VARCHAR),
+        @Result(column="source_sort", property="sourceSort", jdbcType=JdbcType.DECIMAL),
+        @Result(column="source_href", property="sourceHref", jdbcType=JdbcType.VARCHAR),
+        @Result(column="source_target", property="sourceTarget", jdbcType=JdbcType.VARCHAR),
+        @Result(column="source_icon", property="sourceIcon", jdbcType=JdbcType.VARCHAR),
         @Result(column="is_leaf", property="isLeaf", jdbcType=JdbcType.BIT),
         @Result(column="is_show", property="isShow", jdbcType=JdbcType.BIT),
         @Result(column="permission_id", property="permissionId", jdbcType=JdbcType.BIGINT),
@@ -116,21 +108,22 @@ public interface SysSourceMapper {
      */
     @Select({
         "select",
-        "id, create_date, update_date, parent_id, name, sort, href, target, icon, is_leaf, ",
-        "is_show, permission_id, create_by, update_by, remarks, del_flag",
+        "id, create_time, update_time, parent_id, source_name, source_sort, source_href, ",
+        "source_target, source_icon, is_leaf, is_show, permission_id, create_by, update_by, ",
+        "remarks, del_flag",
         "from sys_source",
         "where id = #{id,jdbcType=BIGINT}"
     })
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
-        @Result(column="create_date", property="createDate", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="update_date", property="updateDate", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="update_time", property="updateTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="parent_id", property="parentId", jdbcType=JdbcType.BIGINT),
-        @Result(column="name", property="name", jdbcType=JdbcType.VARCHAR),
-        @Result(column="sort", property="sort", jdbcType=JdbcType.DECIMAL),
-        @Result(column="href", property="href", jdbcType=JdbcType.VARCHAR),
-        @Result(column="target", property="target", jdbcType=JdbcType.VARCHAR),
-        @Result(column="icon", property="icon", jdbcType=JdbcType.VARCHAR),
+        @Result(column="source_name", property="sourceName", jdbcType=JdbcType.VARCHAR),
+        @Result(column="source_sort", property="sourceSort", jdbcType=JdbcType.DECIMAL),
+        @Result(column="source_href", property="sourceHref", jdbcType=JdbcType.VARCHAR),
+        @Result(column="source_target", property="sourceTarget", jdbcType=JdbcType.VARCHAR),
+        @Result(column="source_icon", property="sourceIcon", jdbcType=JdbcType.VARCHAR),
         @Result(column="is_leaf", property="isLeaf", jdbcType=JdbcType.BIT),
         @Result(column="is_show", property="isShow", jdbcType=JdbcType.BIT),
         @Result(column="permission_id", property="permissionId", jdbcType=JdbcType.BIGINT),
@@ -176,14 +169,14 @@ public interface SysSourceMapper {
      */
     @Update({
         "update sys_source",
-        "set create_date = #{createDate,jdbcType=TIMESTAMP},",
-          "update_date = #{updateDate,jdbcType=TIMESTAMP},",
+        "set create_time = #{createTime,jdbcType=TIMESTAMP},",
+          "update_time = #{updateTime,jdbcType=TIMESTAMP},",
           "parent_id = #{parentId,jdbcType=BIGINT},",
-          "name = #{name,jdbcType=VARCHAR},",
-          "sort = #{sort,jdbcType=DECIMAL},",
-          "href = #{href,jdbcType=VARCHAR},",
-          "target = #{target,jdbcType=VARCHAR},",
-          "icon = #{icon,jdbcType=VARCHAR},",
+          "source_name = #{sourceName,jdbcType=VARCHAR},",
+          "source_sort = #{sourceSort,jdbcType=DECIMAL},",
+          "source_href = #{sourceHref,jdbcType=VARCHAR},",
+          "source_target = #{sourceTarget,jdbcType=VARCHAR},",
+          "source_icon = #{sourceIcon,jdbcType=VARCHAR},",
           "is_leaf = #{isLeaf,jdbcType=BIT},",
           "is_show = #{isShow,jdbcType=BIT},",
           "permission_id = #{permissionId,jdbcType=BIGINT},",

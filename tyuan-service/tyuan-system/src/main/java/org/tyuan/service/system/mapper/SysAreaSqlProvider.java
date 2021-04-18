@@ -45,32 +45,32 @@ public class SysAreaSqlProvider {
         SQL sql = new SQL();
         sql.INSERT_INTO("sys_area");
         
-        if (record.getCreateDate() != null) {
-            sql.VALUES("create_date", "#{createDate,jdbcType=TIMESTAMP}");
+        if (record.getCreateTime() != null) {
+            sql.VALUES("create_time", "#{createTime,jdbcType=TIMESTAMP}");
         }
         
-        if (record.getUpdateDate() != null) {
-            sql.VALUES("update_date", "#{updateDate,jdbcType=TIMESTAMP}");
+        if (record.getUpdateTime() != null) {
+            sql.VALUES("update_time", "#{updateTime,jdbcType=TIMESTAMP}");
         }
         
         if (record.getParentId() != null) {
             sql.VALUES("parent_id", "#{parentId,jdbcType=BIGINT}");
         }
         
-        if (record.getName() != null) {
-            sql.VALUES("name", "#{name,jdbcType=VARCHAR}");
+        if (record.getAreaName() != null) {
+            sql.VALUES("area_name", "#{areaName,jdbcType=VARCHAR}");
         }
         
-        if (record.getSort() != null) {
-            sql.VALUES("sort", "#{sort,jdbcType=DECIMAL}");
+        if (record.getAreaSort() != null) {
+            sql.VALUES("area_sort", "#{areaSort,jdbcType=DECIMAL}");
         }
         
-        if (record.getCode() != null) {
-            sql.VALUES("code", "#{code,jdbcType=VARCHAR}");
+        if (record.getAreaCode() != null) {
+            sql.VALUES("area_code", "#{areaCode,jdbcType=VARCHAR}");
         }
         
-        if (record.getType() != null) {
-            sql.VALUES("type", "#{type,jdbcType=BIT}");
+        if (record.getAreaType() != null) {
+            sql.VALUES("area_type", "#{areaType,jdbcType=BIT}");
         }
         
         if (record.getCreateBy() != null) {
@@ -105,13 +105,13 @@ public class SysAreaSqlProvider {
         } else {
             sql.SELECT("id");
         }
-        sql.SELECT("create_date");
-        sql.SELECT("update_date");
+        sql.SELECT("create_time");
+        sql.SELECT("update_time");
         sql.SELECT("parent_id");
-        sql.SELECT("name");
-        sql.SELECT("sort");
-        sql.SELECT("code");
-        sql.SELECT("type");
+        sql.SELECT("area_name");
+        sql.SELECT("area_sort");
+        sql.SELECT("area_code");
+        sql.SELECT("area_type");
         sql.SELECT("create_by");
         sql.SELECT("update_by");
         sql.SELECT("remarks");
@@ -143,32 +143,32 @@ public class SysAreaSqlProvider {
             sql.SET("id = #{record.id,jdbcType=BIGINT}");
         }
         
-        if (record.getCreateDate() != null) {
-            sql.SET("create_date = #{record.createDate,jdbcType=TIMESTAMP}");
+        if (record.getCreateTime() != null) {
+            sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         }
         
-        if (record.getUpdateDate() != null) {
-            sql.SET("update_date = #{record.updateDate,jdbcType=TIMESTAMP}");
+        if (record.getUpdateTime() != null) {
+            sql.SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
         }
         
         if (record.getParentId() != null) {
             sql.SET("parent_id = #{record.parentId,jdbcType=BIGINT}");
         }
         
-        if (record.getName() != null) {
-            sql.SET("name = #{record.name,jdbcType=VARCHAR}");
+        if (record.getAreaName() != null) {
+            sql.SET("area_name = #{record.areaName,jdbcType=VARCHAR}");
         }
         
-        if (record.getSort() != null) {
-            sql.SET("sort = #{record.sort,jdbcType=DECIMAL}");
+        if (record.getAreaSort() != null) {
+            sql.SET("area_sort = #{record.areaSort,jdbcType=DECIMAL}");
         }
         
-        if (record.getCode() != null) {
-            sql.SET("code = #{record.code,jdbcType=VARCHAR}");
+        if (record.getAreaCode() != null) {
+            sql.SET("area_code = #{record.areaCode,jdbcType=VARCHAR}");
         }
         
-        if (record.getType() != null) {
-            sql.SET("type = #{record.type,jdbcType=BIT}");
+        if (record.getAreaType() != null) {
+            sql.SET("area_type = #{record.areaType,jdbcType=BIT}");
         }
         
         if (record.getCreateBy() != null) {
@@ -202,13 +202,13 @@ public class SysAreaSqlProvider {
         sql.UPDATE("sys_area");
         
         sql.SET("id = #{record.id,jdbcType=BIGINT}");
-        sql.SET("create_date = #{record.createDate,jdbcType=TIMESTAMP}");
-        sql.SET("update_date = #{record.updateDate,jdbcType=TIMESTAMP}");
+        sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
+        sql.SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
         sql.SET("parent_id = #{record.parentId,jdbcType=BIGINT}");
-        sql.SET("name = #{record.name,jdbcType=VARCHAR}");
-        sql.SET("sort = #{record.sort,jdbcType=DECIMAL}");
-        sql.SET("code = #{record.code,jdbcType=VARCHAR}");
-        sql.SET("type = #{record.type,jdbcType=BIT}");
+        sql.SET("area_name = #{record.areaName,jdbcType=VARCHAR}");
+        sql.SET("area_sort = #{record.areaSort,jdbcType=DECIMAL}");
+        sql.SET("area_code = #{record.areaCode,jdbcType=VARCHAR}");
+        sql.SET("area_type = #{record.areaType,jdbcType=BIT}");
         sql.SET("create_by = #{record.createBy,jdbcType=VARCHAR}");
         sql.SET("update_by = #{record.updateBy,jdbcType=VARCHAR}");
         sql.SET("remarks = #{record.remarks,jdbcType=VARCHAR}");
@@ -229,32 +229,32 @@ public class SysAreaSqlProvider {
         SQL sql = new SQL();
         sql.UPDATE("sys_area");
         
-        if (record.getCreateDate() != null) {
-            sql.SET("create_date = #{createDate,jdbcType=TIMESTAMP}");
+        if (record.getCreateTime() != null) {
+            sql.SET("create_time = #{createTime,jdbcType=TIMESTAMP}");
         }
         
-        if (record.getUpdateDate() != null) {
-            sql.SET("update_date = #{updateDate,jdbcType=TIMESTAMP}");
+        if (record.getUpdateTime() != null) {
+            sql.SET("update_time = #{updateTime,jdbcType=TIMESTAMP}");
         }
         
         if (record.getParentId() != null) {
             sql.SET("parent_id = #{parentId,jdbcType=BIGINT}");
         }
         
-        if (record.getName() != null) {
-            sql.SET("name = #{name,jdbcType=VARCHAR}");
+        if (record.getAreaName() != null) {
+            sql.SET("area_name = #{areaName,jdbcType=VARCHAR}");
         }
         
-        if (record.getSort() != null) {
-            sql.SET("sort = #{sort,jdbcType=DECIMAL}");
+        if (record.getAreaSort() != null) {
+            sql.SET("area_sort = #{areaSort,jdbcType=DECIMAL}");
         }
         
-        if (record.getCode() != null) {
-            sql.SET("code = #{code,jdbcType=VARCHAR}");
+        if (record.getAreaCode() != null) {
+            sql.SET("area_code = #{areaCode,jdbcType=VARCHAR}");
         }
         
-        if (record.getType() != null) {
-            sql.SET("type = #{type,jdbcType=BIT}");
+        if (record.getAreaType() != null) {
+            sql.SET("area_type = #{areaType,jdbcType=BIT}");
         }
         
         if (record.getCreateBy() != null) {

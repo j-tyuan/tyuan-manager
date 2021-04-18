@@ -55,11 +55,11 @@ public interface SysParamMapper {
      * @mbg.generated
      */
     @Insert({
-        "insert into sys_param (create_date, update_date, ",
+        "insert into sys_param (create_time, update_time, ",
         "param_name, param_key, ",
         "is_sys, create_by, update_by, ",
         "remarks, param_val)",
-        "values (#{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}, ",
+        "values (#{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, ",
         "#{paramName,jdbcType=VARCHAR}, #{paramKey,jdbcType=VARCHAR}, ",
         "#{isSys,jdbcType=BIT}, #{createBy,jdbcType=VARCHAR}, #{updateBy,jdbcType=VARCHAR}, ",
         "#{remarks,jdbcType=VARCHAR}, #{paramVal,jdbcType=LONGVARCHAR})"
@@ -86,8 +86,8 @@ public interface SysParamMapper {
     @SelectProvider(type=SysParamSqlProvider.class, method="selectByExampleWithBLOBs")
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
-        @Result(column="create_date", property="createDate", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="update_date", property="updateDate", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="update_time", property="updateTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="param_name", property="paramName", jdbcType=JdbcType.VARCHAR),
         @Result(column="param_key", property="paramKey", jdbcType=JdbcType.VARCHAR),
         @Result(column="is_sys", property="isSys", jdbcType=JdbcType.BIT),
@@ -107,8 +107,8 @@ public interface SysParamMapper {
     @SelectProvider(type=SysParamSqlProvider.class, method="selectByExample")
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
-        @Result(column="create_date", property="createDate", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="update_date", property="updateDate", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="update_time", property="updateTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="param_name", property="paramName", jdbcType=JdbcType.VARCHAR),
         @Result(column="param_key", property="paramKey", jdbcType=JdbcType.VARCHAR),
         @Result(column="is_sys", property="isSys", jdbcType=JdbcType.BIT),
@@ -126,15 +126,15 @@ public interface SysParamMapper {
      */
     @Select({
         "select",
-        "id, create_date, update_date, param_name, param_key, is_sys, create_by, update_by, ",
+        "id, create_time, update_time, param_name, param_key, is_sys, create_by, update_by, ",
         "remarks, param_val",
         "from sys_param",
         "where id = #{id,jdbcType=BIGINT}"
     })
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
-        @Result(column="create_date", property="createDate", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="update_date", property="updateDate", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="update_time", property="updateTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="param_name", property="paramName", jdbcType=JdbcType.VARCHAR),
         @Result(column="param_key", property="paramKey", jdbcType=JdbcType.VARCHAR),
         @Result(column="is_sys", property="isSys", jdbcType=JdbcType.BIT),
@@ -189,8 +189,8 @@ public interface SysParamMapper {
      */
     @Update({
         "update sys_param",
-        "set create_date = #{createDate,jdbcType=TIMESTAMP},",
-          "update_date = #{updateDate,jdbcType=TIMESTAMP},",
+        "set create_time = #{createTime,jdbcType=TIMESTAMP},",
+          "update_time = #{updateTime,jdbcType=TIMESTAMP},",
           "param_name = #{paramName,jdbcType=VARCHAR},",
           "param_key = #{paramKey,jdbcType=VARCHAR},",
           "is_sys = #{isSys,jdbcType=BIT},",
@@ -210,8 +210,8 @@ public interface SysParamMapper {
      */
     @Update({
         "update sys_param",
-        "set create_date = #{createDate,jdbcType=TIMESTAMP},",
-          "update_date = #{updateDate,jdbcType=TIMESTAMP},",
+        "set create_time = #{createTime,jdbcType=TIMESTAMP},",
+          "update_time = #{updateTime,jdbcType=TIMESTAMP},",
           "param_name = #{paramName,jdbcType=VARCHAR},",
           "param_key = #{paramKey,jdbcType=VARCHAR},",
           "is_sys = #{isSys,jdbcType=BIT},",

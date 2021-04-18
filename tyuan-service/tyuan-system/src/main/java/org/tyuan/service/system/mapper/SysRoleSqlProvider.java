@@ -45,20 +45,20 @@ public class SysRoleSqlProvider {
         SQL sql = new SQL();
         sql.INSERT_INTO("sys_role");
         
-        if (record.getCreateDate() != null) {
-            sql.VALUES("create_date", "#{createDate,jdbcType=TIMESTAMP}");
+        if (record.getCreateTime() != null) {
+            sql.VALUES("create_time", "#{createTime,jdbcType=TIMESTAMP}");
         }
         
-        if (record.getUpdateDate() != null) {
-            sql.VALUES("update_date", "#{updateDate,jdbcType=TIMESTAMP}");
+        if (record.getUpdateTime() != null) {
+            sql.VALUES("update_time", "#{updateTime,jdbcType=TIMESTAMP}");
         }
         
-        if (record.getCode() != null) {
-            sql.VALUES("code", "#{code,jdbcType=VARCHAR}");
+        if (record.getRoleCode() != null) {
+            sql.VALUES("role_code", "#{roleCode,jdbcType=VARCHAR}");
         }
         
-        if (record.getName() != null) {
-            sql.VALUES("name", "#{name,jdbcType=VARCHAR}");
+        if (record.getRoleName() != null) {
+            sql.VALUES("role_name", "#{roleName,jdbcType=VARCHAR}");
         }
         
         if (record.getIsSys() != null) {
@@ -101,10 +101,10 @@ public class SysRoleSqlProvider {
         } else {
             sql.SELECT("id");
         }
-        sql.SELECT("create_date");
-        sql.SELECT("update_date");
-        sql.SELECT("code");
-        sql.SELECT("name");
+        sql.SELECT("create_time");
+        sql.SELECT("update_time");
+        sql.SELECT("role_code");
+        sql.SELECT("role_name");
         sql.SELECT("is_sys");
         sql.SELECT("useable");
         sql.SELECT("create_by");
@@ -138,20 +138,20 @@ public class SysRoleSqlProvider {
             sql.SET("id = #{record.id,jdbcType=BIGINT}");
         }
         
-        if (record.getCreateDate() != null) {
-            sql.SET("create_date = #{record.createDate,jdbcType=TIMESTAMP}");
+        if (record.getCreateTime() != null) {
+            sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         }
         
-        if (record.getUpdateDate() != null) {
-            sql.SET("update_date = #{record.updateDate,jdbcType=TIMESTAMP}");
+        if (record.getUpdateTime() != null) {
+            sql.SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
         }
         
-        if (record.getCode() != null) {
-            sql.SET("code = #{record.code,jdbcType=VARCHAR}");
+        if (record.getRoleCode() != null) {
+            sql.SET("role_code = #{record.roleCode,jdbcType=VARCHAR}");
         }
         
-        if (record.getName() != null) {
-            sql.SET("name = #{record.name,jdbcType=VARCHAR}");
+        if (record.getRoleName() != null) {
+            sql.SET("role_name = #{record.roleName,jdbcType=VARCHAR}");
         }
         
         if (record.getIsSys() != null) {
@@ -193,10 +193,10 @@ public class SysRoleSqlProvider {
         sql.UPDATE("sys_role");
         
         sql.SET("id = #{record.id,jdbcType=BIGINT}");
-        sql.SET("create_date = #{record.createDate,jdbcType=TIMESTAMP}");
-        sql.SET("update_date = #{record.updateDate,jdbcType=TIMESTAMP}");
-        sql.SET("code = #{record.code,jdbcType=VARCHAR}");
-        sql.SET("name = #{record.name,jdbcType=VARCHAR}");
+        sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
+        sql.SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
+        sql.SET("role_code = #{record.roleCode,jdbcType=VARCHAR}");
+        sql.SET("role_name = #{record.roleName,jdbcType=VARCHAR}");
         sql.SET("is_sys = #{record.isSys,jdbcType=BIT}");
         sql.SET("useable = #{record.useable,jdbcType=BIT}");
         sql.SET("create_by = #{record.createBy,jdbcType=VARCHAR}");
@@ -219,20 +219,20 @@ public class SysRoleSqlProvider {
         SQL sql = new SQL();
         sql.UPDATE("sys_role");
         
-        if (record.getCreateDate() != null) {
-            sql.SET("create_date = #{createDate,jdbcType=TIMESTAMP}");
+        if (record.getCreateTime() != null) {
+            sql.SET("create_time = #{createTime,jdbcType=TIMESTAMP}");
         }
         
-        if (record.getUpdateDate() != null) {
-            sql.SET("update_date = #{updateDate,jdbcType=TIMESTAMP}");
+        if (record.getUpdateTime() != null) {
+            sql.SET("update_time = #{updateTime,jdbcType=TIMESTAMP}");
         }
         
-        if (record.getCode() != null) {
-            sql.SET("code = #{code,jdbcType=VARCHAR}");
+        if (record.getRoleCode() != null) {
+            sql.SET("role_code = #{roleCode,jdbcType=VARCHAR}");
         }
         
-        if (record.getName() != null) {
-            sql.SET("name = #{name,jdbcType=VARCHAR}");
+        if (record.getRoleName() != null) {
+            sql.SET("role_name = #{roleName,jdbcType=VARCHAR}");
         }
         
         if (record.getIsSys() != null) {

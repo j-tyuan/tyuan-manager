@@ -31,7 +31,7 @@ public class SysLogTableVo extends DataTableParam {
 
     private String title;
 
-    private Integer type;
+    private Integer logType;
 
     private String requestId;
 

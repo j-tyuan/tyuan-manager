@@ -73,15 +73,15 @@ public class SysRoleServiceImpl implements SysRoleService {
         SysRoleExample example = new SysRoleExample();
         SysRoleExample.Criteria criteria = example.createCriteria();
         String like = "%{0}%";
-        if (StringUtils.isNotBlank(param.getCode())) {
-            criteria.andCodeLike(MessageFormat.format(like, param.getCode()));
+        if (StringUtils.isNotBlank(param.getRoleCode())) {
+            criteria.andRoleCodeLike(MessageFormat.format(like, param.getRoleCode()));
         }
-        if (StringUtils.isNotBlank(param.getName())) {
-            criteria.andNameLike(MessageFormat.format(like, param.getName()));
+        if (StringUtils.isNotBlank(param.getRoleName())) {
+            criteria.andRoleNameLike(MessageFormat.format(like, param.getRoleName()));
         }
 
         PageHelper.offsetPage(param.getOffset(), param.getPageSize())
-                .setOrderBy("update_date desc");
+                .setOrderBy("update_time desc");
         List<SysRole> result = sysRoleMapper.selectByExample(example);
 
         return new PageInfo(result);
@@ -94,7 +94,7 @@ public class SysRoleServiceImpl implements SysRoleService {
         sysRole.setCreateBy(UserInfoHolder.getUserName());
         sysRole.setUpdateBy(UserInfoHolder.getUserName());
         SysRoleExample example = new SysRoleExample();
-        example.createCriteria().andNameEqualTo(sysRole.getName());
+        example.createCriteria().andRoleNameEqualTo(sysRole.getRoleName());
 
         List list = sysRoleMapper.selectByExample(example);
         if (CollectionUtils.isNotEmpty(list)) {
@@ -153,7 +153,7 @@ public class SysRoleServiceImpl implements SysRoleService {
             try {
 
                 SysRole item = iterator.next();
-                SecurityUtils.getSubject().checkRole(item.getName());
+                SecurityUtils.getSubject().checkRole(item.getRoleName());
             } catch (AuthorizationException e) {
 
                 iterator.remove();
@@ -165,7 +165,7 @@ public class SysRoleServiceImpl implements SysRoleService {
     public boolean hasRoleById(Long id) {
 
         SysRole sysRole = this.getById(id);
-        return SecurityUtils.getSubject().hasRole(sysRole.getName());
+        return SecurityUtils.getSubject().hasRole(sysRole.getRoleName());
     }
 
     @Override

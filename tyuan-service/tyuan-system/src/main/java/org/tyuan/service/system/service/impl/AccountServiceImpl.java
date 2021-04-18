@@ -68,9 +68,9 @@ public class AccountServiceImpl implements AccountService {
         SysUser newUserInfo = new SysUser();
         Long userId = UserInfoHolder.getUserId();
         newUserInfo.setId(userId);
-        newUserInfo.setEmail(sysUser.getEmail());
-        newUserInfo.setMobile(sysUser.getPhone());
-        newUserInfo.setPhone(sysUser.getPhone());
+        newUserInfo.setUserEmail(sysUser.getUserEmail());
+        newUserInfo.setMobile(sysUser.getUserPhone());
+        newUserInfo.setUserPhone(sysUser.getUserPhone());
         newUserInfo.setRemarks(sysUser.getRemarks());
         sysUserMapper.updateByPrimaryKeySelective(newUserInfo);
         return;
@@ -85,7 +85,7 @@ public class AccountServiceImpl implements AccountService {
         map.put("layout", JSONObject.parse(layStr));
 
         SysUser sysUser = sysUserMapper.selectByPrimaryKey(uid);
-        sysUser.setPassword(null);
+        sysUser.setUserPwd(null);
         Map userMap = (Map) JSONObject.toJSON(sysUser);
         String avatar = sysUserAvatarService.getAvatarById(sysUser.getAvatarId());
         userMap.put("avatar", avatar);

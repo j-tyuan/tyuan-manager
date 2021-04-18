@@ -53,12 +53,12 @@ public class SysPermissionSqlProvider {
             sql.VALUES("permission", "#{permission,jdbcType=VARCHAR}");
         }
         
-        if (record.getSort() != null) {
-            sql.VALUES("sort", "#{sort,jdbcType=DECIMAL}");
+        if (record.getPermissionSort() != null) {
+            sql.VALUES("permission_sort", "#{permissionSort,jdbcType=DECIMAL}");
         }
         
-        if (record.getName() != null) {
-            sql.VALUES("name", "#{name,jdbcType=VARCHAR}");
+        if (record.getPermissionName() != null) {
+            sql.VALUES("permission_name", "#{permissionName,jdbcType=VARCHAR}");
         }
         
         if (record.getRemarks() != null) {
@@ -83,8 +83,8 @@ public class SysPermissionSqlProvider {
         }
         sql.SELECT("parent_id");
         sql.SELECT("permission");
-        sql.SELECT("sort");
-        sql.SELECT("name");
+        sql.SELECT("permission_sort");
+        sql.SELECT("permission_name");
         sql.SELECT("remarks");
         sql.FROM("sys_permission");
         applyWhere(sql, example, false);
@@ -121,12 +121,12 @@ public class SysPermissionSqlProvider {
             sql.SET("permission = #{record.permission,jdbcType=VARCHAR}");
         }
         
-        if (record.getSort() != null) {
-            sql.SET("sort = #{record.sort,jdbcType=DECIMAL}");
+        if (record.getPermissionSort() != null) {
+            sql.SET("permission_sort = #{record.permissionSort,jdbcType=DECIMAL}");
         }
         
-        if (record.getName() != null) {
-            sql.SET("name = #{record.name,jdbcType=VARCHAR}");
+        if (record.getPermissionName() != null) {
+            sql.SET("permission_name = #{record.permissionName,jdbcType=VARCHAR}");
         }
         
         if (record.getRemarks() != null) {
@@ -150,8 +150,8 @@ public class SysPermissionSqlProvider {
         sql.SET("id = #{record.id,jdbcType=BIGINT}");
         sql.SET("parent_id = #{record.parentId,jdbcType=BIGINT}");
         sql.SET("permission = #{record.permission,jdbcType=VARCHAR}");
-        sql.SET("sort = #{record.sort,jdbcType=DECIMAL}");
-        sql.SET("name = #{record.name,jdbcType=VARCHAR}");
+        sql.SET("permission_sort = #{record.permissionSort,jdbcType=DECIMAL}");
+        sql.SET("permission_name = #{record.permissionName,jdbcType=VARCHAR}");
         sql.SET("remarks = #{record.remarks,jdbcType=VARCHAR}");
         
         SysPermissionExample example = (SysPermissionExample) parameter.get("example");
@@ -177,12 +177,12 @@ public class SysPermissionSqlProvider {
             sql.SET("permission = #{permission,jdbcType=VARCHAR}");
         }
         
-        if (record.getSort() != null) {
-            sql.SET("sort = #{sort,jdbcType=DECIMAL}");
+        if (record.getPermissionSort() != null) {
+            sql.SET("permission_sort = #{permissionSort,jdbcType=DECIMAL}");
         }
         
-        if (record.getName() != null) {
-            sql.SET("name = #{name,jdbcType=VARCHAR}");
+        if (record.getPermissionName() != null) {
+            sql.SET("permission_name = #{permissionName,jdbcType=VARCHAR}");
         }
         
         if (record.getRemarks() != null) {

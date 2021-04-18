@@ -33,13 +33,13 @@ public interface COrganizationInstitutionMapper extends OrganizationInstitutionM
      * @return
      */
     @Override
-    @Select("select update_date, b.c total " +
+    @Select("select update_time, b.c total " +
             " from organization_institution, " +
             "  (select count(*) c from organization_institution) as b " +
-            " order by update_date desc " +
+            " order by update_time desc " +
             " limit 1;")
     @Results({
-            @Result(column = "update_date", property = "updateDate", jdbcType = JdbcType.TIMESTAMP),
+            @Result(column = "update_time", property = "updateTime", jdbcType = JdbcType.TIMESTAMP),
             @Result(column = "total", property = "total", jdbcType = JdbcType.INTEGER)
     })
     Map getLastUpdateAndCount();
@@ -53,7 +53,7 @@ public interface COrganizationInstitutionMapper extends OrganizationInstitutionM
      */
     @Select({
             "select",
-            "id, parent_id, inst_code, inst_name, inst_type, owner_user_id, inst_sort, inst_status ",
+            "id, parent_id, inst_code, inst_name, inst_type, owner_user_id, inst_sort, inst_status ,update_time,remarks ",
             "from organization_institution",
     })
     @Results({
@@ -61,10 +61,12 @@ public interface COrganizationInstitutionMapper extends OrganizationInstitutionM
             @Result(column = "parent_id", property = "parentId", jdbcType = JdbcType.BIGINT),
             @Result(column = "inst_code", property = "instCode", jdbcType = JdbcType.VARCHAR),
             @Result(column = "inst_name", property = "instName", jdbcType = JdbcType.VARCHAR),
+            @Result(column = "remarks", property = "remarks", jdbcType = JdbcType.VARCHAR),
             @Result(column = "inst_type", property = "instType", jdbcType = JdbcType.INTEGER),
             @Result(column = "owner_user_id", property = "ownerUserId", jdbcType = JdbcType.BIGINT),
             @Result(column = "inst_sort", property = "instSort", jdbcType = JdbcType.INTEGER),
             @Result(column = "inst_status", property = "instStatus", jdbcType = JdbcType.INTEGER),
+            @Result(column = "update_time", property = "updateTime", jdbcType = JdbcType.TIMESTAMP),
     })
     List<COrganizationInstitution> getAll();
 }

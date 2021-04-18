@@ -30,7 +30,7 @@ public class SysLoginLogTableParamsVo extends DataTableParam {
     private String userName;
 
 
-    private String account;
+    private String userAccount;
 
     private String loginDate;
 }

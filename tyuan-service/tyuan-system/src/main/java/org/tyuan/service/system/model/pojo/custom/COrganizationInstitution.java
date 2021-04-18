@@ -27,6 +27,11 @@ import java.util.List;
 @Setter
 public class COrganizationInstitution extends OrganizationInstitution implements ITree {
 
+    @Override
+    public Long getSort() {
+        return new Long(this.getInstSort());
+    }
+
     /**
      * 子节点
      */

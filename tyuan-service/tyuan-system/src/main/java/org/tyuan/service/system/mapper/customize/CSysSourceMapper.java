@@ -34,13 +34,13 @@ public interface CSysSourceMapper extends SysSourceMapper, ICacheInfo {
      * @return
      */
     @Override
-    @Select("select update_date, b.c total " +
+    @Select("select update_time, b.c total " +
             " from sys_source, " +
             "  (select count(*) c from sys_source) as b " +
-            " order by update_date desc " +
+            " order by update_time desc " +
             " limit 1;")
     @Results({
-            @Result(column = "update_date", property = "updateDate", jdbcType = JdbcType.TIMESTAMP),
+            @Result(column = "update_time", property = "updateTime", jdbcType = JdbcType.TIMESTAMP),
             @Result(column = "total", property = "total", jdbcType = JdbcType.INTEGER)
     })
     Map getLastUpdateAndCount();
@@ -56,18 +56,18 @@ public interface CSysSourceMapper extends SysSourceMapper, ICacheInfo {
      */
     @Select({
             "select",
-            "id, parent_id, name, sort, href, target, icon, is_leaf, ",
+            "id, parent_id, source_name, source_sort, source_href, source_target, source_icon, is_leaf, ",
             "is_show, permission_id, remarks, del_flag",
             "from sys_source"
     })
     @Results({
             @Result(column = "id", property = "id", jdbcType = JdbcType.BIGINT, id = true),
             @Result(column = "parent_id", property = "parentId", jdbcType = JdbcType.BIGINT),
-            @Result(column = "name", property = "name", jdbcType = JdbcType.VARCHAR),
-            @Result(column = "sort", property = "sort", jdbcType = JdbcType.DECIMAL),
-            @Result(column = "href", property = "href", jdbcType = JdbcType.VARCHAR),
-            @Result(column = "target", property = "target", jdbcType = JdbcType.VARCHAR),
-            @Result(column = "icon", property = "icon", jdbcType = JdbcType.VARCHAR),
+            @Result(column = "source_name", property = "sourceName", jdbcType = JdbcType.VARCHAR),
+            @Result(column = "source_sort", property = "sourceSort", jdbcType = JdbcType.DECIMAL),
+            @Result(column = "source_href", property = "sourceHref", jdbcType = JdbcType.VARCHAR),
+            @Result(column = "source_target", property = "sourceTarget", jdbcType = JdbcType.VARCHAR),
+            @Result(column = "source_icon", property = "sourceIcon", jdbcType = JdbcType.VARCHAR),
             @Result(column = "is_leaf", property = "isLeaf", jdbcType = JdbcType.BIT),
             @Result(column = "is_show", property = "isShow", jdbcType = JdbcType.BIT),
             @Result(column = "permission_id", property = "permissionId", jdbcType = JdbcType.BIGINT),

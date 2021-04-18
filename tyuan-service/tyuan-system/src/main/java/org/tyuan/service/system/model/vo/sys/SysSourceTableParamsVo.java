@@ -23,5 +23,5 @@ import lombok.Setter;
 @Getter
 public class SysSourceTableParamsVo extends DataTableParam {
 
-    private String name;
+    private String sourceName;
 }

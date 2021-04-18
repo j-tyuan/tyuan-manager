@@ -82,16 +82,16 @@ public class SysUserServiceImpl implements SysUserService {
             flag = true;
         }
         String like = "%{0}%";
-        if (StringUtils.isNotBlank(param.getName())) {
-            criteria.andNameLike(MessageFormat.format(like, param.getName()));
+        if (StringUtils.isNotBlank(param.getUserName())) {
+            criteria.andUserNameLike(MessageFormat.format(like, param.getUserName()));
             flag = true;
         }
-        if (StringUtils.isNotBlank(param.getAccount())) {
-            criteria.andAccountEqualTo(param.getAccount());
+        if (StringUtils.isNotBlank(param.getUserAccount())) {
+            criteria.andUserAccountEqualTo(param.getUserAccount());
             flag = true;
         }
-        if (StringUtils.isNotBlank(param.getPhone())) {
-            criteria.andPhoneEqualTo(param.getPhone());
+        if (StringUtils.isNotBlank(param.getUserPhone())) {
+            criteria.andUserPhoneEqualTo(param.getUserPhone());
             flag = true;
         }
         Date loginDate = DateUtil.format(param.getLoginDate());
@@ -116,7 +116,7 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Override
     public PageInfo getByExample(SysUserExample sysUserExample, DataTableParam param) {
-        PageHelper.offsetPage(param.getOffset(), param.getPageSize()).setOrderBy("update_date desc");
+        PageHelper.offsetPage(param.getOffset(), param.getPageSize()).setOrderBy("update_time desc");
         List<SysUser> result = cSysUserMapper.selectByExample(sysUserExample);
         PageInfo pageInfo = new PageInfo<>(result);
         List<Map> newUserList = userPostProcessor(result);
@@ -141,20 +141,20 @@ public class SysUserServiceImpl implements SysUserService {
         sysUser.setInstName(institution.getInstName());
         sysUser.setCreateBy(UserInfoHolder.getUserName());
         sysUser.setUpdateBy(UserInfoHolder.getUserName());
-        String pass = sysUser.getPassword();
+        String pass = sysUser.getUserPwd();
         if (StringUtils.isBlank(pass)) {
             throw new ServiceException(ErrorCodeConsts.ERROR, "密码不许为空");
         }
 
         SysUserExample example = new SysUserExample();
-        example.or().andAccountEqualTo(sysUser.getAccount());
+        example.or().andUserAccountEqualTo(sysUser.getUserAccount());
         List<SysUser> list = cSysUserMapper.selectByExample(example);
         if (CollectionUtils.isNotEmpty(list)) {
             throw new ServiceException(ErrorCodeConsts.ERROR, "账号重复");
         }
 
         pass = DigestUtils.md5DigestAsHex(pass.getBytes());
-        sysUser.setPassword(pass);
+        sysUser.setUserPwd(pass);
 
         // 只允许创建普通用户
         sysUser.setUserType(USER_TYPE.ORDINARY.getType());
@@ -189,12 +189,12 @@ public class SysUserServiceImpl implements SysUserService {
         if (val == null) {
             throw new ServiceException(ErrorCodeConsts.ERROR, "未找到数据，修改失败");
         }
-        String pass = sysUser.getPassword();
+        String pass = sysUser.getUserPwd();
         if (StringUtils.isNotBlank(pass)) {
             pass = DigestUtils.md5DigestAsHex(pass.getBytes());
-            sysUser.setPassword(pass);
+            sysUser.setUserPwd(pass);
         } else {
-            sysUser.setPassword(null);
+            sysUser.setUserPwd(null);
         }
         Long instId = sysUser.getInstId();
         if (null != instId) {
@@ -204,7 +204,7 @@ public class SysUserServiceImpl implements SysUserService {
             }
             sysUser.setInstName(institution.getInstName());
         }
-        sysUser.setAccount(null);
+        sysUser.setUserAccount(null);
         sysUser.setUserNo(null);
         sysUser.setUpdateBy(UserInfoHolder.getUserName());
 
@@ -223,7 +223,7 @@ public class SysUserServiceImpl implements SysUserService {
     public SysUser getByAccount(String account) {
         SysUserExample example = new SysUserExample();
         example.createCriteria()
-                .andAccountEqualTo(account)
+                .andUserAccountEqualTo(account)
                 .andUserTypeNotEqualTo(USER_TYPE.ORDINARY.getType());
         List<SysUser> list = cSysUserMapper.selectByExample(example);
         if (CollectionUtils.isEmpty(list)) {
@@ -249,7 +249,7 @@ public class SysUserServiceImpl implements SysUserService {
         if (sysUser == null) {
             return null;
         }
-        sysUser.setPassword(null);
+        sysUser.setUserPwd(null);
         return sysUser;
     }
 
@@ -261,12 +261,12 @@ public class SysUserServiceImpl implements SysUserService {
             Long l = Long.parseLong(value);
             example.or().andIdEqualTo(l);
             // 查找手机号
-            example.or().andPhoneLike(MessageFormat.format("{0}%", value));
+            example.or().andUserPhoneLike(MessageFormat.format("{0}%", value));
             list = cSysUserMapper.selectByExample(example);
         } else {
             String like = "%{0}%";
-            example.or().andNameLike(MessageFormat.format(like, value));
-            example.or().andAccountLike(MessageFormat.format(like, value));
+            example.or().andUserNameLike(MessageFormat.format(like, value));
+            example.or().andUserAccountLike(MessageFormat.format(like, value));
             // 工号
             list = cSysUserMapper.selectByExample(example);
         }
@@ -275,9 +275,9 @@ public class SysUserServiceImpl implements SysUserService {
         list.forEach(e -> {
             Map map = Maps.newHashMap();
             map.put("id", e.getId());
-            map.put("name", e.getName());
-            map.put("email", e.getEmail());
-            map.put("account", e.getAccount());
+            map.put("name", e.getUserName());
+            map.put("email", e.getUserEmail());
+            map.put("account", e.getUserAccount());
             maps.add(map);
         });
         return list;
@@ -315,7 +315,7 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     public List<Map> userPostProcessor(List<SysUser> users) {
         users.stream().forEach(e -> {
-            e.setPassword(null);
+            e.setUserPwd(null);
         });
         List<Long> avatarIds = users.stream().map(e -> e.getAvatarId()).collect(Collectors.toList());
         List<SysUserAvatar> avatars = sysUserAvatarService.getByIds(avatarIds);

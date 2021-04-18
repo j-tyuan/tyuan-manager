@@ -39,7 +39,7 @@ public class Cache {
         }
         this.total = total;
 
-        Long time = ((Date) map.get("updateDate")).getTime();
+        Long time = ((Date) map.get("updateTime")).getTime();
         this.updateTime = time;
 
     }
@@ -56,7 +56,7 @@ public class Cache {
             return false;
         }
 
-        Long time = ((Date) map.get("updateDate")).getTime();
+        Long time = ((Date) map.get("updateTime")).getTime();
         return this.complete(time, total);
     }
 

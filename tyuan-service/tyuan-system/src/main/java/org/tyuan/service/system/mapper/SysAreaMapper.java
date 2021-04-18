@@ -1,21 +1,11 @@
 package org.tyuan.service.system.mapper;
 
-import java.util.List;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.DeleteProvider;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.InsertProvider;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Results;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.SelectKey;
-import org.apache.ibatis.annotations.SelectProvider;
-import org.apache.ibatis.annotations.Update;
-import org.apache.ibatis.annotations.UpdateProvider;
+import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.type.JdbcType;
 import org.tyuan.service.system.model.pojo.SysArea;
 import org.tyuan.service.system.model.pojo.SysAreaExample;
+
+import java.util.List;
 
 public interface SysAreaMapper {
     /**
@@ -55,14 +45,16 @@ public interface SysAreaMapper {
      * @mbg.generated
      */
     @Insert({
-        "insert into sys_area (create_date, update_date, ",
-        "parent_id, name, sort, ",
-        "code, type, create_by, ",
+        "insert into sys_area (create_time, update_time, ",
+        "parent_id, area_name, ",
+        "area_sort, area_code, ",
+        "area_type, create_by, ",
         "update_by, remarks, ",
         "del_flag)",
-        "values (#{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}, ",
-        "#{parentId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{sort,jdbcType=DECIMAL}, ",
-        "#{code,jdbcType=VARCHAR}, #{type,jdbcType=BIT}, #{createBy,jdbcType=VARCHAR}, ",
+        "values (#{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, ",
+        "#{parentId,jdbcType=BIGINT}, #{areaName,jdbcType=VARCHAR}, ",
+        "#{areaSort,jdbcType=DECIMAL}, #{areaCode,jdbcType=VARCHAR}, ",
+        "#{areaType,jdbcType=BIT}, #{createBy,jdbcType=VARCHAR}, ",
         "#{updateBy,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, ",
         "#{delFlag,jdbcType=BIT})"
     })
@@ -88,13 +80,13 @@ public interface SysAreaMapper {
     @SelectProvider(type=SysAreaSqlProvider.class, method="selectByExample")
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
-        @Result(column="create_date", property="createDate", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="update_date", property="updateDate", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="update_time", property="updateTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="parent_id", property="parentId", jdbcType=JdbcType.BIGINT),
-        @Result(column="name", property="name", jdbcType=JdbcType.VARCHAR),
-        @Result(column="sort", property="sort", jdbcType=JdbcType.DECIMAL),
-        @Result(column="code", property="code", jdbcType=JdbcType.VARCHAR),
-        @Result(column="type", property="type", jdbcType=JdbcType.BIT),
+        @Result(column="area_name", property="areaName", jdbcType=JdbcType.VARCHAR),
+        @Result(column="area_sort", property="areaSort", jdbcType=JdbcType.DECIMAL),
+        @Result(column="area_code", property="areaCode", jdbcType=JdbcType.VARCHAR),
+        @Result(column="area_type", property="areaType", jdbcType=JdbcType.BIT),
         @Result(column="create_by", property="createBy", jdbcType=JdbcType.VARCHAR),
         @Result(column="update_by", property="updateBy", jdbcType=JdbcType.VARCHAR),
         @Result(column="remarks", property="remarks", jdbcType=JdbcType.VARCHAR),
@@ -110,20 +102,20 @@ public interface SysAreaMapper {
      */
     @Select({
         "select",
-        "id, create_date, update_date, parent_id, name, sort, code, type, create_by, ",
-        "update_by, remarks, del_flag",
+        "id, create_time, update_time, parent_id, area_name, area_sort, area_code, area_type, ",
+        "create_by, update_by, remarks, del_flag",
         "from sys_area",
         "where id = #{id,jdbcType=BIGINT}"
     })
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
-        @Result(column="create_date", property="createDate", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="update_date", property="updateDate", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="update_time", property="updateTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="parent_id", property="parentId", jdbcType=JdbcType.BIGINT),
-        @Result(column="name", property="name", jdbcType=JdbcType.VARCHAR),
-        @Result(column="sort", property="sort", jdbcType=JdbcType.DECIMAL),
-        @Result(column="code", property="code", jdbcType=JdbcType.VARCHAR),
-        @Result(column="type", property="type", jdbcType=JdbcType.BIT),
+        @Result(column="area_name", property="areaName", jdbcType=JdbcType.VARCHAR),
+        @Result(column="area_sort", property="areaSort", jdbcType=JdbcType.DECIMAL),
+        @Result(column="area_code", property="areaCode", jdbcType=JdbcType.VARCHAR),
+        @Result(column="area_type", property="areaType", jdbcType=JdbcType.BIT),
         @Result(column="create_by", property="createBy", jdbcType=JdbcType.VARCHAR),
         @Result(column="update_by", property="updateBy", jdbcType=JdbcType.VARCHAR),
         @Result(column="remarks", property="remarks", jdbcType=JdbcType.VARCHAR),
@@ -166,13 +158,13 @@ public interface SysAreaMapper {
      */
     @Update({
         "update sys_area",
-        "set create_date = #{createDate,jdbcType=TIMESTAMP},",
-          "update_date = #{updateDate,jdbcType=TIMESTAMP},",
+        "set create_time = #{createTime,jdbcType=TIMESTAMP},",
+          "update_time = #{updateTime,jdbcType=TIMESTAMP},",
           "parent_id = #{parentId,jdbcType=BIGINT},",
-          "name = #{name,jdbcType=VARCHAR},",
-          "sort = #{sort,jdbcType=DECIMAL},",
-          "code = #{code,jdbcType=VARCHAR},",
-          "type = #{type,jdbcType=BIT},",
+          "area_name = #{areaName,jdbcType=VARCHAR},",
+          "area_sort = #{areaSort,jdbcType=DECIMAL},",
+          "area_code = #{areaCode,jdbcType=VARCHAR},",
+          "area_type = #{areaType,jdbcType=BIT},",
           "create_by = #{createBy,jdbcType=VARCHAR},",
           "update_by = #{updateBy,jdbcType=VARCHAR},",
           "remarks = #{remarks,jdbcType=VARCHAR},",

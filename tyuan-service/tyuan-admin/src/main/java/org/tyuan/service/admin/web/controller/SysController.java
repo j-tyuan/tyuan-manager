@@ -111,7 +111,7 @@ public class SysController {
         }
 
         String pwdMd5 = DigestUtils.md5DigestAsHex(pwd.getBytes());
-        if (!sysUser.getPassword().equals(pwdMd5)) {
+        if (!sysUser.getUserPwd().equals(pwdMd5)) {
             return loginResult;
         }
         if (sysUser.getDisabled()) {
@@ -122,7 +122,7 @@ public class SysController {
         String token = UUID.randomUUID().toString();
         response.setHeader("Access-Control-Allow-Credentials", "true");
         StringBuilder builder = new StringBuilder();
-        builder.append(sysUser.getAccount())
+        builder.append(sysUser.getUserAccount())
                 .append(":")
                 .append(token);
         Cookie cookie = new Cookie(WebConstant.TOKEN, builder.toString());
@@ -190,8 +190,8 @@ public class SysController {
 
         Map map = Maps.newHashMap();
         map.put("id", sysUser.getId());
-        map.put("account", sysUser.getAccount());
-        map.put("name", sysUser.getName());
+        map.put("account", sysUser.getUserAccount());
+        map.put("name", sysUser.getUserName());
 
         userInfoCacheService.leaveMessage(sysUser.getId(), "你的账号已在其它地方登陆");
 
@@ -210,7 +210,7 @@ public class SysController {
         List<String> perms = Lists.newArrayList();
 
         for (SysRole role : roles) {
-            roleCodes.add(role.getCode());
+            roleCodes.add(role.getRoleCode());
             List<SysPermission> list = sysPermissionService.getByRoleId(role.getId());
             for (SysPermission item : list) {
                 perms.add(item.getPermission());

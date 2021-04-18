@@ -49,11 +49,11 @@ public class NavController {
         List<MenuDataItemVo> newList = Lists.newArrayList();
         list.forEach(e -> {
             MenuDataItemVo leftMenuVo = new MenuDataItemVo();
-            leftMenuVo.setName(e.getName());
-            leftMenuVo.setPath(e.getHref());
-            leftMenuVo.setIcon(e.getIcon());
-            leftMenuVo.setSort(e.getSort());
-            leftMenuVo.setIsLeaf(e.getIsLeaf());
+            leftMenuVo.setName(e.getSourceName());
+            leftMenuVo.setPath(e.getSourceHref());
+            leftMenuVo.setIcon(e.getSourceIcon());
+            leftMenuVo.setSort(e.getSourceSort());
+            leftMenuVo.setLeaf(e.getIsLeaf());
             leftMenuVo.setId(e.getId());
             leftMenuVo.setParentId(e.getParentId());
             newList.add(leftMenuVo);

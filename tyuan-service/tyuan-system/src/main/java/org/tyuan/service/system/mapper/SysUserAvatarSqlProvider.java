@@ -45,12 +45,12 @@ public class SysUserAvatarSqlProvider {
         SQL sql = new SQL();
         sql.INSERT_INTO("sys_user_avatar");
         
-        if (record.getCreateDate() != null) {
-            sql.VALUES("create_date", "#{createDate,jdbcType=TIMESTAMP}");
+        if (record.getCreateTime() != null) {
+            sql.VALUES("create_time", "#{createTime,jdbcType=TIMESTAMP}");
         }
         
-        if (record.getUpdateDate() != null) {
-            sql.VALUES("update_date", "#{updateDate,jdbcType=TIMESTAMP}");
+        if (record.getUpdateTime() != null) {
+            sql.VALUES("update_time", "#{updateTime,jdbcType=TIMESTAMP}");
         }
         
         if (record.getUserAvatar() != null) {
@@ -73,8 +73,8 @@ public class SysUserAvatarSqlProvider {
         } else {
             sql.SELECT("id");
         }
-        sql.SELECT("create_date");
-        sql.SELECT("update_date");
+        sql.SELECT("create_time");
+        sql.SELECT("update_time");
         sql.SELECT("user_avatar");
         sql.FROM("sys_user_avatar");
         applyWhere(sql, example, false);
@@ -99,8 +99,8 @@ public class SysUserAvatarSqlProvider {
         } else {
             sql.SELECT("id");
         }
-        sql.SELECT("create_date");
-        sql.SELECT("update_date");
+        sql.SELECT("create_time");
+        sql.SELECT("update_time");
         sql.FROM("sys_user_avatar");
         applyWhere(sql, example, false);
         
@@ -128,12 +128,12 @@ public class SysUserAvatarSqlProvider {
             sql.SET("id = #{record.id,jdbcType=BIGINT}");
         }
         
-        if (record.getCreateDate() != null) {
-            sql.SET("create_date = #{record.createDate,jdbcType=TIMESTAMP}");
+        if (record.getCreateTime() != null) {
+            sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         }
         
-        if (record.getUpdateDate() != null) {
-            sql.SET("update_date = #{record.updateDate,jdbcType=TIMESTAMP}");
+        if (record.getUpdateTime() != null) {
+            sql.SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
         }
         
         if (record.getUserAvatar() != null) {
@@ -155,8 +155,8 @@ public class SysUserAvatarSqlProvider {
         sql.UPDATE("sys_user_avatar");
         
         sql.SET("id = #{record.id,jdbcType=BIGINT}");
-        sql.SET("create_date = #{record.createDate,jdbcType=TIMESTAMP}");
-        sql.SET("update_date = #{record.updateDate,jdbcType=TIMESTAMP}");
+        sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
+        sql.SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
         sql.SET("user_avatar = #{record.userAvatar,jdbcType=LONGVARCHAR}");
         
         SysUserAvatarExample example = (SysUserAvatarExample) parameter.get("example");
@@ -175,8 +175,8 @@ public class SysUserAvatarSqlProvider {
         sql.UPDATE("sys_user_avatar");
         
         sql.SET("id = #{record.id,jdbcType=BIGINT}");
-        sql.SET("create_date = #{record.createDate,jdbcType=TIMESTAMP}");
-        sql.SET("update_date = #{record.updateDate,jdbcType=TIMESTAMP}");
+        sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
+        sql.SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
         
         SysUserAvatarExample example = (SysUserAvatarExample) parameter.get("example");
         applyWhere(sql, example, true);
@@ -193,12 +193,12 @@ public class SysUserAvatarSqlProvider {
         SQL sql = new SQL();
         sql.UPDATE("sys_user_avatar");
         
-        if (record.getCreateDate() != null) {
-            sql.SET("create_date = #{createDate,jdbcType=TIMESTAMP}");
+        if (record.getCreateTime() != null) {
+            sql.SET("create_time = #{createTime,jdbcType=TIMESTAMP}");
         }
         
-        if (record.getUpdateDate() != null) {
-            sql.SET("update_date = #{updateDate,jdbcType=TIMESTAMP}");
+        if (record.getUpdateTime() != null) {
+            sql.SET("update_time = #{updateTime,jdbcType=TIMESTAMP}");
         }
         
         if (record.getUserAvatar() != null) {

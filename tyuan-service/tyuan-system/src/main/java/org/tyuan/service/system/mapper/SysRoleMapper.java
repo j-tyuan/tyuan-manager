@@ -55,14 +55,16 @@ public interface SysRoleMapper {
      * @mbg.generated
      */
     @Insert({
-        "insert into sys_role (create_date, update_date, ",
-        "code, name, is_sys, ",
-        "useable, create_by, update_by, ",
-        "remarks, del_flag)",
-        "values (#{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}, ",
-        "#{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{isSys,jdbcType=BIT}, ",
-        "#{useable,jdbcType=BIT}, #{createBy,jdbcType=VARCHAR}, #{updateBy,jdbcType=VARCHAR}, ",
-        "#{remarks,jdbcType=VARCHAR}, #{delFlag,jdbcType=BIT})"
+        "insert into sys_role (create_time, update_time, ",
+        "role_code, role_name, ",
+        "is_sys, useable, create_by, ",
+        "update_by, remarks, ",
+        "del_flag)",
+        "values (#{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, ",
+        "#{roleCode,jdbcType=VARCHAR}, #{roleName,jdbcType=VARCHAR}, ",
+        "#{isSys,jdbcType=BIT}, #{useable,jdbcType=BIT}, #{createBy,jdbcType=VARCHAR}, ",
+        "#{updateBy,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, ",
+        "#{delFlag,jdbcType=BIT})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Long.class)
     int insert(SysRole record);
@@ -86,10 +88,10 @@ public interface SysRoleMapper {
     @SelectProvider(type=SysRoleSqlProvider.class, method="selectByExample")
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
-        @Result(column="create_date", property="createDate", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="update_date", property="updateDate", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="code", property="code", jdbcType=JdbcType.VARCHAR),
-        @Result(column="name", property="name", jdbcType=JdbcType.VARCHAR),
+        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="update_time", property="updateTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="role_code", property="roleCode", jdbcType=JdbcType.VARCHAR),
+        @Result(column="role_name", property="roleName", jdbcType=JdbcType.VARCHAR),
         @Result(column="is_sys", property="isSys", jdbcType=JdbcType.BIT),
         @Result(column="useable", property="useable", jdbcType=JdbcType.BIT),
         @Result(column="create_by", property="createBy", jdbcType=JdbcType.VARCHAR),
@@ -107,17 +109,17 @@ public interface SysRoleMapper {
      */
     @Select({
         "select",
-        "id, create_date, update_date, code, name, is_sys, useable, create_by, update_by, ",
-        "remarks, del_flag",
+        "id, create_time, update_time, role_code, role_name, is_sys, useable, create_by, ",
+        "update_by, remarks, del_flag",
         "from sys_role",
         "where id = #{id,jdbcType=BIGINT}"
     })
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
-        @Result(column="create_date", property="createDate", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="update_date", property="updateDate", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="code", property="code", jdbcType=JdbcType.VARCHAR),
-        @Result(column="name", property="name", jdbcType=JdbcType.VARCHAR),
+        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="update_time", property="updateTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="role_code", property="roleCode", jdbcType=JdbcType.VARCHAR),
+        @Result(column="role_name", property="roleName", jdbcType=JdbcType.VARCHAR),
         @Result(column="is_sys", property="isSys", jdbcType=JdbcType.BIT),
         @Result(column="useable", property="useable", jdbcType=JdbcType.BIT),
         @Result(column="create_by", property="createBy", jdbcType=JdbcType.VARCHAR),
@@ -162,10 +164,10 @@ public interface SysRoleMapper {
      */
     @Update({
         "update sys_role",
-        "set create_date = #{createDate,jdbcType=TIMESTAMP},",
-          "update_date = #{updateDate,jdbcType=TIMESTAMP},",
-          "code = #{code,jdbcType=VARCHAR},",
-          "name = #{name,jdbcType=VARCHAR},",
+        "set create_time = #{createTime,jdbcType=TIMESTAMP},",
+          "update_time = #{updateTime,jdbcType=TIMESTAMP},",
+          "role_code = #{roleCode,jdbcType=VARCHAR},",
+          "role_name = #{roleName,jdbcType=VARCHAR},",
           "is_sys = #{isSys,jdbcType=BIT},",
           "useable = #{useable,jdbcType=BIT},",
           "create_by = #{createBy,jdbcType=VARCHAR},",

@@ -23,9 +23,9 @@ import lombok.Setter;
 @Getter
 public class SysRoleTableParamsVo extends DataTableParam {
 
-    private String code;
+    private String roleCode;
 
-    private String name;
+    private String roleName;
 
 
 }

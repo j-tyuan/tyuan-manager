@@ -82,7 +82,7 @@ public class LogAspect {
             Log var = method.getAnnotation(Log.class);
             if (var != null) {
                 String value = var.value();
-                sysLog.setTitle(value);//保存获取的操作
+                sysLog.setLogTitle(value);//保存获取的操作
             }
             sysLog.setMethod(className + "." + methodName);
             List params = Lists.newArrayList();
@@ -91,11 +91,11 @@ public class LogAspect {
                     params.add(o);
                 }
             }
-            sysLog.setType(var.type().getType());
+            sysLog.setLogType(var.type().getType());
             //将参数所在的数组转换成json
             sysLog.setUserAgent(JSONObject.toJSONString(params));
             sysLog.setRequestId(requestId);
-            sysLog.setCreateDate(new Date());
+            sysLog.setCreateTime(new Date());
             sysLog.setUserName(userName);
             sysLog.setUserId(userId);
             sysLog.setRemoteAddr(addr);

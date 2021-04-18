@@ -56,18 +56,20 @@ public interface SysLogMapper {
      * @mbg.generated
      */
     @Insert({
-        "insert into sys_log (request_id, create_date, ",
-        "type, title, user_id, ",
-        "user_name, remote_addr, ",
-        "user_agent, request_uri, ",
-        "method, duration, ",
-        "params, exception)",
-        "values (#{requestId,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, ",
-        "#{type,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{userId,jdbcType=BIGINT}, ",
-        "#{userName,jdbcType=VARCHAR}, #{remoteAddr,jdbcType=VARCHAR}, ",
-        "#{userAgent,jdbcType=VARCHAR}, #{requestUri,jdbcType=VARCHAR}, ",
-        "#{method,jdbcType=VARCHAR}, #{duration,jdbcType=INTEGER}, ",
-        "#{params,jdbcType=LONGVARCHAR}, #{exception,jdbcType=LONGVARCHAR})"
+        "insert into sys_log (request_id, create_time, ",
+        "log_type, log_title, ",
+        "user_id, user_name, ",
+        "remote_addr, user_agent, ",
+        "request_uri, method, ",
+        "duration, params, ",
+        "exception)",
+        "values (#{requestId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, ",
+        "#{logType,jdbcType=INTEGER}, #{logTitle,jdbcType=VARCHAR}, ",
+        "#{userId,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR}, ",
+        "#{remoteAddr,jdbcType=VARCHAR}, #{userAgent,jdbcType=VARCHAR}, ",
+        "#{requestUri,jdbcType=VARCHAR}, #{method,jdbcType=VARCHAR}, ",
+        "#{duration,jdbcType=INTEGER}, #{params,jdbcType=LONGVARCHAR}, ",
+        "#{exception,jdbcType=LONGVARCHAR})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Long.class)
     int insert(SysLogWithBLOBs record);
@@ -92,9 +94,9 @@ public interface SysLogMapper {
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
         @Result(column="request_id", property="requestId", jdbcType=JdbcType.VARCHAR),
-        @Result(column="create_date", property="createDate", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="type", property="type", jdbcType=JdbcType.INTEGER),
-        @Result(column="title", property="title", jdbcType=JdbcType.VARCHAR),
+        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="log_type", property="logType", jdbcType=JdbcType.INTEGER),
+        @Result(column="log_title", property="logTitle", jdbcType=JdbcType.VARCHAR),
         @Result(column="user_id", property="userId", jdbcType=JdbcType.BIGINT),
         @Result(column="user_name", property="userName", jdbcType=JdbcType.VARCHAR),
         @Result(column="remote_addr", property="remoteAddr", jdbcType=JdbcType.VARCHAR),
@@ -117,9 +119,9 @@ public interface SysLogMapper {
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
         @Result(column="request_id", property="requestId", jdbcType=JdbcType.VARCHAR),
-        @Result(column="create_date", property="createDate", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="type", property="type", jdbcType=JdbcType.INTEGER),
-        @Result(column="title", property="title", jdbcType=JdbcType.VARCHAR),
+        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="log_type", property="logType", jdbcType=JdbcType.INTEGER),
+        @Result(column="log_title", property="logTitle", jdbcType=JdbcType.VARCHAR),
         @Result(column="user_id", property="userId", jdbcType=JdbcType.BIGINT),
         @Result(column="user_name", property="userName", jdbcType=JdbcType.VARCHAR),
         @Result(column="remote_addr", property="remoteAddr", jdbcType=JdbcType.VARCHAR),
@@ -138,17 +140,17 @@ public interface SysLogMapper {
      */
     @Select({
         "select",
-        "id, request_id, create_date, type, title, user_id, user_name, remote_addr, user_agent, ",
-        "request_uri, method, duration, params, exception",
+        "id, request_id, create_time, log_type, log_title, user_id, user_name, remote_addr, ",
+        "user_agent, request_uri, method, duration, params, exception",
         "from sys_log",
         "where id = #{id,jdbcType=BIGINT}"
     })
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
         @Result(column="request_id", property="requestId", jdbcType=JdbcType.VARCHAR),
-        @Result(column="create_date", property="createDate", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="type", property="type", jdbcType=JdbcType.INTEGER),
-        @Result(column="title", property="title", jdbcType=JdbcType.VARCHAR),
+        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="log_type", property="logType", jdbcType=JdbcType.INTEGER),
+        @Result(column="log_title", property="logTitle", jdbcType=JdbcType.VARCHAR),
         @Result(column="user_id", property="userId", jdbcType=JdbcType.BIGINT),
         @Result(column="user_name", property="userName", jdbcType=JdbcType.VARCHAR),
         @Result(column="remote_addr", property="remoteAddr", jdbcType=JdbcType.VARCHAR),
@@ -206,9 +208,9 @@ public interface SysLogMapper {
     @Update({
         "update sys_log",
         "set request_id = #{requestId,jdbcType=VARCHAR},",
-          "create_date = #{createDate,jdbcType=TIMESTAMP},",
-          "type = #{type,jdbcType=INTEGER},",
-          "title = #{title,jdbcType=VARCHAR},",
+          "create_time = #{createTime,jdbcType=TIMESTAMP},",
+          "log_type = #{logType,jdbcType=INTEGER},",
+          "log_title = #{logTitle,jdbcType=VARCHAR},",
           "user_id = #{userId,jdbcType=BIGINT},",
           "user_name = #{userName,jdbcType=VARCHAR},",
           "remote_addr = #{remoteAddr,jdbcType=VARCHAR},",
@@ -231,9 +233,9 @@ public interface SysLogMapper {
     @Update({
         "update sys_log",
         "set request_id = #{requestId,jdbcType=VARCHAR},",
-          "create_date = #{createDate,jdbcType=TIMESTAMP},",
-          "type = #{type,jdbcType=INTEGER},",
-          "title = #{title,jdbcType=VARCHAR},",
+          "create_time = #{createTime,jdbcType=TIMESTAMP},",
+          "log_type = #{logType,jdbcType=INTEGER},",
+          "log_title = #{logTitle,jdbcType=VARCHAR},",
           "user_id = #{userId,jdbcType=BIGINT},",
           "user_name = #{userName,jdbcType=VARCHAR},",
           "remote_addr = #{remoteAddr,jdbcType=VARCHAR},",

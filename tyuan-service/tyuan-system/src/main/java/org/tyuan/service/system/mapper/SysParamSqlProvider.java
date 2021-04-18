@@ -45,12 +45,12 @@ public class SysParamSqlProvider {
         SQL sql = new SQL();
         sql.INSERT_INTO("sys_param");
         
-        if (record.getCreateDate() != null) {
-            sql.VALUES("create_date", "#{createDate,jdbcType=TIMESTAMP}");
+        if (record.getCreateTime() != null) {
+            sql.VALUES("create_time", "#{createTime,jdbcType=TIMESTAMP}");
         }
         
-        if (record.getUpdateDate() != null) {
-            sql.VALUES("update_date", "#{updateDate,jdbcType=TIMESTAMP}");
+        if (record.getUpdateTime() != null) {
+            sql.VALUES("update_time", "#{updateTime,jdbcType=TIMESTAMP}");
         }
         
         if (record.getParamName() != null) {
@@ -97,8 +97,8 @@ public class SysParamSqlProvider {
         } else {
             sql.SELECT("id");
         }
-        sql.SELECT("create_date");
-        sql.SELECT("update_date");
+        sql.SELECT("create_time");
+        sql.SELECT("update_time");
         sql.SELECT("param_name");
         sql.SELECT("param_key");
         sql.SELECT("is_sys");
@@ -129,8 +129,8 @@ public class SysParamSqlProvider {
         } else {
             sql.SELECT("id");
         }
-        sql.SELECT("create_date");
-        sql.SELECT("update_date");
+        sql.SELECT("create_time");
+        sql.SELECT("update_time");
         sql.SELECT("param_name");
         sql.SELECT("param_key");
         sql.SELECT("is_sys");
@@ -164,12 +164,12 @@ public class SysParamSqlProvider {
             sql.SET("id = #{record.id,jdbcType=BIGINT}");
         }
         
-        if (record.getCreateDate() != null) {
-            sql.SET("create_date = #{record.createDate,jdbcType=TIMESTAMP}");
+        if (record.getCreateTime() != null) {
+            sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         }
         
-        if (record.getUpdateDate() != null) {
-            sql.SET("update_date = #{record.updateDate,jdbcType=TIMESTAMP}");
+        if (record.getUpdateTime() != null) {
+            sql.SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
         }
         
         if (record.getParamName() != null) {
@@ -215,8 +215,8 @@ public class SysParamSqlProvider {
         sql.UPDATE("sys_param");
         
         sql.SET("id = #{record.id,jdbcType=BIGINT}");
-        sql.SET("create_date = #{record.createDate,jdbcType=TIMESTAMP}");
-        sql.SET("update_date = #{record.updateDate,jdbcType=TIMESTAMP}");
+        sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
+        sql.SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
         sql.SET("param_name = #{record.paramName,jdbcType=VARCHAR}");
         sql.SET("param_key = #{record.paramKey,jdbcType=VARCHAR}");
         sql.SET("is_sys = #{record.isSys,jdbcType=BIT}");
@@ -241,8 +241,8 @@ public class SysParamSqlProvider {
         sql.UPDATE("sys_param");
         
         sql.SET("id = #{record.id,jdbcType=BIGINT}");
-        sql.SET("create_date = #{record.createDate,jdbcType=TIMESTAMP}");
-        sql.SET("update_date = #{record.updateDate,jdbcType=TIMESTAMP}");
+        sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
+        sql.SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
         sql.SET("param_name = #{record.paramName,jdbcType=VARCHAR}");
         sql.SET("param_key = #{record.paramKey,jdbcType=VARCHAR}");
         sql.SET("is_sys = #{record.isSys,jdbcType=BIT}");
@@ -265,12 +265,12 @@ public class SysParamSqlProvider {
         SQL sql = new SQL();
         sql.UPDATE("sys_param");
         
-        if (record.getCreateDate() != null) {
-            sql.SET("create_date = #{createDate,jdbcType=TIMESTAMP}");
+        if (record.getCreateTime() != null) {
+            sql.SET("create_time = #{createTime,jdbcType=TIMESTAMP}");
         }
         
-        if (record.getUpdateDate() != null) {
-            sql.SET("update_date = #{updateDate,jdbcType=TIMESTAMP}");
+        if (record.getUpdateTime() != null) {
+            sql.SET("update_time = #{updateTime,jdbcType=TIMESTAMP}");
         }
         
         if (record.getParamName() != null) {

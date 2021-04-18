@@ -55,16 +55,16 @@ public interface OrganizationInstitutionMapper {
      * @mbg.generated
      */
     @Insert({
-        "insert into organization_institution (parent_id, inst_code, ",
+        "insert into organization_institution (create_time, update_time, ",
+        "parent_id, inst_code, ",
         "inst_name, inst_type, ",
         "owner_user_id, inst_sort, ",
-        "inst_status, inst_desc, ",
-        "create_date, update_date)",
-        "values (#{parentId,jdbcType=BIGINT}, #{instCode,jdbcType=VARCHAR}, ",
+        "inst_status, remarks)",
+        "values (#{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, ",
+        "#{parentId,jdbcType=BIGINT}, #{instCode,jdbcType=VARCHAR}, ",
         "#{instName,jdbcType=VARCHAR}, #{instType,jdbcType=INTEGER}, ",
         "#{ownerUserId,jdbcType=BIGINT}, #{instSort,jdbcType=INTEGER}, ",
-        "#{instStatus,jdbcType=INTEGER}, #{instDesc,jdbcType=VARCHAR}, ",
-        "#{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP})"
+        "#{instStatus,jdbcType=INTEGER}, #{remarks,jdbcType=VARCHAR})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Long.class)
     int insert(OrganizationInstitution record);
@@ -88,6 +88,8 @@ public interface OrganizationInstitutionMapper {
     @SelectProvider(type=OrganizationInstitutionSqlProvider.class, method="selectByExample")
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
+        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="update_time", property="updateTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="parent_id", property="parentId", jdbcType=JdbcType.BIGINT),
         @Result(column="inst_code", property="instCode", jdbcType=JdbcType.VARCHAR),
         @Result(column="inst_name", property="instName", jdbcType=JdbcType.VARCHAR),
@@ -95,9 +97,7 @@ public interface OrganizationInstitutionMapper {
         @Result(column="owner_user_id", property="ownerUserId", jdbcType=JdbcType.BIGINT),
         @Result(column="inst_sort", property="instSort", jdbcType=JdbcType.INTEGER),
         @Result(column="inst_status", property="instStatus", jdbcType=JdbcType.INTEGER),
-        @Result(column="inst_desc", property="instDesc", jdbcType=JdbcType.VARCHAR),
-        @Result(column="create_date", property="createDate", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="update_date", property="updateDate", jdbcType=JdbcType.TIMESTAMP)
+        @Result(column="remarks", property="remarks", jdbcType=JdbcType.VARCHAR)
     })
     List<OrganizationInstitution> selectByExample(OrganizationInstitutionExample example);
 
@@ -109,13 +109,15 @@ public interface OrganizationInstitutionMapper {
      */
     @Select({
         "select",
-        "id, parent_id, inst_code, inst_name, inst_type, owner_user_id, inst_sort, inst_status, ",
-        "inst_desc, create_date, update_date",
+        "id, create_time, update_time, parent_id, inst_code, inst_name, inst_type, owner_user_id, ",
+        "inst_sort, inst_status, remarks",
         "from organization_institution",
         "where id = #{id,jdbcType=BIGINT}"
     })
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
+        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="update_time", property="updateTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="parent_id", property="parentId", jdbcType=JdbcType.BIGINT),
         @Result(column="inst_code", property="instCode", jdbcType=JdbcType.VARCHAR),
         @Result(column="inst_name", property="instName", jdbcType=JdbcType.VARCHAR),
@@ -123,9 +125,7 @@ public interface OrganizationInstitutionMapper {
         @Result(column="owner_user_id", property="ownerUserId", jdbcType=JdbcType.BIGINT),
         @Result(column="inst_sort", property="instSort", jdbcType=JdbcType.INTEGER),
         @Result(column="inst_status", property="instStatus", jdbcType=JdbcType.INTEGER),
-        @Result(column="inst_desc", property="instDesc", jdbcType=JdbcType.VARCHAR),
-        @Result(column="create_date", property="createDate", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="update_date", property="updateDate", jdbcType=JdbcType.TIMESTAMP)
+        @Result(column="remarks", property="remarks", jdbcType=JdbcType.VARCHAR)
     })
     OrganizationInstitution selectByPrimaryKey(Long id);
 
@@ -164,16 +164,16 @@ public interface OrganizationInstitutionMapper {
      */
     @Update({
         "update organization_institution",
-        "set parent_id = #{parentId,jdbcType=BIGINT},",
+        "set create_time = #{createTime,jdbcType=TIMESTAMP},",
+          "update_time = #{updateTime,jdbcType=TIMESTAMP},",
+          "parent_id = #{parentId,jdbcType=BIGINT},",
           "inst_code = #{instCode,jdbcType=VARCHAR},",
           "inst_name = #{instName,jdbcType=VARCHAR},",
           "inst_type = #{instType,jdbcType=INTEGER},",
           "owner_user_id = #{ownerUserId,jdbcType=BIGINT},",
           "inst_sort = #{instSort,jdbcType=INTEGER},",
           "inst_status = #{instStatus,jdbcType=INTEGER},",
-          "inst_desc = #{instDesc,jdbcType=VARCHAR},",
-          "create_date = #{createDate,jdbcType=TIMESTAMP},",
-          "update_date = #{updateDate,jdbcType=TIMESTAMP}",
+          "remarks = #{remarks,jdbcType=VARCHAR}",
         "where id = #{id,jdbcType=BIGINT}"
     })
     int updateByPrimaryKey(OrganizationInstitution record);

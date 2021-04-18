@@ -45,6 +45,14 @@ public class SysUserWebLayoutSqlProvider {
         SQL sql = new SQL();
         sql.INSERT_INTO("sys_user_web_layout");
         
+        if (record.getCreateTime() != null) {
+            sql.VALUES("create_time", "#{createTime,jdbcType=TIMESTAMP}");
+        }
+        
+        if (record.getUpdateTime() != null) {
+            sql.VALUES("update_time", "#{updateTime,jdbcType=TIMESTAMP}");
+        }
+        
         if (record.getUserId() != null) {
             sql.VALUES("user_id", "#{userId,jdbcType=BIGINT}");
         }
@@ -69,6 +77,8 @@ public class SysUserWebLayoutSqlProvider {
         } else {
             sql.SELECT("id");
         }
+        sql.SELECT("create_time");
+        sql.SELECT("update_time");
         sql.SELECT("user_id");
         sql.SELECT("layout_structure");
         sql.FROM("sys_user_web_layout");
@@ -94,6 +104,8 @@ public class SysUserWebLayoutSqlProvider {
         } else {
             sql.SELECT("id");
         }
+        sql.SELECT("create_time");
+        sql.SELECT("update_time");
         sql.SELECT("user_id");
         sql.FROM("sys_user_web_layout");
         applyWhere(sql, example, false);
@@ -122,6 +134,14 @@ public class SysUserWebLayoutSqlProvider {
             sql.SET("id = #{record.id,jdbcType=BIGINT}");
         }
         
+        if (record.getCreateTime() != null) {
+            sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
+        }
+        
+        if (record.getUpdateTime() != null) {
+            sql.SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
+        }
+        
         if (record.getUserId() != null) {
             sql.SET("user_id = #{record.userId,jdbcType=BIGINT}");
         }
@@ -145,6 +165,8 @@ public class SysUserWebLayoutSqlProvider {
         sql.UPDATE("sys_user_web_layout");
         
         sql.SET("id = #{record.id,jdbcType=BIGINT}");
+        sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
+        sql.SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
         sql.SET("user_id = #{record.userId,jdbcType=BIGINT}");
         sql.SET("layout_structure = #{record.layoutStructure,jdbcType=LONGVARCHAR}");
         
@@ -164,6 +186,8 @@ public class SysUserWebLayoutSqlProvider {
         sql.UPDATE("sys_user_web_layout");
         
         sql.SET("id = #{record.id,jdbcType=BIGINT}");
+        sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
+        sql.SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
         sql.SET("user_id = #{record.userId,jdbcType=BIGINT}");
         
         SysUserWebLayoutExample example = (SysUserWebLayoutExample) parameter.get("example");
@@ -180,6 +204,14 @@ public class SysUserWebLayoutSqlProvider {
     public String updateByPrimaryKeySelective(SysUserWebLayout record) {
         SQL sql = new SQL();
         sql.UPDATE("sys_user_web_layout");
+        
+        if (record.getCreateTime() != null) {
+            sql.SET("create_time = #{createTime,jdbcType=TIMESTAMP}");
+        }
+        
+        if (record.getUpdateTime() != null) {
+            sql.SET("update_time = #{updateTime,jdbcType=TIMESTAMP}");
+        }
         
         if (record.getUserId() != null) {
             sql.SET("user_id = #{userId,jdbcType=BIGINT}");

@@ -59,7 +59,7 @@ public class SysLoginLogServiceImpl implements SysLoginLogService {
             criteria.andUserNoEqualTo(userNo);
         }
         PageHelper.offsetPage(param.getOffset(), param.getPageSize())
-                .setOrderBy("create_date desc");
+                .setOrderBy("create_time desc");
         List<SysLoginLog> result = sysLoginLogMapper.selectByExample(example);
         return new PageInfo(result);
     }
@@ -70,9 +70,9 @@ public class SysLoginLogServiceImpl implements SysLoginLogService {
         SysLoginLog loginLog = new SysLoginLog();
 
         loginLog.setAvatarId(sysUser.getAvatarId());
-        loginLog.setCreateDate(new Date());
+        loginLog.setCreateTime(new Date());
         loginLog.setUserId(sysUser.getId());
-        loginLog.setUserName(sysUser.getName());
+        loginLog.setUserName(sysUser.getUserName());
         loginLog.setUserNo(sysUser.getUserNo());
         String ipAddr = IPUtils.getIpAddr(request);
         loginLog.setLoginIp(ipAddr);

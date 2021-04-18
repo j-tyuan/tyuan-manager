@@ -56,9 +56,11 @@ public interface SysPermissionMapper {
      */
     @Insert({
         "insert into sys_permission (parent_id, permission, ",
-        "sort, name, remarks)",
+        "permission_sort, permission_name, ",
+        "remarks)",
         "values (#{parentId,jdbcType=BIGINT}, #{permission,jdbcType=VARCHAR}, ",
-        "#{sort,jdbcType=DECIMAL}, #{name,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR})"
+        "#{permissionSort,jdbcType=DECIMAL}, #{permissionName,jdbcType=VARCHAR}, ",
+        "#{remarks,jdbcType=VARCHAR})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Long.class)
     int insert(SysPermission record);
@@ -84,8 +86,8 @@ public interface SysPermissionMapper {
         @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
         @Result(column="parent_id", property="parentId", jdbcType=JdbcType.BIGINT),
         @Result(column="permission", property="permission", jdbcType=JdbcType.VARCHAR),
-        @Result(column="sort", property="sort", jdbcType=JdbcType.DECIMAL),
-        @Result(column="name", property="name", jdbcType=JdbcType.VARCHAR),
+        @Result(column="permission_sort", property="permissionSort", jdbcType=JdbcType.DECIMAL),
+        @Result(column="permission_name", property="permissionName", jdbcType=JdbcType.VARCHAR),
         @Result(column="remarks", property="remarks", jdbcType=JdbcType.VARCHAR)
     })
     List<SysPermission> selectByExample(SysPermissionExample example);
@@ -98,7 +100,7 @@ public interface SysPermissionMapper {
      */
     @Select({
         "select",
-        "id, parent_id, permission, sort, name, remarks",
+        "id, parent_id, permission, permission_sort, permission_name, remarks",
         "from sys_permission",
         "where id = #{id,jdbcType=BIGINT}"
     })
@@ -106,8 +108,8 @@ public interface SysPermissionMapper {
         @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
         @Result(column="parent_id", property="parentId", jdbcType=JdbcType.BIGINT),
         @Result(column="permission", property="permission", jdbcType=JdbcType.VARCHAR),
-        @Result(column="sort", property="sort", jdbcType=JdbcType.DECIMAL),
-        @Result(column="name", property="name", jdbcType=JdbcType.VARCHAR),
+        @Result(column="permission_sort", property="permissionSort", jdbcType=JdbcType.DECIMAL),
+        @Result(column="permission_name", property="permissionName", jdbcType=JdbcType.VARCHAR),
         @Result(column="remarks", property="remarks", jdbcType=JdbcType.VARCHAR)
     })
     SysPermission selectByPrimaryKey(Long id);
@@ -149,8 +151,8 @@ public interface SysPermissionMapper {
         "update sys_permission",
         "set parent_id = #{parentId,jdbcType=BIGINT},",
           "permission = #{permission,jdbcType=VARCHAR},",
-          "sort = #{sort,jdbcType=DECIMAL},",
-          "name = #{name,jdbcType=VARCHAR},",
+          "permission_sort = #{permissionSort,jdbcType=DECIMAL},",
+          "permission_name = #{permissionName,jdbcType=VARCHAR},",
           "remarks = #{remarks,jdbcType=VARCHAR}",
         "where id = #{id,jdbcType=BIGINT}"
     })

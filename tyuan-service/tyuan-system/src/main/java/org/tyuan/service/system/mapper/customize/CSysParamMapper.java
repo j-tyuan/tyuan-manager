@@ -32,13 +32,13 @@ public interface CSysParamMapper extends SysParamMapper, ICacheInfo {
      * @return
      */
     @Override
-    @Select("select update_date, b.c total " +
+    @Select("select update_time, b.c total " +
             " from sys_param, " +
             "  (select count(*) c from sys_param) as b " +
-            " order by update_date desc " +
+            " order by update_time desc " +
             " limit 1;")
     @Results({
-            @Result(column = "update_date", property = "updateDate", jdbcType = JdbcType.TIMESTAMP),
+            @Result(column = "update_time", property = "updateTime", jdbcType = JdbcType.TIMESTAMP),
             @Result(column = "total", property = "total", jdbcType = JdbcType.INTEGER)
     })
     Map getLastUpdateAndCount();

@@ -135,15 +135,15 @@ public class SysScheduledTask {
         Map dictMap = Maps.newHashMap();
         for (SysDict item : dicts) {
 
-            List arr = (List) dictMap.getOrDefault(item.getType(), Lists.newArrayList());
+            List arr = (List) dictMap.getOrDefault(item.getDictType(), Lists.newArrayList());
             Map var = Maps.newHashMap();
-            var.put("type", item.getType());
-            var.put("label", item.getLabel());
-            var.put("value", item.getValue());
+            var.put("type", item.getDictType());
+            var.put("label", item.getDictLabel());
+            var.put("value", item.getDictValue());
             var.put("parentId", item.getParentId());
             arr.add(var);
 
-            dictMap.put(item.getType(), arr);
+            dictMap.put(item.getDictType(), arr);
         }
 
         biFunction.apply(CacheConstant.SYS_DICT_MAP, dictMap);
@@ -183,7 +183,7 @@ public class SysScheduledTask {
         if (null == total || total == 0) {
             return;
         }
-        Long time = ((Date) map.get("updateDate")).getTime();
+        Long time = ((Date) map.get("updateTime")).getTime();
         if (updateBO.complete(time, total)) {
             return;
         }

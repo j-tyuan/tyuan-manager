@@ -23,9 +23,9 @@ import lombok.Setter;
 @Setter
 public class SysDictTableParamsVo extends DataTableParam {
 
-    private String label;
+    private String dictLabel;
 
-    private String type;
+    private String dictType;
 
     private Long parentId;
 }

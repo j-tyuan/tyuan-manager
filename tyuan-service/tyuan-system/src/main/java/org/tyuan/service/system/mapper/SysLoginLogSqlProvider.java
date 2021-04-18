@@ -57,8 +57,8 @@ public class SysLoginLogSqlProvider {
             sql.VALUES("user_name", "#{userName,jdbcType=VARCHAR}");
         }
         
-        if (record.getCreateDate() != null) {
-            sql.VALUES("create_date", "#{createDate,jdbcType=TIMESTAMP}");
+        if (record.getCreateTime() != null) {
+            sql.VALUES("create_time", "#{createTime,jdbcType=TIMESTAMP}");
         }
         
         if (record.getLoginIp() != null) {
@@ -92,7 +92,7 @@ public class SysLoginLogSqlProvider {
         sql.SELECT("user_id");
         sql.SELECT("user_no");
         sql.SELECT("user_name");
-        sql.SELECT("create_date");
+        sql.SELECT("create_time");
         sql.SELECT("login_ip");
         sql.SELECT("login_date");
         sql.SELECT("avatar_id");
@@ -135,8 +135,8 @@ public class SysLoginLogSqlProvider {
             sql.SET("user_name = #{record.userName,jdbcType=VARCHAR}");
         }
         
-        if (record.getCreateDate() != null) {
-            sql.SET("create_date = #{record.createDate,jdbcType=TIMESTAMP}");
+        if (record.getCreateTime() != null) {
+            sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         }
         
         if (record.getLoginIp() != null) {
@@ -169,7 +169,7 @@ public class SysLoginLogSqlProvider {
         sql.SET("user_id = #{record.userId,jdbcType=BIGINT}");
         sql.SET("user_no = #{record.userNo,jdbcType=VARCHAR}");
         sql.SET("user_name = #{record.userName,jdbcType=VARCHAR}");
-        sql.SET("create_date = #{record.createDate,jdbcType=TIMESTAMP}");
+        sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("login_ip = #{record.loginIp,jdbcType=VARCHAR}");
         sql.SET("login_date = #{record.loginDate,jdbcType=TIMESTAMP}");
         sql.SET("avatar_id = #{record.avatarId,jdbcType=BIGINT}");
@@ -201,8 +201,8 @@ public class SysLoginLogSqlProvider {
             sql.SET("user_name = #{userName,jdbcType=VARCHAR}");
         }
         
-        if (record.getCreateDate() != null) {
-            sql.SET("create_date = #{createDate,jdbcType=TIMESTAMP}");
+        if (record.getCreateTime() != null) {
+            sql.SET("create_time = #{createTime,jdbcType=TIMESTAMP}");
         }
         
         if (record.getLoginIp() != null) {

@@ -67,7 +67,7 @@ public class SysParamServerImpl implements SysParamService {
         }
 
         PageHelper.offsetPage(param.getOffset(), param.getPageSize())
-                .setOrderBy("update_date desc");
+                .setOrderBy("update_time desc");
         List<SysParam> result = cSysParamMapper.selectByExampleWithBLOBs(example);
 
         return new PageInfo(result);
