@@ -20,12 +20,12 @@
  */
 package org.tyuan.service.framework.config;
 
-import org.tyuan.service.framework.cache.UserInfoCacheService;
-import org.tyuan.service.system.model.ErrorCodeConsts;
-import org.tyuan.service.system.model.ResultData;
 import org.apache.shiro.web.filter.AccessControlFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.tyuan.common.ResultData;
+import org.tyuan.service.framework.cache.UserInfoCacheService;
+import org.tyuan.service.system.model.ErrorCodeConsts;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;

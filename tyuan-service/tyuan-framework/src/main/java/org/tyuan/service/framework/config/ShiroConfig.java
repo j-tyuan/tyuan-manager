@@ -116,6 +116,7 @@ public class ShiroConfig {
         Map<String, String> map = new HashMap<>();
         //对所有用户认证
         map.put("/**", "statelessAuthc");
+        map.put("/demo/**", "anon");
         map.put(ROUTER_SYS_LOGIN_ACCOUNT, "anon");
         //错误页面，认证不通过跳转
         shiroFilterFactoryBean.setFilterChainDefinitionMap(map);

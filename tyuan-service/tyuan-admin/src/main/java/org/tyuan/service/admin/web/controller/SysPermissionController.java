@@ -20,10 +20,10 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.tyuan.common.ResultData;
 import org.tyuan.service.admin.web.PermissionConstant;
 import org.tyuan.service.admin.web.RouteConstant;
 import org.tyuan.service.framework.cache.LocalCache;
-import org.tyuan.service.system.model.ResultData;
 import org.tyuan.service.system.service.SysPermissionService;
 import org.tyuan.service.system.service.SysRoleService;
 

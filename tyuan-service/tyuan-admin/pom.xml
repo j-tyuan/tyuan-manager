@@ -21,7 +21,6 @@
             <artifactId>spring-boot-devtools</artifactId>
             <scope>runtime</scope>
         </dependency>
-
         <dependency>
             <groupId>org.tyuan</groupId>
             <artifactId>tyuan-framework</artifactId>
