@@ -1,0 +1,76 @@
+# idea 自动补全 进入plugins 搜索spring assistant安装
+# 日志级别
+logging:
+  level:
+    com: DEBUG
+
+scheduled:
+  # 系统参数刷新时间
+  institution:
+    refresh:
+      cron: '20 * * * * ?'
+
+  # 系统参数刷新时间
+  param:
+    refresh:
+      cron: '5 * * * * ?'
+
+  # 字典刷新时间
+  dict:
+    refresh:
+      cron: '5 * * * * ?'
+
+  # 菜单刷新时间
+  menu:
+    refresh:
+      cron: '5 * * * * ?'
+
+config:
+  # 默认线程池配置
+  threadPool:
+    batchTask:
+      # 线程核心数
+      corePoolSize: 2
+      # 最大线程数
+      maxPoolSize: 2
+      # 线程队列
+      queueCapacity: 0
+
+
+#datasource
+spring:
+  profiles:
+    # 这是本地文件，为了安全起见没有开放出来，如果你没有可以删除，这个配置中涉及到datasource的配置
+    include: dev-local
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: ${datasource.url}
+    username: ${datasource.username}
+    password: ${datasource.password}
+  redis:
+    # Redis数据库索引（默认为0）
+    database: 1
+    #服务器地址
+    host: 127.0.0.1
+    #服务器连接端口
+    port: 6379
+    #服务器连接密码（默认为空）
+    password:
+    #连接配置
+    jedis:
+      pool:
+        # 连接池最大连接数（使用负值表示没有限制）
+        max-active: 20
+        # 连接池最大阻塞等待时间（使用负值表示没有限制）
+        max-wait: -1
+        # 连接池中的最大空闲连接
+        max-idle: 10
+        # 连接池中的最小空闲连接
+        min-idle: 0
+    # 连接超时时间（毫秒）
+    timeout: 1000
+
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB

@@ -1,6 +1,0 @@
-server:
-  port: 6080
-spring:
-  #开发环境
-  profiles:
-    active: dev

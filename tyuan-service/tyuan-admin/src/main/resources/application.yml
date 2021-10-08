@@ -1,0 +1,8 @@
+server:
+  port: 6080
+spring:
+  application:
+      name: tyuan.design
+  #开发环境
+  profiles:
+    active: dev
