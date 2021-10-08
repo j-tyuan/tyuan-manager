@@ -24,7 +24,7 @@ import com.google.common.collect.Lists;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.tyuan.common.ITree;
-import org.tyuan.common.ResultData;
+import org.tyuan.service.system.model.ResultData;
 import org.tyuan.common.utils.TreeUtils;
 import org.tyuan.service.admin.web.RouteConstant;
 import org.tyuan.service.framework.cache.LocalCache;

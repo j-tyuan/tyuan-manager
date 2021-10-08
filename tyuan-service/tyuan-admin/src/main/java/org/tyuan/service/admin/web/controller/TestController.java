@@ -18,7 +18,7 @@ package org.tyuan.service.admin.web.controller;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.tyuan.common.ResultData;
+import org.tyuan.service.system.model.ResultData;
 import org.tyuan.service.admin.web.RouteConstant;
 
 import javax.annotation.Resource;

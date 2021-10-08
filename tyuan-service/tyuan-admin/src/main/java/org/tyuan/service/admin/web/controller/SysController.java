@@ -44,7 +44,7 @@ import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
-import org.tyuan.common.ResultData;
+import org.tyuan.service.system.model.ResultData;
 import org.tyuan.common.exception.ServiceException;
 import org.tyuan.common.utils.UserInfoHolder;
 import org.tyuan.service.admin.web.RouteConstant;

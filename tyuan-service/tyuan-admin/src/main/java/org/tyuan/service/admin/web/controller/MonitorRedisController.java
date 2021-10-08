@@ -20,7 +20,7 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.tyuan.common.ResultData;
+import org.tyuan.service.system.model.ResultData;
 import org.tyuan.service.admin.web.PermissionConstant;
 import org.tyuan.service.admin.web.RouteConstant;
 import org.tyuan.service.system.model.vo.monitor.RedisTreeKeyVo;

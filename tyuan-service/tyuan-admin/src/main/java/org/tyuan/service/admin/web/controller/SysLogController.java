@@ -42,7 +42,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.tyuan.common.ResultData;
+import org.tyuan.service.system.model.ResultData;
 import org.tyuan.common.enums.LogType;
 import org.tyuan.service.admin.web.PermissionConstant;
 import org.tyuan.service.admin.web.RouteConstant;

@@ -20,7 +20,7 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.tyuan.common.ResultData;
+import org.tyuan.service.system.model.ResultData;
 import org.tyuan.common.annotation.Log;
 import org.tyuan.common.enums.LogType;
 import org.tyuan.common.exception.ServiceException;
