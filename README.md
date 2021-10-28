@@ -32,11 +32,19 @@
 * [139672396](https://qm.qq.com/cgi-bin/qm/qr?k=rjUvWB3vTk9tP7pPGgwnmFv4jEacxz3R&jump_from=webapi) （QQ群 - 敏捷开发）
 
 ##### 安装运行
+
     # mvn clean install
     # cd manager
     # mvn clean package 
     # java -jar target/manager-1.0.jar --activate-profiles=dev
     
+##### 部署
+
+> 1）在sh文件里已经提供若干种启动部署方式：start.sh、controller.sh 推荐使用start.sh<br>
+> 2）通过mvn打出来的jar自带启动脚本，可通过vim tyuan-manager-service.jar 查看脚本
+> 
+
+
 ##### 特点
 * 遵守apache license 2.0 开源协议
 * 前后端分离
