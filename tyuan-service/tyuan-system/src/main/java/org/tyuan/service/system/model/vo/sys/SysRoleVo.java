@@ -15,12 +15,12 @@
  */
 package org.tyuan.service.system.model.vo.sys;
 
-import org.tyuan.service.system.model.pojo.SysRole;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.Setter;
+import org.tyuan.service.system.model.pojo.SysRole;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.util.List;
 

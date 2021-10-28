@@ -16,7 +16,7 @@
 package org.tyuan.service.system.model.vo.sys;
 
 import org.tyuan.service.system.model.pojo.OrganizationInstitution;
-import jakarta.validation.constraints.NotNull;
+import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
