@@ -39,6 +39,8 @@ config:
 
 #datasource
 spring:
+  application:
+    name: tyuan-api-service-dev
   profiles:
     # 这是本地文件，为了安全起见没有开放出来，如果你没有可以删除，这个配置中涉及到datasource的配置
     include: dev-local
@@ -47,6 +49,63 @@ spring:
     url: ${datasource.url}
     username: ${datasource.username}
     password: ${datasource.password}
+    # 项目地址： https://github.com/brettwooldridge/HikariCP
+    hikari:
+      # This property controls the default auto-commit behavior of connections returned from the pool. It is a boolean
+      # value. Default: true
+      auto-commit: true
+
+      # This property controls the maximum number of milliseconds that a client (that's you) will wait for a connection
+      # from the pool. If this time is exceeded without a connection becoming available, a SQLException will be thrown.
+      # Lowest acceptable connection timeout is 250 ms. Default: 30000 (30 seconds)
+      connection-timeout: 5000
+
+      # This property controls the maximum amount of time that a connection is allowed to sit idle in the pool.
+      # This setting only applies when minimumIdle is defined to be less than maximumPoolSize. Idle connections
+      # will not be retired once the pool reaches minimumIdle connections.
+      # Whether a connection is retired as idle or not is subject to a maximum variation of +30 seconds,
+      # and average variation of +15 seconds. A connection will never be retired as idle before
+      # this timeout. A value of 0 means that idle connections are never removed from the pool.
+      # The minimum allowed value is 10000ms (10 seconds). Default: 600000 (10 minutes)
+      idle-timeout: 600000
+
+      # This property controls the maximum lifetime of a connection in the pool.
+      # An in-use connection will never be retired, only when it is closed will it then be removed.
+      # On a connection-by-connection basis, minor negative attenuation is applied to avoid mass-extinction in the pool.
+      # We strongly recommend setting this value,
+      # and it should be several seconds shorter than any database or infrastructure imposed connection time limit.
+      # A value of 0 indicates no maximum lifetime (infinite lifetime),
+      # subject of course to the idleTimeout setting.
+      # The minimum allowed value is 30000ms (30 seconds). Default: 1800000 (30 minutes)
+      max-lifetime: 1800000
+
+      # If your driver supports JDBC4 we strongly recommend not setting this property.
+      # This is for "legacy" drivers that do not support the JDBC4 Connection.isValid() API.
+      # This is the query that will be executed just before a connection is given to
+      # you from the pool to validate that the connection to the database is still alive. Again,
+      # try running the pool without this property,
+      # HikariCP will log an error if your driver is not JDBC4 compliant to let you know.
+      # Default: none
+      connection-test-query: none
+
+      #This property controls the minimum number of idle connections that HikariCP tries to maintain in the pool.
+      #If the idle connections dip below this value and total connections in the pool are less than maximumPoolSize,
+      #HikariCP will make a best effort to add additional connections quickly and efficiently. However,
+      #for maximum performance and responsiveness to spike demands,
+      #we recommend not setting this value and instead allowing HikariCP to act as a fixed size connection pool.
+      #Default: same as maximumPoolSize
+      #minimum-idle:
+
+      # This property controls the maximum size that the pool is allowed to reach,
+      # including both idle and in-use connections.
+      # Basically this value will determine the maximum number of actual connections to the database backend.
+      # A reasonable value for this is best determined by your execution environment. When the pool reaches this size,
+      # and no idle connections are available,
+      # calls to getConnection() will block for up to connectionTimeout milliseconds before timing out.
+      # Please read about pool sizing.
+      # Default: 10
+      maximum-pool-size: 10
+
   redis:
     # Redis数据库索引（默认为0）
     database: 1
@@ -74,3 +133,8 @@ spring:
     multipart:
       max-file-size: 100MB
       max-request-size: 100MB
+
+mybatis:
+  configuration:
+    # 打印SQL日志 生产环境无需配置，注释即可
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

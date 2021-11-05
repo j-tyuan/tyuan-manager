@@ -19,38 +19,52 @@ import org.apache.shiro.authz.AuthorizationException;
 import org.apache.shiro.authz.UnauthorizedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.jdbc.BadSqlGrammarException;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.tyuan.service.system.model.ResultData;
 import org.tyuan.common.exception.ServiceException;
 import org.tyuan.common.utils.UserInfoHolder;
-import org.tyuan.service.admin.web.WebConstant;
 import org.tyuan.service.system.model.ErrorCodeConsts;
+import org.tyuan.service.system.model.ResultData;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-
+/**
+ * 全局异常处理
+ *
+ * @author guiqijiang
+ */
 @ControllerAdvice
-public class SuperController {
+public class GlobalExceptionHandlerController {
 
-    Logger logger = LoggerFactory.getLogger(SuperController.class);
+    Logger logger = LoggerFactory.getLogger(GlobalExceptionHandlerController.class);
 
+    /**
+     * 全局：业务异常处理
+     *
+     * @param e
+     * @return
+     */
     @ResponseBody
     @ExceptionHandler(ServiceException.class)
-    public ResultData serviceException(ServiceException e) {
+    public ResultData serviceExceptionHandler(ServiceException e) {
         ResultData resultData = new ResultData();
         return resultData
                 .setErrorMessage(e.getMessage())
                 .setErrorCode(e.getStatus());
     }
 
+    /**
+     * 全局：参数异常处理
+     *
+     * @param e
+     * @return
+     */
     @ResponseBody
     @ExceptionHandler({MethodArgumentNotValidException.class})
-    public ResultData methodArgumentNotValidException(MethodArgumentNotValidException e) {
+    public ResultData methodArgumentNotValidExceptionHandler(MethodArgumentNotValidException e) {
         String msg = e.getBindingResult().getFieldError().getDefaultMessage();
         logger.warn("参数验证失败 {}  -  {} message: {}", UserInfoHolder.getUserId(), UserInfoHolder.getUserName(), msg);
         ResultData resultData = new ResultData();
@@ -59,7 +73,40 @@ public class SuperController {
                 .setErrorCode(ErrorCodeConsts.ERROR_PARAM);
     }
 
+    @ResponseBody
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    public ResultData httpRequestMethodNotSupportedException(Exception e) {
 
+        ResultData resultData = new ResultData();
+        e.printStackTrace();
+        return resultData
+                .setErrorMessage("请求方法不正确")
+                .setErrorCode(ErrorCodeConsts.ERROR);
+    }
+
+    /**
+     * 入参格式错误，调用者传入了一个非法的参数：Integer 传成 String
+     *
+     * @param e
+     * @return
+     */
+    @ResponseBody
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResultData httpMessageNotReadableException(Exception e) {
+        ResultData resultData = new ResultData();
+        e.printStackTrace();
+        return resultData
+                .setErrorMessage("入参格式错误")
+                .setErrorCode(ErrorCodeConsts.ERROR);
+    }
+
+
+    /**
+     * 全局：权限异常处理
+     *
+     * @param e
+     * @return
+     */
     @ResponseBody
     @ExceptionHandler({UnauthorizedException.class, AuthorizationException.class})
     public ResultData unauthorizedException(Exception e) {
@@ -81,7 +128,12 @@ public class SuperController {
                 .setErrorCode(ErrorCodeConsts.ERROR);
     }
 
-
+    /**
+     * 全局：异常处理
+     *
+     * @param e
+     * @return
+     */
     @ResponseBody
     @ExceptionHandler(Exception.class)
     public ResultData exception(Exception e) {
@@ -91,21 +143,5 @@ public class SuperController {
         return resultData
                 .setErrorMessage("系统正在修复中...")
                 .setErrorCode(ErrorCodeConsts.ERROR);
-    }
-
-    @ModelAttribute("userToken")
-    public String getUserId(HttpServletRequest request) {
-        Cookie[] cookies = request.getCookies();
-        if (null == cookies) {
-            return null;
-        }
-        for (Cookie item : cookies) {
-            String name = item.getName();
-            if (WebConstant.TOKEN.equals(name)) {
-                String token = item.getValue().split(":")[1];
-                return token;
-            }
-        }
-        return null;
     }
 }

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <configuration scan="true" scanPeriod="60 seconds" debug="false">
 
-    <property name="app.log.dir" value="logs"/>
-    <property name="app.name" value="tyuan"/>
+    <springProperty scope="context" name="app.name" source="spring.application.name"></springProperty>
+    <property name="app.log.dir" value="/export/log/${app.name}"/>
 
     <appender name="detail" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <File>${app.log.dir}/${app.name}_detail.log</File>
