@@ -1,0 +1,44 @@
+<assembly xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/assembly-1.0.0.xsd">
+    <id>full</id>
+    <!--这个id会出现在zip包名称的后面，zip的完整名是：pom.xml中的artifactId-version-id.zip -->
+    <formats>
+        <!--支持的打包格式有zip、tar、tar.gz (or tgz)、tar.bz2 (or tbz2)、jar、dir、war-->
+        <format>zip</format>
+    </formats>
+
+    <dependencySets>
+        <!-- 用来定制工程依赖 jar 包的打包方式,依赖包的输出路径 -->
+        <dependencySet>
+            <outputDirectory>/libs</outputDirectory> <!--依赖jar包的输出目录-->
+            <useProjectArtifact>false</useProjectArtifact>
+            <includes> <!--指定把哪些依赖包放进去  -->
+                <!--如果不指定  则所有的依赖都会打入，但是有的时候  我们只需要打特定依赖的包-->
+                <include>net.sf.jsi:jsi</include>
+                <include>net.sf.trove4j:trove4j</include>
+            </includes>
+        </dependencySet>
+    </dependencySets>
+
+    <includeBaseDirectory>true</includeBaseDirectory>
+    <fileSets><!--这里指定需要包含的其他文件-->
+        <fileSet>
+            <!--管理一组文件的存放位置-->
+            <outputDirectory>/</outputDirectory> <!--放在哪-->
+            <directory>target</directory><!--源目录-->
+            <includes>
+                <include>*.jar</include>  <!--代码的jar包-->
+            </includes>
+        </fileSet>
+
+        <fileSet>
+            <outputDirectory>/bin</outputDirectory>
+            <directory>src/main/resources/shell</directory>
+            <includes>
+                <include>*.sh</include>  <!--把shell脚本打进去-->
+                <include>*.conf</include>  <!--把conf文件打进去-->
+            </includes>
+        </fileSet>
+
+    </fileSets>
+</assembly>

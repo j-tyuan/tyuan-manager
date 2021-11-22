@@ -86,7 +86,7 @@ spring:
       # try running the pool without this property,
       # HikariCP will log an error if your driver is not JDBC4 compliant to let you know.
       # Default: none
-      connection-test-query: none
+      # connection-test-query: none
 
       #This property controls the minimum number of idle connections that HikariCP tries to maintain in the pool.
       #If the idle connections dip below this value and total connections in the pool are less than maximumPoolSize,

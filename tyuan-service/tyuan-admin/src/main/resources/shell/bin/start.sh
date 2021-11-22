@@ -1,7 +1,7 @@
 # 有三种启动方式此为其中一种
 JAVA_HOME="/export/local/jdk1.8"
 APP_HOME=$(cd `dirname $0` && cd ..; pwd)
-APP_NAME="fintell-configplat-api"
+APP_NAME="tyuan-manager-service"
 JAVA_OPTS="-$APP_NAME -server -Xms4g -Xmx4g -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=$APP_HOME/dump -XX:ErrorFile=$APP_HOME/logs/hs_err_pid%p.log -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintGCTimeStamps -Xloggc:$APP_HOME/logs/gc_pid%p.log -XX:+UnlockCommercialFeatures -XX:+FlightRecorder -XX:+UnlockDiagnosticVMOptions"
 
 

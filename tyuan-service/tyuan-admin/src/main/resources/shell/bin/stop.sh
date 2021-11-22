@@ -1,5 +1,5 @@
 APP_HOME=$(cd `dirname $0`; pwd)
-APP_NAME="sme"
+APP_NAME="tyuan-manager-service"
 
 echo ""
 pr=`ps ax | grep java | grep $APP_NAME | egrep -v "grep"`
