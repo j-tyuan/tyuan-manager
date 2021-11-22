@@ -33,7 +33,7 @@
 
         <fileSet>
             <outputDirectory>/bin</outputDirectory>
-            <directory>src/main/resources/shell</directory>
+            <directory>src/main/resources/shell/bin</directory>
             <includes>
                 <include>*.sh</include>  <!--把shell脚本打进去-->
                 <include>*.conf</include>  <!--把conf文件打进去-->
