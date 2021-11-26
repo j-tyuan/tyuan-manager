@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.tyuan.service.framework.task;
+package org.tyuan.service.system.task;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -25,7 +25,7 @@ import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.tyuan.common.utils.TreeUtils;
-import org.tyuan.service.framework.cache.LocalCache;
+import org.tyuan.service.system.cache.LocalCache;
 import org.tyuan.service.system.mapper.SysPermissionMapper;
 import org.tyuan.service.system.mapper.customize.*;
 import org.tyuan.service.system.model.cache.Cache;

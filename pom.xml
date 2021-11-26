@@ -12,6 +12,7 @@
     <groupId>org.tyuan</groupId>
     <artifactId>parent</artifactId>
     <packaging>pom</packaging>
+    <name>Tyuan</name>
     <version>1.0</version>
 
     <modules>

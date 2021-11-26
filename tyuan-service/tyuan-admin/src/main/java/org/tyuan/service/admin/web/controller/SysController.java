@@ -49,7 +49,7 @@ import org.tyuan.common.exception.ServiceException;
 import org.tyuan.common.utils.UserInfoHolder;
 import org.tyuan.service.admin.web.RouteConstant;
 import org.tyuan.service.admin.web.WebConstant;
-import org.tyuan.service.framework.cache.UserInfoCacheService;
+import org.tyuan.service.system.cache.UserInfoCacheService;
 import org.tyuan.service.system.model.ErrorCodeConsts;
 import org.tyuan.service.system.model.LoginResult;
 import org.tyuan.service.system.model.SysParamConsts;

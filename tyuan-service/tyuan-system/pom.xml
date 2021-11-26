@@ -12,7 +12,7 @@
 
     <groupId>org.tyuan</groupId>
     <artifactId>tyuan-system</artifactId>
-    <name>${project.artifactId}</name>
+    <name>Tyuan Service System</name>
     <packaging>jar</packaging>
     <version>${tyuan-version}</version>
 

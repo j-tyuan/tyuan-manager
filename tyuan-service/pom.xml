@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.tyuan</groupId>
     <artifactId>tyuan-service</artifactId>
-    <name>${project.artifactId}</name>
+    <name>Tyuan Service</name>
     <version>1.0</version>
     <packaging>pom</packaging>
 

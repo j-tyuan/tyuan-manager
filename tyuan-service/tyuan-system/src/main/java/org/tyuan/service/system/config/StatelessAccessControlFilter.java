@@ -18,13 +18,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.tyuan.service.framework.config;
+package org.tyuan.service.system.config;
 
 import org.apache.shiro.web.filter.AccessControlFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tyuan.service.system.model.ResultData;
-import org.tyuan.service.framework.cache.UserInfoCacheService;
+import org.tyuan.service.system.cache.UserInfoCacheService;
 import org.tyuan.service.system.model.ErrorCodeConsts;
 
 import javax.servlet.ServletRequest;

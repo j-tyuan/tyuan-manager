@@ -31,7 +31,7 @@ import org.tyuan.common.annotation.Log;
 import org.tyuan.common.enums.LogType;
 import org.tyuan.service.admin.web.PermissionConstant;
 import org.tyuan.service.admin.web.RouteConstant;
-import org.tyuan.service.framework.cache.UserInfoCacheService;
+import org.tyuan.service.system.cache.UserInfoCacheService;
 import org.tyuan.service.system.model.ResultTable;
 import org.tyuan.service.system.model.vo.sys.RoleUserTableParamsVo;
 import org.tyuan.service.system.model.vo.sys.SysRoleUserVo;

@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.tyuan.service.system.model.ResultData;
 import org.tyuan.service.admin.web.PermissionConstant;
 import org.tyuan.service.admin.web.RouteConstant;
-import org.tyuan.service.framework.cache.LocalCache;
+import org.tyuan.service.system.cache.LocalCache;
 import org.tyuan.service.system.service.SysPermissionService;
 import org.tyuan.service.system.service.SysRoleService;
 

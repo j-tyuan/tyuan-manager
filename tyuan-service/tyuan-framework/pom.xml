@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>tyuan-framework</artifactId>
-    <name>${project.artifactId}</name>
+    <name>Tyuan Service Framework</name>
     <version>${tyuan-version}</version>
     <packaging>jar</packaging>
 

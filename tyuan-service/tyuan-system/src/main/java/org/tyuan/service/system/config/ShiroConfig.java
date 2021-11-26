@@ -32,7 +32,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.tyuan.service.framework.config;
+package org.tyuan.service.system.config;
 
 import org.apache.shiro.mgt.DefaultSessionStorageEvaluator;
 import org.apache.shiro.mgt.DefaultSubjectDAO;
@@ -46,7 +46,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.tyuan.service.framework.cache.UserInfoCacheService;
+import org.tyuan.service.system.cache.UserInfoCacheService;
 
 import javax.annotation.Resource;
 import java.util.HashMap;

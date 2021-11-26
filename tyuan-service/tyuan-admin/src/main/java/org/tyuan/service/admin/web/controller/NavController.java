@@ -27,7 +27,7 @@ import org.tyuan.common.ITree;
 import org.tyuan.service.system.model.ResultData;
 import org.tyuan.common.utils.TreeUtils;
 import org.tyuan.service.admin.web.RouteConstant;
-import org.tyuan.service.framework.cache.LocalCache;
+import org.tyuan.service.system.cache.LocalCache;
 import org.tyuan.service.system.model.pojo.custom.CSysSource;
 import org.tyuan.service.system.model.vo.sys.MenuDataItemVo;
 import org.tyuan.service.system.service.SysSourceService;
