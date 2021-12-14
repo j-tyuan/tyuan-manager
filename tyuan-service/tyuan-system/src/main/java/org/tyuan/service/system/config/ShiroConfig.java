@@ -16,6 +16,34 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ * <p>
+ * Copyright (c) 2020-2038, Jiangguiqi 齐 (author@tyuan.design).
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * <p>
+ * Copyright (c) 2020-2038, Jiangguiqi 齐 (author@tyuan.design).
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 /**
  * Copyright (c) 2020-2038, Jiangguiqi 齐 (author@tyuan.design).
@@ -44,11 +72,14 @@ import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.tyuan.service.system.cache.UserInfoCacheService;
 
 import javax.annotation.Resource;
+import javax.servlet.DispatcherType;
+import javax.servlet.Filter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -118,11 +149,26 @@ public class ShiroConfig {
         map.put("/**", "statelessAuthc");
         map.put("/demo/**", "anon");
         map.put(ROUTER_SYS_LOGIN_ACCOUNT, "anon");
+        // 自定义过滤器
+        //map.put("customer", {});
         //错误页面，认证不通过跳转
         shiroFilterFactoryBean.setFilterChainDefinitionMap(map);
+
         return shiroFilterFactoryBean;
     }
 
+    @Bean
+    public FilterRegistrationBean<Filter> filterRegistrationBean(SecurityManager securityManager) throws Exception {
+        FilterRegistrationBean<Filter> filterRegistration = new FilterRegistrationBean<>();
+        filterRegistration.setFilter((Filter) shiroFilterFactoryBean(securityManager).getObject());
+        filterRegistration.setAsyncSupported(true);
+        filterRegistration.setEnabled(true);
+
+        //支持异步：DispatcherType.ASYNC
+        filterRegistration.setDispatcherTypes(DispatcherType.REQUEST, DispatcherType.ASYNC);
+
+        return filterRegistration;
+    }
 
     @Bean
     public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SecurityManager securityManager) {

@@ -183,5 +183,5 @@ public class RouteConstant {
     /**
      * 测试接口
      */
-    public static final String ROUTER_TEST_VISIT = "/api/test/visit";
+    public static final String ROUTER_TEST_VISIT = "/demo/visit";
 }

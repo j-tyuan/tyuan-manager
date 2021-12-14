@@ -38,6 +38,8 @@
         <apache.poi-ooxml.version>3.17</apache.poi-ooxml.version>
         <shiro.version>1.4.0</shiro.version>
         <javax.validation.version>2.0.1.Final</javax.validation.version>
+        <guava.version>30.0-jre</guava.version>
+        <google.zxing>3.3.0</google.zxing>
     </properties>
 
     <dependencyManagement>
@@ -53,12 +55,12 @@
             <dependency>
                 <groupId>com.google.zxing</groupId>
                 <artifactId>core</artifactId>
-                <version>3.3.0</version>
+                <version>${google.zxing}</version>
             </dependency>
             <dependency>
                 <groupId>com.google.zxing</groupId>
                 <artifactId>javase</artifactId>
-                <version>3.2.0</version>
+                <version>${google.zxing}</version>
             </dependency>
             <!-- https://mvnrepository.com/artifact/net.java.dev.jna/jna -->
             <dependency>
@@ -154,40 +156,13 @@
                 <artifactId>shiro-spring</artifactId>
                 <version>${shiro.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
-
-    <dependencies>
-        <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
-        <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-            <version>2.8.5</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>14.0.1</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-        </dependency>
-
-        <!-- MySQL -->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.16</version>
-        </dependency>
-    </dependencies>
 
     <repositories>
         <repository>

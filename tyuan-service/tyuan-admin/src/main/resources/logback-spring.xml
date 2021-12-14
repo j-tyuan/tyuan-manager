@@ -7,7 +7,7 @@
     <appender name="detail" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <File>${app.log.dir}/${app.name}_detail.log</File>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <pattern>%level %d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] [%logger{0}] [%X{traceId}] [%msg]%n </pattern>
+            <pattern>%level %d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] [%logger{0}] traceId:[%X{traceId}] [%msg]%n </pattern>
             <charset>UTF-8</charset>
         </encoder>
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
@@ -25,7 +25,7 @@
     <!-- 控制台输出-->
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>%-5level %d{yyyy-MM-dd HH:mm:ss.SSS} ${PID}-[%thread] %highlight(%logger{36}) - %msg%n</pattern>
+            <pattern>%-5level %d{yyyy-MM-dd HH:mm:ss.SSS} ${PID}-[%thread]  traceId:[%X{traceId}] %highlight(%logger{36}) - %msg%n</pattern>
         </encoder>
     </appender>
 

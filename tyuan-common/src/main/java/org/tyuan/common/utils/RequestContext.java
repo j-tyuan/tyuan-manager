@@ -15,7 +15,9 @@
  */
 package org.tyuan.common.utils;
 
-import org.tyuan.common.utils.Tools;
+import lombok.Data;
+
+import java.util.function.Consumer;
 
 public class RequestContext {
 
@@ -48,6 +50,7 @@ public class RequestContext {
         LOCAL_CONTEXT.remove();
     }
 
+    @Data
     public static class Context {
 
         private String requestId;
@@ -56,29 +59,6 @@ public class RequestContext {
 
         private long endTime;
 
-        public String getRequestId() {
-            return requestId;
-        }
-
-        public void setRequestId(String requestId) {
-            this.requestId = requestId;
-        }
-
-        public long getStartTime() {
-            return startTime;
-        }
-
-        public void setStartTime(long startTime) {
-            this.startTime = startTime;
-        }
-
-        public long getEndTime() {
-            return endTime;
-        }
-
-        public void setEndTime(long endTime) {
-            this.endTime = endTime;
-        }
-
+        private Consumer logConsumer;
     }
 }

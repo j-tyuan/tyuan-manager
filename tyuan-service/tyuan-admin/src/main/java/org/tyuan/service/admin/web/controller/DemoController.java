@@ -16,24 +16,37 @@
 package org.tyuan.service.admin.web.controller;
 
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.request.async.DeferredResult;
 import org.tyuan.service.system.model.ResultData;
-import org.tyuan.service.admin.web.RouteConstant;
 
 import javax.annotation.Resource;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 @RestController
-public class TestController {
+public class DemoController {
 
     @Resource
     RedisTemplate redisTemplate;
 
+    ScheduledThreadPoolExecutor scheduledThreadPoolExecutor = new ScheduledThreadPoolExecutor(100);
 
-    @GetMapping(RouteConstant.ROUTER_TEST_VISIT)
-    public ResultData visit() {
+    // 支持deferredResult 异步请求
+    @GetMapping("/demo/deferred")
+    public DeferredResult<ResponseEntity<ResultData>> visit() {
         ResultData resultData = new ResultData();
         resultData.setData(0);
-        return resultData;
+
+        DeferredResult deferredResult = new DeferredResult();
+        scheduledThreadPoolExecutor.schedule(() -> {
+
+            deferredResult.setResult(new ResponseEntity<>(resultData, HttpStatus.OK));
+        }, 2000, TimeUnit.MILLISECONDS);
+
+        return deferredResult;
     }
 }
