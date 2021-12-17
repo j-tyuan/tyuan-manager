@@ -8,16 +8,16 @@
         <version>1.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <groupId>org.tyuan</groupId>
+    <groupId>org.tyuan.service</groupId>
     <artifactId>tyuan-service</artifactId>
     <name>Tyuan Service</name>
     <version>1.0</version>
     <packaging>pom</packaging>
 
     <modules>
-        <module>tyuan-system</module>
-        <module>tyuan-admin</module>
-        <module>tyuan-framework</module>
+        <module>application</module>
+        <module>domain</module>
+        <module>dao</module>
     </modules>
 
     <dependencies>

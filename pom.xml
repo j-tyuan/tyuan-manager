@@ -108,11 +108,14 @@
                 <artifactId>fastjson</artifactId>
                 <version>${fastjson.version}</version>
             </dependency>
+
+            <!--begin Tyuan-->
             <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>model</artifactId>
+                <groupId>org.tyuan.service</groupId>
+                <artifactId>domain</artifactId>
                 <version>${project.version}</version>
             </dependency>
+
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>common</artifactId>
@@ -120,10 +123,11 @@
             </dependency>
 
             <dependency>
-                <groupId>${project.groupId}</groupId>
+                <groupId>org.tyuan.service</groupId>
                 <artifactId>dao</artifactId>
-                <version>${project.version}</version>
+                <version>${tyuan-version}</version>
             </dependency>
+            <!--Tyuan end-->
 
             <dependency>
                 <groupId>com.github.pagehelper</groupId>
