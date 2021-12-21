@@ -1,9 +1,4 @@
 /**
- * @ClassName StatelessAuthenticationToken
- * @Author dev@tyuan.design
- * @Date 2020/6/24 13:33
- */
-/**
  * Copyright (c) 2020-2038, Jiangguiqi 齐 (author@tyuan.design).
  * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,26 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.tyuan.service.application.config;
+package org.tyuan.service.data.security.event;
 
-import org.apache.shiro.authc.AuthenticationToken;
+/**
+ * @author jiangguiqi@aliyun.com
+ * @version 1.0
+ * @date 2021/12/21 12:24 下午
+ */
+public class UserAuthDataChangedEvent {
+    private final Long userId;
 
-public class StatelessAuthenticationToken implements AuthenticationToken {
-
-    private String token;
-
-    public StatelessAuthenticationToken(String token) {
-        this.token = token;
+    public UserAuthDataChangedEvent(Long userId) {
+        this.userId = userId;
     }
 
-    @Override
-    public Object getPrincipal() {
-        return this.token;
+    public Long getUserId() {
+        return userId;
     }
-
-    @Override
-    public Object getCredentials() {
-        return this;
-    }
-
 }
