@@ -17,11 +17,11 @@ package org.tyuan.service.application.service.security.auth.oauth2;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
-import org.thingsboard.server.common.data.oauth2.OAuth2MapperConfig;
-import org.thingsboard.server.common.data.oauth2.OAuth2Registration;
-import org.thingsboard.server.dao.oauth2.OAuth2User;
-import org.thingsboard.server.service.security.model.SecurityUser;
+import org.tyuan.service.application.service.security.model.SecurityUser;
+import org.tyuan.service.data.oauth2.OAuth2MapperConfig;
+import org.tyuan.service.data.oauth2.OAuth2Registration;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;

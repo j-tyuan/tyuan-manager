@@ -42,6 +42,8 @@
         <google.zxing>3.3.0</google.zxing>
         <swagger-annotations.version>1.6.3</swagger-annotations.version>
         <jjwt.version>0.7.0</jjwt.version>
+        <ua-parser.version>1.4.3</ua-parser.version>
+        <passay.version>1.5.0</passay.version>
     </properties>
 
     <dependencyManagement>
@@ -176,6 +178,16 @@
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
                 <version>${guava.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.ua-parser</groupId>
+                <artifactId>uap-java</artifactId>
+                <version>${ua-parser.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.passay</groupId>
+                <artifactId>passay</artifactId>
+                <version>${passay.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

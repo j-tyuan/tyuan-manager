@@ -28,8 +28,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.thingsboard.server.service.security.exception.AuthMethodNotSupportedException;
-import org.thingsboard.server.service.security.model.UserPrincipal;
+import org.tyuan.service.application.service.security.exception.AuthMethodNotSupportedException;
+import org.tyuan.service.application.service.security.model.UserPrincipal;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;

@@ -44,15 +44,15 @@ public class SysRolePermissionSqlProvider {
     public String insertSelective(SysRolePermission record) {
         SQL sql = new SQL();
         sql.INSERT_INTO("sys_role_permission");
-
+        
         if (record.getRoleId() != null) {
             sql.VALUES("role_id", "#{roleId,jdbcType=BIGINT}");
         }
-
+        
         if (record.getPermissionId() != null) {
             sql.VALUES("permission_id", "#{permissionId,jdbcType=BIGINT}");
         }
-
+        
         return sql.toString();
     }
 
@@ -73,11 +73,11 @@ public class SysRolePermissionSqlProvider {
         sql.SELECT("permission_id");
         sql.FROM("sys_role_permission");
         applyWhere(sql, example, false);
-
+        
         if (example != null && example.getOrderByClause() != null) {
             sql.ORDER_BY(example.getOrderByClause());
         }
-
+        
         return sql.toString();
     }
 
@@ -90,22 +90,22 @@ public class SysRolePermissionSqlProvider {
     public String updateByExampleSelective(Map<String, Object> parameter) {
         SysRolePermission record = (SysRolePermission) parameter.get("record");
         SysRolePermissionExample example = (SysRolePermissionExample) parameter.get("example");
-
+        
         SQL sql = new SQL();
         sql.UPDATE("sys_role_permission");
-
+        
         if (record.getId() != null) {
             sql.SET("id = #{record.id,jdbcType=BIGINT}");
         }
-
+        
         if (record.getRoleId() != null) {
             sql.SET("role_id = #{record.roleId,jdbcType=BIGINT}");
         }
-
+        
         if (record.getPermissionId() != null) {
             sql.SET("permission_id = #{record.permissionId,jdbcType=BIGINT}");
         }
-
+        
         applyWhere(sql, example, true);
         return sql.toString();
     }
@@ -119,11 +119,11 @@ public class SysRolePermissionSqlProvider {
     public String updateByExample(Map<String, Object> parameter) {
         SQL sql = new SQL();
         sql.UPDATE("sys_role_permission");
-
+        
         sql.SET("id = #{record.id,jdbcType=BIGINT}");
         sql.SET("role_id = #{record.roleId,jdbcType=BIGINT}");
         sql.SET("permission_id = #{record.permissionId,jdbcType=BIGINT}");
-
+        
         SysRolePermissionExample example = (SysRolePermissionExample) parameter.get("example");
         applyWhere(sql, example, true);
         return sql.toString();
@@ -138,17 +138,17 @@ public class SysRolePermissionSqlProvider {
     public String updateByPrimaryKeySelective(SysRolePermission record) {
         SQL sql = new SQL();
         sql.UPDATE("sys_role_permission");
-
+        
         if (record.getRoleId() != null) {
             sql.SET("role_id = #{roleId,jdbcType=BIGINT}");
         }
-
+        
         if (record.getPermissionId() != null) {
             sql.SET("permission_id = #{permissionId,jdbcType=BIGINT}");
         }
-
+        
         sql.WHERE("id = #{id,jdbcType=BIGINT}");
-
+        
         return sql.toString();
     }
 
@@ -162,7 +162,7 @@ public class SysRolePermissionSqlProvider {
         if (example == null) {
             return;
         }
-
+        
         String parmPhrase1;
         String parmPhrase1_th;
         String parmPhrase2;
@@ -184,7 +184,7 @@ public class SysRolePermissionSqlProvider {
             parmPhrase3 = "#{oredCriteria[%d].allCriteria[%d].value[%d]}";
             parmPhrase3_th = "#{oredCriteria[%d].allCriteria[%d].value[%d],typeHandler=%s}";
         }
-
+        
         StringBuilder sb = new StringBuilder();
         List<Criteria> oredCriteria = example.getOredCriteria();
         boolean firstCriteria = true;
@@ -196,7 +196,7 @@ public class SysRolePermissionSqlProvider {
                 } else {
                     sb.append(" or ");
                 }
-
+                
                 sb.append('(');
                 List<Criterion> criterions = criteria.getAllCriteria();
                 boolean firstCriterion = true;
@@ -207,7 +207,7 @@ public class SysRolePermissionSqlProvider {
                     } else {
                         sb.append(" and ");
                     }
-
+                    
                     if (criterion.isNoValue()) {
                         sb.append(criterion.getCondition());
                     } else if (criterion.isSingleValue()) {
@@ -245,7 +245,7 @@ public class SysRolePermissionSqlProvider {
                 sb.append(')');
             }
         }
-
+        
         if (sb.length() > 0) {
             sql.WHERE(sb.toString());
         }

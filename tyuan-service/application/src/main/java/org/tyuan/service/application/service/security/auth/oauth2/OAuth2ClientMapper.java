@@ -16,8 +16,8 @@
 package org.tyuan.service.application.service.security.auth.oauth2;
 
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
-import org.thingsboard.server.common.data.oauth2.OAuth2Registration;
-import org.thingsboard.server.service.security.model.SecurityUser;
+import org.tyuan.service.application.service.security.model.SecurityUser;
+import org.tyuan.service.data.oauth2.OAuth2Registration;
 
 import javax.servlet.http.HttpServletRequest;
 

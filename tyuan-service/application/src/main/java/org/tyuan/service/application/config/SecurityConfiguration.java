@@ -15,9 +15,24 @@
  */
 package org.tyuan.service.application.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.tyuan.service.application.exception.TyuanErrorResponseHandler;
+import org.tyuan.service.application.service.security.auth.jwt.JwtAuthenticationProvider;
+import org.tyuan.service.application.service.security.auth.jwt.RefreshTokenAuthenticationProvider;
+import org.tyuan.service.application.service.security.auth.rest.RestAuthenticationProvider;
+import org.tyuan.service.application.service.security.auth.rest.RestLoginProcessingFilter;
+
+import javax.annotation.Resource;
 
 /**
  * @author jiangguiqi@aliyun.com
@@ -26,10 +41,50 @@ import org.springframework.security.config.http.SessionCreationPolicy;
  */
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+    @Resource
+    private TyuanErrorResponseHandler restAccessDeniedHandler;
+
+    @Autowired
+    @Qualifier("defaultAuthenticationSuccessHandler")
+    private AuthenticationSuccessHandler successHandler;
+
+    @Autowired
+    @Qualifier("defaultAuthenticationFailureHandler")
+    private AuthenticationFailureHandler failureHandler;
+
+    @Autowired
+    private ObjectMapper objectMapper;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private RestAuthenticationProvider restAuthenticationProvider;
+    @Autowired
+    private JwtAuthenticationProvider jwtAuthenticationProvider;
+    @Autowired
+    private RefreshTokenAuthenticationProvider refreshTokenAuthenticationProvider;
+
 
     public static final String JWT_TOKEN_HEADER_PARAM = "X-Authorization";
     public static final String JWT_TOKEN_HEADER_PARAM_V2 = "Authorization";
     public static final String JWT_TOKEN_QUERY_PARAM = "token";
+
+    public static final String FORM_BASED_LOGIN_ENTRY_POINT = "/api/auth/login";
+
+
+    protected RestLoginProcessingFilter buildRestLoginProcessingFilter() throws Exception {
+        RestLoginProcessingFilter filter = new RestLoginProcessingFilter(FORM_BASED_LOGIN_ENTRY_POINT, successHandler, failureHandler, objectMapper);
+        filter.setAuthenticationManager(this.authenticationManager);
+        return filter;
+    }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) {
+        auth.authenticationProvider(restAuthenticationProvider);
+        auth.authenticationProvider(jwtAuthenticationProvider);
+        auth.authenticationProvider(refreshTokenAuthenticationProvider);
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -46,7 +101,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/**").authenticated()
                 .and()
-                .exceptionHandling().accessDeniedHandler()
+                .exceptionHandling().accessDeniedHandler(restAccessDeniedHandler)
+                .and()
+                .addFilterBefore(buildRestLoginProcessingFilter(), UsernamePasswordAuthenticationFilter.class);
 
     }
 }

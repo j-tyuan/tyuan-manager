@@ -16,15 +16,18 @@
 package org.tyuan.service.application.service.security.system;
 
 import org.springframework.security.core.AuthenticationException;
-import org.tyuan.service.dao.model.SysUser;
+import org.tyuan.service.dao.exception.DataValidationException;
+import org.tyuan.service.dao.model.SysUserCredentials;
 import org.tyuan.service.data.security.SecuritySettings;
 
 public interface SystemSecurityService {
 
-    SecuritySettings saveSecuritySettings(SecuritySettings securitySettings);
 
-    void validateUserCredentials(String username, String password) throws AuthenticationException;
+    SecuritySettings getSecuritySettings(Long userId);
 
-    void validatePassword(SysUser user, String password);
+    SecuritySettings saveSecuritySettings(Long userId, SecuritySettings securitySettings);
 
+    void validateUserCredentials(Long userId, SysUserCredentials userCredentials, String username, String password) throws AuthenticationException;
+
+    void validatePassword(Long userId, String password, SysUserCredentials userCredentials) throws DataValidationException;
 }

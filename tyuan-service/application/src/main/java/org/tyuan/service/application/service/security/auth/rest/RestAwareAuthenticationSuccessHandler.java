@@ -23,10 +23,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
-import org.thingsboard.server.common.data.security.model.JwtToken;
-import org.thingsboard.server.service.security.auth.jwt.RefreshTokenRepository;
-import org.thingsboard.server.service.security.model.SecurityUser;
-import org.thingsboard.server.service.security.model.token.JwtTokenFactory;
+import org.tyuan.service.application.service.security.auth.jwt.RefreshTokenRepository;
+import org.tyuan.service.application.service.security.model.SecurityUser;
+import org.tyuan.service.application.service.security.model.token.JwtTokenFactory;
+import org.tyuan.service.data.security.JwtToken;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

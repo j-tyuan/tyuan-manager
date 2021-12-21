@@ -25,34 +25,43 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.DigestUtils;
 import org.tyuan.common.exception.ServiceException;
 import org.tyuan.common.utils.DateUtil;
 import org.tyuan.common.utils.TreeUtils;
 import org.tyuan.common.utils.UserInfoHolder;
+import org.tyuan.service.application.service.SysUserAvatarService;
+import org.tyuan.service.application.service.SysUserService;
 import org.tyuan.service.dao.mapper.SysRoleMapper;
+import org.tyuan.service.dao.mapper.SysUserCredentialsMapper;
 import org.tyuan.service.dao.mapper.customize.COrganizationInstitutionMapper;
 import org.tyuan.service.dao.mapper.customize.CSysUserMapper;
 import org.tyuan.service.dao.mapper.customize.CSysUserRoleMapper;
-import org.tyuan.service.data.ErrorCodeConsts;
 import org.tyuan.service.dao.model.*;
 import org.tyuan.service.dao.model.custom.COrganizationInstitution;
+import org.tyuan.service.data.ErrorCodeConsts;
 import org.tyuan.service.data.vo.DataTableParam;
 import org.tyuan.service.data.vo.DeleteVo;
 import org.tyuan.service.data.vo.sys.SysUserTableParamsVo;
 import org.tyuan.service.data.vo.sys.SysUserVo;
-import org.tyuan.service.application.service.SysUserAvatarService;
-import org.tyuan.service.application.service.SysUserService;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.text.MessageFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 @Service
 public class SysUserServiceImpl implements SysUserService {
+
+    public static final String USER_PASSWORD_HISTORY = "userPasswordHistory";
+
+
+    @Resource
+    private SysUserCredentialsMapper userCredentialsMapper;
 
     @Resource
     private CSysUserMapper cSysUserMapper;
@@ -142,10 +151,6 @@ public class SysUserServiceImpl implements SysUserService {
         sysUser.setInstName(institution.getInstName());
         sysUser.setCreateBy(UserInfoHolder.getUserName());
         sysUser.setUpdateBy(UserInfoHolder.getUserName());
-        String pass = sysUser.getUserPwd();
-        if (StringUtils.isBlank(pass)) {
-            throw new ServiceException(ErrorCodeConsts.ERROR, "密码不许为空");
-        }
 
         SysUserExample example = new SysUserExample();
         example.or().andUserAccountEqualTo(sysUser.getUserAccount());
@@ -154,8 +159,6 @@ public class SysUserServiceImpl implements SysUserService {
             throw new ServiceException(ErrorCodeConsts.ERROR, "账号重复");
         }
 
-        pass = DigestUtils.md5DigestAsHex(pass.getBytes());
-        sysUser.setUserPwd(pass);
 
         // 只允许创建普通用户
         sysUser.setUserType(USER_TYPE.ORDINARY.getType());
@@ -190,13 +193,7 @@ public class SysUserServiceImpl implements SysUserService {
         if (val == null) {
             throw new ServiceException(ErrorCodeConsts.ERROR, "未找到数据，修改失败");
         }
-        String pass = sysUser.getUserPwd();
-        if (StringUtils.isNotBlank(pass)) {
-            pass = DigestUtils.md5DigestAsHex(pass.getBytes());
-            sysUser.setUserPwd(pass);
-        } else {
-            sysUser.setUserPwd(null);
-        }
+
         Long instId = sysUser.getInstId();
         if (null != instId) {
             OrganizationInstitution institution = cOrganizationInstitutionMapper.selectByPrimaryKey(instId);
@@ -248,7 +245,6 @@ public class SysUserServiceImpl implements SysUserService {
         if (sysUser == null) {
             return null;
         }
-        sysUser.setUserPwd(null);
         return sysUser;
     }
 
@@ -313,9 +309,6 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Override
     public List<Map> userPostProcessor(List<SysUser> users) {
-        users.stream().forEach(e -> {
-            e.setUserPwd(null);
-        });
         List<Long> avatarIds = users.stream().map(e -> e.getAvatarId()).collect(Collectors.toList());
         List<SysUserAvatar> avatars = sysUserAvatarService.getByIds(avatarIds);
         List<Map> newUserList = users.stream().map(e -> {
@@ -349,5 +342,17 @@ public class SysUserServiceImpl implements SysUserService {
         sysRoleExample.createCriteria().andIdIn(ids);
         List<SysRole> sysRoles = sysRoleMapper.selectByExample(sysRoleExample);
         return sysRoles;
+    }
+
+
+    @Override
+    public SysUserCredentials findUserCredentials(Long userId) {
+        SysUserCredentialsExample example = new SysUserCredentialsExample();
+        example.createCriteria().andUserIdEqualTo(userId);
+        List<SysUserCredentials> sysUserCredentials = userCredentialsMapper.selectByExample(example);
+        if (CollectionUtils.isEmpty(sysUserCredentials)) {
+            return null;
+        }
+        return sysUserCredentials.get(0);
     }
 }

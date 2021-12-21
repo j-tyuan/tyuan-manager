@@ -19,7 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
-import org.thingsboard.server.exception.ThingsboardErrorResponseHandler;
+import org.tyuan.service.application.exception.TyuanErrorResponseHandler;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -29,10 +29,10 @@ import java.io.IOException;
 @Component(value = "defaultAuthenticationFailureHandler")
 public class RestAwareAuthenticationFailureHandler implements AuthenticationFailureHandler {
 
-    private final ThingsboardErrorResponseHandler errorResponseHandler;
+    private final TyuanErrorResponseHandler errorResponseHandler;
 
     @Autowired
-    public RestAwareAuthenticationFailureHandler(ThingsboardErrorResponseHandler errorResponseHandler) {
+    public RestAwareAuthenticationFailureHandler(TyuanErrorResponseHandler errorResponseHandler) {
         this.errorResponseHandler = errorResponseHandler;
     }
 

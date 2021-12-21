@@ -44,23 +44,23 @@ public class SysUserWebLayoutSqlProvider {
     public String insertSelective(SysUserWebLayout record) {
         SQL sql = new SQL();
         sql.INSERT_INTO("sys_user_web_layout");
-
+        
         if (record.getCreateTime() != null) {
             sql.VALUES("create_time", "#{createTime,jdbcType=TIMESTAMP}");
         }
-
+        
         if (record.getUpdateTime() != null) {
             sql.VALUES("update_time", "#{updateTime,jdbcType=TIMESTAMP}");
         }
-
+        
         if (record.getUserId() != null) {
             sql.VALUES("user_id", "#{userId,jdbcType=BIGINT}");
         }
-
+        
         if (record.getLayoutStructure() != null) {
             sql.VALUES("layout_structure", "#{layoutStructure,jdbcType=LONGVARCHAR}");
         }
-
+        
         return sql.toString();
     }
 
@@ -83,11 +83,11 @@ public class SysUserWebLayoutSqlProvider {
         sql.SELECT("layout_structure");
         sql.FROM("sys_user_web_layout");
         applyWhere(sql, example, false);
-
+        
         if (example != null && example.getOrderByClause() != null) {
             sql.ORDER_BY(example.getOrderByClause());
         }
-
+        
         return sql.toString();
     }
 
@@ -109,11 +109,11 @@ public class SysUserWebLayoutSqlProvider {
         sql.SELECT("user_id");
         sql.FROM("sys_user_web_layout");
         applyWhere(sql, example, false);
-
+        
         if (example != null && example.getOrderByClause() != null) {
             sql.ORDER_BY(example.getOrderByClause());
         }
-
+        
         return sql.toString();
     }
 
@@ -126,30 +126,30 @@ public class SysUserWebLayoutSqlProvider {
     public String updateByExampleSelective(Map<String, Object> parameter) {
         SysUserWebLayout record = (SysUserWebLayout) parameter.get("record");
         SysUserWebLayoutExample example = (SysUserWebLayoutExample) parameter.get("example");
-
+        
         SQL sql = new SQL();
         sql.UPDATE("sys_user_web_layout");
-
+        
         if (record.getId() != null) {
             sql.SET("id = #{record.id,jdbcType=BIGINT}");
         }
-
+        
         if (record.getCreateTime() != null) {
             sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         }
-
+        
         if (record.getUpdateTime() != null) {
             sql.SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
         }
-
+        
         if (record.getUserId() != null) {
             sql.SET("user_id = #{record.userId,jdbcType=BIGINT}");
         }
-
+        
         if (record.getLayoutStructure() != null) {
             sql.SET("layout_structure = #{record.layoutStructure,jdbcType=LONGVARCHAR}");
         }
-
+        
         applyWhere(sql, example, true);
         return sql.toString();
     }
@@ -163,13 +163,13 @@ public class SysUserWebLayoutSqlProvider {
     public String updateByExampleWithBLOBs(Map<String, Object> parameter) {
         SQL sql = new SQL();
         sql.UPDATE("sys_user_web_layout");
-
+        
         sql.SET("id = #{record.id,jdbcType=BIGINT}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
         sql.SET("user_id = #{record.userId,jdbcType=BIGINT}");
         sql.SET("layout_structure = #{record.layoutStructure,jdbcType=LONGVARCHAR}");
-
+        
         SysUserWebLayoutExample example = (SysUserWebLayoutExample) parameter.get("example");
         applyWhere(sql, example, true);
         return sql.toString();
@@ -184,12 +184,12 @@ public class SysUserWebLayoutSqlProvider {
     public String updateByExample(Map<String, Object> parameter) {
         SQL sql = new SQL();
         sql.UPDATE("sys_user_web_layout");
-
+        
         sql.SET("id = #{record.id,jdbcType=BIGINT}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
         sql.SET("user_id = #{record.userId,jdbcType=BIGINT}");
-
+        
         SysUserWebLayoutExample example = (SysUserWebLayoutExample) parameter.get("example");
         applyWhere(sql, example, true);
         return sql.toString();
@@ -204,25 +204,25 @@ public class SysUserWebLayoutSqlProvider {
     public String updateByPrimaryKeySelective(SysUserWebLayout record) {
         SQL sql = new SQL();
         sql.UPDATE("sys_user_web_layout");
-
+        
         if (record.getCreateTime() != null) {
             sql.SET("create_time = #{createTime,jdbcType=TIMESTAMP}");
         }
-
+        
         if (record.getUpdateTime() != null) {
             sql.SET("update_time = #{updateTime,jdbcType=TIMESTAMP}");
         }
-
+        
         if (record.getUserId() != null) {
             sql.SET("user_id = #{userId,jdbcType=BIGINT}");
         }
-
+        
         if (record.getLayoutStructure() != null) {
             sql.SET("layout_structure = #{layoutStructure,jdbcType=LONGVARCHAR}");
         }
-
+        
         sql.WHERE("id = #{id,jdbcType=BIGINT}");
-
+        
         return sql.toString();
     }
 
@@ -236,7 +236,7 @@ public class SysUserWebLayoutSqlProvider {
         if (example == null) {
             return;
         }
-
+        
         String parmPhrase1;
         String parmPhrase1_th;
         String parmPhrase2;
@@ -258,7 +258,7 @@ public class SysUserWebLayoutSqlProvider {
             parmPhrase3 = "#{oredCriteria[%d].allCriteria[%d].value[%d]}";
             parmPhrase3_th = "#{oredCriteria[%d].allCriteria[%d].value[%d],typeHandler=%s}";
         }
-
+        
         StringBuilder sb = new StringBuilder();
         List<Criteria> oredCriteria = example.getOredCriteria();
         boolean firstCriteria = true;
@@ -270,7 +270,7 @@ public class SysUserWebLayoutSqlProvider {
                 } else {
                     sb.append(" or ");
                 }
-
+                
                 sb.append('(');
                 List<Criterion> criterions = criteria.getAllCriteria();
                 boolean firstCriterion = true;
@@ -281,7 +281,7 @@ public class SysUserWebLayoutSqlProvider {
                     } else {
                         sb.append(" and ");
                     }
-
+                    
                     if (criterion.isNoValue()) {
                         sb.append(criterion.getCondition());
                     } else if (criterion.isSingleValue()) {
@@ -319,7 +319,7 @@ public class SysUserWebLayoutSqlProvider {
                 sb.append(')');
             }
         }
-
+        
         if (sb.length() > 0) {
             sql.WHERE(sb.toString());
         }

@@ -17,9 +17,9 @@ package org.tyuan.service.application.service.security.auth.oauth2;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.text.StrSubstitutor;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.util.StringUtils;
-import org.thingsboard.server.common.data.oauth2.OAuth2MapperConfig;
-import org.thingsboard.server.dao.oauth2.OAuth2User;
+import org.tyuan.service.data.oauth2.OAuth2MapperConfig;
 
 import java.util.Map;
 

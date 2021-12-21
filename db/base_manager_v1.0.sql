@@ -24,6 +24,7 @@ DROP TABLE IF EXISTS `sys_user`;
 DROP TABLE IF EXISTS `sys_user_avatar`;
 DROP TABLE IF EXISTS `sys_user_role`;
 DROP TABLE IF EXISTS `sys_user_web_layout`;
+DROP TABLE IF EXISTS `sys_user_credentials`;
 
 
 /******************************************/
@@ -256,30 +257,46 @@ CREATE TABLE `sys_source`
 /******************************************/
 CREATE TABLE `sys_user`
 (
-    `id`           bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
-    `create_time`  datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time`  datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `user_account` varchar(100)        NOT NULL COMMENT '登录名',
-    `user_pwd`     varchar(100)        NOT NULL COMMENT '密码',
-    `user_name`    varchar(100)        NOT NULL COMMENT '姓名',
-    `user_email`   varchar(200)                 DEFAULT NULL COMMENT '邮箱',
-    `user_phone`   varchar(200)                 DEFAULT NULL COMMENT '电话',
-    `inst_id`      bigint(20)                   DEFAULT NULL COMMENT '机构ID',
-    `inst_name`    varchar(100)                 DEFAULT NULL COMMENT '机构名称',
-    `mobile`       varchar(200)                 DEFAULT NULL COMMENT '手机',
-    `user_type`    int(11)                      DEFAULT '0' COMMENT '用户类型:1.系统用户，0.普通用户',
-    `login_ip`     varchar(100)                 DEFAULT NULL COMMENT '最后登陆IP',
-    `login_date`   datetime                     DEFAULT NULL COMMENT '最后登陆时间',
-    `login_flag`   varchar(64)                  DEFAULT NULL COMMENT '是否可登录',
-    `create_by`    varchar(64)         NOT NULL COMMENT '创建者',
-    `update_by`    varchar(64)         NOT NULL COMMENT '更新者',
-    `remarks`      varchar(255)                 DEFAULT NULL COMMENT '备注信息',
-    `del_flag`     tinyint(1)          NOT NULL DEFAULT '0' COMMENT '删除标记',
-    `disabled`     tinyint(1)                   DEFAULT '0' COMMENT '是否禁用',
-    `user_no`      varchar(512)                 DEFAULT '' COMMENT '用户工号',
-    `avatar_id`    bigint(20)                   DEFAULT '0' COMMENT '用户头像',
+    `id`              bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+    `create_time`     datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time`     datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `user_account`    varchar(100)        NOT NULL COMMENT '登录名',
+    `additional_info` TEXT                NOT NULL COMMENT '用户详细信息',
+    `user_name`       varchar(100)        NOT NULL COMMENT '姓名',
+    `user_email`      varchar(200)                 DEFAULT NULL COMMENT '邮箱',
+    `user_phone`      varchar(200)                 DEFAULT NULL COMMENT '电话',
+    `inst_id`         bigint(20)                   DEFAULT NULL COMMENT '机构ID',
+    `inst_name`       varchar(100)                 DEFAULT NULL COMMENT '机构名称',
+    `mobile`          varchar(200)                 DEFAULT NULL COMMENT '手机',
+    `user_type`       int(11)                      DEFAULT '0' COMMENT '用户类型:1.系统用户，0.普通用户',
+    `login_ip`        varchar(100)                 DEFAULT NULL COMMENT '最后登陆IP',
+    `login_date`      datetime                     DEFAULT NULL COMMENT '最后登陆时间',
+    `login_flag`      varchar(64)                  DEFAULT NULL COMMENT '是否可登录',
+    `create_by`       varchar(64)         NOT NULL COMMENT '创建者',
+    `update_by`       varchar(64)         NOT NULL COMMENT '更新者',
+    `remarks`         varchar(255)                 DEFAULT NULL COMMENT '备注信息',
+    `del_flag`        tinyint(1)          NOT NULL DEFAULT '0' COMMENT '删除标记',
+    `disabled`        tinyint(1)                   DEFAULT '0' COMMENT '是否禁用',
+    `user_no`         varchar(512)                 DEFAULT '' COMMENT '用户工号',
+    `avatar_id`       bigint(20)                   DEFAULT '0' COMMENT '用户头像',
     PRIMARY KEY (`id`)
 ) COMMENT = '用户表';
+
+CREATE TABLE `sys_user_credentials`
+(
+    `id`             bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+    `create_time`    datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time`    datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `user_id`        bigint(20)                   DEFAULT '0' COMMENT '用户ID',
+
+    `activate_token` varchar(1024)       NOT NULL COMMENT 'token',
+    `enabled`        tinyint(1)                   DEFAULT '0' COMMENT '是否禁用',
+    `password`       varchar(1024)       NOT NULL COMMENT '密码',
+    `reset_token`    varchar(1024)                DEFAULT NULL COMMENT 'token',
+    PRIMARY KEY (`id`)
+) COMMENT = '用户证书表';
+
+
 /******************************************/
 /*   DatabaseName = base_manager   */
 /*   TableName = sys_user_avatar   */
@@ -324,7 +341,7 @@ CREATE TABLE `sys_user_web_layout`
 -- 字典初始化数据
 INSERT INTO `sys_dict` (`create_by`, `create_time`, `del_flag`, `remarks`, `id`, `dict_label`, `parent_id`,
                         `dict_sort`, `dict_type`, `update_by`, `update_time`, `dict_value`)
-VALUES ('admin', '2020-11-08 10:31:00', '0', '明文密码', '1', '明文密码', '0',  '0', 'rad_user_check_attribute', 'admin',
+VALUES ('admin', '2020-11-08 10:31:00', '0', '明文密码', '1', '明文密码', '0', '0', 'rad_user_check_attribute', 'admin',
         '2020-11-08 18:21:13', 'Cleartext-Password');
 
 -- 初始化管理员

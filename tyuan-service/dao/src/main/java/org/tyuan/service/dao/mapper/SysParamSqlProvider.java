@@ -1,11 +1,12 @@
 package org.tyuan.service.dao.mapper;
 
-import org.apache.ibatis.jdbc.SQL;
-import org.tyuan.service.dao.model.SysParam;
-import org.tyuan.service.dao.model.SysParamExample;
-
 import java.util.List;
 import java.util.Map;
+import org.apache.ibatis.jdbc.SQL;
+import org.tyuan.service.dao.model.SysParam;
+import org.tyuan.service.dao.model.SysParamExample.Criteria;
+import org.tyuan.service.dao.model.SysParamExample.Criterion;
+import org.tyuan.service.dao.model.SysParamExample;
 
 public class SysParamSqlProvider {
     /**
@@ -43,43 +44,43 @@ public class SysParamSqlProvider {
     public String insertSelective(SysParam record) {
         SQL sql = new SQL();
         sql.INSERT_INTO("sys_param");
-
+        
         if (record.getCreateTime() != null) {
             sql.VALUES("create_time", "#{createTime,jdbcType=TIMESTAMP}");
         }
-
+        
         if (record.getUpdateTime() != null) {
             sql.VALUES("update_time", "#{updateTime,jdbcType=TIMESTAMP}");
         }
-
+        
         if (record.getParamName() != null) {
             sql.VALUES("param_name", "#{paramName,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getParamKey() != null) {
             sql.VALUES("param_key", "#{paramKey,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getIsSys() != null) {
             sql.VALUES("is_sys", "#{isSys,jdbcType=BIT}");
         }
-
+        
         if (record.getCreateBy() != null) {
             sql.VALUES("create_by", "#{createBy,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getUpdateBy() != null) {
             sql.VALUES("update_by", "#{updateBy,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getRemarks() != null) {
             sql.VALUES("remarks", "#{remarks,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getParamVal() != null) {
             sql.VALUES("param_val", "#{paramVal,jdbcType=LONGVARCHAR}");
         }
-
+        
         return sql.toString();
     }
 
@@ -107,11 +108,11 @@ public class SysParamSqlProvider {
         sql.SELECT("param_val");
         sql.FROM("sys_param");
         applyWhere(sql, example, false);
-
+        
         if (example != null && example.getOrderByClause() != null) {
             sql.ORDER_BY(example.getOrderByClause());
         }
-
+        
         return sql.toString();
     }
 
@@ -138,11 +139,11 @@ public class SysParamSqlProvider {
         sql.SELECT("remarks");
         sql.FROM("sys_param");
         applyWhere(sql, example, false);
-
+        
         if (example != null && example.getOrderByClause() != null) {
             sql.ORDER_BY(example.getOrderByClause());
         }
-
+        
         return sql.toString();
     }
 
@@ -155,50 +156,50 @@ public class SysParamSqlProvider {
     public String updateByExampleSelective(Map<String, Object> parameter) {
         SysParam record = (SysParam) parameter.get("record");
         SysParamExample example = (SysParamExample) parameter.get("example");
-
+        
         SQL sql = new SQL();
         sql.UPDATE("sys_param");
-
+        
         if (record.getId() != null) {
             sql.SET("id = #{record.id,jdbcType=BIGINT}");
         }
-
+        
         if (record.getCreateTime() != null) {
             sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         }
-
+        
         if (record.getUpdateTime() != null) {
             sql.SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
         }
-
+        
         if (record.getParamName() != null) {
             sql.SET("param_name = #{record.paramName,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getParamKey() != null) {
             sql.SET("param_key = #{record.paramKey,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getIsSys() != null) {
             sql.SET("is_sys = #{record.isSys,jdbcType=BIT}");
         }
-
+        
         if (record.getCreateBy() != null) {
             sql.SET("create_by = #{record.createBy,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getUpdateBy() != null) {
             sql.SET("update_by = #{record.updateBy,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getRemarks() != null) {
             sql.SET("remarks = #{record.remarks,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getParamVal() != null) {
             sql.SET("param_val = #{record.paramVal,jdbcType=LONGVARCHAR}");
         }
-
+        
         applyWhere(sql, example, true);
         return sql.toString();
     }
@@ -212,7 +213,7 @@ public class SysParamSqlProvider {
     public String updateByExampleWithBLOBs(Map<String, Object> parameter) {
         SQL sql = new SQL();
         sql.UPDATE("sys_param");
-
+        
         sql.SET("id = #{record.id,jdbcType=BIGINT}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
@@ -223,7 +224,7 @@ public class SysParamSqlProvider {
         sql.SET("update_by = #{record.updateBy,jdbcType=VARCHAR}");
         sql.SET("remarks = #{record.remarks,jdbcType=VARCHAR}");
         sql.SET("param_val = #{record.paramVal,jdbcType=LONGVARCHAR}");
-
+        
         SysParamExample example = (SysParamExample) parameter.get("example");
         applyWhere(sql, example, true);
         return sql.toString();
@@ -238,7 +239,7 @@ public class SysParamSqlProvider {
     public String updateByExample(Map<String, Object> parameter) {
         SQL sql = new SQL();
         sql.UPDATE("sys_param");
-
+        
         sql.SET("id = #{record.id,jdbcType=BIGINT}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
@@ -248,7 +249,7 @@ public class SysParamSqlProvider {
         sql.SET("create_by = #{record.createBy,jdbcType=VARCHAR}");
         sql.SET("update_by = #{record.updateBy,jdbcType=VARCHAR}");
         sql.SET("remarks = #{record.remarks,jdbcType=VARCHAR}");
-
+        
         SysParamExample example = (SysParamExample) parameter.get("example");
         applyWhere(sql, example, true);
         return sql.toString();
@@ -263,45 +264,45 @@ public class SysParamSqlProvider {
     public String updateByPrimaryKeySelective(SysParam record) {
         SQL sql = new SQL();
         sql.UPDATE("sys_param");
-
+        
         if (record.getCreateTime() != null) {
             sql.SET("create_time = #{createTime,jdbcType=TIMESTAMP}");
         }
-
+        
         if (record.getUpdateTime() != null) {
             sql.SET("update_time = #{updateTime,jdbcType=TIMESTAMP}");
         }
-
+        
         if (record.getParamName() != null) {
             sql.SET("param_name = #{paramName,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getParamKey() != null) {
             sql.SET("param_key = #{paramKey,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getIsSys() != null) {
             sql.SET("is_sys = #{isSys,jdbcType=BIT}");
         }
-
+        
         if (record.getCreateBy() != null) {
             sql.SET("create_by = #{createBy,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getUpdateBy() != null) {
             sql.SET("update_by = #{updateBy,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getRemarks() != null) {
             sql.SET("remarks = #{remarks,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getParamVal() != null) {
             sql.SET("param_val = #{paramVal,jdbcType=LONGVARCHAR}");
         }
-
+        
         sql.WHERE("id = #{id,jdbcType=BIGINT}");
-
+        
         return sql.toString();
     }
 
@@ -315,7 +316,7 @@ public class SysParamSqlProvider {
         if (example == null) {
             return;
         }
-
+        
         String parmPhrase1;
         String parmPhrase1_th;
         String parmPhrase2;
@@ -337,30 +338,30 @@ public class SysParamSqlProvider {
             parmPhrase3 = "#{oredCriteria[%d].allCriteria[%d].value[%d]}";
             parmPhrase3_th = "#{oredCriteria[%d].allCriteria[%d].value[%d],typeHandler=%s}";
         }
-
+        
         StringBuilder sb = new StringBuilder();
-        List<SysParamExample.Criteria> oredCriteria = example.getOredCriteria();
+        List<Criteria> oredCriteria = example.getOredCriteria();
         boolean firstCriteria = true;
         for (int i = 0; i < oredCriteria.size(); i++) {
-            SysParamExample.Criteria criteria = oredCriteria.get(i);
+            Criteria criteria = oredCriteria.get(i);
             if (criteria.isValid()) {
                 if (firstCriteria) {
                     firstCriteria = false;
                 } else {
                     sb.append(" or ");
                 }
-
+                
                 sb.append('(');
-                List<SysParamExample.Criterion> criterions = criteria.getAllCriteria();
+                List<Criterion> criterions = criteria.getAllCriteria();
                 boolean firstCriterion = true;
                 for (int j = 0; j < criterions.size(); j++) {
-                    SysParamExample.Criterion criterion = criterions.get(j);
+                    Criterion criterion = criterions.get(j);
                     if (firstCriterion) {
                         firstCriterion = false;
                     } else {
                         sb.append(" and ");
                     }
-
+                    
                     if (criterion.isNoValue()) {
                         sb.append(criterion.getCondition());
                     } else if (criterion.isSingleValue()) {
@@ -398,7 +399,7 @@ public class SysParamSqlProvider {
                 sb.append(')');
             }
         }
-
+        
         if (sb.length() > 0) {
             sql.WHERE(sb.toString());
         }

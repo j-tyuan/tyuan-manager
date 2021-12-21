@@ -44,51 +44,51 @@ public class SysDictSqlProvider {
     public String insertSelective(SysDict record) {
         SQL sql = new SQL();
         sql.INSERT_INTO("sys_dict");
-
+        
         if (record.getCreateTime() != null) {
             sql.VALUES("create_time", "#{createTime,jdbcType=TIMESTAMP}");
         }
-
+        
         if (record.getUpdateTime() != null) {
             sql.VALUES("update_time", "#{updateTime,jdbcType=TIMESTAMP}");
         }
-
+        
         if (record.getDictValue() != null) {
             sql.VALUES("dict_value", "#{dictValue,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getDictLabel() != null) {
             sql.VALUES("dict_label", "#{dictLabel,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getDictType() != null) {
             sql.VALUES("dict_type", "#{dictType,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getDictSort() != null) {
             sql.VALUES("dict_sort", "#{dictSort,jdbcType=DECIMAL}");
         }
-
+        
         if (record.getParentId() != null) {
             sql.VALUES("parent_id", "#{parentId,jdbcType=BIGINT}");
         }
-
+        
         if (record.getCreateBy() != null) {
             sql.VALUES("create_by", "#{createBy,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getUpdateBy() != null) {
             sql.VALUES("update_by", "#{updateBy,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getRemarks() != null) {
             sql.VALUES("remarks", "#{remarks,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getDelFlag() != null) {
             sql.VALUES("del_flag", "#{delFlag,jdbcType=BIT}");
         }
-
+        
         return sql.toString();
     }
 
@@ -118,11 +118,11 @@ public class SysDictSqlProvider {
         sql.SELECT("del_flag");
         sql.FROM("sys_dict");
         applyWhere(sql, example, false);
-
+        
         if (example != null && example.getOrderByClause() != null) {
             sql.ORDER_BY(example.getOrderByClause());
         }
-
+        
         return sql.toString();
     }
 
@@ -135,58 +135,58 @@ public class SysDictSqlProvider {
     public String updateByExampleSelective(Map<String, Object> parameter) {
         SysDict record = (SysDict) parameter.get("record");
         SysDictExample example = (SysDictExample) parameter.get("example");
-
+        
         SQL sql = new SQL();
         sql.UPDATE("sys_dict");
-
+        
         if (record.getId() != null) {
             sql.SET("id = #{record.id,jdbcType=BIGINT}");
         }
-
+        
         if (record.getCreateTime() != null) {
             sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         }
-
+        
         if (record.getUpdateTime() != null) {
             sql.SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
         }
-
+        
         if (record.getDictValue() != null) {
             sql.SET("dict_value = #{record.dictValue,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getDictLabel() != null) {
             sql.SET("dict_label = #{record.dictLabel,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getDictType() != null) {
             sql.SET("dict_type = #{record.dictType,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getDictSort() != null) {
             sql.SET("dict_sort = #{record.dictSort,jdbcType=DECIMAL}");
         }
-
+        
         if (record.getParentId() != null) {
             sql.SET("parent_id = #{record.parentId,jdbcType=BIGINT}");
         }
-
+        
         if (record.getCreateBy() != null) {
             sql.SET("create_by = #{record.createBy,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getUpdateBy() != null) {
             sql.SET("update_by = #{record.updateBy,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getRemarks() != null) {
             sql.SET("remarks = #{record.remarks,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getDelFlag() != null) {
             sql.SET("del_flag = #{record.delFlag,jdbcType=BIT}");
         }
-
+        
         applyWhere(sql, example, true);
         return sql.toString();
     }
@@ -200,7 +200,7 @@ public class SysDictSqlProvider {
     public String updateByExample(Map<String, Object> parameter) {
         SQL sql = new SQL();
         sql.UPDATE("sys_dict");
-
+        
         sql.SET("id = #{record.id,jdbcType=BIGINT}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
@@ -213,7 +213,7 @@ public class SysDictSqlProvider {
         sql.SET("update_by = #{record.updateBy,jdbcType=VARCHAR}");
         sql.SET("remarks = #{record.remarks,jdbcType=VARCHAR}");
         sql.SET("del_flag = #{record.delFlag,jdbcType=BIT}");
-
+        
         SysDictExample example = (SysDictExample) parameter.get("example");
         applyWhere(sql, example, true);
         return sql.toString();
@@ -228,53 +228,53 @@ public class SysDictSqlProvider {
     public String updateByPrimaryKeySelective(SysDict record) {
         SQL sql = new SQL();
         sql.UPDATE("sys_dict");
-
+        
         if (record.getCreateTime() != null) {
             sql.SET("create_time = #{createTime,jdbcType=TIMESTAMP}");
         }
-
+        
         if (record.getUpdateTime() != null) {
             sql.SET("update_time = #{updateTime,jdbcType=TIMESTAMP}");
         }
-
+        
         if (record.getDictValue() != null) {
             sql.SET("dict_value = #{dictValue,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getDictLabel() != null) {
             sql.SET("dict_label = #{dictLabel,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getDictType() != null) {
             sql.SET("dict_type = #{dictType,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getDictSort() != null) {
             sql.SET("dict_sort = #{dictSort,jdbcType=DECIMAL}");
         }
-
+        
         if (record.getParentId() != null) {
             sql.SET("parent_id = #{parentId,jdbcType=BIGINT}");
         }
-
+        
         if (record.getCreateBy() != null) {
             sql.SET("create_by = #{createBy,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getUpdateBy() != null) {
             sql.SET("update_by = #{updateBy,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getRemarks() != null) {
             sql.SET("remarks = #{remarks,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getDelFlag() != null) {
             sql.SET("del_flag = #{delFlag,jdbcType=BIT}");
         }
-
+        
         sql.WHERE("id = #{id,jdbcType=BIGINT}");
-
+        
         return sql.toString();
     }
 
@@ -288,7 +288,7 @@ public class SysDictSqlProvider {
         if (example == null) {
             return;
         }
-
+        
         String parmPhrase1;
         String parmPhrase1_th;
         String parmPhrase2;
@@ -310,7 +310,7 @@ public class SysDictSqlProvider {
             parmPhrase3 = "#{oredCriteria[%d].allCriteria[%d].value[%d]}";
             parmPhrase3_th = "#{oredCriteria[%d].allCriteria[%d].value[%d],typeHandler=%s}";
         }
-
+        
         StringBuilder sb = new StringBuilder();
         List<Criteria> oredCriteria = example.getOredCriteria();
         boolean firstCriteria = true;
@@ -322,7 +322,7 @@ public class SysDictSqlProvider {
                 } else {
                     sb.append(" or ");
                 }
-
+                
                 sb.append('(');
                 List<Criterion> criterions = criteria.getAllCriteria();
                 boolean firstCriterion = true;
@@ -333,7 +333,7 @@ public class SysDictSqlProvider {
                     } else {
                         sb.append(" and ");
                     }
-
+                    
                     if (criterion.isNoValue()) {
                         sb.append(criterion.getCondition());
                     } else if (criterion.isSingleValue()) {
@@ -371,7 +371,7 @@ public class SysDictSqlProvider {
                 sb.append(')');
             }
         }
-
+        
         if (sb.length() > 0) {
             sql.WHERE(sb.toString());
         }

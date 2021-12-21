@@ -44,27 +44,27 @@ public class SysPermissionSqlProvider {
     public String insertSelective(SysPermission record) {
         SQL sql = new SQL();
         sql.INSERT_INTO("sys_permission");
-
+        
         if (record.getParentId() != null) {
             sql.VALUES("parent_id", "#{parentId,jdbcType=BIGINT}");
         }
-
+        
         if (record.getPermission() != null) {
             sql.VALUES("permission", "#{permission,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getPermissionSort() != null) {
             sql.VALUES("permission_sort", "#{permissionSort,jdbcType=DECIMAL}");
         }
-
+        
         if (record.getPermissionName() != null) {
             sql.VALUES("permission_name", "#{permissionName,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getRemarks() != null) {
             sql.VALUES("remarks", "#{remarks,jdbcType=VARCHAR}");
         }
-
+        
         return sql.toString();
     }
 
@@ -88,11 +88,11 @@ public class SysPermissionSqlProvider {
         sql.SELECT("remarks");
         sql.FROM("sys_permission");
         applyWhere(sql, example, false);
-
+        
         if (example != null && example.getOrderByClause() != null) {
             sql.ORDER_BY(example.getOrderByClause());
         }
-
+        
         return sql.toString();
     }
 
@@ -105,34 +105,34 @@ public class SysPermissionSqlProvider {
     public String updateByExampleSelective(Map<String, Object> parameter) {
         SysPermission record = (SysPermission) parameter.get("record");
         SysPermissionExample example = (SysPermissionExample) parameter.get("example");
-
+        
         SQL sql = new SQL();
         sql.UPDATE("sys_permission");
-
+        
         if (record.getId() != null) {
             sql.SET("id = #{record.id,jdbcType=BIGINT}");
         }
-
+        
         if (record.getParentId() != null) {
             sql.SET("parent_id = #{record.parentId,jdbcType=BIGINT}");
         }
-
+        
         if (record.getPermission() != null) {
             sql.SET("permission = #{record.permission,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getPermissionSort() != null) {
             sql.SET("permission_sort = #{record.permissionSort,jdbcType=DECIMAL}");
         }
-
+        
         if (record.getPermissionName() != null) {
             sql.SET("permission_name = #{record.permissionName,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getRemarks() != null) {
             sql.SET("remarks = #{record.remarks,jdbcType=VARCHAR}");
         }
-
+        
         applyWhere(sql, example, true);
         return sql.toString();
     }
@@ -146,14 +146,14 @@ public class SysPermissionSqlProvider {
     public String updateByExample(Map<String, Object> parameter) {
         SQL sql = new SQL();
         sql.UPDATE("sys_permission");
-
+        
         sql.SET("id = #{record.id,jdbcType=BIGINT}");
         sql.SET("parent_id = #{record.parentId,jdbcType=BIGINT}");
         sql.SET("permission = #{record.permission,jdbcType=VARCHAR}");
         sql.SET("permission_sort = #{record.permissionSort,jdbcType=DECIMAL}");
         sql.SET("permission_name = #{record.permissionName,jdbcType=VARCHAR}");
         sql.SET("remarks = #{record.remarks,jdbcType=VARCHAR}");
-
+        
         SysPermissionExample example = (SysPermissionExample) parameter.get("example");
         applyWhere(sql, example, true);
         return sql.toString();
@@ -168,29 +168,29 @@ public class SysPermissionSqlProvider {
     public String updateByPrimaryKeySelective(SysPermission record) {
         SQL sql = new SQL();
         sql.UPDATE("sys_permission");
-
+        
         if (record.getParentId() != null) {
             sql.SET("parent_id = #{parentId,jdbcType=BIGINT}");
         }
-
+        
         if (record.getPermission() != null) {
             sql.SET("permission = #{permission,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getPermissionSort() != null) {
             sql.SET("permission_sort = #{permissionSort,jdbcType=DECIMAL}");
         }
-
+        
         if (record.getPermissionName() != null) {
             sql.SET("permission_name = #{permissionName,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getRemarks() != null) {
             sql.SET("remarks = #{remarks,jdbcType=VARCHAR}");
         }
-
+        
         sql.WHERE("id = #{id,jdbcType=BIGINT}");
-
+        
         return sql.toString();
     }
 
@@ -204,7 +204,7 @@ public class SysPermissionSqlProvider {
         if (example == null) {
             return;
         }
-
+        
         String parmPhrase1;
         String parmPhrase1_th;
         String parmPhrase2;
@@ -226,7 +226,7 @@ public class SysPermissionSqlProvider {
             parmPhrase3 = "#{oredCriteria[%d].allCriteria[%d].value[%d]}";
             parmPhrase3_th = "#{oredCriteria[%d].allCriteria[%d].value[%d],typeHandler=%s}";
         }
-
+        
         StringBuilder sb = new StringBuilder();
         List<Criteria> oredCriteria = example.getOredCriteria();
         boolean firstCriteria = true;
@@ -238,7 +238,7 @@ public class SysPermissionSqlProvider {
                 } else {
                     sb.append(" or ");
                 }
-
+                
                 sb.append('(');
                 List<Criterion> criterions = criteria.getAllCriteria();
                 boolean firstCriterion = true;
@@ -249,7 +249,7 @@ public class SysPermissionSqlProvider {
                     } else {
                         sb.append(" and ");
                     }
-
+                    
                     if (criterion.isNoValue()) {
                         sb.append(criterion.getCondition());
                     } else if (criterion.isSingleValue()) {
@@ -287,7 +287,7 @@ public class SysPermissionSqlProvider {
                 sb.append(')');
             }
         }
-
+        
         if (sb.length() > 0) {
             sql.WHERE(sb.toString());
         }

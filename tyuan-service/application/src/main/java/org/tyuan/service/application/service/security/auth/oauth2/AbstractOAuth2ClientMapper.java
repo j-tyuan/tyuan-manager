@@ -24,35 +24,16 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.util.StringUtils;
-import org.thingsboard.server.common.data.Customer;
-import org.thingsboard.server.common.data.DashboardInfo;
-import org.thingsboard.server.common.data.Tenant;
-import org.thingsboard.server.common.data.User;
-import org.thingsboard.server.common.data.id.CustomerId;
-import org.thingsboard.server.common.data.id.DashboardId;
-import org.thingsboard.server.common.data.id.IdBased;
-import org.thingsboard.server.common.data.id.TenantId;
-import org.thingsboard.server.common.data.oauth2.OAuth2MapperConfig;
-import org.thingsboard.server.common.data.oauth2.OAuth2Registration;
-import org.thingsboard.server.common.data.page.PageData;
-import org.thingsboard.server.common.data.page.PageLink;
-import org.thingsboard.server.common.data.plugin.ComponentLifecycleEvent;
-import org.thingsboard.server.common.data.security.Authority;
-import org.thingsboard.server.common.data.security.UserCredentials;
-import org.thingsboard.server.dao.customer.CustomerService;
-import org.thingsboard.server.dao.dashboard.DashboardService;
-import org.thingsboard.server.dao.oauth2.OAuth2User;
-import org.thingsboard.server.dao.tenant.TbTenantProfileCache;
-import org.thingsboard.server.dao.tenant.TenantService;
-import org.thingsboard.server.dao.user.UserService;
-import org.thingsboard.server.service.install.InstallScripts;
-import org.thingsboard.server.cluster.TbClusterService;
-import org.thingsboard.server.service.security.model.SecurityUser;
-import org.thingsboard.server.service.security.model.UserPrincipal;
+import org.tyuan.service.application.service.SysUserService;
+import org.tyuan.service.application.service.security.model.SecurityUser;
+import org.tyuan.service.application.service.security.model.UserPrincipal;
+import org.tyuan.service.dao.model.SysUser;
+import org.tyuan.service.data.oauth2.OAuth2MapperConfig;
+import org.tyuan.service.data.oauth2.OAuth2Registration;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -64,28 +45,11 @@ public abstract class AbstractOAuth2ClientMapper {
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
     @Autowired
-    private UserService userService;
+    private SysUserService userService;
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
-    @Autowired
-    private TenantService tenantService;
-
-    @Autowired
-    private CustomerService customerService;
-
-    @Autowired
-    private DashboardService dashboardService;
-
-    @Autowired
-    private InstallScripts installScripts;
-
-    @Autowired
-    protected TbTenantProfileCache tenantProfileCache;
-
-    @Autowired
-    protected TbClusterService tbClusterService;
 
     @Value("${edges.enabled}")
     @Getter
@@ -99,7 +63,7 @@ public abstract class AbstractOAuth2ClientMapper {
 
         UserPrincipal principal = new UserPrincipal(UserPrincipal.Type.USER_NAME, oauth2User.getEmail());
 
-        User user = userService.findUserByEmail(TenantId.SYS_TENANT_ID, oauth2User.getEmail());
+        SysUser user = userService.findUserByEmail(TenantId.SYS_TENANT_ID, oauth2User.getEmail());
 
         if (user == null && !config.isAllowUserCreation()) {
             throw new UsernameNotFoundException("User not found: " + oauth2User.getEmail());
@@ -167,59 +131,5 @@ public abstract class AbstractOAuth2ClientMapper {
             log.error("Can't get or create security user from oauth2 user", e);
             throw new RuntimeException("Can't get or create security user from oauth2 user", e);
         }
-    }
-
-    private TenantId getTenantId(String tenantName) throws IOException {
-        List<Tenant> tenants = tenantService.findTenants(new PageLink(1, 0, tenantName)).getData();
-        Tenant tenant;
-        if (tenants == null || tenants.isEmpty()) {
-            tenant = new Tenant();
-            tenant.setTitle(tenantName);
-            tenant = tenantService.saveTenant(tenant);
-            installScripts.createDefaultRuleChains(tenant.getId());
-            installScripts.createDefaultEdgeRuleChains(tenant.getId());
-            tenantProfileCache.evict(tenant.getId());
-            tbClusterService.onTenantChange(tenant, null);
-            tbClusterService.broadcastEntityStateChangeEvent(tenant.getId(), tenant.getId(),
-                    ComponentLifecycleEvent.CREATED);
-        } else {
-            tenant = tenants.get(0);
-        }
-        return tenant.getTenantId();
-    }
-
-    private CustomerId getCustomerId(TenantId tenantId, String customerName) {
-        if (StringUtils.isEmpty(customerName)) {
-            return null;
-        }
-        Optional<Customer> customerOpt = customerService.findCustomerByTenantIdAndTitle(tenantId, customerName);
-        if (customerOpt.isPresent()) {
-            return customerOpt.get().getId();
-        } else {
-            Customer customer = new Customer();
-            customer.setTenantId(tenantId);
-            customer.setTitle(customerName);
-            return customerService.saveCustomer(customer).getId();
-        }
-    }
-
-    private Optional<DashboardId> getDashboardId(TenantId tenantId, String dashboardName) {
-        return Optional.ofNullable(dashboardService.findFirstDashboardInfoByTenantIdAndName(tenantId, dashboardName)).map(IdBased::getId);
-    }
-
-    private Optional<DashboardId> getDashboardId(TenantId tenantId, CustomerId customerId, String dashboardName) {
-        PageData<DashboardInfo> dashboardsPage;
-        PageLink pageLink = null;
-        do {
-            pageLink = pageLink == null ? new PageLink(DASHBOARDS_REQUEST_LIMIT) : pageLink.nextPageLink();
-            dashboardsPage = dashboardService.findDashboardsByTenantIdAndCustomerId(tenantId, customerId, pageLink);
-            Optional<DashboardInfo> dashboardInfoOpt = dashboardsPage.getData().stream()
-                    .filter(dashboardInfo -> dashboardName.equals(dashboardInfo.getName()))
-                    .findAny();
-            if (dashboardInfoOpt.isPresent()) {
-                return dashboardInfoOpt.map(DashboardInfo::getId);
-            }
-        } while (dashboardsPage.hasNext());
-        return Optional.empty();
     }
 }

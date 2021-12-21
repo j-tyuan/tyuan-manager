@@ -44,19 +44,19 @@ public class SysUserAvatarSqlProvider {
     public String insertSelective(SysUserAvatar record) {
         SQL sql = new SQL();
         sql.INSERT_INTO("sys_user_avatar");
-
+        
         if (record.getCreateTime() != null) {
             sql.VALUES("create_time", "#{createTime,jdbcType=TIMESTAMP}");
         }
-
+        
         if (record.getUpdateTime() != null) {
             sql.VALUES("update_time", "#{updateTime,jdbcType=TIMESTAMP}");
         }
-
+        
         if (record.getUserAvatar() != null) {
             sql.VALUES("user_avatar", "#{userAvatar,jdbcType=LONGVARCHAR}");
         }
-
+        
         return sql.toString();
     }
 
@@ -78,11 +78,11 @@ public class SysUserAvatarSqlProvider {
         sql.SELECT("user_avatar");
         sql.FROM("sys_user_avatar");
         applyWhere(sql, example, false);
-
+        
         if (example != null && example.getOrderByClause() != null) {
             sql.ORDER_BY(example.getOrderByClause());
         }
-
+        
         return sql.toString();
     }
 
@@ -103,11 +103,11 @@ public class SysUserAvatarSqlProvider {
         sql.SELECT("update_time");
         sql.FROM("sys_user_avatar");
         applyWhere(sql, example, false);
-
+        
         if (example != null && example.getOrderByClause() != null) {
             sql.ORDER_BY(example.getOrderByClause());
         }
-
+        
         return sql.toString();
     }
 
@@ -120,26 +120,26 @@ public class SysUserAvatarSqlProvider {
     public String updateByExampleSelective(Map<String, Object> parameter) {
         SysUserAvatar record = (SysUserAvatar) parameter.get("record");
         SysUserAvatarExample example = (SysUserAvatarExample) parameter.get("example");
-
+        
         SQL sql = new SQL();
         sql.UPDATE("sys_user_avatar");
-
+        
         if (record.getId() != null) {
             sql.SET("id = #{record.id,jdbcType=BIGINT}");
         }
-
+        
         if (record.getCreateTime() != null) {
             sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         }
-
+        
         if (record.getUpdateTime() != null) {
             sql.SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
         }
-
+        
         if (record.getUserAvatar() != null) {
             sql.SET("user_avatar = #{record.userAvatar,jdbcType=LONGVARCHAR}");
         }
-
+        
         applyWhere(sql, example, true);
         return sql.toString();
     }
@@ -153,12 +153,12 @@ public class SysUserAvatarSqlProvider {
     public String updateByExampleWithBLOBs(Map<String, Object> parameter) {
         SQL sql = new SQL();
         sql.UPDATE("sys_user_avatar");
-
+        
         sql.SET("id = #{record.id,jdbcType=BIGINT}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
         sql.SET("user_avatar = #{record.userAvatar,jdbcType=LONGVARCHAR}");
-
+        
         SysUserAvatarExample example = (SysUserAvatarExample) parameter.get("example");
         applyWhere(sql, example, true);
         return sql.toString();
@@ -173,11 +173,11 @@ public class SysUserAvatarSqlProvider {
     public String updateByExample(Map<String, Object> parameter) {
         SQL sql = new SQL();
         sql.UPDATE("sys_user_avatar");
-
+        
         sql.SET("id = #{record.id,jdbcType=BIGINT}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
-
+        
         SysUserAvatarExample example = (SysUserAvatarExample) parameter.get("example");
         applyWhere(sql, example, true);
         return sql.toString();
@@ -192,21 +192,21 @@ public class SysUserAvatarSqlProvider {
     public String updateByPrimaryKeySelective(SysUserAvatar record) {
         SQL sql = new SQL();
         sql.UPDATE("sys_user_avatar");
-
+        
         if (record.getCreateTime() != null) {
             sql.SET("create_time = #{createTime,jdbcType=TIMESTAMP}");
         }
-
+        
         if (record.getUpdateTime() != null) {
             sql.SET("update_time = #{updateTime,jdbcType=TIMESTAMP}");
         }
-
+        
         if (record.getUserAvatar() != null) {
             sql.SET("user_avatar = #{userAvatar,jdbcType=LONGVARCHAR}");
         }
-
+        
         sql.WHERE("id = #{id,jdbcType=BIGINT}");
-
+        
         return sql.toString();
     }
 
@@ -220,7 +220,7 @@ public class SysUserAvatarSqlProvider {
         if (example == null) {
             return;
         }
-
+        
         String parmPhrase1;
         String parmPhrase1_th;
         String parmPhrase2;
@@ -242,7 +242,7 @@ public class SysUserAvatarSqlProvider {
             parmPhrase3 = "#{oredCriteria[%d].allCriteria[%d].value[%d]}";
             parmPhrase3_th = "#{oredCriteria[%d].allCriteria[%d].value[%d],typeHandler=%s}";
         }
-
+        
         StringBuilder sb = new StringBuilder();
         List<Criteria> oredCriteria = example.getOredCriteria();
         boolean firstCriteria = true;
@@ -254,7 +254,7 @@ public class SysUserAvatarSqlProvider {
                 } else {
                     sb.append(" or ");
                 }
-
+                
                 sb.append('(');
                 List<Criterion> criterions = criteria.getAllCriteria();
                 boolean firstCriterion = true;
@@ -265,7 +265,7 @@ public class SysUserAvatarSqlProvider {
                     } else {
                         sb.append(" and ");
                     }
-
+                    
                     if (criterion.isNoValue()) {
                         sb.append(criterion.getCondition());
                     } else if (criterion.isSingleValue()) {
@@ -303,7 +303,7 @@ public class SysUserAvatarSqlProvider {
                 sb.append(')');
             }
         }
-
+        
         if (sb.length() > 0) {
             sql.WHERE(sb.toString());
         }

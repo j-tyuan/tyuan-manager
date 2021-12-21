@@ -44,35 +44,35 @@ public class SysLoginLogSqlProvider {
     public String insertSelective(SysLoginLog record) {
         SQL sql = new SQL();
         sql.INSERT_INTO("sys_login_log");
-
+        
         if (record.getUserId() != null) {
             sql.VALUES("user_id", "#{userId,jdbcType=BIGINT}");
         }
-
+        
         if (record.getUserNo() != null) {
             sql.VALUES("user_no", "#{userNo,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getUserName() != null) {
             sql.VALUES("user_name", "#{userName,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getCreateTime() != null) {
             sql.VALUES("create_time", "#{createTime,jdbcType=TIMESTAMP}");
         }
-
+        
         if (record.getLoginIp() != null) {
             sql.VALUES("login_ip", "#{loginIp,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getLoginDate() != null) {
             sql.VALUES("login_date", "#{loginDate,jdbcType=TIMESTAMP}");
         }
-
+        
         if (record.getAvatarId() != null) {
             sql.VALUES("avatar_id", "#{avatarId,jdbcType=BIGINT}");
         }
-
+        
         return sql.toString();
     }
 
@@ -98,11 +98,11 @@ public class SysLoginLogSqlProvider {
         sql.SELECT("avatar_id");
         sql.FROM("sys_login_log");
         applyWhere(sql, example, false);
-
+        
         if (example != null && example.getOrderByClause() != null) {
             sql.ORDER_BY(example.getOrderByClause());
         }
-
+        
         return sql.toString();
     }
 
@@ -115,42 +115,42 @@ public class SysLoginLogSqlProvider {
     public String updateByExampleSelective(Map<String, Object> parameter) {
         SysLoginLog record = (SysLoginLog) parameter.get("record");
         SysLoginLogExample example = (SysLoginLogExample) parameter.get("example");
-
+        
         SQL sql = new SQL();
         sql.UPDATE("sys_login_log");
-
+        
         if (record.getId() != null) {
             sql.SET("id = #{record.id,jdbcType=BIGINT}");
         }
-
+        
         if (record.getUserId() != null) {
             sql.SET("user_id = #{record.userId,jdbcType=BIGINT}");
         }
-
+        
         if (record.getUserNo() != null) {
             sql.SET("user_no = #{record.userNo,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getUserName() != null) {
             sql.SET("user_name = #{record.userName,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getCreateTime() != null) {
             sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         }
-
+        
         if (record.getLoginIp() != null) {
             sql.SET("login_ip = #{record.loginIp,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getLoginDate() != null) {
             sql.SET("login_date = #{record.loginDate,jdbcType=TIMESTAMP}");
         }
-
+        
         if (record.getAvatarId() != null) {
             sql.SET("avatar_id = #{record.avatarId,jdbcType=BIGINT}");
         }
-
+        
         applyWhere(sql, example, true);
         return sql.toString();
     }
@@ -164,7 +164,7 @@ public class SysLoginLogSqlProvider {
     public String updateByExample(Map<String, Object> parameter) {
         SQL sql = new SQL();
         sql.UPDATE("sys_login_log");
-
+        
         sql.SET("id = #{record.id,jdbcType=BIGINT}");
         sql.SET("user_id = #{record.userId,jdbcType=BIGINT}");
         sql.SET("user_no = #{record.userNo,jdbcType=VARCHAR}");
@@ -173,7 +173,7 @@ public class SysLoginLogSqlProvider {
         sql.SET("login_ip = #{record.loginIp,jdbcType=VARCHAR}");
         sql.SET("login_date = #{record.loginDate,jdbcType=TIMESTAMP}");
         sql.SET("avatar_id = #{record.avatarId,jdbcType=BIGINT}");
-
+        
         SysLoginLogExample example = (SysLoginLogExample) parameter.get("example");
         applyWhere(sql, example, true);
         return sql.toString();
@@ -188,37 +188,37 @@ public class SysLoginLogSqlProvider {
     public String updateByPrimaryKeySelective(SysLoginLog record) {
         SQL sql = new SQL();
         sql.UPDATE("sys_login_log");
-
+        
         if (record.getUserId() != null) {
             sql.SET("user_id = #{userId,jdbcType=BIGINT}");
         }
-
+        
         if (record.getUserNo() != null) {
             sql.SET("user_no = #{userNo,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getUserName() != null) {
             sql.SET("user_name = #{userName,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getCreateTime() != null) {
             sql.SET("create_time = #{createTime,jdbcType=TIMESTAMP}");
         }
-
+        
         if (record.getLoginIp() != null) {
             sql.SET("login_ip = #{loginIp,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getLoginDate() != null) {
             sql.SET("login_date = #{loginDate,jdbcType=TIMESTAMP}");
         }
-
+        
         if (record.getAvatarId() != null) {
             sql.SET("avatar_id = #{avatarId,jdbcType=BIGINT}");
         }
-
+        
         sql.WHERE("id = #{id,jdbcType=BIGINT}");
-
+        
         return sql.toString();
     }
 
@@ -232,7 +232,7 @@ public class SysLoginLogSqlProvider {
         if (example == null) {
             return;
         }
-
+        
         String parmPhrase1;
         String parmPhrase1_th;
         String parmPhrase2;
@@ -254,7 +254,7 @@ public class SysLoginLogSqlProvider {
             parmPhrase3 = "#{oredCriteria[%d].allCriteria[%d].value[%d]}";
             parmPhrase3_th = "#{oredCriteria[%d].allCriteria[%d].value[%d],typeHandler=%s}";
         }
-
+        
         StringBuilder sb = new StringBuilder();
         List<Criteria> oredCriteria = example.getOredCriteria();
         boolean firstCriteria = true;
@@ -266,7 +266,7 @@ public class SysLoginLogSqlProvider {
                 } else {
                     sb.append(" or ");
                 }
-
+                
                 sb.append('(');
                 List<Criterion> criterions = criteria.getAllCriteria();
                 boolean firstCriterion = true;
@@ -277,7 +277,7 @@ public class SysLoginLogSqlProvider {
                     } else {
                         sb.append(" and ");
                     }
-
+                    
                     if (criterion.isNoValue()) {
                         sb.append(criterion.getCondition());
                     } else if (criterion.isSingleValue()) {
@@ -315,7 +315,7 @@ public class SysLoginLogSqlProvider {
                 sb.append(')');
             }
         }
-
+        
         if (sb.length() > 0) {
             sql.WHERE(sb.toString());
         }

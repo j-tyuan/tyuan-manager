@@ -44,47 +44,47 @@ public class OrganizationInstitutionSqlProvider {
     public String insertSelective(OrganizationInstitution record) {
         SQL sql = new SQL();
         sql.INSERT_INTO("organization_institution");
-
+        
         if (record.getCreateTime() != null) {
             sql.VALUES("create_time", "#{createTime,jdbcType=TIMESTAMP}");
         }
-
+        
         if (record.getUpdateTime() != null) {
             sql.VALUES("update_time", "#{updateTime,jdbcType=TIMESTAMP}");
         }
-
+        
         if (record.getParentId() != null) {
             sql.VALUES("parent_id", "#{parentId,jdbcType=BIGINT}");
         }
-
+        
         if (record.getInstCode() != null) {
             sql.VALUES("inst_code", "#{instCode,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getInstName() != null) {
             sql.VALUES("inst_name", "#{instName,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getInstType() != null) {
             sql.VALUES("inst_type", "#{instType,jdbcType=INTEGER}");
         }
-
+        
         if (record.getOwnerUserId() != null) {
             sql.VALUES("owner_user_id", "#{ownerUserId,jdbcType=BIGINT}");
         }
-
+        
         if (record.getInstSort() != null) {
             sql.VALUES("inst_sort", "#{instSort,jdbcType=INTEGER}");
         }
-
+        
         if (record.getInstStatus() != null) {
             sql.VALUES("inst_status", "#{instStatus,jdbcType=INTEGER}");
         }
-
+        
         if (record.getRemarks() != null) {
             sql.VALUES("remarks", "#{remarks,jdbcType=VARCHAR}");
         }
-
+        
         return sql.toString();
     }
 
@@ -113,11 +113,11 @@ public class OrganizationInstitutionSqlProvider {
         sql.SELECT("remarks");
         sql.FROM("organization_institution");
         applyWhere(sql, example, false);
-
+        
         if (example != null && example.getOrderByClause() != null) {
             sql.ORDER_BY(example.getOrderByClause());
         }
-
+        
         return sql.toString();
     }
 
@@ -130,54 +130,54 @@ public class OrganizationInstitutionSqlProvider {
     public String updateByExampleSelective(Map<String, Object> parameter) {
         OrganizationInstitution record = (OrganizationInstitution) parameter.get("record");
         OrganizationInstitutionExample example = (OrganizationInstitutionExample) parameter.get("example");
-
+        
         SQL sql = new SQL();
         sql.UPDATE("organization_institution");
-
+        
         if (record.getId() != null) {
             sql.SET("id = #{record.id,jdbcType=BIGINT}");
         }
-
+        
         if (record.getCreateTime() != null) {
             sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         }
-
+        
         if (record.getUpdateTime() != null) {
             sql.SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
         }
-
+        
         if (record.getParentId() != null) {
             sql.SET("parent_id = #{record.parentId,jdbcType=BIGINT}");
         }
-
+        
         if (record.getInstCode() != null) {
             sql.SET("inst_code = #{record.instCode,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getInstName() != null) {
             sql.SET("inst_name = #{record.instName,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getInstType() != null) {
             sql.SET("inst_type = #{record.instType,jdbcType=INTEGER}");
         }
-
+        
         if (record.getOwnerUserId() != null) {
             sql.SET("owner_user_id = #{record.ownerUserId,jdbcType=BIGINT}");
         }
-
+        
         if (record.getInstSort() != null) {
             sql.SET("inst_sort = #{record.instSort,jdbcType=INTEGER}");
         }
-
+        
         if (record.getInstStatus() != null) {
             sql.SET("inst_status = #{record.instStatus,jdbcType=INTEGER}");
         }
-
+        
         if (record.getRemarks() != null) {
             sql.SET("remarks = #{record.remarks,jdbcType=VARCHAR}");
         }
-
+        
         applyWhere(sql, example, true);
         return sql.toString();
     }
@@ -191,7 +191,7 @@ public class OrganizationInstitutionSqlProvider {
     public String updateByExample(Map<String, Object> parameter) {
         SQL sql = new SQL();
         sql.UPDATE("organization_institution");
-
+        
         sql.SET("id = #{record.id,jdbcType=BIGINT}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
@@ -203,7 +203,7 @@ public class OrganizationInstitutionSqlProvider {
         sql.SET("inst_sort = #{record.instSort,jdbcType=INTEGER}");
         sql.SET("inst_status = #{record.instStatus,jdbcType=INTEGER}");
         sql.SET("remarks = #{record.remarks,jdbcType=VARCHAR}");
-
+        
         OrganizationInstitutionExample example = (OrganizationInstitutionExample) parameter.get("example");
         applyWhere(sql, example, true);
         return sql.toString();
@@ -218,49 +218,49 @@ public class OrganizationInstitutionSqlProvider {
     public String updateByPrimaryKeySelective(OrganizationInstitution record) {
         SQL sql = new SQL();
         sql.UPDATE("organization_institution");
-
+        
         if (record.getCreateTime() != null) {
             sql.SET("create_time = #{createTime,jdbcType=TIMESTAMP}");
         }
-
+        
         if (record.getUpdateTime() != null) {
             sql.SET("update_time = #{updateTime,jdbcType=TIMESTAMP}");
         }
-
+        
         if (record.getParentId() != null) {
             sql.SET("parent_id = #{parentId,jdbcType=BIGINT}");
         }
-
+        
         if (record.getInstCode() != null) {
             sql.SET("inst_code = #{instCode,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getInstName() != null) {
             sql.SET("inst_name = #{instName,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getInstType() != null) {
             sql.SET("inst_type = #{instType,jdbcType=INTEGER}");
         }
-
+        
         if (record.getOwnerUserId() != null) {
             sql.SET("owner_user_id = #{ownerUserId,jdbcType=BIGINT}");
         }
-
+        
         if (record.getInstSort() != null) {
             sql.SET("inst_sort = #{instSort,jdbcType=INTEGER}");
         }
-
+        
         if (record.getInstStatus() != null) {
             sql.SET("inst_status = #{instStatus,jdbcType=INTEGER}");
         }
-
+        
         if (record.getRemarks() != null) {
             sql.SET("remarks = #{remarks,jdbcType=VARCHAR}");
         }
-
+        
         sql.WHERE("id = #{id,jdbcType=BIGINT}");
-
+        
         return sql.toString();
     }
 
@@ -274,7 +274,7 @@ public class OrganizationInstitutionSqlProvider {
         if (example == null) {
             return;
         }
-
+        
         String parmPhrase1;
         String parmPhrase1_th;
         String parmPhrase2;
@@ -296,7 +296,7 @@ public class OrganizationInstitutionSqlProvider {
             parmPhrase3 = "#{oredCriteria[%d].allCriteria[%d].value[%d]}";
             parmPhrase3_th = "#{oredCriteria[%d].allCriteria[%d].value[%d],typeHandler=%s}";
         }
-
+        
         StringBuilder sb = new StringBuilder();
         List<Criteria> oredCriteria = example.getOredCriteria();
         boolean firstCriteria = true;
@@ -308,7 +308,7 @@ public class OrganizationInstitutionSqlProvider {
                 } else {
                     sb.append(" or ");
                 }
-
+                
                 sb.append('(');
                 List<Criterion> criterions = criteria.getAllCriteria();
                 boolean firstCriterion = true;
@@ -319,7 +319,7 @@ public class OrganizationInstitutionSqlProvider {
                     } else {
                         sb.append(" and ");
                     }
-
+                    
                     if (criterion.isNoValue()) {
                         sb.append(criterion.getCondition());
                     } else if (criterion.isSingleValue()) {
@@ -357,7 +357,7 @@ public class OrganizationInstitutionSqlProvider {
                 sb.append(')');
             }
         }
-
+        
         if (sb.length() > 0) {
             sql.WHERE(sb.toString());
         }

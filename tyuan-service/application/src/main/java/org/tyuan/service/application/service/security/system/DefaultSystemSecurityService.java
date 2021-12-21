@@ -1,12 +1,12 @@
 /**
  * Copyright © 2016-2021 The Thingsboard Authors
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -17,147 +17,59 @@ package org.tyuan.service.application.service.security.system;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
-import org.passay.CharacterRule;
-import org.passay.EnglishCharacterData;
-import org.passay.LengthRule;
-import org.passay.PasswordData;
-import org.passay.PasswordValidator;
-import org.passay.Rule;
-import org.passay.RuleResult;
+import org.passay.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.DisabledException;
-import org.springframework.security.authentication.LockedException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.thingsboard.rule.engine.api.MailService;
-import org.thingsboard.server.common.data.AdminSettings;
-import org.thingsboard.server.common.data.User;
-import org.thingsboard.server.common.data.exception.ThingsboardException;
-import org.thingsboard.server.common.data.id.CustomerId;
-import org.thingsboard.server.common.data.id.TenantId;
-import org.thingsboard.server.common.data.security.UserCredentials;
-import org.thingsboard.server.common.data.security.model.SecuritySettings;
-import org.thingsboard.server.common.data.security.model.UserPasswordPolicy;
-import org.thingsboard.server.dao.exception.DataValidationException;
-import org.thingsboard.server.dao.settings.AdminSettingsService;
-import org.thingsboard.server.dao.user.UserService;
-import org.thingsboard.server.dao.user.UserServiceImpl;
-import org.thingsboard.common.util.JacksonUtil;
-import org.thingsboard.server.service.security.exception.UserPasswordExpiredException;
-import org.thingsboard.server.utils.MiscUtils;
+import org.tyuan.common.utils.JacksonUtil;
+import org.tyuan.service.application.service.SysUserService;
+import org.tyuan.service.application.service.impl.SysUserServiceImpl;
+import org.tyuan.service.dao.exception.DataValidationException;
+import org.tyuan.service.dao.model.SysUser;
+import org.tyuan.service.dao.model.SysUserCredentials;
+import org.tyuan.service.data.security.SecuritySettings;
+import org.tyuan.service.data.security.UserPasswordPolicy;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import static org.thingsboard.server.common.data.CacheConstants.SECURITY_SETTINGS_CACHE;
 
 @Service
 @Slf4j
 public class DefaultSystemSecurityService implements SystemSecurityService {
 
     @Autowired
-    private AdminSettingsService adminSettingsService;
-
-    @Autowired
     private BCryptPasswordEncoder encoder;
 
     @Autowired
-    private UserService userService;
-
-    @Autowired
-    private MailService mailService;
+    private SysUserService userService;
 
     @Resource
     private SystemSecurityService self;
 
-    @Cacheable(cacheNames = SECURITY_SETTINGS_CACHE, key = "'securitySettings'")
     @Override
-    public SecuritySettings getSecuritySettings(TenantId tenantId) {
-        SecuritySettings securitySettings = null;
-        AdminSettings adminSettings = adminSettingsService.findAdminSettingsByKey(tenantId, "securitySettings");
-        if (adminSettings != null) {
-            try {
-                securitySettings = JacksonUtil.convertValue(adminSettings.getJsonValue(), SecuritySettings.class);
-            } catch (Exception e) {
-                throw new RuntimeException("Failed to load security settings!", e);
-            }
-        } else {
-            securitySettings = new SecuritySettings();
-            securitySettings.setPasswordPolicy(new UserPasswordPolicy());
-            securitySettings.getPasswordPolicy().setMinimumLength(6);
-        }
-        return securitySettings;
-    }
-
-    @CacheEvict(cacheNames = SECURITY_SETTINGS_CACHE, key = "'securitySettings'")
-    @Override
-    public SecuritySettings saveSecuritySettings(TenantId tenantId, SecuritySettings securitySettings) {
-        AdminSettings adminSettings = adminSettingsService.findAdminSettingsByKey(tenantId, "securitySettings");
-        if (adminSettings == null) {
-            adminSettings = new AdminSettings();
-            adminSettings.setKey("securitySettings");
-        }
-        adminSettings.setJsonValue(JacksonUtil.valueToTree(securitySettings));
-        AdminSettings savedAdminSettings = adminSettingsService.saveAdminSettings(tenantId, adminSettings);
-        try {
-            return JacksonUtil.convertValue(savedAdminSettings.getJsonValue(), SecuritySettings.class);
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to load security settings!", e);
-        }
+    public SecuritySettings getSecuritySettings(Long userId) {
+        return null;
     }
 
     @Override
-    public void validateUserCredentials(TenantId tenantId, UserCredentials userCredentials, String username, String password) throws AuthenticationException {
-        if (!encoder.matches(password, userCredentials.getPassword())) {
-            int failedLoginAttempts = userService.onUserLoginIncorrectCredentials(tenantId, userCredentials.getUserId());
-            SecuritySettings securitySettings = getSecuritySettings(tenantId);
-            if (securitySettings.getMaxFailedLoginAttempts() != null && securitySettings.getMaxFailedLoginAttempts() > 0) {
-                if (failedLoginAttempts > securitySettings.getMaxFailedLoginAttempts() && userCredentials.isEnabled()) {
-                    userService.setUserCredentialsEnabled(TenantId.SYS_TENANT_ID, userCredentials.getUserId(), false);
-                    if (StringUtils.isNoneBlank(securitySettings.getUserLockoutNotificationEmail())) {
-                        try {
-                            mailService.sendAccountLockoutEmail(username, securitySettings.getUserLockoutNotificationEmail(), securitySettings.getMaxFailedLoginAttempts());
-                        } catch (ThingsboardException e) {
-                            log.warn("Can't send email regarding user account [{}] lockout to provided email [{}]", username, securitySettings.getUserLockoutNotificationEmail(), e);
-                        }
-                    }
-                    throw new LockedException("Authentication Failed. Username was locked due to security policy.");
-                }
-            }
-            throw new BadCredentialsException("Authentication Failed. Username or Password not valid.");
-        }
-
-        if (!userCredentials.isEnabled()) {
-            throw new DisabledException("User is not active");
-        }
-
-        userService.onUserLoginSuccessful(tenantId, userCredentials.getUserId());
-
-        SecuritySettings securitySettings = self.getSecuritySettings(tenantId);
-        if (isPositiveInteger(securitySettings.getPasswordPolicy().getPasswordExpirationPeriodDays())) {
-            if ((userCredentials.getCreatedTime()
-                    + TimeUnit.DAYS.toMillis(securitySettings.getPasswordPolicy().getPasswordExpirationPeriodDays()))
-                    < System.currentTimeMillis()) {
-                userCredentials = userService.requestExpiredPasswordReset(tenantId, userCredentials.getId());
-                throw new UserPasswordExpiredException("User password expired!", userCredentials.getResetToken());
-            }
-        }
+    public SecuritySettings saveSecuritySettings(Long userId, SecuritySettings securitySettings) {
+        return null;
     }
 
     @Override
-    public void validatePassword(TenantId tenantId, String password, UserCredentials userCredentials) throws DataValidationException {
-        SecuritySettings securitySettings = self.getSecuritySettings(tenantId);
+    public void validateUserCredentials(Long userId, SysUserCredentials userCredentials, String username, String password) throws AuthenticationException {
+
+    }
+
+    @Override
+    public void validatePassword(Long userId, String password, SysUserCredentials userCredentials) throws DataValidationException {
+        SecuritySettings securitySettings = self.getSecuritySettings(userId);
         UserPasswordPolicy passwordPolicy = securitySettings.getPasswordPolicy();
 
         List<Rule> passwordRules = new ArrayList<>();
@@ -184,37 +96,24 @@ public class DefaultSystemSecurityService implements SystemSecurityService {
 
         if (userCredentials != null && isPositiveInteger(passwordPolicy.getPasswordReuseFrequencyDays())) {
             long passwordReuseFrequencyTs = System.currentTimeMillis() - TimeUnit.DAYS.toMillis(passwordPolicy.getPasswordReuseFrequencyDays());
-            User user = userService.findUserById(tenantId, userCredentials.getUserId());
-            JsonNode additionalInfo = user.getAdditionalInfo();
-            if (additionalInfo instanceof ObjectNode && additionalInfo.has(UserServiceImpl.USER_PASSWORD_HISTORY)) {
-                JsonNode userPasswordHistoryJson = additionalInfo.get(UserServiceImpl.USER_PASSWORD_HISTORY);
-                Map<String, String> userPasswordHistoryMap = JacksonUtil.convertValue(userPasswordHistoryJson, new TypeReference<>() {});
-                for (Map.Entry<String, String> entry : userPasswordHistoryMap.entrySet()) {
-                    if (encoder.matches(password, entry.getValue()) && Long.parseLong(entry.getKey()) > passwordReuseFrequencyTs) {
-                        throw new DataValidationException("Password was already used for the last " + passwordPolicy.getPasswordReuseFrequencyDays() + " days");
+            SysUser user = userService.getById(userId);
+            try {
+                JsonNode additionalInfo = JacksonUtil.toJsonNode(user.getAdditionalInfo());
+                if (additionalInfo.has(SysUserServiceImpl.USER_PASSWORD_HISTORY)) {
+                    JsonNode userPasswordHistoryJson = additionalInfo.get(SysUserServiceImpl.USER_PASSWORD_HISTORY);
+                    Map<String, String> userPasswordHistoryMap = JacksonUtil.convertValue(userPasswordHistoryJson, new TypeReference<Map<String, String>>() {
+                    });
+                    for (Map.Entry<String, String> entry : userPasswordHistoryMap.entrySet()) {
+                        if (encoder.matches(password, entry.getValue()) && Long.parseLong(entry.getKey()) > passwordReuseFrequencyTs) {
+                            throw new DataValidationException("Password was already used for the last " + passwordPolicy.getPasswordReuseFrequencyDays() + " days");
+                        }
                     }
                 }
-
+            } catch (Exception e) {
+                throw new DataValidationException(e.getMessage());
             }
+
         }
-    }
-
-    @Override
-    public String getBaseUrl(TenantId tenantId, CustomerId customerId, HttpServletRequest httpServletRequest) {
-        String baseUrl = null;
-        AdminSettings generalSettings = adminSettingsService.findAdminSettingsByKey(TenantId.SYS_TENANT_ID, "general");
-
-        JsonNode prohibitDifferentUrl = generalSettings.getJsonValue().get("prohibitDifferentUrl");
-
-        if (prohibitDifferentUrl != null && prohibitDifferentUrl.asBoolean()) {
-            baseUrl = generalSettings.getJsonValue().get("baseUrl").asText();
-        }
-
-        if (StringUtils.isEmpty(baseUrl)) {
-            baseUrl = MiscUtils.constructBaseUrl(httpServletRequest);
-        }
-
-        return baseUrl;
     }
 
     private static boolean isPositiveInteger(Integer val) {

@@ -44,47 +44,47 @@ public class SysRoleSqlProvider {
     public String insertSelective(SysRole record) {
         SQL sql = new SQL();
         sql.INSERT_INTO("sys_role");
-
+        
         if (record.getCreateTime() != null) {
             sql.VALUES("create_time", "#{createTime,jdbcType=TIMESTAMP}");
         }
-
+        
         if (record.getUpdateTime() != null) {
             sql.VALUES("update_time", "#{updateTime,jdbcType=TIMESTAMP}");
         }
-
+        
         if (record.getRoleCode() != null) {
             sql.VALUES("role_code", "#{roleCode,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getRoleName() != null) {
             sql.VALUES("role_name", "#{roleName,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getIsSys() != null) {
             sql.VALUES("is_sys", "#{isSys,jdbcType=BIT}");
         }
-
+        
         if (record.getUseable() != null) {
             sql.VALUES("useable", "#{useable,jdbcType=BIT}");
         }
-
+        
         if (record.getCreateBy() != null) {
             sql.VALUES("create_by", "#{createBy,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getUpdateBy() != null) {
             sql.VALUES("update_by", "#{updateBy,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getRemarks() != null) {
             sql.VALUES("remarks", "#{remarks,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getDelFlag() != null) {
             sql.VALUES("del_flag", "#{delFlag,jdbcType=BIT}");
         }
-
+        
         return sql.toString();
     }
 
@@ -113,11 +113,11 @@ public class SysRoleSqlProvider {
         sql.SELECT("del_flag");
         sql.FROM("sys_role");
         applyWhere(sql, example, false);
-
+        
         if (example != null && example.getOrderByClause() != null) {
             sql.ORDER_BY(example.getOrderByClause());
         }
-
+        
         return sql.toString();
     }
 
@@ -130,54 +130,54 @@ public class SysRoleSqlProvider {
     public String updateByExampleSelective(Map<String, Object> parameter) {
         SysRole record = (SysRole) parameter.get("record");
         SysRoleExample example = (SysRoleExample) parameter.get("example");
-
+        
         SQL sql = new SQL();
         sql.UPDATE("sys_role");
-
+        
         if (record.getId() != null) {
             sql.SET("id = #{record.id,jdbcType=BIGINT}");
         }
-
+        
         if (record.getCreateTime() != null) {
             sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         }
-
+        
         if (record.getUpdateTime() != null) {
             sql.SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
         }
-
+        
         if (record.getRoleCode() != null) {
             sql.SET("role_code = #{record.roleCode,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getRoleName() != null) {
             sql.SET("role_name = #{record.roleName,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getIsSys() != null) {
             sql.SET("is_sys = #{record.isSys,jdbcType=BIT}");
         }
-
+        
         if (record.getUseable() != null) {
             sql.SET("useable = #{record.useable,jdbcType=BIT}");
         }
-
+        
         if (record.getCreateBy() != null) {
             sql.SET("create_by = #{record.createBy,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getUpdateBy() != null) {
             sql.SET("update_by = #{record.updateBy,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getRemarks() != null) {
             sql.SET("remarks = #{record.remarks,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getDelFlag() != null) {
             sql.SET("del_flag = #{record.delFlag,jdbcType=BIT}");
         }
-
+        
         applyWhere(sql, example, true);
         return sql.toString();
     }
@@ -191,7 +191,7 @@ public class SysRoleSqlProvider {
     public String updateByExample(Map<String, Object> parameter) {
         SQL sql = new SQL();
         sql.UPDATE("sys_role");
-
+        
         sql.SET("id = #{record.id,jdbcType=BIGINT}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
@@ -203,7 +203,7 @@ public class SysRoleSqlProvider {
         sql.SET("update_by = #{record.updateBy,jdbcType=VARCHAR}");
         sql.SET("remarks = #{record.remarks,jdbcType=VARCHAR}");
         sql.SET("del_flag = #{record.delFlag,jdbcType=BIT}");
-
+        
         SysRoleExample example = (SysRoleExample) parameter.get("example");
         applyWhere(sql, example, true);
         return sql.toString();
@@ -218,49 +218,49 @@ public class SysRoleSqlProvider {
     public String updateByPrimaryKeySelective(SysRole record) {
         SQL sql = new SQL();
         sql.UPDATE("sys_role");
-
+        
         if (record.getCreateTime() != null) {
             sql.SET("create_time = #{createTime,jdbcType=TIMESTAMP}");
         }
-
+        
         if (record.getUpdateTime() != null) {
             sql.SET("update_time = #{updateTime,jdbcType=TIMESTAMP}");
         }
-
+        
         if (record.getRoleCode() != null) {
             sql.SET("role_code = #{roleCode,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getRoleName() != null) {
             sql.SET("role_name = #{roleName,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getIsSys() != null) {
             sql.SET("is_sys = #{isSys,jdbcType=BIT}");
         }
-
+        
         if (record.getUseable() != null) {
             sql.SET("useable = #{useable,jdbcType=BIT}");
         }
-
+        
         if (record.getCreateBy() != null) {
             sql.SET("create_by = #{createBy,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getUpdateBy() != null) {
             sql.SET("update_by = #{updateBy,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getRemarks() != null) {
             sql.SET("remarks = #{remarks,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getDelFlag() != null) {
             sql.SET("del_flag = #{delFlag,jdbcType=BIT}");
         }
-
+        
         sql.WHERE("id = #{id,jdbcType=BIGINT}");
-
+        
         return sql.toString();
     }
 
@@ -274,7 +274,7 @@ public class SysRoleSqlProvider {
         if (example == null) {
             return;
         }
-
+        
         String parmPhrase1;
         String parmPhrase1_th;
         String parmPhrase2;
@@ -296,7 +296,7 @@ public class SysRoleSqlProvider {
             parmPhrase3 = "#{oredCriteria[%d].allCriteria[%d].value[%d]}";
             parmPhrase3_th = "#{oredCriteria[%d].allCriteria[%d].value[%d],typeHandler=%s}";
         }
-
+        
         StringBuilder sb = new StringBuilder();
         List<Criteria> oredCriteria = example.getOredCriteria();
         boolean firstCriteria = true;
@@ -308,7 +308,7 @@ public class SysRoleSqlProvider {
                 } else {
                     sb.append(" or ");
                 }
-
+                
                 sb.append('(');
                 List<Criterion> criterions = criteria.getAllCriteria();
                 boolean firstCriterion = true;
@@ -319,7 +319,7 @@ public class SysRoleSqlProvider {
                     } else {
                         sb.append(" and ");
                     }
-
+                    
                     if (criterion.isNoValue()) {
                         sb.append(criterion.getCondition());
                     } else if (criterion.isSingleValue()) {
@@ -357,7 +357,7 @@ public class SysRoleSqlProvider {
                 sb.append(')');
             }
         }
-
+        
         if (sb.length() > 0) {
             sql.WHERE(sb.toString());
         }

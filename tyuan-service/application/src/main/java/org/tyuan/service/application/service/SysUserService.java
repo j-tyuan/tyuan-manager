@@ -19,6 +19,7 @@ import com.github.pagehelper.PageInfo;
 import org.tyuan.common.exception.ServiceException;
 import org.tyuan.service.dao.model.SysRole;
 import org.tyuan.service.dao.model.SysUser;
+import org.tyuan.service.dao.model.SysUserCredentials;
 import org.tyuan.service.dao.model.SysUserExample;
 import org.tyuan.service.dao.model.custom.COrganizationInstitution;
 import org.tyuan.service.data.vo.DataTableParam;
@@ -160,4 +161,11 @@ public interface SysUserService extends BaseService<SysUserVo> {
      * @return
      */
     List<SysRole> getRoleByUserId(Long uid);
+
+    /**
+     * 获取用户证书（密码、token等）
+     * @param userId
+     * @return
+     */
+    SysUserCredentials findUserCredentials(Long userId);
 }

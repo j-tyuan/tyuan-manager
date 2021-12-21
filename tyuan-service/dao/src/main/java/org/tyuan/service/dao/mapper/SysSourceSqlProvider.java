@@ -44,67 +44,67 @@ public class SysSourceSqlProvider {
     public String insertSelective(SysSource record) {
         SQL sql = new SQL();
         sql.INSERT_INTO("sys_source");
-
+        
         if (record.getCreateTime() != null) {
             sql.VALUES("create_time", "#{createTime,jdbcType=TIMESTAMP}");
         }
-
+        
         if (record.getUpdateTime() != null) {
             sql.VALUES("update_time", "#{updateTime,jdbcType=TIMESTAMP}");
         }
-
+        
         if (record.getParentId() != null) {
             sql.VALUES("parent_id", "#{parentId,jdbcType=BIGINT}");
         }
-
+        
         if (record.getSourceName() != null) {
             sql.VALUES("source_name", "#{sourceName,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getSourceSort() != null) {
             sql.VALUES("source_sort", "#{sourceSort,jdbcType=DECIMAL}");
         }
-
+        
         if (record.getSourceHref() != null) {
             sql.VALUES("source_href", "#{sourceHref,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getSourceTarget() != null) {
             sql.VALUES("source_target", "#{sourceTarget,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getSourceIcon() != null) {
             sql.VALUES("source_icon", "#{sourceIcon,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getIsLeaf() != null) {
             sql.VALUES("is_leaf", "#{isLeaf,jdbcType=BIT}");
         }
-
+        
         if (record.getIsShow() != null) {
             sql.VALUES("is_show", "#{isShow,jdbcType=BIT}");
         }
-
+        
         if (record.getPermissionId() != null) {
             sql.VALUES("permission_id", "#{permissionId,jdbcType=BIGINT}");
         }
-
+        
         if (record.getCreateBy() != null) {
             sql.VALUES("create_by", "#{createBy,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getUpdateBy() != null) {
             sql.VALUES("update_by", "#{updateBy,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getRemarks() != null) {
             sql.VALUES("remarks", "#{remarks,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getDelFlag() != null) {
             sql.VALUES("del_flag", "#{delFlag,jdbcType=BIT}");
         }
-
+        
         return sql.toString();
     }
 
@@ -138,11 +138,11 @@ public class SysSourceSqlProvider {
         sql.SELECT("del_flag");
         sql.FROM("sys_source");
         applyWhere(sql, example, false);
-
+        
         if (example != null && example.getOrderByClause() != null) {
             sql.ORDER_BY(example.getOrderByClause());
         }
-
+        
         return sql.toString();
     }
 
@@ -155,74 +155,74 @@ public class SysSourceSqlProvider {
     public String updateByExampleSelective(Map<String, Object> parameter) {
         SysSource record = (SysSource) parameter.get("record");
         SysSourceExample example = (SysSourceExample) parameter.get("example");
-
+        
         SQL sql = new SQL();
         sql.UPDATE("sys_source");
-
+        
         if (record.getId() != null) {
             sql.SET("id = #{record.id,jdbcType=BIGINT}");
         }
-
+        
         if (record.getCreateTime() != null) {
             sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         }
-
+        
         if (record.getUpdateTime() != null) {
             sql.SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
         }
-
+        
         if (record.getParentId() != null) {
             sql.SET("parent_id = #{record.parentId,jdbcType=BIGINT}");
         }
-
+        
         if (record.getSourceName() != null) {
             sql.SET("source_name = #{record.sourceName,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getSourceSort() != null) {
             sql.SET("source_sort = #{record.sourceSort,jdbcType=DECIMAL}");
         }
-
+        
         if (record.getSourceHref() != null) {
             sql.SET("source_href = #{record.sourceHref,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getSourceTarget() != null) {
             sql.SET("source_target = #{record.sourceTarget,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getSourceIcon() != null) {
             sql.SET("source_icon = #{record.sourceIcon,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getIsLeaf() != null) {
             sql.SET("is_leaf = #{record.isLeaf,jdbcType=BIT}");
         }
-
+        
         if (record.getIsShow() != null) {
             sql.SET("is_show = #{record.isShow,jdbcType=BIT}");
         }
-
+        
         if (record.getPermissionId() != null) {
             sql.SET("permission_id = #{record.permissionId,jdbcType=BIGINT}");
         }
-
+        
         if (record.getCreateBy() != null) {
             sql.SET("create_by = #{record.createBy,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getUpdateBy() != null) {
             sql.SET("update_by = #{record.updateBy,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getRemarks() != null) {
             sql.SET("remarks = #{record.remarks,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getDelFlag() != null) {
             sql.SET("del_flag = #{record.delFlag,jdbcType=BIT}");
         }
-
+        
         applyWhere(sql, example, true);
         return sql.toString();
     }
@@ -236,7 +236,7 @@ public class SysSourceSqlProvider {
     public String updateByExample(Map<String, Object> parameter) {
         SQL sql = new SQL();
         sql.UPDATE("sys_source");
-
+        
         sql.SET("id = #{record.id,jdbcType=BIGINT}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
@@ -253,7 +253,7 @@ public class SysSourceSqlProvider {
         sql.SET("update_by = #{record.updateBy,jdbcType=VARCHAR}");
         sql.SET("remarks = #{record.remarks,jdbcType=VARCHAR}");
         sql.SET("del_flag = #{record.delFlag,jdbcType=BIT}");
-
+        
         SysSourceExample example = (SysSourceExample) parameter.get("example");
         applyWhere(sql, example, true);
         return sql.toString();
@@ -268,69 +268,69 @@ public class SysSourceSqlProvider {
     public String updateByPrimaryKeySelective(SysSource record) {
         SQL sql = new SQL();
         sql.UPDATE("sys_source");
-
+        
         if (record.getCreateTime() != null) {
             sql.SET("create_time = #{createTime,jdbcType=TIMESTAMP}");
         }
-
+        
         if (record.getUpdateTime() != null) {
             sql.SET("update_time = #{updateTime,jdbcType=TIMESTAMP}");
         }
-
+        
         if (record.getParentId() != null) {
             sql.SET("parent_id = #{parentId,jdbcType=BIGINT}");
         }
-
+        
         if (record.getSourceName() != null) {
             sql.SET("source_name = #{sourceName,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getSourceSort() != null) {
             sql.SET("source_sort = #{sourceSort,jdbcType=DECIMAL}");
         }
-
+        
         if (record.getSourceHref() != null) {
             sql.SET("source_href = #{sourceHref,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getSourceTarget() != null) {
             sql.SET("source_target = #{sourceTarget,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getSourceIcon() != null) {
             sql.SET("source_icon = #{sourceIcon,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getIsLeaf() != null) {
             sql.SET("is_leaf = #{isLeaf,jdbcType=BIT}");
         }
-
+        
         if (record.getIsShow() != null) {
             sql.SET("is_show = #{isShow,jdbcType=BIT}");
         }
-
+        
         if (record.getPermissionId() != null) {
             sql.SET("permission_id = #{permissionId,jdbcType=BIGINT}");
         }
-
+        
         if (record.getCreateBy() != null) {
             sql.SET("create_by = #{createBy,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getUpdateBy() != null) {
             sql.SET("update_by = #{updateBy,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getRemarks() != null) {
             sql.SET("remarks = #{remarks,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getDelFlag() != null) {
             sql.SET("del_flag = #{delFlag,jdbcType=BIT}");
         }
-
+        
         sql.WHERE("id = #{id,jdbcType=BIGINT}");
-
+        
         return sql.toString();
     }
 
@@ -344,7 +344,7 @@ public class SysSourceSqlProvider {
         if (example == null) {
             return;
         }
-
+        
         String parmPhrase1;
         String parmPhrase1_th;
         String parmPhrase2;
@@ -366,7 +366,7 @@ public class SysSourceSqlProvider {
             parmPhrase3 = "#{oredCriteria[%d].allCriteria[%d].value[%d]}";
             parmPhrase3_th = "#{oredCriteria[%d].allCriteria[%d].value[%d],typeHandler=%s}";
         }
-
+        
         StringBuilder sb = new StringBuilder();
         List<Criteria> oredCriteria = example.getOredCriteria();
         boolean firstCriteria = true;
@@ -378,7 +378,7 @@ public class SysSourceSqlProvider {
                 } else {
                     sb.append(" or ");
                 }
-
+                
                 sb.append('(');
                 List<Criterion> criterions = criteria.getAllCriteria();
                 boolean firstCriterion = true;
@@ -389,7 +389,7 @@ public class SysSourceSqlProvider {
                     } else {
                         sb.append(" and ");
                     }
-
+                    
                     if (criterion.isNoValue()) {
                         sb.append(criterion.getCondition());
                     } else if (criterion.isSingleValue()) {
@@ -427,7 +427,7 @@ public class SysSourceSqlProvider {
                 sb.append(')');
             }
         }
-
+        
         if (sb.length() > 0) {
             sql.WHERE(sb.toString());
         }

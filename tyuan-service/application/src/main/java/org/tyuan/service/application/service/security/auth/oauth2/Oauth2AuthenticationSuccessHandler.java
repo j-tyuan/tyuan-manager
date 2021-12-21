@@ -16,6 +16,7 @@
 package org.tyuan.service.application.service.security.auth.oauth2;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
@@ -24,17 +25,12 @@ import org.springframework.security.oauth2.client.authentication.OAuth2Authentic
 import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequest;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
-import org.thingsboard.server.common.data.StringUtils;
-import org.thingsboard.server.common.data.id.CustomerId;
-import org.thingsboard.server.common.data.id.EntityId;
-import org.thingsboard.server.common.data.id.TenantId;
-import org.thingsboard.server.common.data.oauth2.OAuth2Registration;
-import org.thingsboard.server.common.data.security.model.JwtToken;
-import org.thingsboard.server.dao.oauth2.OAuth2Service;
-import org.thingsboard.server.service.security.auth.jwt.RefreshTokenRepository;
-import org.thingsboard.server.service.security.model.SecurityUser;
-import org.thingsboard.server.service.security.model.token.JwtTokenFactory;
-import org.thingsboard.server.service.security.system.SystemSecurityService;
+import org.tyuan.service.application.service.security.auth.jwt.RefreshTokenRepository;
+import org.tyuan.service.application.service.security.model.SecurityUser;
+import org.tyuan.service.application.service.security.model.token.JwtTokenFactory;
+import org.tyuan.service.application.service.security.system.SystemSecurityService;
+import org.tyuan.service.data.oauth2.OAuth2Registration;
+import org.tyuan.service.data.security.JwtToken;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
