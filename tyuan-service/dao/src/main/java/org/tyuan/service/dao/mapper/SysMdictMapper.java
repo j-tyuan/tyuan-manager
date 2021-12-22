@@ -14,8 +14,8 @@ import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.type.JdbcType;
-import org.tyuan.service.dao.model.SysMdict;
-import org.tyuan.service.dao.model.SysMdictExample;
+import org.tyuan.service.data.model.SysMdict;
+import org.tyuan.service.data.model.SysMdictExample;
 
 public interface SysMdictMapper {
     /**

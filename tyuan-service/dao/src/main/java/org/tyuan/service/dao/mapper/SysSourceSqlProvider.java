@@ -3,10 +3,10 @@ package org.tyuan.service.dao.mapper;
 import java.util.List;
 import java.util.Map;
 import org.apache.ibatis.jdbc.SQL;
-import org.tyuan.service.dao.model.SysSource;
-import org.tyuan.service.dao.model.SysSourceExample.Criteria;
-import org.tyuan.service.dao.model.SysSourceExample.Criterion;
-import org.tyuan.service.dao.model.SysSourceExample;
+import org.tyuan.service.data.model.SysSource;
+import org.tyuan.service.data.model.SysSourceExample.Criteria;
+import org.tyuan.service.data.model.SysSourceExample.Criterion;
+import org.tyuan.service.data.model.SysSourceExample;
 
 public class SysSourceSqlProvider {
     /**

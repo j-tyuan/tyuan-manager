@@ -17,7 +17,7 @@ package org.tyuan.service.data.vo.sys;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.tyuan.service.dao.model.SysRole;
+import org.tyuan.service.data.model.SysRole;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;

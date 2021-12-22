@@ -3,10 +3,10 @@ package org.tyuan.service.dao.mapper;
 import java.util.List;
 import java.util.Map;
 import org.apache.ibatis.jdbc.SQL;
-import org.tyuan.service.dao.model.SysMdict;
-import org.tyuan.service.dao.model.SysMdictExample.Criteria;
-import org.tyuan.service.dao.model.SysMdictExample.Criterion;
-import org.tyuan.service.dao.model.SysMdictExample;
+import org.tyuan.service.data.model.SysMdict;
+import org.tyuan.service.data.model.SysMdictExample.Criteria;
+import org.tyuan.service.data.model.SysMdictExample.Criterion;
+import org.tyuan.service.data.model.SysMdictExample;
 
 public class SysMdictSqlProvider {
     /**

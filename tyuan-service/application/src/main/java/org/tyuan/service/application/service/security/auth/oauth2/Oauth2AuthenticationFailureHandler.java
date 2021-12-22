@@ -15,10 +15,8 @@
  */
 package org.tyuan.service.application.service.security.auth.oauth2;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequest;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
 import org.tyuan.service.application.service.security.system.SystemSecurityService;
@@ -27,8 +25,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 
 @Component(value = "oauth2AuthenticationFailureHandler")
 public class Oauth2AuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
@@ -47,19 +43,6 @@ public class Oauth2AuthenticationFailureHandler extends SimpleUrlAuthenticationF
     public void onAuthenticationFailure(HttpServletRequest request,
                                         HttpServletResponse response, AuthenticationException exception)
             throws IOException, ServletException {
-        String baseUrl;
-        String errorPrefix;
-        OAuth2AuthorizationRequest authorizationRequest = httpCookieOAuth2AuthorizationRequestRepository.loadAuthorizationRequest(request);
-        String callbackUrlScheme = authorizationRequest.getAttribute(TbOAuth2ParameterNames.CALLBACK_URL_SCHEME);
-        if (!StringUtils.isEmpty(callbackUrlScheme)) {
-            baseUrl = callbackUrlScheme + ":";
-            errorPrefix = "/?error=";
-        } else {
-            baseUrl = this.systemSecurityService.getBaseUrl(TenantId.SYS_TENANT_ID, new CustomerId(EntityId.NULL_UUID), request);
-            errorPrefix = "/login?loginError=";
-        }
-        httpCookieOAuth2AuthorizationRequestRepository.removeAuthorizationRequestCookies(request, response);
-        getRedirectStrategy().sendRedirect(request, response, baseUrl + errorPrefix +
-                URLEncoder.encode(exception.getMessage(), StandardCharsets.UTF_8.toString()));
+      throw new RuntimeException(" -------------------------需要实现----------------------------");
     }
 }

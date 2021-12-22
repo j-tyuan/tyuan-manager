@@ -14,8 +14,8 @@ import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.type.JdbcType;
-import org.tyuan.service.dao.model.SysParam;
-import org.tyuan.service.dao.model.SysParamExample;
+import org.tyuan.service.data.model.SysParam;
+import org.tyuan.service.data.model.SysParamExample;
 
 public interface SysParamMapper {
     /**

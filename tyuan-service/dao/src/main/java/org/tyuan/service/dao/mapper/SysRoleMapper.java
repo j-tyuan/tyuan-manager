@@ -14,8 +14,8 @@ import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.type.JdbcType;
-import org.tyuan.service.dao.model.SysRole;
-import org.tyuan.service.dao.model.SysRoleExample;
+import org.tyuan.service.data.model.SysRole;
+import org.tyuan.service.data.model.SysRoleExample;
 
 public interface SysRoleMapper {
     /**

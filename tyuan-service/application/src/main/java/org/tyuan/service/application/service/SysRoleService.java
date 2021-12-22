@@ -21,7 +21,7 @@
 package org.tyuan.service.application.service;
 
 import com.github.pagehelper.PageInfo;
-import org.tyuan.service.dao.model.SysRole;
+import org.tyuan.service.data.model.SysRole;
 import org.tyuan.service.data.vo.sys.SysRoleTableParamsVo;
 import org.tyuan.service.data.vo.sys.SysRoleVo;
 

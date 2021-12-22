@@ -14,8 +14,8 @@ import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.type.JdbcType;
-import org.tyuan.service.dao.model.SysUserCredentials;
-import org.tyuan.service.dao.model.SysUserCredentialsExample;
+import org.tyuan.service.data.model.SysUserCredentials;
+import org.tyuan.service.data.model.SysUserCredentialsExample;
 
 public interface SysUserCredentialsMapper {
     /**

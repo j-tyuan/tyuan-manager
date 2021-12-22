@@ -31,9 +31,7 @@ import org.tyuan.service.application.service.security.model.SecurityUser;
 import org.tyuan.service.application.service.security.model.UserPrincipal;
 import org.tyuan.service.application.service.security.model.token.JwtTokenFactory;
 import org.tyuan.service.application.service.security.model.token.RawAccessJwtToken;
-import org.tyuan.service.dao.model.SysUser;
-
-import java.util.UUID;
+import org.tyuan.service.data.model.SysUser;
 
 @Component
 @RequiredArgsConstructor
@@ -66,8 +64,9 @@ public class RefreshTokenAuthenticationProvider implements AuthenticationProvide
             throw new UsernameNotFoundException("User not found by refresh token");
         }
 
-        if (user.getAuthority() == null)
+        if (user.getAuthority() == null){
             throw new InsufficientAuthenticationException("User has no authority assigned");
+        }
 
         UserPrincipal userPrincipal = new UserPrincipal(UserPrincipal.Type.USER_NAME, user.getUserAccount());
         SecurityUser securityUser = new SecurityUser(user, true, userPrincipal);

@@ -17,7 +17,7 @@ package org.tyuan.service.data.vo.sys;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.tyuan.service.dao.model.SysUser;
+import org.tyuan.service.data.model.SysUser;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;

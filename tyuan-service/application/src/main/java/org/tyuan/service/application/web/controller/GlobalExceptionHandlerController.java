@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.tyuan.common.exception.ServiceException;
-import org.tyuan.common.utils.UserInfoHolder;
+import org.tyuan.service.common.UserInfoHolder;
 import org.tyuan.service.data.ErrorCodeConsts;
 import org.tyuan.service.data.ResultData;
 
@@ -66,6 +66,7 @@ public class GlobalExceptionHandlerController {
     @ExceptionHandler({MethodArgumentNotValidException.class})
     public ResultData methodArgumentNotValidExceptionHandler(MethodArgumentNotValidException e) {
         String msg = e.getBindingResult().getFieldError().getDefaultMessage();
+
         logger.warn("参数验证失败 {}  -  {} message: {}", UserInfoHolder.getUserId(), UserInfoHolder.getUserName(), msg);
         ResultData resultData = new ResultData();
         return resultData

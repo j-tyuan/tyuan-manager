@@ -15,11 +15,11 @@
  */
 package org.tyuan.service.data.vo.sys;
 
-import org.tyuan.service.dao.model.OrganizationInstitution;
-import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
+import org.tyuan.service.data.model.OrganizationInstitution;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Getter

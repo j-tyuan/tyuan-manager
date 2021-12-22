@@ -3,10 +3,10 @@ package org.tyuan.service.dao.mapper;
 import java.util.List;
 import java.util.Map;
 import org.apache.ibatis.jdbc.SQL;
-import org.tyuan.service.dao.model.SysRolePermission;
-import org.tyuan.service.dao.model.SysRolePermissionExample.Criteria;
-import org.tyuan.service.dao.model.SysRolePermissionExample.Criterion;
-import org.tyuan.service.dao.model.SysRolePermissionExample;
+import org.tyuan.service.data.model.SysRolePermission;
+import org.tyuan.service.data.model.SysRolePermissionExample.Criteria;
+import org.tyuan.service.data.model.SysRolePermissionExample.Criterion;
+import org.tyuan.service.data.model.SysRolePermissionExample;
 
 public class SysRolePermissionSqlProvider {
     /**

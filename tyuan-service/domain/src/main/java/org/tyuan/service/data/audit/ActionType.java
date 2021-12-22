@@ -19,6 +19,7 @@ import lombok.Getter;
 
 @Getter
 public enum ActionType {
+    QUERY(false),
     ADDED(false), // log entity
     DELETED(false), // log string id
     UPDATED(false), // log entity

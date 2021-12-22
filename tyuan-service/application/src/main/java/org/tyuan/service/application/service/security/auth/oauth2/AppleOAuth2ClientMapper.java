@@ -18,7 +18,6 @@ package org.tyuan.service.application.service.security.auth.oauth2;
 import com.fasterxml.jackson.databind.JsonNode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -46,10 +45,8 @@ public class AppleOAuth2ClientMapper extends AbstractOAuth2ClientMapper implemen
     public SecurityUser getOrCreateUserByClientPrincipal(HttpServletRequest request, OAuth2AuthenticationToken token, String providerAccessToken, OAuth2Registration registration) {
         OAuth2MapperConfig config = registration.getMapperConfig();
         Map<String, Object> attributes = updateAttributesFromRequestParams(request, token.getPrincipal().getAttributes());
-        String email = BasicMapperUtils.getStringAttributeByKey(attributes, config.getBasic().getEmailAttributeKey());
-        OAuth2User oauth2User = BasicMapperUtils.getOAuth2User(email, attributes, config);
 
-        return getOrCreateSecurityUserFromOAuth2User(oauth2User, registration);
+        return null;
     }
 
     private static Map<String, Object> updateAttributesFromRequestParams(HttpServletRequest request, Map<String, Object> attributes) {

@@ -20,12 +20,11 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.tyuan.service.data.ResultData;
-import org.tyuan.service.application.web.PermissionConstant;
-import org.tyuan.service.application.web.RouteConstant;
-import org.tyuan.service.application.cache.LocalCache;
 import org.tyuan.service.application.service.SysPermissionService;
 import org.tyuan.service.application.service.SysRoleService;
+import org.tyuan.service.application.web.PermissionConstant;
+import org.tyuan.service.application.web.RouteConstant;
+import org.tyuan.service.data.ResultData;
 
 import javax.annotation.Resource;
 
@@ -62,7 +61,7 @@ public class SysPermissionController {
     @RequiresPermissions(PermissionConstant.SYS_PERMISSION)
     public ResultData getAll() {
         ResultData resultData = new ResultData();
-        resultData.setData(LocalCache.SYS_PERMISSION.getData());
+        resultData.setData(sysPowerService.getAll());
         return resultData;
     }
 }

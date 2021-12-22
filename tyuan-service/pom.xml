@@ -18,6 +18,7 @@
         <module>application</module>
         <module>domain</module>
         <module>dao</module>
+        <module>common</module>
     </modules>
 
     <dependencies>

@@ -15,7 +15,7 @@
  */
 package org.tyuan.service.application.service;
 
-import org.tyuan.service.dao.model.SysPermission;
+import org.tyuan.service.data.model.SysPermission;
 
 import java.util.List;
 

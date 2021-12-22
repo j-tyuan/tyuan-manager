@@ -16,20 +16,17 @@
 package org.tyuan.service.data.oauth2;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-@EqualsAndHashCode(callSuper = true)
 @Data
 @ToString
 @NoArgsConstructor
-public class OAuth2Params extends BaseData<OAuth2ParamsId> {
+public class OAuth2Params {
 
     private boolean enabled;
 
     public OAuth2Params(OAuth2Params oauth2Params) {
-        super(oauth2Params);
         this.enabled = oauth2Params.enabled;
     }
 }

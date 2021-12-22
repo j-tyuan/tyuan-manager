@@ -15,9 +15,7 @@
  */
 package org.tyuan.service.data.oauth2;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
@@ -26,9 +24,8 @@ import java.util.List;
 @Data
 @ToString(exclude = {"clientSecret"})
 @NoArgsConstructor
-public class OAuth2Registration extends SearchTextBasedWithAdditionalInfo<OAuth2RegistrationId> implements HasName {
+public class OAuth2Registration {
 
-    private OAuth2ParamsId oauth2ParamsId;
     private OAuth2MapperConfig mapperConfig;
     private String clientId;
     private String clientSecret;
@@ -44,8 +41,6 @@ public class OAuth2Registration extends SearchTextBasedWithAdditionalInfo<OAuth2
     private List<PlatformType> platforms;
 
     public OAuth2Registration(OAuth2Registration registration) {
-        super(registration);
-        this.oauth2ParamsId = registration.oauth2ParamsId;
         this.mapperConfig = registration.mapperConfig;
         this.clientId = registration.clientId;
         this.clientSecret = registration.clientSecret;
@@ -61,14 +56,4 @@ public class OAuth2Registration extends SearchTextBasedWithAdditionalInfo<OAuth2
         this.platforms = registration.platforms;
     }
 
-    @Override
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    public String getName() {
-        return loginButtonLabel;
-    }
-
-    @Override
-    public String getSearchText() {
-        return getName();
-    }
 }

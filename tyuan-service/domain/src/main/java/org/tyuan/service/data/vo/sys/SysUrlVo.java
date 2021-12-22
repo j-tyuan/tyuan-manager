@@ -17,7 +17,7 @@ package org.tyuan.service.data.vo.sys;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.tyuan.service.dao.model.SysSource;
+import org.tyuan.service.data.model.SysSource;
 
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;

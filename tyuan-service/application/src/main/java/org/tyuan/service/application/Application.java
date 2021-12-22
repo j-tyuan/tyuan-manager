@@ -23,10 +23,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication(scanBasePackages = {"org.tyuan.**"})
 @MapperScan(basePackages = {"org.tyuan.service.dao.mapper.**"})
-
-// 开启缓存
 @EnableCaching
-// 开启定时任务
 @EnableScheduling
 public class Application {
 

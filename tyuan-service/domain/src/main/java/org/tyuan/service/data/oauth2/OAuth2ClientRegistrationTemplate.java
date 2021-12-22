@@ -18,20 +18,19 @@ package org.tyuan.service.data.oauth2;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.tyuan.service.data.HasName;
 import org.tyuan.service.data.validation.Length;
 
 import javax.validation.Valid;
 import java.util.List;
 
-@EqualsAndHashCode(callSuper = true)
 @Data
 @ToString
 @NoArgsConstructor
 @ApiModel
-public class OAuth2ClientRegistrationTemplate extends SearchTextBasedWithAdditionalInfo<OAuth2ClientRegistrationTemplateId> implements HasName {
+public class OAuth2ClientRegistrationTemplate  implements HasName {
 
     @Length(fieldName = "providerId")
     @ApiModelProperty(value = "OAuth2 provider identifier (e.g. its name)", required = true)
@@ -72,7 +71,6 @@ public class OAuth2ClientRegistrationTemplate extends SearchTextBasedWithAdditio
     private String helpLink;
 
     public OAuth2ClientRegistrationTemplate(OAuth2ClientRegistrationTemplate clientRegistrationTemplate) {
-        super(clientRegistrationTemplate);
         this.providerId = clientRegistrationTemplate.providerId;
         this.mapperConfig = clientRegistrationTemplate.mapperConfig;
         this.authorizationUri = clientRegistrationTemplate.authorizationUri;
@@ -91,10 +89,5 @@ public class OAuth2ClientRegistrationTemplate extends SearchTextBasedWithAdditio
     @Override
     public String getName() {
         return providerId;
-    }
-
-    @Override
-    public String getSearchText() {
-        return getName();
     }
 }

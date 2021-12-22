@@ -21,7 +21,7 @@
 package org.tyuan.service.application.service;
 
 import com.github.pagehelper.PageInfo;
-import org.tyuan.service.dao.model.SysDict;
+import org.tyuan.service.data.model.SysDict;
 import org.tyuan.service.data.vo.sys.SysDictTableParamsVo;
 
 import java.util.List;

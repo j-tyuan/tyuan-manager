@@ -16,7 +16,7 @@
 package org.tyuan.service.application.service;
 
 import org.tyuan.common.exception.ServiceException;
-import org.tyuan.service.dao.model.SysUser;
+import org.tyuan.service.data.model.SysUser;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Map;

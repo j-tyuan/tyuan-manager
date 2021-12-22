@@ -16,7 +16,7 @@
 package org.tyuan.service.dao.mapper.customize;
 
 import org.tyuan.service.dao.mapper.OrganizationInstitutionMapper;
-import org.tyuan.service.dao.model.custom.COrganizationInstitution;
+import org.tyuan.service.data.model.custom.COrganizationInstitution;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;

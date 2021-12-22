@@ -17,18 +17,22 @@ package org.tyuan.service.application.service.impl;
 
 import com.google.common.collect.Lists;
 import org.apache.commons.collections.CollectionUtils;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.tyuan.service.application.service.SysPermissionService;
 import org.tyuan.service.dao.mapper.SysPermissionMapper;
 import org.tyuan.service.dao.mapper.customize.CSysRolePermissionMapper;
-import org.tyuan.service.dao.model.SysPermission;
-import org.tyuan.service.dao.model.SysPermissionExample;
-import org.tyuan.service.dao.model.SysRolePermission;
-import org.tyuan.service.dao.model.SysRolePermissionExample;
-import org.tyuan.service.application.service.SysPermissionService;
+import org.tyuan.service.data.model.SysPermission;
+import org.tyuan.service.data.model.SysPermissionExample;
+import org.tyuan.service.data.model.SysRolePermission;
+import org.tyuan.service.data.model.SysRolePermissionExample;
 
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static org.tyuan.service.data.cache.CacheConstant.SYS_PERMISSION_CACHE_ALL;
+import static org.tyuan.service.data.cache.CacheConstant.SYS_PERMISSION_CACHE_ROLE;
 
 @Service
 public class SysPermissionServiceImpl implements SysPermissionService {
@@ -45,6 +49,7 @@ public class SysPermissionServiceImpl implements SysPermissionService {
     }
 
     @Override
+    @Cacheable(cacheNames = SYS_PERMISSION_CACHE_ALL, key = "")
     public List<SysPermission> getAll() {
         return sysPermissionMapper.selectByExample(null);
     }
@@ -63,6 +68,7 @@ public class SysPermissionServiceImpl implements SysPermissionService {
     }
 
     @Override
+    @Cacheable(cacheNames = SYS_PERMISSION_CACHE_ROLE, key = "{#roleId}")
     public List<SysPermission> getByRoleId(Long roleId) {
         SysRolePermissionExample example = new SysRolePermissionExample();
         example.createCriteria().andRoleIdEqualTo(roleId);

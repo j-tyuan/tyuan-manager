@@ -16,9 +16,12 @@
 package org.tyuan.service.application.service.security.model;
 
 import org.springframework.security.core.GrantedAuthority;
-import org.tyuan.service.dao.model.SysUser;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.tyuan.service.data.model.SysUser;
 
 import java.util.Collection;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class SecurityUser extends SysUser {
 
@@ -37,17 +40,22 @@ public class SecurityUser extends SysUser {
     }
 
     public SecurityUser(SysUser user, boolean enabled, UserPrincipal userPrincipal) {
-        user.setId(user.getId());
-        user.setMobile(user.getMobile());
-        this.enabled = enabled;
+        this.setId(user.getId());
+        this.setMobile(user.getMobile());
+        this.setEnabled(enabled);
+        this.setUserName(user.getUserName());
+        this.setAuthority(user.getAuthority());
+        this.setAdditionalInfo(user.getAdditionalInfo());
+        this.setUserAccount(user.getUserAccount());
         this.userPrincipal = userPrincipal;
     }
 
+
     public Collection<GrantedAuthority> getAuthorities() {
         if (authorities == null) {
-/*            authorities = Stream.of(SecurityUser.this.getAuthority())
-                    .map(authority -> new SimpleGrantedAuthority(authority.name()))
-                    .collect(Collectors.toList());*/
+            authorities = Stream.of(SecurityUser.this.getAuthority())
+                    .map(authority -> new SimpleGrantedAuthority(authority))
+                    .collect(Collectors.toList());
         }
         return authorities;
     }
@@ -67,5 +75,4 @@ public class SecurityUser extends SysUser {
     public void setUserPrincipal(UserPrincipal userPrincipal) {
         this.userPrincipal = userPrincipal;
     }
-
 }

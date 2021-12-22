@@ -3,10 +3,10 @@ package org.tyuan.service.dao.mapper;
 import java.util.List;
 import java.util.Map;
 import org.apache.ibatis.jdbc.SQL;
-import org.tyuan.service.dao.model.OrganizationInstitution;
-import org.tyuan.service.dao.model.OrganizationInstitutionExample.Criteria;
-import org.tyuan.service.dao.model.OrganizationInstitutionExample.Criterion;
-import org.tyuan.service.dao.model.OrganizationInstitutionExample;
+import org.tyuan.service.data.model.OrganizationInstitution;
+import org.tyuan.service.data.model.OrganizationInstitutionExample.Criteria;
+import org.tyuan.service.data.model.OrganizationInstitutionExample.Criterion;
+import org.tyuan.service.data.model.OrganizationInstitutionExample;
 
 public class OrganizationInstitutionSqlProvider {
     /**

@@ -3,10 +3,10 @@ package org.tyuan.service.dao.mapper;
 import java.util.List;
 import java.util.Map;
 import org.apache.ibatis.jdbc.SQL;
-import org.tyuan.service.dao.model.SysPermission;
-import org.tyuan.service.dao.model.SysPermissionExample.Criteria;
-import org.tyuan.service.dao.model.SysPermissionExample.Criterion;
-import org.tyuan.service.dao.model.SysPermissionExample;
+import org.tyuan.service.data.model.SysPermission;
+import org.tyuan.service.data.model.SysPermissionExample.Criteria;
+import org.tyuan.service.data.model.SysPermissionExample.Criterion;
+import org.tyuan.service.data.model.SysPermissionExample;
 
 public class SysPermissionSqlProvider {
     /**

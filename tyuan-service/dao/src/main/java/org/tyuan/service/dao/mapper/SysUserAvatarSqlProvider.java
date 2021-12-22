@@ -3,10 +3,10 @@ package org.tyuan.service.dao.mapper;
 import java.util.List;
 import java.util.Map;
 import org.apache.ibatis.jdbc.SQL;
-import org.tyuan.service.dao.model.SysUserAvatar;
-import org.tyuan.service.dao.model.SysUserAvatarExample.Criteria;
-import org.tyuan.service.dao.model.SysUserAvatarExample.Criterion;
-import org.tyuan.service.dao.model.SysUserAvatarExample;
+import org.tyuan.service.data.model.SysUserAvatar;
+import org.tyuan.service.data.model.SysUserAvatarExample.Criteria;
+import org.tyuan.service.data.model.SysUserAvatarExample.Criterion;
+import org.tyuan.service.data.model.SysUserAvatarExample;
 
 public class SysUserAvatarSqlProvider {
     /**

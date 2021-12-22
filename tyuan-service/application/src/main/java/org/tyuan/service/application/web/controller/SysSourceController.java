@@ -27,17 +27,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.tyuan.common.ITree;
-import org.tyuan.service.data.ResultData;
-import org.tyuan.common.annotation.Log;
-import org.tyuan.common.enums.LogType;
+import org.tyuan.service.common.annotation.AuditLog;
 import org.tyuan.common.exception.ServiceException;
 import org.tyuan.common.utils.TreeUtils;
+import org.tyuan.service.application.service.SysSourceService;
 import org.tyuan.service.application.web.PermissionConstant;
 import org.tyuan.service.application.web.RouteConstant;
-import org.tyuan.service.dao.model.custom.CSysSource;
+import org.tyuan.service.data.ResultData;
+import org.tyuan.service.data.audit.ActionType;
+import org.tyuan.service.data.model.custom.CSysSource;
 import org.tyuan.service.data.vo.DeleteVo;
 import org.tyuan.service.data.vo.sys.SysUrlVo;
-import org.tyuan.service.application.service.SysSourceService;
 
 import javax.annotation.Resource;
 import java.util.Collections;
@@ -64,7 +64,7 @@ public class SysSourceController {
 
     @RequiresPermissions(PermissionConstant.SYS_SOURCE_DEL)
     @PostMapping(RouteConstant.ROUTER_SYS_SOURCE_DEL)
-    @Log(type = LogType.DEL, value = "删除资源")
+    @AuditLog(type = ActionType.DELETED, value = "删除资源")
     public ResultData del(@RequestBody DeleteVo deleteVo) {
         try {
             sysSourceService.del(deleteVo);
@@ -78,7 +78,7 @@ public class SysSourceController {
 
     @RequiresPermissions(PermissionConstant.SYS_SOURCE_ADD)
     @PostMapping(RouteConstant.ROUTER_SYS_SOURCE_ADD)
-    @Log(type =LogType.ADD, value = "添加资源")
+    @AuditLog(type =ActionType.ADDED, value = "添加资源")
     public ResultData add(@RequestBody @Validated SysUrlVo k) {
         try {
             sysSourceService.add(k);
@@ -92,7 +92,7 @@ public class SysSourceController {
 
     @RequiresPermissions(PermissionConstant.SYS_SOURCE_EDIT)
     @PostMapping(RouteConstant.ROUTER_SYS_SOURCE_EDIT)
-    @Log(type =LogType.EDIT, value = "修改资源")
+    @AuditLog(type =ActionType.UPDATED, value = "修改资源")
     public ResultData edit(@RequestBody @Validated SysUrlVo k) {
         try {
             sysSourceService.edit(k);

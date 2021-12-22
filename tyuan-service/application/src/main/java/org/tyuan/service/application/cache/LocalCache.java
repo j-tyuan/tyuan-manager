@@ -15,24 +15,12 @@
  */
 package org.tyuan.service.application.cache;
 
-import org.tyuan.service.dao.model.SysPermission;
-import org.tyuan.service.dao.model.custom.COrganizationInstitution;
-import org.tyuan.service.dao.model.custom.CSysSource;
 import org.tyuan.service.data.cache.DataCache;
+import org.tyuan.service.data.model.custom.COrganizationInstitution;
 
 import java.util.List;
 
 public class LocalCache {
-
-    /**
-     * 菜单缓存数据
-     */
-    public static DataCache<List<CSysSource>> SYS_SOURCE;
-
-    /**
-     * 权限缓存数据
-     */
-    public static DataCache<List<SysPermission>> SYS_PERMISSION;
 
     /**
      * 机构缓存数据

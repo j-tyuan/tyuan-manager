@@ -3,10 +3,10 @@ package org.tyuan.service.dao.mapper;
 import java.util.List;
 import java.util.Map;
 import org.apache.ibatis.jdbc.SQL;
-import org.tyuan.service.dao.model.SysParam;
-import org.tyuan.service.dao.model.SysParamExample.Criteria;
-import org.tyuan.service.dao.model.SysParamExample.Criterion;
-import org.tyuan.service.dao.model.SysParamExample;
+import org.tyuan.service.data.model.SysParam;
+import org.tyuan.service.data.model.SysParamExample.Criteria;
+import org.tyuan.service.data.model.SysParamExample.Criterion;
+import org.tyuan.service.data.model.SysParamExample;
 
 public class SysParamSqlProvider {
     /**

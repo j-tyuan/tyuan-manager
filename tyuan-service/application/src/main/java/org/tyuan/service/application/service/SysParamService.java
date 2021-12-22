@@ -49,7 +49,7 @@
 package org.tyuan.service.application.service;
 
 import com.github.pagehelper.PageInfo;
-import org.tyuan.service.dao.model.SysParam;
+import org.tyuan.service.data.model.SysParam;
 import org.tyuan.service.data.vo.sys.SysParamTableVo;
 
 import java.util.List;

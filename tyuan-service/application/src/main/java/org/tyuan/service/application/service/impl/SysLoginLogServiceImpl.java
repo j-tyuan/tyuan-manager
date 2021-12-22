@@ -17,24 +17,18 @@ package org.tyuan.service.application.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import org.tyuan.common.utils.IPUtils;
-import org.tyuan.service.dao.mapper.SysLoginLogMapper;
-import org.tyuan.service.application.service.SysLogService;
-import org.tyuan.service.application.service.SysLoginLogService;
-import org.tyuan.service.dao.model.SysLoginLog;
-import org.tyuan.service.dao.model.SysLoginLogExample;
-import org.tyuan.service.dao.model.SysUser;
-import org.tyuan.service.data.vo.sys.SysLoginLogTableParamsVo;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Transactional;
+import org.tyuan.service.application.service.SysLogService;
+import org.tyuan.service.application.service.SysLoginLogService;
+import org.tyuan.service.dao.mapper.SysLoginLogMapper;
+import org.tyuan.service.data.model.SysLoginLog;
+import org.tyuan.service.data.model.SysLoginLogExample;
+import org.tyuan.service.data.vo.sys.SysLoginLogTableParamsVo;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -65,17 +59,8 @@ public class SysLoginLogServiceImpl implements SysLoginLogService {
     }
 
     @Override
-    @Transactional(rollbackFor = {Exception.class, Error.class}, isolation = Isolation.DEFAULT)
-    public void add(SysUser sysUser, HttpServletRequest request) {
+    public void add(SysLoginLog sysLoginLog) {
         SysLoginLog loginLog = new SysLoginLog();
-
-        loginLog.setAvatarId(sysUser.getAvatarId());
-        loginLog.setCreateTime(new Date());
-        loginLog.setUserId(sysUser.getId());
-        loginLog.setUserName(sysUser.getUserName());
-        loginLog.setUserNo(sysUser.getUserNo());
-        String ipAddr = IPUtils.getIpAddr(request);
-        loginLog.setLoginIp(ipAddr);
         sysLoginLogMapper.insertSelective(loginLog);
     }
 }

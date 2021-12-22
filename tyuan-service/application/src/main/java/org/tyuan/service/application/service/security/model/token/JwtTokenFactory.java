@@ -26,6 +26,7 @@ import org.tyuan.service.application.config.JwtSettings;
 import org.tyuan.service.application.service.security.exception.JwtExpiredTokenException;
 import org.tyuan.service.application.service.security.model.SecurityUser;
 import org.tyuan.service.application.service.security.model.UserPrincipal;
+import org.tyuan.service.data.security.Authority;
 import org.tyuan.service.data.security.JwtToken;
 
 import java.time.ZonedDateTime;
@@ -92,8 +93,9 @@ public class JwtTokenFactory {
             throw new IllegalArgumentException("JWT Token doesn't have any scopes");
         }
 
-        SecurityUser securityUser = new SecurityUser(claims.get(USER_ID, Long.class));
+        SecurityUser securityUser = new SecurityUser(claims.get(USER_ID, Number.class).longValue());
         securityUser.setUserAccount(subject);
+        securityUser.setAuthority(scopes.get(0));
         securityUser.setUserName(claims.get(USER_NAME, String.class));
         securityUser.setEnabled(claims.get(ENABLED, Boolean.class));
         boolean isPublic = claims.get(IS_PUBLIC, Boolean.class);

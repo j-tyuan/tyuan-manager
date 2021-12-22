@@ -3,10 +3,10 @@ package org.tyuan.service.dao.mapper;
 import java.util.List;
 import java.util.Map;
 import org.apache.ibatis.jdbc.SQL;
-import org.tyuan.service.dao.model.SysLoginLog;
-import org.tyuan.service.dao.model.SysLoginLogExample.Criteria;
-import org.tyuan.service.dao.model.SysLoginLogExample.Criterion;
-import org.tyuan.service.dao.model.SysLoginLogExample;
+import org.tyuan.service.data.model.SysLoginLog;
+import org.tyuan.service.data.model.SysLoginLogExample.Criteria;
+import org.tyuan.service.data.model.SysLoginLogExample.Criterion;
+import org.tyuan.service.data.model.SysLoginLogExample;
 
 public class SysLoginLogSqlProvider {
     /**

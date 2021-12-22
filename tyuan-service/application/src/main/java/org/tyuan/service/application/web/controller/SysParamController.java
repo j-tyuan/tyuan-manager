@@ -66,15 +66,15 @@ package org.tyuan.service.application.web.controller;
 import com.github.pagehelper.PageInfo;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.web.bind.annotation.*;
-import org.tyuan.common.annotation.Log;
-import org.tyuan.common.enums.LogType;
+import org.tyuan.service.common.annotation.AuditLog;
 import org.tyuan.common.exception.ServiceException;
 import org.tyuan.service.application.service.SysParamService;
 import org.tyuan.service.application.web.PermissionConstant;
 import org.tyuan.service.application.web.RouteConstant;
-import org.tyuan.service.dao.model.SysParam;
 import org.tyuan.service.data.ResultData;
 import org.tyuan.service.data.ResultTable;
+import org.tyuan.service.data.audit.ActionType;
+import org.tyuan.service.data.model.SysParam;
 import org.tyuan.service.data.vo.DeleteVo;
 import org.tyuan.service.data.vo.sys.SysParamTableVo;
 import org.tyuan.service.data.vo.sys.SysParamVo;
@@ -90,7 +90,7 @@ public class SysParamController {
 
     @RequiresPermissions(PermissionConstant.SYS_PARAM_LIST)
     @PostMapping(RouteConstant.ROUTER_SYS_PARAM)
-    @Log(type = LogType.SELECT, value = "查看系统参数")
+    @AuditLog(type = ActionType.QUERY, value = "查看系统参数")
     public ResultTable list(@RequestBody SysParamTableVo param) {
 
         ResultTable resultData = new ResultTable();
@@ -105,7 +105,7 @@ public class SysParamController {
 
     @RequiresPermissions(PermissionConstant.SYS_PARAM_DEL)
     @PostMapping(RouteConstant.ROUTER_SYS_PARAM_DEL)
-    @Log(type = LogType.DEL, value = "删除系统参数")
+    @AuditLog(type = ActionType.DELETED, value = "删除系统参数")
     public ResultData del(@RequestBody DeleteVo deleteVo) {
         try {
             paramService.del(deleteVo);
@@ -119,7 +119,7 @@ public class SysParamController {
 
     @RequiresPermissions(PermissionConstant.SYS_PARAM_ADD)
     @PostMapping(RouteConstant.ROUTER_SYS_PARAM_ADD)
-    @Log(type = LogType.ADD, value = "添加系统参数")
+    @AuditLog(type = ActionType.ADDED, value = "添加系统参数")
     public ResultData add(@RequestBody SysParamVo k) throws ServiceException {
 
         paramService.add(k);
@@ -128,7 +128,7 @@ public class SysParamController {
 
     @RequiresPermissions(PermissionConstant.SYS_PARAM_EDIT)
     @PostMapping(RouteConstant.ROUTER_SYS_PARAM_EDIT)
-    @Log(type = LogType.EDIT, value = "修改系统参数")
+    @AuditLog(type = ActionType.UPDATED, value = "修改系统参数")
     public ResultData edit(@RequestBody SysParamVo k) throws ServiceException {
         paramService.edit(k);
         return new ResultData();

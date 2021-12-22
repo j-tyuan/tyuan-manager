@@ -20,7 +20,6 @@
  */
 package org.tyuan.service.application.web;
 
-import org.tyuan.common.utils.UserInfoHolder;
 import org.springframework.context.annotation.Configuration;
 
 import javax.servlet.*;
@@ -49,8 +48,6 @@ public class WebMvcConfig implements Filter {
         //我这里需要放行这三个header头部字段
         rep.setHeader("Access-Control-Allow-Headers", "content-type,x-requested-with,token");
         chain.doFilter(rst, rep);
-
-        UserInfoHolder.clear();
     }
 
     @Override

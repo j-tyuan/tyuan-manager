@@ -31,20 +31,18 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 import org.tyuan.common.exception.ServiceException;
-import org.tyuan.common.utils.UserInfoHolder;
+import org.tyuan.service.application.service.SysRoleService;
+import org.tyuan.service.common.UserInfoHolder;
 import org.tyuan.service.dao.mapper.SysRoleMapper;
 import org.tyuan.service.dao.mapper.customize.CSysRolePermissionMapper;
-import org.tyuan.service.dao.mapper.customize.CSysUserRoleMapper;
 import org.tyuan.service.data.ErrorCodeConsts;
-import org.tyuan.service.dao.model.SysRole;
-import org.tyuan.service.dao.model.SysRoleExample;
-import org.tyuan.service.dao.model.SysRolePermission;
-import org.tyuan.service.dao.model.SysRolePermissionExample;
+import org.tyuan.service.data.model.SysRole;
+import org.tyuan.service.data.model.SysRoleExample;
+import org.tyuan.service.data.model.SysRolePermission;
+import org.tyuan.service.data.model.SysRolePermissionExample;
 import org.tyuan.service.data.vo.DeleteVo;
 import org.tyuan.service.data.vo.sys.SysRoleTableParamsVo;
 import org.tyuan.service.data.vo.sys.SysRoleVo;
-import org.tyuan.service.application.service.SysRoleService;
-import org.tyuan.service.application.service.SysUserService;
 
 import javax.annotation.Resource;
 import java.text.MessageFormat;
@@ -59,13 +57,7 @@ public class SysRoleServiceImpl implements SysRoleService {
     SysRoleMapper sysRoleMapper;
 
     @Resource
-    CSysUserRoleMapper csysUserRoleMapper;
-
-    @Resource
     CSysRolePermissionMapper cSysRolePermissionMapper;
-
-    @Resource
-    SysUserService sysUserService;
 
     @Override
     public PageInfo<SysRole> getByParams(SysRoleTableParamsVo param) {

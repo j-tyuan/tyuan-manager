@@ -20,8 +20,8 @@
  */
 package org.tyuan.service.application.service;
 
-import org.tyuan.service.dao.model.SysSource;
-import org.tyuan.service.dao.model.custom.CSysSource;
+import org.tyuan.service.data.model.SysSource;
+import org.tyuan.service.data.model.custom.CSysSource;
 
 import java.util.List;
 

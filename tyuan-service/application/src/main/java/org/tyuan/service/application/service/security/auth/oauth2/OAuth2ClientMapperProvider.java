@@ -34,10 +34,6 @@ public class OAuth2ClientMapperProvider {
     private OAuth2ClientMapper customOAuth2ClientMapper;
 
     @Autowired
-    @Qualifier("githubOAuth2ClientMapper")
-    private OAuth2ClientMapper githubOAuth2ClientMapper;
-
-    @Autowired
     @Qualifier("appleOAuth2ClientMapper")
     private OAuth2ClientMapper appleOAuth2ClientMapper;
 
@@ -47,8 +43,6 @@ public class OAuth2ClientMapperProvider {
                 return customOAuth2ClientMapper;
             case BASIC:
                 return basicOAuth2ClientMapper;
-            case GITHUB:
-                return githubOAuth2ClientMapper;
             case APPLE:
                 return appleOAuth2ClientMapper;
             default:

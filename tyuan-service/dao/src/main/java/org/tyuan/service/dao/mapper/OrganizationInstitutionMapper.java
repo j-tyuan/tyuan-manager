@@ -14,8 +14,8 @@ import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.type.JdbcType;
-import org.tyuan.service.dao.model.OrganizationInstitution;
-import org.tyuan.service.dao.model.OrganizationInstitutionExample;
+import org.tyuan.service.data.model.OrganizationInstitution;
+import org.tyuan.service.data.model.OrganizationInstitutionExample;
 
 public interface OrganizationInstitutionMapper {
     /**

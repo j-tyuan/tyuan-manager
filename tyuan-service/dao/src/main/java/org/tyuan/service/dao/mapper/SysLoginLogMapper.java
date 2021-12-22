@@ -14,8 +14,8 @@ import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.type.JdbcType;
-import org.tyuan.service.dao.model.SysLoginLog;
-import org.tyuan.service.dao.model.SysLoginLogExample;
+import org.tyuan.service.data.model.SysLoginLog;
+import org.tyuan.service.data.model.SysLoginLogExample;
 
 public interface SysLoginLogMapper {
     /**

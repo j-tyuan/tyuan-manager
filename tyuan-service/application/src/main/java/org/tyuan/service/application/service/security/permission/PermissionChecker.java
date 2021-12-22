@@ -15,27 +15,24 @@
  */
 package org.tyuan.service.application.service.security.permission;
 
-import org.thingsboard.server.common.data.HasCustomerId;
-import org.thingsboard.server.common.data.HasTenantId;
-import org.thingsboard.server.common.data.id.EntityId;
-import org.thingsboard.server.common.data.id.TenantId;
-import org.thingsboard.server.service.security.model.SecurityUser;
+
+import org.tyuan.service.application.service.security.model.SecurityUser;
 
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-public interface PermissionChecker<I extends EntityId, T extends HasTenantId> {
+public interface PermissionChecker<I> {
 
     default boolean hasPermission(SecurityUser user, Operation operation) {
         return false;
     }
 
-    default boolean hasPermission(SecurityUser user, Operation operation, I entityId, T entity) {
+    default boolean hasPermission(SecurityUser user, Operation operation, I id) {
         return false;
     }
 
-    public class GenericPermissionChecker<I extends EntityId, T extends HasTenantId> implements PermissionChecker<I,T> {
+    public class GenericPermissionChecker<I> implements PermissionChecker<I> {
 
         private final Set<Operation> allowedOperations;
 
@@ -49,14 +46,14 @@ public interface PermissionChecker<I extends EntityId, T extends HasTenantId> {
         }
 
         @Override
-        public boolean hasPermission(SecurityUser user, Operation operation, I entityId, T entity) {
+        public boolean hasPermission(SecurityUser user, Operation operation, I id) {
             return allowedOperations.contains(Operation.ALL) || allowedOperations.contains(operation);
         }
     }
 
     public static PermissionChecker denyAllPermissionChecker = new PermissionChecker() {};
 
-    public static PermissionChecker allowAllPermissionChecker = new PermissionChecker<EntityId, HasTenantId>() {
+    public PermissionChecker allowAllPermissionChecker = new PermissionChecker<Long>() {
 
         @Override
         public boolean hasPermission(SecurityUser user, Operation operation) {
@@ -64,7 +61,7 @@ public interface PermissionChecker<I extends EntityId, T extends HasTenantId> {
         }
 
         @Override
-        public boolean hasPermission(SecurityUser user, Operation operation, EntityId entityId, HasTenantId entity) {
+        public boolean hasPermission(SecurityUser user, Operation operation, Long id) {
             return true;
         }
     };

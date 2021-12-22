@@ -17,19 +17,19 @@ package org.tyuan.service.application.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.Maps;
-import org.tyuan.common.exception.ServiceException;
-import org.tyuan.service.dao.mapper.SysUserMapper;
-import org.tyuan.service.dao.mapper.SysUserWebLayoutMapper;
-import org.tyuan.service.application.service.AccountService;
-import org.tyuan.service.application.service.SysUserAvatarService;
-import org.tyuan.common.utils.UserInfoHolder;
-import org.tyuan.service.data.ErrorCodeConsts;
-import org.tyuan.service.dao.model.SysUser;
-import org.tyuan.service.dao.model.SysUserWebLayout;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import org.tyuan.common.exception.ServiceException;
+import org.tyuan.service.application.service.AccountService;
+import org.tyuan.service.application.service.SysUserAvatarService;
+import org.tyuan.service.common.UserInfoHolder;
+import org.tyuan.service.dao.mapper.SysUserMapper;
+import org.tyuan.service.dao.mapper.SysUserWebLayoutMapper;
+import org.tyuan.service.data.ErrorCodeConsts;
+import org.tyuan.service.data.model.SysUser;
+import org.tyuan.service.data.model.SysUserWebLayout;
 
 import javax.annotation.Resource;
 import java.util.Map;
@@ -88,7 +88,6 @@ public class AccountServiceImpl implements AccountService {
         }
 
         SysUser sysUser = sysUserMapper.selectByPrimaryKey(uid);
-        sysUser.setUserPwd(null);
         Map userMap = (Map) JSONObject.toJSON(sysUser);
         String avatar = sysUserAvatarService.getAvatarById(sysUser.getAvatarId());
         userMap.put("avatar", avatar);

@@ -14,8 +14,8 @@ import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.type.JdbcType;
-import org.tyuan.service.dao.model.SysArea;
-import org.tyuan.service.dao.model.SysAreaExample;
+import org.tyuan.service.data.model.SysArea;
+import org.tyuan.service.data.model.SysAreaExample;
 
 public interface SysAreaMapper {
     /**

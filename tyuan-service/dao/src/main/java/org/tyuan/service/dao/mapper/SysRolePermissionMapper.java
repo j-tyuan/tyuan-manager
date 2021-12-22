@@ -14,8 +14,8 @@ import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.type.JdbcType;
-import org.tyuan.service.dao.model.SysRolePermission;
-import org.tyuan.service.dao.model.SysRolePermissionExample;
+import org.tyuan.service.data.model.SysRolePermission;
+import org.tyuan.service.data.model.SysRolePermissionExample;
 
 public interface SysRolePermissionMapper {
     /**

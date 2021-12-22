@@ -17,11 +17,11 @@ package org.tyuan.service.application.service;
 
 import com.github.pagehelper.PageInfo;
 import org.tyuan.common.exception.ServiceException;
-import org.tyuan.service.dao.model.SysRole;
-import org.tyuan.service.dao.model.SysUser;
-import org.tyuan.service.dao.model.SysUserCredentials;
-import org.tyuan.service.dao.model.SysUserExample;
-import org.tyuan.service.dao.model.custom.COrganizationInstitution;
+import org.tyuan.service.data.model.SysRole;
+import org.tyuan.service.data.model.SysUser;
+import org.tyuan.service.data.model.SysUserCredentials;
+import org.tyuan.service.data.model.SysUserExample;
+import org.tyuan.service.data.model.custom.COrganizationInstitution;
 import org.tyuan.service.data.vo.DataTableParam;
 import org.tyuan.service.data.vo.sys.SysUserTableParamsVo;
 import org.tyuan.service.data.vo.sys.SysUserVo;
@@ -35,24 +35,6 @@ import java.util.Map;
  * @DateTime: 2020/6/29 16:33
  */
 public interface SysUserService extends BaseService<SysUserVo> {
-
-
-    enum USER_TYPE {
-
-        ORDINARY(0),
-        SYS(1);
-
-        private int type;
-
-        private USER_TYPE(int type) {
-            this.type = type;
-        }
-
-        public int getType() {
-            return type;
-        }
-    }
-
 
     /**
      * 根据入参获取 SysUserExample

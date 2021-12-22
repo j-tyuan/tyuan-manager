@@ -25,13 +25,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 import org.tyuan.common.exception.ServiceException;
-import org.tyuan.common.utils.UserInfoHolder;
 import org.tyuan.service.application.service.SysParamService;
+import org.tyuan.service.common.UserInfoHolder;
 import org.tyuan.service.dao.mapper.customize.CSysParamMapper;
-import org.tyuan.service.dao.model.SysParam;
-import org.tyuan.service.dao.model.SysParamExample;
 import org.tyuan.service.data.ErrorCodeConsts;
 import org.tyuan.service.data.cache.CacheConstant;
+import org.tyuan.service.data.model.SysParam;
+import org.tyuan.service.data.model.SysParamExample;
 import org.tyuan.service.data.vo.DeleteVo;
 import org.tyuan.service.data.vo.sys.SysParamTableVo;
 

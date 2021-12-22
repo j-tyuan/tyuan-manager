@@ -39,13 +39,13 @@ import com.github.pagehelper.PageInfo;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.tyuan.common.annotation.Log;
-import org.tyuan.common.enums.LogType;
+import org.tyuan.service.common.annotation.AuditLog;
 import org.tyuan.common.exception.ServiceException;
 import org.tyuan.service.application.service.SysDictService;
 import org.tyuan.service.application.web.PermissionConstant;
 import org.tyuan.service.application.web.RouteConstant;
-import org.tyuan.service.dao.model.SysDict;
+import org.tyuan.service.data.audit.ActionType;
+import org.tyuan.service.data.model.SysDict;
 import org.tyuan.service.data.DictTypeEnum;
 import org.tyuan.service.data.ResultData;
 import org.tyuan.service.data.ResultTable;
@@ -66,7 +66,7 @@ public class SysDictController {
 
     @RequiresPermissions(PermissionConstant.SYS_DICT_LIST)
     @PostMapping(RouteConstant.ROUTER_SYS_DICT)
-    @Log(type = LogType.SELECT, value = "查看字典")
+    @AuditLog(type =ActionType.QUERY, value = "查看字典")
     public ResultTable list(@RequestBody SysDictTableParamsVo requestParam) {
         ResultTable table = new ResultTable();
         try {
@@ -80,7 +80,7 @@ public class SysDictController {
 
     @RequiresPermissions(PermissionConstant.SYS_DICT_DEL)
     @PostMapping(RouteConstant.ROUTER_SYS_DICT_DEL)
-    @Log(type = LogType.DEL, value = "删除字典")
+    @AuditLog(type = ActionType.DELETED, value = "删除字典")
     public ResultData del(@RequestBody DeleteVo deleteVo) {
         try {
             service.del(deleteVo);
@@ -94,7 +94,7 @@ public class SysDictController {
 
     @RequiresPermissions(PermissionConstant.SYS_DICT_ADD)
     @PostMapping(RouteConstant.ROUTER_SYS_DICT_ADD)
-    @Log(type = LogType.ADD, value = "添加字典")
+    @AuditLog(type = ActionType.ADDED, value = "添加字典")
     public ResultData add(@RequestBody @Validated SysDictVo k) throws ServiceException {
 
         service.add(k);
@@ -103,7 +103,7 @@ public class SysDictController {
 
     @RequiresPermissions(PermissionConstant.SYS_DICT_EDIT)
     @PostMapping(RouteConstant.ROUTER_SYS_DICT_EDIT)
-    @Log(type = LogType.EDIT, value = "修改字典")
+    @AuditLog(type = ActionType.UPDATED, value = "修改字典")
     public ResultData edit(@RequestBody @Validated SysDictVo k) {
         try {
             service.edit(k);

@@ -26,16 +26,16 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.tyuan.common.utils.TreeUtils;
 import org.tyuan.service.application.cache.LocalCache;
-import org.tyuan.service.dao.mapper.SysPermissionMapper;
-import org.tyuan.service.dao.mapper.customize.*;
-import org.tyuan.service.dao.model.SysDict;
-import org.tyuan.service.dao.model.SysParam;
-import org.tyuan.service.dao.model.SysPermission;
-import org.tyuan.service.dao.model.custom.COrganizationInstitution;
-import org.tyuan.service.dao.model.custom.CSysSource;
+import org.tyuan.service.dao.mapper.customize.COrganizationInstitutionMapper;
+import org.tyuan.service.dao.mapper.customize.CSysDictMapper;
+import org.tyuan.service.dao.mapper.customize.CSysParamMapper;
+import org.tyuan.service.dao.mapper.customize.ICacheInfo;
 import org.tyuan.service.data.cache.Cache;
 import org.tyuan.service.data.cache.CacheConstant;
 import org.tyuan.service.data.cache.DataCache;
+import org.tyuan.service.data.model.SysDict;
+import org.tyuan.service.data.model.SysParam;
+import org.tyuan.service.data.model.custom.COrganizationInstitution;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
@@ -50,12 +50,6 @@ public class SysScheduledTask {
     RedisTemplate redisTemplate;
 
     @Resource
-    CSysSourceMapper cSysSourceMapper;
-
-    @Resource
-    SysPermissionMapper sysPermissionMapper;
-
-    @Resource
     COrganizationInstitutionMapper cOrganizeInstitutionMapper;
 
     @Resource
@@ -67,12 +61,6 @@ public class SysScheduledTask {
 
     @PostConstruct
     public void init() {
-        // 加载菜单
-        refreshMenu();
-
-        // 加载权限
-        initPermission();
-
         // 加载字典
         refreshDict();
 
@@ -80,28 +68,6 @@ public class SysScheduledTask {
         refreshParam();
     }
 
-    /**
-     * 初始化权限数据
-     */
-    public void initPermission() {
-
-        DataCache cache = new DataCache();
-        List<SysPermission> list = sysPermissionMapper.selectByExample(null);
-        cache.setData(list);
-        LocalCache.SYS_PERMISSION = cache;
-    }
-
-    /**
-     * 菜单本地缓存
-     */
-    @Scheduled(cron = "${scheduled.menu.refresh.cron}")
-    public void refreshMenu() {
-        checkLoadCache(LocalCache.SYS_SOURCE, cSysSourceMapper, (cache) -> {
-            List<CSysSource> sysSources = cSysSourceMapper.getAll();
-            cache.setData(sysSources);
-            LocalCache.SYS_SOURCE = cache;
-        });
-    }
 
     /**
      * 机构本地缓存

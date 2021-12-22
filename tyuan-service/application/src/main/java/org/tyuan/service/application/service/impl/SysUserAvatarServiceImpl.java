@@ -15,12 +15,6 @@
  */
 package org.tyuan.service.application.service.impl;
 
-import org.tyuan.service.dao.mapper.SysUserAvatarMapper;
-import org.tyuan.service.application.service.SysUserAvatarService;
-import org.tyuan.common.utils.UserInfoHolder;
-import org.tyuan.service.dao.model.SysUser;
-import org.tyuan.service.dao.model.SysUserAvatar;
-import org.tyuan.service.dao.model.SysUserAvatarExample;
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,6 +22,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import org.tyuan.service.application.service.SysUserAvatarService;
+import org.tyuan.service.common.UserInfoHolder;
+import org.tyuan.service.dao.mapper.SysUserAvatarMapper;
+import org.tyuan.service.data.model.SysUser;
+import org.tyuan.service.data.model.SysUserAvatar;
+import org.tyuan.service.data.model.SysUserAvatarExample;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;

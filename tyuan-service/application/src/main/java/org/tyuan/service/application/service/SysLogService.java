@@ -16,7 +16,7 @@
 package org.tyuan.service.application.service;
 
 import com.github.pagehelper.PageInfo;
-import org.tyuan.service.dao.model.SysLogWithBLOBs;
+import org.tyuan.service.data.model.SysLogWithBLOBs;
 import org.tyuan.service.data.vo.sys.SysLogTableVo;
 
 /**

@@ -15,7 +15,7 @@
  */
 package org.tyuan.service.data.vo.sys;
 
-import org.tyuan.service.dao.model.SysDict;
+import org.tyuan.service.data.model.SysDict;
 import javax.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.Setter;

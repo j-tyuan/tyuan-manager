@@ -3,10 +3,10 @@ package org.tyuan.service.dao.mapper;
 import java.util.List;
 import java.util.Map;
 import org.apache.ibatis.jdbc.SQL;
-import org.tyuan.service.dao.model.SysUser;
-import org.tyuan.service.dao.model.SysUserExample.Criteria;
-import org.tyuan.service.dao.model.SysUserExample.Criterion;
-import org.tyuan.service.dao.model.SysUserExample;
+import org.tyuan.service.data.model.SysUser;
+import org.tyuan.service.data.model.SysUserExample.Criteria;
+import org.tyuan.service.data.model.SysUserExample.Criterion;
+import org.tyuan.service.data.model.SysUserExample;
 
 public class SysUserSqlProvider {
     /**
@@ -57,6 +57,10 @@ public class SysUserSqlProvider {
             sql.VALUES("user_account", "#{userAccount,jdbcType=VARCHAR}");
         }
         
+        if (record.getAuthority() != null) {
+            sql.VALUES("authority", "#{authority,jdbcType=VARCHAR}");
+        }
+        
         if (record.getUserName() != null) {
             sql.VALUES("user_name", "#{userName,jdbcType=VARCHAR}");
         }
@@ -79,10 +83,6 @@ public class SysUserSqlProvider {
         
         if (record.getMobile() != null) {
             sql.VALUES("mobile", "#{mobile,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getUserType() != null) {
-            sql.VALUES("user_type", "#{userType,jdbcType=INTEGER}");
         }
         
         if (record.getLoginIp() != null) {
@@ -148,13 +148,13 @@ public class SysUserSqlProvider {
         sql.SELECT("create_time");
         sql.SELECT("update_time");
         sql.SELECT("user_account");
+        sql.SELECT("authority");
         sql.SELECT("user_name");
         sql.SELECT("user_email");
         sql.SELECT("user_phone");
         sql.SELECT("inst_id");
         sql.SELECT("inst_name");
         sql.SELECT("mobile");
-        sql.SELECT("user_type");
         sql.SELECT("login_ip");
         sql.SELECT("login_date");
         sql.SELECT("login_flag");
@@ -192,13 +192,13 @@ public class SysUserSqlProvider {
         sql.SELECT("create_time");
         sql.SELECT("update_time");
         sql.SELECT("user_account");
+        sql.SELECT("authority");
         sql.SELECT("user_name");
         sql.SELECT("user_email");
         sql.SELECT("user_phone");
         sql.SELECT("inst_id");
         sql.SELECT("inst_name");
         sql.SELECT("mobile");
-        sql.SELECT("user_type");
         sql.SELECT("login_ip");
         sql.SELECT("login_date");
         sql.SELECT("login_flag");
@@ -248,6 +248,10 @@ public class SysUserSqlProvider {
             sql.SET("user_account = #{record.userAccount,jdbcType=VARCHAR}");
         }
         
+        if (record.getAuthority() != null) {
+            sql.SET("authority = #{record.authority,jdbcType=VARCHAR}");
+        }
+        
         if (record.getUserName() != null) {
             sql.SET("user_name = #{record.userName,jdbcType=VARCHAR}");
         }
@@ -270,10 +274,6 @@ public class SysUserSqlProvider {
         
         if (record.getMobile() != null) {
             sql.SET("mobile = #{record.mobile,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getUserType() != null) {
-            sql.SET("user_type = #{record.userType,jdbcType=INTEGER}");
         }
         
         if (record.getLoginIp() != null) {
@@ -338,13 +338,13 @@ public class SysUserSqlProvider {
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
         sql.SET("user_account = #{record.userAccount,jdbcType=VARCHAR}");
+        sql.SET("authority = #{record.authority,jdbcType=VARCHAR}");
         sql.SET("user_name = #{record.userName,jdbcType=VARCHAR}");
         sql.SET("user_email = #{record.userEmail,jdbcType=VARCHAR}");
         sql.SET("user_phone = #{record.userPhone,jdbcType=VARCHAR}");
         sql.SET("inst_id = #{record.instId,jdbcType=BIGINT}");
         sql.SET("inst_name = #{record.instName,jdbcType=VARCHAR}");
         sql.SET("mobile = #{record.mobile,jdbcType=VARCHAR}");
-        sql.SET("user_type = #{record.userType,jdbcType=INTEGER}");
         sql.SET("login_ip = #{record.loginIp,jdbcType=VARCHAR}");
         sql.SET("login_date = #{record.loginDate,jdbcType=TIMESTAMP}");
         sql.SET("login_flag = #{record.loginFlag,jdbcType=VARCHAR}");
@@ -376,13 +376,13 @@ public class SysUserSqlProvider {
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
         sql.SET("user_account = #{record.userAccount,jdbcType=VARCHAR}");
+        sql.SET("authority = #{record.authority,jdbcType=VARCHAR}");
         sql.SET("user_name = #{record.userName,jdbcType=VARCHAR}");
         sql.SET("user_email = #{record.userEmail,jdbcType=VARCHAR}");
         sql.SET("user_phone = #{record.userPhone,jdbcType=VARCHAR}");
         sql.SET("inst_id = #{record.instId,jdbcType=BIGINT}");
         sql.SET("inst_name = #{record.instName,jdbcType=VARCHAR}");
         sql.SET("mobile = #{record.mobile,jdbcType=VARCHAR}");
-        sql.SET("user_type = #{record.userType,jdbcType=INTEGER}");
         sql.SET("login_ip = #{record.loginIp,jdbcType=VARCHAR}");
         sql.SET("login_date = #{record.loginDate,jdbcType=TIMESTAMP}");
         sql.SET("login_flag = #{record.loginFlag,jdbcType=VARCHAR}");
@@ -421,6 +421,10 @@ public class SysUserSqlProvider {
             sql.SET("user_account = #{userAccount,jdbcType=VARCHAR}");
         }
         
+        if (record.getAuthority() != null) {
+            sql.SET("authority = #{authority,jdbcType=VARCHAR}");
+        }
+        
         if (record.getUserName() != null) {
             sql.SET("user_name = #{userName,jdbcType=VARCHAR}");
         }
@@ -443,10 +447,6 @@ public class SysUserSqlProvider {
         
         if (record.getMobile() != null) {
             sql.SET("mobile = #{mobile,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getUserType() != null) {
-            sql.SET("user_type = #{userType,jdbcType=INTEGER}");
         }
         
         if (record.getLoginIp() != null) {

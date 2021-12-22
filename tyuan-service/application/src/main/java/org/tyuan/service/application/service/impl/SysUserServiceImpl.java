@@ -28,17 +28,18 @@ import org.springframework.transaction.annotation.Transactional;
 import org.tyuan.common.exception.ServiceException;
 import org.tyuan.common.utils.DateUtil;
 import org.tyuan.common.utils.TreeUtils;
-import org.tyuan.common.utils.UserInfoHolder;
 import org.tyuan.service.application.service.SysUserAvatarService;
 import org.tyuan.service.application.service.SysUserService;
+import org.tyuan.service.common.UserInfoHolder;
 import org.tyuan.service.dao.mapper.SysRoleMapper;
 import org.tyuan.service.dao.mapper.SysUserCredentialsMapper;
 import org.tyuan.service.dao.mapper.customize.COrganizationInstitutionMapper;
 import org.tyuan.service.dao.mapper.customize.CSysUserMapper;
 import org.tyuan.service.dao.mapper.customize.CSysUserRoleMapper;
-import org.tyuan.service.dao.model.*;
-import org.tyuan.service.dao.model.custom.COrganizationInstitution;
 import org.tyuan.service.data.ErrorCodeConsts;
+import org.tyuan.service.data.model.*;
+import org.tyuan.service.data.model.custom.COrganizationInstitution;
+import org.tyuan.service.data.security.Authority;
 import org.tyuan.service.data.vo.DataTableParam;
 import org.tyuan.service.data.vo.DeleteVo;
 import org.tyuan.service.data.vo.sys.SysUserTableParamsVo;
@@ -120,7 +121,7 @@ public class SysUserServiceImpl implements SysUserService {
             }
         }
         // 只允许查看普通用户
-        criteria.andUserTypeNotEqualTo(USER_TYPE.SYS.getType());
+        criteria.andAuthorityEqualTo(Authority.SYS_ADMIN.name());
         return example;
     }
 
@@ -161,7 +162,7 @@ public class SysUserServiceImpl implements SysUserService {
 
 
         // 只允许创建普通用户
-        sysUser.setUserType(USER_TYPE.ORDINARY.getType());
+        sysUser.setAuthority(Authority.TENANT_ADMIN.name());
         cSysUserMapper.insertSelective(sysUser);
 
         // 插入完成后，得到最后一个ID，根据最后一个ID生成员工编号
@@ -207,7 +208,7 @@ public class SysUserServiceImpl implements SysUserService {
         sysUser.setUpdateBy(UserInfoHolder.getUserName());
 
         // 只允许修改普通用户
-        sysUser.setUserType(USER_TYPE.ORDINARY.getType());
+        sysUser.setAuthority(Authority.TENANT_ADMIN.name());
         cSysUserMapper.updateByPrimaryKeySelective(sysUser);
 
         // 先解除绑定后在绑定
@@ -296,7 +297,7 @@ public class SysUserServiceImpl implements SysUserService {
         if (null == user) {
             throw new ServiceException(ErrorCodeConsts.ERROR, "未找到用户");
         }
-        if (USER_TYPE.SYS.getType() == user.getUserType()) {
+        if (Authority.SYS_ADMIN.name().equals(user.getAuthority())) {
             throw new ServiceException(ErrorCodeConsts.ERROR, "无法禁用系统用户");
         }
         SysUser sysUser = new SysUser();

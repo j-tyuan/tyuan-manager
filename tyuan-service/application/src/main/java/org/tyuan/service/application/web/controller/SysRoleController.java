@@ -26,19 +26,19 @@ import com.google.common.collect.Lists;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.tyuan.service.data.ResultData;
-import org.tyuan.common.annotation.Log;
-import org.tyuan.common.enums.LogType;
+import org.tyuan.service.common.annotation.AuditLog;
 import org.tyuan.common.exception.ServiceException;
+import org.tyuan.service.application.service.SysRoleService;
 import org.tyuan.service.application.web.PermissionConstant;
 import org.tyuan.service.application.web.RouteConstant;
 import org.tyuan.service.data.ErrorCodeConsts;
+import org.tyuan.service.data.ResultData;
 import org.tyuan.service.data.ResultTable;
-import org.tyuan.service.dao.model.SysRole;
+import org.tyuan.service.data.audit.ActionType;
+import org.tyuan.service.data.model.SysRole;
 import org.tyuan.service.data.vo.DeleteVo;
 import org.tyuan.service.data.vo.sys.SysRoleTableParamsVo;
 import org.tyuan.service.data.vo.sys.SysRoleVo;
-import org.tyuan.service.application.service.SysRoleService;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -51,7 +51,7 @@ public class SysRoleController {
 
     @RequiresPermissions(PermissionConstant.SYS_ROLE_LIST)
     @PostMapping(RouteConstant.ROUTER_SYS_ROLE)
-    @Log(type =LogType.SELECT, value = "查看角色列表")
+    @AuditLog(type =ActionType.QUERY, value = "查看角色列表")
     public ResultTable list(@RequestBody SysRoleTableParamsVo requestParam) {
         ResultTable resultTable = new ResultTable();
         try {
@@ -66,7 +66,7 @@ public class SysRoleController {
 
     @RequiresPermissions(PermissionConstant.SYS_ROLE_LIST)
     @GetMapping(RouteConstant.ROUTER_SYS_ROLE)
-    @Log(type = LogType.SELECT, value = "查看角色")
+    @AuditLog(type =ActionType.QUERY, value = "查看角色")
     public ResultData get(@RequestParam(value = "id", required = false) Long id) {
         try {
 
@@ -89,7 +89,7 @@ public class SysRoleController {
 
     @RequiresPermissions(PermissionConstant.SYS_ROLE_DEL)
     @PostMapping(RouteConstant.ROUTER_SYS_ROLE_DEL)
-    @Log(type =LogType.DEL, value = "删除角色")
+    @AuditLog(type =ActionType.DELETED, value = "删除角色")
     public ResultData del(@RequestBody DeleteVo deleteVo) {
         try {
             service.del(deleteVo);
@@ -103,7 +103,7 @@ public class SysRoleController {
 
     @RequiresPermissions(PermissionConstant.SYS_ROLE_ADD)
     @PostMapping(RouteConstant.ROUTER_SYS_ROLE_ADD)
-    @Log(type =LogType.ADD, value = "添加角色")
+    @AuditLog(type = ActionType.ADDED, value = "添加角色")
     public ResultData add(@RequestBody @Validated SysRoleVo k) {
         try {
             service.add(k);
@@ -117,7 +117,7 @@ public class SysRoleController {
 
     @RequiresPermissions(PermissionConstant.SYS_ROLE_EDIT)
     @PostMapping(RouteConstant.ROUTER_SYS_ROLE_EDIT)
-    @Log(type =LogType.EDIT, value = "修改角色")
+    @AuditLog(type =ActionType.UPDATED, value = "修改角色")
     public ResultData edit(@RequestBody @Validated SysRoleVo k) {
         try {
             service.edit(k);

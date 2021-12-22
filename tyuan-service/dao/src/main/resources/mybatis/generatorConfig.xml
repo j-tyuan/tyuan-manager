@@ -9,6 +9,8 @@
     <!-- targetRuntime：设置生成的文件适用于那个 mybatis 版本 -->
     <context id="default" targetRuntime="MyBatis3">
 
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"></plugin>
+
         <!--optional,旨在创建class时，对注释进行控制-->
         <commentGenerator>
             <property name="suppressDate" value="true"/>
@@ -33,8 +35,8 @@
 
         <!-- targetPackage：生成的实体类所在的包 -->
         <!-- targetProject：生成的实体类所在的硬盘位置 -->
-        <javaModelGenerator targetPackage="org.tyuan.service.dao.model"
-                            targetProject="./src/main/java">
+        <javaModelGenerator targetPackage="org.tyuan.service.data.model"
+                            targetProject="./../domain/src/main/java">
             <!-- 是否允许子包 -->
             <property name="enableSubPackages" value="false"/>
             <!-- 是否对modal添加构造函数 -->
@@ -84,13 +86,6 @@
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
         <table tableName="sys_user_avatar" domainObjectName="SysUserAvatar"
-               enableCountByExample="true" enableUpdateByExample="true"
-               enableDeleteByExample="true" enableSelectByExample="true"
-               selectByExampleQueryId="true">
-            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
-        </table>
-
-        <table tableName="sys_login_log" domainObjectName="SysLoginLog"
                enableCountByExample="true" enableUpdateByExample="true"
                enableDeleteByExample="true" enableSelectByExample="true"
                selectByExampleQueryId="true">
@@ -154,7 +149,8 @@
                selectByExampleQueryId="true">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
-        <table tableName="sys_log" domainObjectName="SysLog"
+
+        <table tableName="audit_log" domainObjectName="AuditLog"
                enableCountByExample="true" enableUpdateByExample="true"
                enableDeleteByExample="true" enableSelectByExample="true"
                selectByExampleQueryId="true">
@@ -166,5 +162,6 @@
                selectByExampleQueryId="true">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
+
     </context>
 </generatorConfiguration>

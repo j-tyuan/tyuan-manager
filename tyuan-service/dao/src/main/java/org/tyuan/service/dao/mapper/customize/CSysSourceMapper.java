@@ -16,7 +16,7 @@
 package org.tyuan.service.dao.mapper.customize;
 
 import org.tyuan.service.dao.mapper.SysSourceMapper;
-import org.tyuan.service.dao.model.custom.CSysSource;
+import org.tyuan.service.data.model.custom.CSysSource;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;

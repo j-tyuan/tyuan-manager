@@ -3,10 +3,10 @@ package org.tyuan.service.dao.mapper;
 import java.util.List;
 import java.util.Map;
 import org.apache.ibatis.jdbc.SQL;
-import org.tyuan.service.dao.model.SysUserCredentials;
-import org.tyuan.service.dao.model.SysUserCredentialsExample.Criteria;
-import org.tyuan.service.dao.model.SysUserCredentialsExample.Criterion;
-import org.tyuan.service.dao.model.SysUserCredentialsExample;
+import org.tyuan.service.data.model.SysUserCredentials;
+import org.tyuan.service.data.model.SysUserCredentialsExample.Criteria;
+import org.tyuan.service.data.model.SysUserCredentialsExample.Criterion;
+import org.tyuan.service.data.model.SysUserCredentialsExample;
 
 public class SysUserCredentialsSqlProvider {
     /**

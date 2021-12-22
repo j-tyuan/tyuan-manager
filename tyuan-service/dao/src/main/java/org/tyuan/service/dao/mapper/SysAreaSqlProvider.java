@@ -3,10 +3,10 @@ package org.tyuan.service.dao.mapper;
 import java.util.List;
 import java.util.Map;
 import org.apache.ibatis.jdbc.SQL;
-import org.tyuan.service.dao.model.SysArea;
-import org.tyuan.service.dao.model.SysAreaExample.Criteria;
-import org.tyuan.service.dao.model.SysAreaExample.Criterion;
-import org.tyuan.service.dao.model.SysAreaExample;
+import org.tyuan.service.data.model.SysArea;
+import org.tyuan.service.data.model.SysAreaExample.Criteria;
+import org.tyuan.service.data.model.SysAreaExample.Criterion;
+import org.tyuan.service.data.model.SysAreaExample;
 
 public class SysAreaSqlProvider {
     /**

@@ -3,10 +3,10 @@ package org.tyuan.service.dao.mapper;
 import java.util.List;
 import java.util.Map;
 import org.apache.ibatis.jdbc.SQL;
-import org.tyuan.service.dao.model.SysUserWebLayout;
-import org.tyuan.service.dao.model.SysUserWebLayoutExample.Criteria;
-import org.tyuan.service.dao.model.SysUserWebLayoutExample.Criterion;
-import org.tyuan.service.dao.model.SysUserWebLayoutExample;
+import org.tyuan.service.data.model.SysUserWebLayout;
+import org.tyuan.service.data.model.SysUserWebLayoutExample.Criteria;
+import org.tyuan.service.data.model.SysUserWebLayoutExample.Criterion;
+import org.tyuan.service.data.model.SysUserWebLayoutExample;
 
 public class SysUserWebLayoutSqlProvider {
     /**

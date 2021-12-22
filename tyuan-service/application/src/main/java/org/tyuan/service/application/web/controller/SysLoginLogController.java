@@ -20,13 +20,13 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.tyuan.common.annotation.Log;
-import org.tyuan.common.enums.LogType;
+import org.tyuan.service.common.annotation.AuditLog;
+import org.tyuan.service.application.service.SysLoginLogService;
 import org.tyuan.service.application.web.PermissionConstant;
 import org.tyuan.service.application.web.RouteConstant;
 import org.tyuan.service.data.ResultTable;
+import org.tyuan.service.data.audit.ActionType;
 import org.tyuan.service.data.vo.sys.SysLoginLogTableParamsVo;
-import org.tyuan.service.application.service.SysLoginLogService;
 
 import javax.annotation.Resource;
 
@@ -38,7 +38,7 @@ public class SysLoginLogController {
 
     @RequiresPermissions(PermissionConstant.SYS_LOG_LOGIN_LIST)
     @PostMapping(RouteConstant.ROUTER_SYS_LOG_LOGIN_LIST)
-    @Log(type = LogType.SELECT, value = "查看登陆日志")
+    @AuditLog(type = ActionType.QUERY, value = "查看登陆日志")
     public ResultTable list(@RequestBody SysLoginLogTableParamsVo param) {
         ResultTable resultData = new ResultTable();
         try {

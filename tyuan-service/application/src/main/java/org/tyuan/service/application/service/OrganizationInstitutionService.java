@@ -20,8 +20,8 @@
  */
 package org.tyuan.service.application.service;
 
-import org.tyuan.service.dao.model.OrganizationInstitution;
-import org.tyuan.service.dao.model.custom.COrganizationInstitution;
+import org.tyuan.service.data.model.OrganizationInstitution;
+import org.tyuan.service.data.model.custom.COrganizationInstitution;
 
 import java.util.List;
 

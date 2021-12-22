@@ -18,7 +18,7 @@ package org.tyuan.service.application.service.security.auth.jwt.extractor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.stereotype.Component;
-import org.thingsboard.server.config.ThingsboardSecurityConfiguration;
+import org.tyuan.service.application.config.SecurityConfiguration;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -29,7 +29,7 @@ public class JwtQueryTokenExtractor implements TokenExtractor {
     public String extract(HttpServletRequest request) {
         String token = null;
         if (request.getParameterMap() != null && !request.getParameterMap().isEmpty()) {
-            String[] tokenParamValue = request.getParameterMap().get(ThingsboardSecurityConfiguration.JWT_TOKEN_QUERY_PARAM);
+            String[] tokenParamValue = request.getParameterMap().get(SecurityConfiguration.JWT_TOKEN_QUERY_PARAM);
             if (tokenParamValue != null && tokenParamValue.length == 1) {
                 token = tokenParamValue[0];
             }

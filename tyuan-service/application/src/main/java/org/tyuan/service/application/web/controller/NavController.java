@@ -24,13 +24,12 @@ import com.google.common.collect.Lists;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.tyuan.common.ITree;
-import org.tyuan.service.data.ResultData;
 import org.tyuan.common.utils.TreeUtils;
-import org.tyuan.service.application.web.RouteConstant;
-import org.tyuan.service.application.cache.LocalCache;
-import org.tyuan.service.dao.model.custom.CSysSource;
-import org.tyuan.service.data.vo.sys.MenuDataItemVo;
 import org.tyuan.service.application.service.SysSourceService;
+import org.tyuan.service.application.web.RouteConstant;
+import org.tyuan.service.data.ResultData;
+import org.tyuan.service.data.model.custom.CSysSource;
+import org.tyuan.service.data.vo.sys.MenuDataItemVo;
 
 import javax.annotation.Resource;
 import java.util.Collections;
@@ -45,7 +44,7 @@ public class NavController {
 
     @GetMapping(RouteConstant.ROUTER_SYS_NAV)
     public ResultData getNav() {
-        List<CSysSource> list = sysMenuService.authorityFilter(LocalCache.SYS_SOURCE.getData());
+        List<CSysSource> list = sysMenuService.authorityFilter(sysMenuService.getAll());
         List<MenuDataItemVo> newList = Lists.newArrayList();
         list.forEach(e -> {
             MenuDataItemVo leftMenuVo = new MenuDataItemVo();

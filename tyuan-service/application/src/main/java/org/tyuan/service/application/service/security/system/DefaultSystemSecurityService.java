@@ -20,6 +20,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import lombok.extern.slf4j.Slf4j;
 import org.passay.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -27,8 +29,8 @@ import org.tyuan.common.utils.JacksonUtil;
 import org.tyuan.service.application.service.SysUserService;
 import org.tyuan.service.application.service.impl.SysUserServiceImpl;
 import org.tyuan.service.dao.exception.DataValidationException;
-import org.tyuan.service.dao.model.SysUser;
-import org.tyuan.service.dao.model.SysUserCredentials;
+import org.tyuan.service.data.model.SysUser;
+import org.tyuan.service.data.model.SysUserCredentials;
 import org.tyuan.service.data.security.SecuritySettings;
 import org.tyuan.service.data.security.UserPasswordPolicy;
 
@@ -64,6 +66,13 @@ public class DefaultSystemSecurityService implements SystemSecurityService {
 
     @Override
     public void validateUserCredentials(Long userId, SysUserCredentials userCredentials, String username, String password) throws AuthenticationException {
+        if (!encoder.matches(password, userCredentials.getPassword())) {
+            throw new BadCredentialsException("Authentication Failed. Username or Password not valid.");
+        }
+
+        if (!userCredentials.getEnabled()) {
+            throw new DisabledException("User is not active");
+        }
 
     }
 

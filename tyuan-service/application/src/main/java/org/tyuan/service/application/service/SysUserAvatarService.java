@@ -15,7 +15,7 @@
  */
 package org.tyuan.service.application.service;
 
-import org.tyuan.service.dao.model.SysUserAvatar;
+import org.tyuan.service.data.model.SysUserAvatar;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;

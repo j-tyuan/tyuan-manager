@@ -16,11 +16,8 @@
 package org.tyuan.service.application.service;
 
 import com.github.pagehelper.PageInfo;
-import org.tyuan.service.dao.model.SysLoginLog;
-import org.tyuan.service.dao.model.SysUser;
+import org.tyuan.service.data.model.SysLoginLog;
 import org.tyuan.service.data.vo.sys.SysLoginLogTableParamsVo;
-
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * TODO
@@ -32,11 +29,4 @@ import javax.servlet.http.HttpServletRequest;
 public interface SysLoginLogService extends BaseService<SysLoginLog> {
 
     PageInfo getByParams(SysLoginLogTableParamsVo param);
-
-    /**
-     * 记录登陆日志
-     * @param sysUser
-     * @param request
-     */
-    void add(SysUser sysUser, HttpServletRequest request);
 }

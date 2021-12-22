@@ -14,8 +14,8 @@ import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.type.JdbcType;
-import org.tyuan.service.dao.model.SysSource;
-import org.tyuan.service.dao.model.SysSourceExample;
+import org.tyuan.service.data.model.SysSource;
+import org.tyuan.service.data.model.SysSourceExample;
 
 public interface SysSourceMapper {
     /**

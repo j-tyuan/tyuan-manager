@@ -18,22 +18,20 @@ package org.tyuan.service.application.service.security.auth.rest;
 import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.LockedException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.authentication.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
+import org.tyuan.service.application.service.AuditLogService;
 import org.tyuan.service.application.service.SysUserService;
 import org.tyuan.service.application.service.security.model.SecurityUser;
 import org.tyuan.service.application.service.security.model.UserPrincipal;
 import org.tyuan.service.application.service.security.system.SystemSecurityService;
-import org.tyuan.service.dao.model.SysUser;
-import org.tyuan.service.dao.model.SysUserCredentials;
 import org.tyuan.service.data.audit.ActionType;
+import org.tyuan.service.data.model.SysUser;
+import org.tyuan.service.data.model.SysUserCredentials;
 import ua_parser.Client;
 
 
@@ -43,12 +41,15 @@ public class RestAuthenticationProvider implements AuthenticationProvider {
 
     private final SystemSecurityService systemSecurityService;
     private final SysUserService userService;
+    private final AuditLogService auditLogService;
 
     @Autowired
     public RestAuthenticationProvider(final SysUserService userService,
-                                      final SystemSecurityService systemSecurityService) {
+                                      final SystemSecurityService systemSecurityService,
+                                      AuditLogService auditLogService) {
         this.userService = userService;
         this.systemSecurityService = systemSecurityService;
+        this.auditLogService = auditLogService;
     }
 
     @Override
@@ -80,14 +81,15 @@ public class RestAuthenticationProvider implements AuthenticationProvider {
                     throw new UsernameNotFoundException("User credentials not found");
                 }
 
-                systemSecurityService.validatePassword(user.getId(), password, userCredentials);
+                systemSecurityService.validateUserCredentials(user.getId(), userCredentials, username, password);
             } catch (LockedException e) {
                 logLoginAction(user, authentication, ActionType.LOCKOUT, null);
                 throw e;
             }
 
-            //if (user.getAuthority() == null)
-            //    throw new InsufficientAuthenticationException("User has no authority assigned");
+            if (user.getAuthority() == null) {
+                throw new InsufficientAuthenticationException("User has no authority assigned");
+            }
 
             SecurityUser securityUser = new SecurityUser(user, true, userPrincipal);
             logLoginAction(user, authentication, ActionType.LOGIN, null);
@@ -155,5 +157,6 @@ public class RestAuthenticationProvider implements AuthenticationProvider {
             }
         }
         log.info("User :{}   actionType:{} e:{} clientAddress:{} browser:{} os:{} device:{}", JSONObject.toJSONString(user), actionType, e, clientAddress, browser, os, device);
+        auditLogService.logAction(user.getId(), user.getUserName(), actionType, e, clientAddress, browser, os, device);
     }
 }

@@ -26,16 +26,16 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.tyuan.service.data.ResultData;
-import org.tyuan.common.annotation.Log;
-import org.tyuan.common.enums.LogType;
+import org.tyuan.service.common.annotation.AuditLog;
+import org.tyuan.service.application.cache.UserInfoCacheService;
+import org.tyuan.service.application.service.SysRoleUserService;
 import org.tyuan.service.application.web.PermissionConstant;
 import org.tyuan.service.application.web.RouteConstant;
-import org.tyuan.service.application.cache.UserInfoCacheService;
+import org.tyuan.service.data.ResultData;
 import org.tyuan.service.data.ResultTable;
+import org.tyuan.service.data.audit.ActionType;
 import org.tyuan.service.data.vo.sys.RoleUserTableParamsVo;
 import org.tyuan.service.data.vo.sys.SysRoleUserVo;
-import org.tyuan.service.application.service.SysRoleUserService;
 
 import javax.annotation.Resource;
 
@@ -63,7 +63,7 @@ public class SysRoleUserController {
 
     @RequiresPermissions(PermissionConstant.SYS_ROLE_USER_BIND)
     @PostMapping(RouteConstant.ROUTER_SYS_ROLE_USER_BIND)
-    @Log(type = LogType.EDIT, value = "绑定用户")
+    @AuditLog(type = ActionType.UPDATED, value = "绑定用户")
     public ResultData bindUser(@RequestBody SysRoleUserVo vo) {
         ResultData resultData = new ResultData();
         service.bindUser(vo);
@@ -75,7 +75,7 @@ public class SysRoleUserController {
 
     @RequiresPermissions(PermissionConstant.SYS_ROLE_USER_UN_BIND)
     @PostMapping(RouteConstant.ROUTER_SYS_ROLE_USER_UNBIND)
-    @Log(type =LogType.EDIT, value = "解绑用户")
+    @AuditLog(type =ActionType.UPDATED, value = "解绑用户")
     public ResultData unbindUser(@RequestBody SysRoleUserVo vo) {
         ResultData resultData = new ResultData();
         service.unbindUser(vo);

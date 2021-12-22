@@ -17,25 +17,29 @@ package org.tyuan.service.application.web.controller;
 
 import com.github.pagehelper.PageInfo;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.springframework.data.redis.core.HashOperations;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.tyuan.service.data.ResultData;
-import org.tyuan.common.annotation.Log;
-import org.tyuan.common.enums.LogType;
 import org.tyuan.common.exception.ServiceException;
-import org.tyuan.service.application.web.PermissionConstant;
-import org.tyuan.service.application.web.RouteConstant;
+import org.tyuan.service.common.annotation.AuditLog;
 import org.tyuan.service.application.cache.LocalCache;
 import org.tyuan.service.application.cache.UserInfoCacheService;
+import org.tyuan.service.application.service.SysUserAvatarService;
+import org.tyuan.service.application.service.SysUserService;
+import org.tyuan.service.application.web.PermissionConstant;
+import org.tyuan.service.application.web.RouteConstant;
 import org.tyuan.service.data.ErrorCodeConsts;
+import org.tyuan.service.data.ResultData;
 import org.tyuan.service.data.ResultTable;
-import org.tyuan.service.dao.model.custom.COrganizationInstitution;
+import org.tyuan.service.data.SysParamConsts;
+import org.tyuan.service.data.audit.ActionType;
+import org.tyuan.service.data.cache.CacheConstant;
+import org.tyuan.service.data.model.custom.COrganizationInstitution;
 import org.tyuan.service.data.vo.DeleteVo;
 import org.tyuan.service.data.vo.sys.SysUserTableParamsVo;
 import org.tyuan.service.data.vo.sys.SysUserVo;
-import org.tyuan.service.application.service.SysUserAvatarService;
-import org.tyuan.service.application.service.SysUserService;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -57,10 +61,13 @@ public class SysUserController {
     @Resource
     private UserInfoCacheService userInfoCacheService;
 
+    @Resource
+    private RedisTemplate redisTemplate;
+
 
     @RequiresPermissions(PermissionConstant.SYS_USER_LIST)
     @PostMapping(RouteConstant.ROUTER_SYS_USER)
-    @Log(type = LogType.SELECT, value = "查看用户列表")
+    @AuditLog(type = ActionType.QUERY, value = "查看用户列表")
     public ResultTable list(@RequestBody SysUserTableParamsVo requestParam) {
         ResultTable resultTable = new ResultTable();
         try {
@@ -83,7 +90,7 @@ public class SysUserController {
 
     @RequiresPermissions(PermissionConstant.SYS_USER_DEL)
     @PostMapping(RouteConstant.ROUTER_SYS_USER_DEL)
-    @Log(type = LogType.DEL, value = "删除用户")
+    @AuditLog(type = ActionType.DELETED, value = "删除用户")
     public ResultData del(@RequestBody DeleteVo deleteVo) {
         try {
             sysUserService.del(deleteVo);
@@ -97,7 +104,7 @@ public class SysUserController {
 
     @RequiresPermissions(PermissionConstant.SYS_USER_ADD)
     @PostMapping(RouteConstant.ROUTER_SYS_USER_ADD)
-    @Log(type = LogType.ADD, value = "添加用户")
+    @AuditLog(type = ActionType.ADDED, value = "添加用户")
     public ResultData add(@RequestBody @Validated SysUserVo k) {
         try {
             sysUserService.add(k);
@@ -111,7 +118,7 @@ public class SysUserController {
 
     @RequiresPermissions(PermissionConstant.SYS_USER_EDIT)
     @PostMapping(RouteConstant.ROUTER_SYS_USER_EDIT)
-    @Log(type = LogType.EDIT, value = "修改用户")
+    @AuditLog(type = ActionType.UPDATED, value = "修改用户")
     public ResultData edit(@RequestBody @Validated SysUserVo k) {
         try {
             sysUserService.edit(k);
@@ -125,7 +132,7 @@ public class SysUserController {
 
     @RequiresPermissions(PermissionConstant.SYS_USER_DISABLE)
     @PostMapping(RouteConstant.ROUTER_SYS_USER_DISABLE)
-    @Log(type = LogType.EDIT, value = "修改用户状态")
+    @AuditLog(type = ActionType.UPDATED, value = "修改用户状态")
     public ResultData disable(@PathVariable(value = "uid") Long userId,
                               @PathVariable(value = "disable", required = false) Integer disable) {
         try {
@@ -178,4 +185,12 @@ public class SysUserController {
         resultData.setData(roles);
         return resultData;
     }
+
+    @GetMapping(RouteConstant.ROUTER_WATER_MARK)
+    public ResultData watermark() {
+        HashOperations operations = redisTemplate.opsForHash();
+        Object o = operations.get(CacheConstant.SYS_PARAM_MAP, SysParamConsts.SYS_WATER_MARK);
+        return new ResultData().setData(o);
+    }
+
 }

@@ -16,7 +16,7 @@
 package org.tyuan.service.data.vo.sys;
 
 
-import org.tyuan.service.dao.model.SysParam;
+import org.tyuan.service.data.model.SysParam;
 
 import java.io.Serializable;
 

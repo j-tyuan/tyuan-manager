@@ -32,6 +32,11 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.16</version>
         </dependency>
+        <dependency>
+            <groupId>org.tyuan.service</groupId>
+            <artifactId>domain</artifactId>
+            <version>${tyuan-version}</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
