@@ -36,19 +36,18 @@
 package org.tyuan.service.application.web.controller;
 
 import com.github.pagehelper.PageInfo;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.tyuan.service.common.annotation.AuditLog;
 import org.tyuan.common.exception.ServiceException;
 import org.tyuan.service.application.service.SysDictService;
-import org.tyuan.service.application.web.PermissionConstant;
 import org.tyuan.service.application.web.RouteConstant;
-import org.tyuan.service.data.audit.ActionType;
-import org.tyuan.service.data.model.SysDict;
+import org.tyuan.service.common.annotation.AuditLog;
 import org.tyuan.service.data.DictTypeEnum;
 import org.tyuan.service.data.ResultData;
 import org.tyuan.service.data.ResultTable;
+import org.tyuan.service.data.audit.ActionType;
+import org.tyuan.service.data.model.SysDict;
 import org.tyuan.service.data.vo.DeleteVo;
 import org.tyuan.service.data.vo.sys.SysDictTableParamsVo;
 import org.tyuan.service.data.vo.sys.SysDictVo;
@@ -64,7 +63,7 @@ public class SysDictController {
     @Resource
     SysDictService service;
 
-    @RequiresPermissions(PermissionConstant.SYS_DICT_LIST)
+    @PreAuthorize("hasAnyAuthority('SYS_ADMIN','sys:dict:list')")
     @PostMapping(RouteConstant.ROUTER_SYS_DICT)
     @AuditLog(type =ActionType.QUERY, value = "查看字典")
     public ResultTable list(@RequestBody SysDictTableParamsVo requestParam) {
@@ -78,7 +77,7 @@ public class SysDictController {
         }
     }
 
-    @RequiresPermissions(PermissionConstant.SYS_DICT_DEL)
+    @PreAuthorize("hasAnyAuthority('SYS_ADMIN','sys:dict:del')")
     @PostMapping(RouteConstant.ROUTER_SYS_DICT_DEL)
     @AuditLog(type = ActionType.DELETED, value = "删除字典")
     public ResultData del(@RequestBody DeleteVo deleteVo) {
@@ -92,7 +91,7 @@ public class SysDictController {
         }
     }
 
-    @RequiresPermissions(PermissionConstant.SYS_DICT_ADD)
+    @PreAuthorize("hasAnyAuthority('SYS_ADMIN','sys:dict:add')")
     @PostMapping(RouteConstant.ROUTER_SYS_DICT_ADD)
     @AuditLog(type = ActionType.ADDED, value = "添加字典")
     public ResultData add(@RequestBody @Validated SysDictVo k) throws ServiceException {
@@ -101,7 +100,7 @@ public class SysDictController {
         return new ResultData();
     }
 
-    @RequiresPermissions(PermissionConstant.SYS_DICT_EDIT)
+    @PreAuthorize("hasAnyAuthority('SYS_ADMIN','sys:dict:edit')")
     @PostMapping(RouteConstant.ROUTER_SYS_DICT_EDIT)
     @AuditLog(type = ActionType.UPDATED, value = "修改字典")
     public ResultData edit(@RequestBody @Validated SysDictVo k) {
@@ -115,7 +114,7 @@ public class SysDictController {
         }
     }
 
-    @RequiresPermissions(PermissionConstant.SYS_DICT_LIST)
+    @PreAuthorize("hasAnyAuthority('SYS_ADMIN','sys:dict:list')")
     @GetMapping(RouteConstant.ROUTER_SYS_DICT_GET_TYPES)
     public ResultData getTypes() {
 
@@ -125,7 +124,7 @@ public class SysDictController {
         return resultData;
     }
 
-    @RequiresPermissions(PermissionConstant.SYS_DICT_LIST)
+    @PreAuthorize("hasAnyAuthority('SYS_ADMIN','sys:dict:list')")
     @GetMapping(RouteConstant.ROUTER_SYS_DICT_GET_BY_TYPE)
     public ResultData getByType(@PathVariable(value = "type") String type) {
         Map<String, List<SysDict>> maps = service.getByType(type);

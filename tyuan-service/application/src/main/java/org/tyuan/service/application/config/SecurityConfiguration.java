@@ -153,7 +153,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) {
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(restAuthenticationProvider);
         auth.authenticationProvider(jwtAuthenticationProvider);
         auth.authenticationProvider(refreshTokenAuthenticationProvider);
@@ -188,4 +188,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         ;
 
     }
+
+
 }

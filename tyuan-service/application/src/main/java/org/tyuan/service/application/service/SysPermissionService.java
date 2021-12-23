@@ -52,4 +52,11 @@ public interface SysPermissionService extends BaseService<SysPermission> {
      * @return
      */
     List<SysPermission> getAll();
+
+    /**
+     * 获取权限
+     * @param uid
+     * @return
+     */
+    List<String> getByUserId(Long uid);
 }

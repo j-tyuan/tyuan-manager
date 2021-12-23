@@ -17,22 +17,22 @@ package org.tyuan.service.application.service.impl;
 
 import com.google.common.collect.Lists;
 import org.apache.commons.collections.CollectionUtils;
+import org.springframework.aop.framework.AopContext;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.tyuan.service.application.service.SysPermissionService;
+import org.tyuan.service.application.service.SysRoleUserService;
+import org.tyuan.service.application.service.SysUserService;
 import org.tyuan.service.dao.mapper.SysPermissionMapper;
 import org.tyuan.service.dao.mapper.customize.CSysRolePermissionMapper;
-import org.tyuan.service.data.model.SysPermission;
-import org.tyuan.service.data.model.SysPermissionExample;
-import org.tyuan.service.data.model.SysRolePermission;
-import org.tyuan.service.data.model.SysRolePermissionExample;
+import org.tyuan.service.data.model.*;
 
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.tyuan.service.data.cache.CacheConstant.SYS_PERMISSION_CACHE_ALL;
-import static org.tyuan.service.data.cache.CacheConstant.SYS_PERMISSION_CACHE_ROLE;
+import static org.tyuan.service.data.cache.CacheConstant.SYS_PERMISSION_ROLE_CACHE;
 
 @Service
 public class SysPermissionServiceImpl implements SysPermissionService {
@@ -43,13 +43,19 @@ public class SysPermissionServiceImpl implements SysPermissionService {
     @Resource
     private CSysRolePermissionMapper cSysRolePermissionMapper;
 
+    @Resource
+    private SysUserService sysUserService;
+
+    @Resource
+    SysRoleUserService sysRoleUserService;
+
     @Override
     public SysPermission getById(Long id) {
         return sysPermissionMapper.selectByPrimaryKey(id);
     }
 
     @Override
-    @Cacheable(cacheNames = SYS_PERMISSION_CACHE_ALL, key = "")
+    @Cacheable(cacheNames = SYS_PERMISSION_CACHE_ALL, key = "ALL")
     public List<SysPermission> getAll() {
         return sysPermissionMapper.selectByExample(null);
     }
@@ -68,7 +74,7 @@ public class SysPermissionServiceImpl implements SysPermissionService {
     }
 
     @Override
-    @Cacheable(cacheNames = SYS_PERMISSION_CACHE_ROLE, key = "{#roleId}")
+    @Cacheable(cacheNames = SYS_PERMISSION_ROLE_CACHE, key = "{#roleId}")
     public List<SysPermission> getByRoleId(Long roleId) {
         SysRolePermissionExample example = new SysRolePermissionExample();
         example.createCriteria().andRoleIdEqualTo(roleId);
@@ -83,5 +89,22 @@ public class SysPermissionServiceImpl implements SysPermissionService {
         sysPermissionExample.createCriteria().andIdIn(permissionIds);
         List<SysPermission> permissions = sysPermissionMapper.selectByExample(sysPermissionExample);
         return permissions;
+    }
+
+    @Override
+    public List<String> getByUserId(Long uid) {
+        List<SysRole> roles = sysRoleUserService.getRoleByUserId(uid);
+        List<String> roleCodes = Lists.newArrayList();
+        List<String> perms = Lists.newArrayList();
+
+        SysPermissionService self = (SysPermissionService) AopContext.currentProxy();
+        for (SysRole role : roles) {
+            roleCodes.add(role.getRoleCode());
+            List<SysPermission> list = self.getByRoleId(role.getId());
+            for (SysPermission item : list) {
+                perms.add(item.getPermission());
+            }
+        }
+        return perms;
     }
 }

@@ -60,6 +60,7 @@ import org.tyuan.common.exception.ServiceException;
 import org.tyuan.service.application.cache.UserInfoCacheService;
 import org.tyuan.service.application.service.SysLoginLogService;
 import org.tyuan.service.application.service.SysPermissionService;
+import org.tyuan.service.application.service.SysRoleUserService;
 import org.tyuan.service.application.service.SysUserService;
 import org.tyuan.service.application.web.RouteConstant;
 import org.tyuan.service.application.web.WebConstant;
@@ -99,12 +100,14 @@ public class SysController {
     private SysUserService sysUserService;
 
     @Resource
+    private SysRoleUserService sysRoleUserService;
+
+    @Resource
     private RedisTemplate redisTemplate;
 
     @Resource
     SysLoginLogService sysLoginLogService;
 
-    @PostMapping(RouteConstant.ROUTER_SYS_LOGIN_ACCOUNT)
     public LoginResult loginAccount(@RequestBody LoginVo loginVo,
                                     HttpServletRequest request,
                                     HttpServletResponse response) throws ServiceException {
@@ -205,7 +208,7 @@ public class SysController {
             userInfoCacheService.putPerm(userToken, Lists.newArrayList("sys"), exp);
             return;
         }
-        List<SysRole> roles = sysUserService.getRoleByUserId(sysUser.getId());
+        List<SysRole> roles = sysRoleUserService.getRoleByUserId(sysUser.getId());
         List<String> roleCodes = Lists.newArrayList();
         List<String> perms = Lists.newArrayList();
 

@@ -20,19 +20,18 @@
  */
 package org.tyuan.service.application.web.controller;
 
-import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.tyuan.common.ITree;
-import org.tyuan.service.common.annotation.AuditLog;
 import org.tyuan.common.exception.ServiceException;
 import org.tyuan.common.utils.TreeUtils;
 import org.tyuan.service.application.service.SysSourceService;
-import org.tyuan.service.application.web.PermissionConstant;
 import org.tyuan.service.application.web.RouteConstant;
+import org.tyuan.service.common.annotation.AuditLog;
 import org.tyuan.service.data.ResultData;
 import org.tyuan.service.data.audit.ActionType;
 import org.tyuan.service.data.model.custom.CSysSource;
@@ -50,7 +49,7 @@ public class SysSourceController {
     @Resource
     SysSourceService sysSourceService;
 
-    @RequiresPermissions(PermissionConstant.SYS_SOURCE_LIST)
+    @PreAuthorize("hasAnyAuthority('SYS_ADMIN','sys:source:list')")
     @GetMapping(RouteConstant.ROUTER_SYS_SOURCE)
     public ResultData getAll() {
         ResultData resultData = new ResultData();
@@ -62,7 +61,7 @@ public class SysSourceController {
         return resultData;
     }
 
-    @RequiresPermissions(PermissionConstant.SYS_SOURCE_DEL)
+    @PreAuthorize("hasAnyAuthority('SYS_ADMIN','sys:source:del')")
     @PostMapping(RouteConstant.ROUTER_SYS_SOURCE_DEL)
     @AuditLog(type = ActionType.DELETED, value = "删除资源")
     public ResultData del(@RequestBody DeleteVo deleteVo) {
@@ -76,7 +75,7 @@ public class SysSourceController {
         }
     }
 
-    @RequiresPermissions(PermissionConstant.SYS_SOURCE_ADD)
+    @PreAuthorize("hasAnyAuthority('SYS_ADMIN','sys:source:add')")
     @PostMapping(RouteConstant.ROUTER_SYS_SOURCE_ADD)
     @AuditLog(type =ActionType.ADDED, value = "添加资源")
     public ResultData add(@RequestBody @Validated SysUrlVo k) {
@@ -90,7 +89,7 @@ public class SysSourceController {
         }
     }
 
-    @RequiresPermissions(PermissionConstant.SYS_SOURCE_EDIT)
+    @PreAuthorize("hasAnyAuthority('SYS_ADMIN','sys:source:edit')")
     @PostMapping(RouteConstant.ROUTER_SYS_SOURCE_EDIT)
     @AuditLog(type =ActionType.UPDATED, value = "修改资源")
     public ResultData edit(@RequestBody @Validated SysUrlVo k) {

@@ -22,15 +22,14 @@
 package org.tyuan.service.application.web.controller;
 
 import com.github.pagehelper.PageInfo;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.tyuan.service.common.annotation.AuditLog;
 import org.tyuan.service.application.cache.UserInfoCacheService;
 import org.tyuan.service.application.service.SysRoleUserService;
-import org.tyuan.service.application.web.PermissionConstant;
 import org.tyuan.service.application.web.RouteConstant;
+import org.tyuan.service.common.annotation.AuditLog;
 import org.tyuan.service.data.ResultData;
 import org.tyuan.service.data.ResultTable;
 import org.tyuan.service.data.audit.ActionType;
@@ -48,7 +47,7 @@ public class SysRoleUserController {
     @Resource
     UserInfoCacheService userInfoCacheService;
 
-    @RequiresPermissions(PermissionConstant.SYS_ROLE_USER_LIST)
+    @PreAuthorize("hasAnyAuthority('SYS_ADMIN','sys:role:user:list')")
     @PostMapping(RouteConstant.ROUTER_SYS_ROLE_USER)
     public ResultTable getUser(@RequestBody RoleUserTableParamsVo paramsVo) {
         ResultTable resultTable = new ResultTable();
@@ -61,7 +60,7 @@ public class SysRoleUserController {
         }
     }
 
-    @RequiresPermissions(PermissionConstant.SYS_ROLE_USER_BIND)
+    @PreAuthorize("hasAnyAuthority('SYS_ADMIN','sys:role:user:bind')")
     @PostMapping(RouteConstant.ROUTER_SYS_ROLE_USER_BIND)
     @AuditLog(type = ActionType.UPDATED, value = "绑定用户")
     public ResultData bindUser(@RequestBody SysRoleUserVo vo) {
@@ -73,7 +72,7 @@ public class SysRoleUserController {
         return resultData;
     }
 
-    @RequiresPermissions(PermissionConstant.SYS_ROLE_USER_UN_BIND)
+    @PreAuthorize("hasAnyAuthority('SYS_ADMIN','sys:role:user:unbind')")
     @PostMapping(RouteConstant.ROUTER_SYS_ROLE_USER_UNBIND)
     @AuditLog(type =ActionType.UPDATED, value = "解绑用户")
     public ResultData unbindUser(@RequestBody SysRoleUserVo vo) {

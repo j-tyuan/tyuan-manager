@@ -23,14 +23,13 @@ package org.tyuan.service.application.web.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Lists;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.tyuan.service.common.annotation.AuditLog;
 import org.tyuan.common.exception.ServiceException;
 import org.tyuan.service.application.service.SysRoleService;
-import org.tyuan.service.application.web.PermissionConstant;
 import org.tyuan.service.application.web.RouteConstant;
+import org.tyuan.service.common.annotation.AuditLog;
 import org.tyuan.service.data.ErrorCodeConsts;
 import org.tyuan.service.data.ResultData;
 import org.tyuan.service.data.ResultTable;
@@ -49,7 +48,7 @@ public class SysRoleController {
     @Resource
     SysRoleService service;
 
-    @RequiresPermissions(PermissionConstant.SYS_ROLE_LIST)
+    @PreAuthorize("hasAnyAuthority('SYS_ADMIN','sys:role:list')")
     @PostMapping(RouteConstant.ROUTER_SYS_ROLE)
     @AuditLog(type =ActionType.QUERY, value = "查看角色列表")
     public ResultTable list(@RequestBody SysRoleTableParamsVo requestParam) {
@@ -64,7 +63,7 @@ public class SysRoleController {
     }
 
 
-    @RequiresPermissions(PermissionConstant.SYS_ROLE_LIST)
+    @PreAuthorize("hasAnyAuthority('SYS_ADMIN','sys:role:list')")
     @GetMapping(RouteConstant.ROUTER_SYS_ROLE)
     @AuditLog(type =ActionType.QUERY, value = "查看角色")
     public ResultData get(@RequestParam(value = "id", required = false) Long id) {
@@ -87,7 +86,7 @@ public class SysRoleController {
     }
 
 
-    @RequiresPermissions(PermissionConstant.SYS_ROLE_DEL)
+    @PreAuthorize("hasAnyAuthority('SYS_ADMIN','sys:role:del')")
     @PostMapping(RouteConstant.ROUTER_SYS_ROLE_DEL)
     @AuditLog(type =ActionType.DELETED, value = "删除角色")
     public ResultData del(@RequestBody DeleteVo deleteVo) {
@@ -101,7 +100,7 @@ public class SysRoleController {
         }
     }
 
-    @RequiresPermissions(PermissionConstant.SYS_ROLE_ADD)
+    @PreAuthorize("hasAnyAuthority('SYS_ADMIN','sys:role:add')")
     @PostMapping(RouteConstant.ROUTER_SYS_ROLE_ADD)
     @AuditLog(type = ActionType.ADDED, value = "添加角色")
     public ResultData add(@RequestBody @Validated SysRoleVo k) {
@@ -115,7 +114,7 @@ public class SysRoleController {
         }
     }
 
-    @RequiresPermissions(PermissionConstant.SYS_ROLE_EDIT)
+    @PreAuthorize("hasAnyAuthority('SYS_ADMIN','sys:role:edit')")
     @PostMapping(RouteConstant.ROUTER_SYS_ROLE_EDIT)
     @AuditLog(type =ActionType.UPDATED, value = "修改角色")
     public ResultData edit(@RequestBody @Validated SysRoleVo k) {
@@ -129,7 +128,7 @@ public class SysRoleController {
         }
     }
 
-    @RequiresPermissions(PermissionConstant.SYS_ROLE_LIST)
+    @PreAuthorize("hasAnyAuthority('SYS_ADMIN','sys:role:list')")
     @GetMapping(RouteConstant.ROUTER_SYS_ROLE_AUTH)
     public ResultData getAuthByRoleId(@PathVariable("id") Long id) {
         ResultData resultData = new ResultData();

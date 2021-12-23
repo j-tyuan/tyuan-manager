@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 public class RestAuthenticationDetailsSource implements
         AuthenticationDetailsSource<HttpServletRequest, RestAuthenticationDetails> {
 
+    @Override
     public RestAuthenticationDetails buildDetails(HttpServletRequest context) {
         return new RestAuthenticationDetails(context);
     }

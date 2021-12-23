@@ -25,6 +25,7 @@ DROP TABLE IF EXISTS `sys_user_avatar`;
 DROP TABLE IF EXISTS `sys_user_role`;
 DROP TABLE IF EXISTS `sys_user_web_layout`;
 DROP TABLE IF EXISTS `sys_user_credentials`;
+DROP TABLE IF EXISTS `audit_log`;
 
 
 /******************************************/
@@ -90,44 +91,7 @@ CREATE TABLE `sys_dict`
     `del_flag`    tinyint(1)          NOT NULL DEFAULT '0' COMMENT '删除标记',
     PRIMARY KEY (`id`)
 ) COMMENT = '字典表';
-/******************************************/
-/*   DatabaseName = base_manager   */
-/*   TableName = sys_log   */
-/******************************************/
-CREATE TABLE `sys_log`
-(
-    `id`          bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
-    `request_id`  varchar(32)                  DEFAULT '-' COMMENT '唯一请求ID',
-    `create_time` datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `log_type`    int(2)                       DEFAULT '1' COMMENT '日志类型:1.增 2.删 3.改 4.查',
-    `log_title`   varchar(255)                 DEFAULT '' COMMENT '日志标题',
-    `user_id`     bigint(20)                   DEFAULT '-1' COMMENT '用户ID',
-    `user_name`   varchar(64)                  DEFAULT NULL COMMENT '创建者',
-    `remote_addr` varchar(255)                 DEFAULT NULL COMMENT '操作IP地址',
-    `user_agent`  varchar(255)                 DEFAULT NULL COMMENT '用户代理',
-    `request_uri` varchar(255)                 DEFAULT NULL COMMENT '请求URI',
-    `method`      varchar(128)                 DEFAULT NULL COMMENT '操作方式',
-    `params`      text COMMENT '操作提交的数据',
-    `exception`   text COMMENT '异常信息',
-    `duration`    int(11)                      DEFAULT '0' COMMENT '耗时',
-    PRIMARY KEY (`id`)
-) COMMENT = '日志表';
-/******************************************/
-/*   DatabaseName = base_manager   */
-/*   TableName = sys_login_log   */
-/******************************************/
-CREATE TABLE `sys_login_log`
-(
-    `id`          bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
-    `user_id`     bigint(20)                   DEFAULT '0' COMMENT '用户ID',
-    `user_no`     varchar(125)        NOT NULL COMMENT '用户工号',
-    `user_name`   varchar(100)        NOT NULL COMMENT '姓名',
-    `create_time` datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `login_ip`    varchar(100)                 DEFAULT NULL COMMENT '最后登陆IP',
-    `login_date`  datetime                     DEFAULT NULL COMMENT '登陆时间',
-    `avatar_id`   bigint(20)                   DEFAULT '0' COMMENT '用户头像',
-    PRIMARY KEY (`id`)
-) COMMENT = '用户表';
+
 /******************************************/
 /*   DatabaseName = base_manager   */
 /*   TableName = sys_mdict   */
@@ -262,13 +226,13 @@ CREATE TABLE `sys_user`
     `update_time`     datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `user_account`    varchar(100)        NOT NULL COMMENT '登录名',
     `additional_info` TEXT                NOT NULL COMMENT '用户详细信息',
+    `authority`       varchar(64)         NOT NULL COMMENT '用户类型',
     `user_name`       varchar(100)        NOT NULL COMMENT '姓名',
     `user_email`      varchar(200)                 DEFAULT NULL COMMENT '邮箱',
     `user_phone`      varchar(200)                 DEFAULT NULL COMMENT '电话',
     `inst_id`         bigint(20)                   DEFAULT NULL COMMENT '机构ID',
     `inst_name`       varchar(100)                 DEFAULT NULL COMMENT '机构名称',
     `mobile`          varchar(200)                 DEFAULT NULL COMMENT '手机',
-    `user_type`       int(11)                      DEFAULT '0' COMMENT '用户类型:1.系统用户，0.普通用户',
     `login_ip`        varchar(100)                 DEFAULT NULL COMMENT '最后登陆IP',
     `login_date`      datetime                     DEFAULT NULL COMMENT '最后登陆时间',
     `login_flag`      varchar(64)                  DEFAULT NULL COMMENT '是否可登录',
@@ -296,6 +260,20 @@ CREATE TABLE `sys_user_credentials`
     PRIMARY KEY (`id`)
 ) COMMENT = '用户证书表';
 
+
+CREATE TABLE `audit_log`
+(
+    `id`                     bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+    `create_time`            datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time`            datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `user_id`                bigint(20)                   DEFAULT '0' COMMENT '用户ID',
+    `user_name`              varchar(255)        NOT NULL COMMENT '用户名称',
+    `action_type`            varchar(255)        NOT NULL COMMENT '操作类型',
+    `action_data`            LONGTEXT COMMENT '操作数据',
+    `action_status`          varchar(255)        NOT NULL COMMENT '操作状态',
+    `action_failure_details` text                NOT NULL COMMENT '失败详情',
+    PRIMARY KEY (`id`)
+) COMMENT = '审计日志';
 
 /******************************************/
 /*   DatabaseName = base_manager   */
@@ -347,10 +325,15 @@ VALUES ('admin', '2020-11-08 10:31:00', '0', '明文密码', '1', '明文密码'
 -- 初始化管理员
 INSERT INTO `sys_user` (`user_account`, `avatar_id`, `create_by`, `create_time`, `del_flag`, `disabled`, `user_email`,
                         `id`, `inst_id`, `inst_name`, `login_date`, `login_flag`, `login_ip`, `mobile`, `user_name`,
-                        `user_pwd`, `user_phone`, `remarks`, `update_by`, `update_time`, `user_no`, `user_type`)
+                        `user_phone`, `remarks`, `update_by`, `update_time`, `user_no`, `authority`, `additional_info`)
 VALUES ('admin', '11', 'sys', '2020-10-18 15:26:26', '0', '0', 'tyuan.design', '1', null, null, '2021-04-06 20:50:46',
-        null, '127.0.0.1', '15101626387', '超级系统管理员', '0d76545847ec1316e28d3e6d023bb78c', '15101626387', 'sss1111',
-        'admin', '2021-04-06 20:50:46', '', '1');
+        null, '127.0.0.1', '15101626387', '超级系统管理员', '15101626387', 'sss1111',
+        'admin', '2021-04-06 20:50:46', '', 'SYS_ADMIN', '{}');
+
+INSERT INTO `sys_user_credentials` (activate_token, `password`, user_id)
+VALUES ('', MD5('tyuan'), 1);
+
+select MD5('123');
 
 -- 初始化用户布局
 INSERT INTO `sys_user_web_layout` (`id`, `layout_structure`, `user_id`)

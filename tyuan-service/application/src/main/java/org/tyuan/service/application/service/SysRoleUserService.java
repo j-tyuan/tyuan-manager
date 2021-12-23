@@ -21,8 +21,11 @@
 package org.tyuan.service.application.service;
 
 import com.github.pagehelper.PageInfo;
+import org.tyuan.service.data.model.SysRole;
 import org.tyuan.service.data.vo.sys.RoleUserTableParamsVo;
 import org.tyuan.service.data.vo.sys.SysRoleUserVo;
+
+import java.util.List;
 
 public interface SysRoleUserService {
 
@@ -45,4 +48,20 @@ public interface SysRoleUserService {
      * 解绑用户
      */
     void unbindUser(SysRoleUserVo sysRoleUserVo);
+
+    /**
+     * 根据用户ID 获取全部的角色信息
+     *
+     * @param uid
+     * @return
+     */
+    List<Long> getRoleIdsByUserId(Long uid);
+
+    /**
+     * 根据用户ID 获取全部的角色信息
+     *
+     * @param uid
+     * @return
+     */
+    List<SysRole> getRoleByUserId(Long uid);
 }

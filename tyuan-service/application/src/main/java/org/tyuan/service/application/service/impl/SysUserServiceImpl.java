@@ -328,22 +328,6 @@ public class SysUserServiceImpl implements SysUserService {
         return newUserList;
     }
 
-    @Override
-    public List<Long> getRoleIdsByUserId(Long uid) {
-        return csysUserRoleMapper.getRoleIdsByUid(uid);
-    }
-
-    @Override
-    public List<SysRole> getRoleByUserId(Long uid) {
-        List<Long> ids = this.getRoleIdsByUserId(uid);
-        if (CollectionUtils.isNotEmpty(ids)) {
-            return Lists.newArrayList();
-        }
-        SysRoleExample sysRoleExample = new SysRoleExample();
-        sysRoleExample.createCriteria().andIdIn(ids);
-        List<SysRole> sysRoles = sysRoleMapper.selectByExample(sysRoleExample);
-        return sysRoles;
-    }
 
 
     @Override

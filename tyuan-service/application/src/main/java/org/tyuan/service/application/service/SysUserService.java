@@ -17,7 +17,6 @@ package org.tyuan.service.application.service;
 
 import com.github.pagehelper.PageInfo;
 import org.tyuan.common.exception.ServiceException;
-import org.tyuan.service.data.model.SysRole;
 import org.tyuan.service.data.model.SysUser;
 import org.tyuan.service.data.model.SysUserCredentials;
 import org.tyuan.service.data.model.SysUserExample;
@@ -128,21 +127,7 @@ public interface SysUserService extends BaseService<SysUserVo> {
      */
     List<Map> userPostProcessor(List<SysUser> users);
 
-    /**
-     * 根据用户ID 获取全部的角色信息
-     *
-     * @param uid
-     * @return
-     */
-    List<Long> getRoleIdsByUserId(Long uid);
 
-    /**
-     * 根据用户ID 获取全部的角色信息
-     *
-     * @param uid
-     * @return
-     */
-    List<SysRole> getRoleByUserId(Long uid);
 
     /**
      * 获取用户证书（密码、token等）

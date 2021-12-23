@@ -16,20 +16,20 @@
 package org.tyuan.service.application.web.controller;
 
 import com.github.pagehelper.PageInfo;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.tyuan.common.exception.ServiceException;
-import org.tyuan.service.common.annotation.AuditLog;
 import org.tyuan.service.application.cache.LocalCache;
 import org.tyuan.service.application.cache.UserInfoCacheService;
+import org.tyuan.service.application.service.SysRoleUserService;
 import org.tyuan.service.application.service.SysUserAvatarService;
 import org.tyuan.service.application.service.SysUserService;
-import org.tyuan.service.application.web.PermissionConstant;
 import org.tyuan.service.application.web.RouteConstant;
+import org.tyuan.service.common.annotation.AuditLog;
 import org.tyuan.service.data.ErrorCodeConsts;
 import org.tyuan.service.data.ResultData;
 import org.tyuan.service.data.ResultTable;
@@ -64,8 +64,11 @@ public class SysUserController {
     @Resource
     private RedisTemplate redisTemplate;
 
+    @Resource
+    private SysRoleUserService sysRoleUserService;
 
-    @RequiresPermissions(PermissionConstant.SYS_USER_LIST)
+
+    @PreAuthorize("hasAnyAuthority('SYS_ADMIN','sys:user:list')")
     @PostMapping(RouteConstant.ROUTER_SYS_USER)
     @AuditLog(type = ActionType.QUERY, value = "查看用户列表")
     public ResultTable list(@RequestBody SysUserTableParamsVo requestParam) {
@@ -80,7 +83,7 @@ public class SysUserController {
         }
     }
 
-    @RequiresPermissions(PermissionConstant.SYS_USER_LIST)
+    @PreAuthorize("hasAnyAuthority('SYS_ADMIN','sys:user:list')")
     @GetMapping(RouteConstant.ROUTER_SYS_USER)
     public ResultData get(@RequestParam("id") Long id) {
 
@@ -88,7 +91,7 @@ public class SysUserController {
     }
 
 
-    @RequiresPermissions(PermissionConstant.SYS_USER_DEL)
+    @PreAuthorize("hasAnyAuthority('SYS_ADMIN','sys:user:del')")
     @PostMapping(RouteConstant.ROUTER_SYS_USER_DEL)
     @AuditLog(type = ActionType.DELETED, value = "删除用户")
     public ResultData del(@RequestBody DeleteVo deleteVo) {
@@ -102,7 +105,7 @@ public class SysUserController {
         }
     }
 
-    @RequiresPermissions(PermissionConstant.SYS_USER_ADD)
+    @PreAuthorize("hasAnyAuthority('SYS_ADMIN','sys:user:add')")
     @PostMapping(RouteConstant.ROUTER_SYS_USER_ADD)
     @AuditLog(type = ActionType.ADDED, value = "添加用户")
     public ResultData add(@RequestBody @Validated SysUserVo k) {
@@ -116,7 +119,7 @@ public class SysUserController {
         }
     }
 
-    @RequiresPermissions(PermissionConstant.SYS_USER_EDIT)
+    @PreAuthorize("hasAnyAuthority('SYS_ADMIN','sys:user:edit')")
     @PostMapping(RouteConstant.ROUTER_SYS_USER_EDIT)
     @AuditLog(type = ActionType.UPDATED, value = "修改用户")
     public ResultData edit(@RequestBody @Validated SysUserVo k) {
@@ -130,7 +133,7 @@ public class SysUserController {
         }
     }
 
-    @RequiresPermissions(PermissionConstant.SYS_USER_DISABLE)
+    @PreAuthorize("hasAnyAuthority('SYS_ADMIN','sys:user:disable')")
     @PostMapping(RouteConstant.ROUTER_SYS_USER_DISABLE)
     @AuditLog(type = ActionType.UPDATED, value = "修改用户状态")
     public ResultData disable(@PathVariable(value = "uid") Long userId,
@@ -146,7 +149,7 @@ public class SysUserController {
         }
     }
 
-    @RequiresPermissions(PermissionConstant.SYS_USER_LIST)
+    @PreAuthorize("hasAnyAuthority('SYS_ADMIN','sys:user:list')")
     @GetMapping(RouteConstant.ROUTER_SYS_USER_FETCH)
     public ResultData fetch(@PathVariable(value = "value") String value) {
         try {
@@ -162,7 +165,7 @@ public class SysUserController {
     }
 
 
-    @RequiresPermissions(PermissionConstant.SYS_USER_EDIT)
+    @PreAuthorize("hasAnyAuthority('SYS_ADMIN','sys:user:edit')")
     @PostMapping(RouteConstant.ROUTER_SYS_USER_AVATAR)
     public ResultData updateAvatar(@RequestParam("avatar") MultipartFile multipartFile) {
         ResultData result = new ResultData();
@@ -177,11 +180,11 @@ public class SysUserController {
         }
     }
 
-    @RequiresPermissions(PermissionConstant.SYS_USER_LIST)
+    @PreAuthorize("hasAnyAuthority('SYS_ADMIN','sys:user:list')")
     @GetMapping(RouteConstant.ROUTER_SYS_USER_ROLE_GET_BY_ID)
     public ResultData getRoleIdsByUserId(@PathVariable(value = "userId") Long id) {
         ResultData resultData = new ResultData();
-        List roles = sysUserService.getRoleIdsByUserId(id);
+        List roles = sysRoleUserService.getRoleIdsByUserId(id);
         resultData.setData(roles);
         return resultData;
     }

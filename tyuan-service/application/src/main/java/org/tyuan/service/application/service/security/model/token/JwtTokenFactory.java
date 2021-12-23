@@ -26,9 +26,11 @@ import org.tyuan.service.application.config.JwtSettings;
 import org.tyuan.service.application.service.security.exception.JwtExpiredTokenException;
 import org.tyuan.service.application.service.security.model.SecurityUser;
 import org.tyuan.service.application.service.security.model.UserPrincipal;
+import org.tyuan.service.application.service.security.system.SystemSecurityService;
 import org.tyuan.service.data.security.Authority;
 import org.tyuan.service.data.security.JwtToken;
 
+import javax.annotation.Resource;
 import java.time.ZonedDateTime;
 import java.util.Collections;
 import java.util.Date;
@@ -47,6 +49,9 @@ public class JwtTokenFactory {
     private static final String IS_PUBLIC = "isPublic";
 
     private final JwtSettings settings;
+
+    @Resource
+    SystemSecurityService systemSecurityService;
 
     @Autowired
     public JwtTokenFactory(JwtSettings settings) {
@@ -101,6 +106,7 @@ public class JwtTokenFactory {
         boolean isPublic = claims.get(IS_PUBLIC, Boolean.class);
         UserPrincipal principal = new UserPrincipal(isPublic ? UserPrincipal.Type.PUBLIC_ID : UserPrincipal.Type.USER_NAME, subject);
         securityUser.setUserPrincipal(principal);
+        securityUser.setSystemSecurityService(systemSecurityService);
         return securityUser;
     }
 
@@ -145,6 +151,7 @@ public class JwtTokenFactory {
         UserPrincipal principal = new UserPrincipal(isPublic ? UserPrincipal.Type.PUBLIC_ID : UserPrincipal.Type.USER_NAME, subject);
         SecurityUser securityUser = new SecurityUser(claims.get(USER_ID, Long.class));
         securityUser.setUserPrincipal(principal);
+        securityUser.setSystemSecurityService(systemSecurityService);
         return securityUser;
     }
 

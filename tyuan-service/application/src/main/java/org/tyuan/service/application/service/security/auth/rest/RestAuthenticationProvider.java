@@ -43,6 +43,7 @@ public class RestAuthenticationProvider implements AuthenticationProvider {
     private final SysUserService userService;
     private final AuditLogService auditLogService;
 
+
     @Autowired
     public RestAuthenticationProvider(final SysUserService userService,
                                       final SystemSecurityService systemSecurityService,
@@ -65,6 +66,11 @@ public class RestAuthenticationProvider implements AuthenticationProvider {
         String username = userPrincipal.getValue();
         String password = (String) authentication.getCredentials();
         return authenticateByUsernameAndPassword(authentication, userPrincipal, username, password);
+    }
+
+    @Override
+    public boolean supports(Class<?> authentication) {
+        return (UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication));
     }
 
     private Authentication authenticateByUsernameAndPassword(Authentication authentication, UserPrincipal userPrincipal, String username, String password) {
@@ -91,7 +97,7 @@ public class RestAuthenticationProvider implements AuthenticationProvider {
                 throw new InsufficientAuthenticationException("User has no authority assigned");
             }
 
-            SecurityUser securityUser = new SecurityUser(user, true, userPrincipal);
+            SecurityUser securityUser = new SecurityUser(user, true, userPrincipal,systemSecurityService);
             logLoginAction(user, authentication, ActionType.LOGIN, null);
             return new UsernamePasswordAuthenticationToken(securityUser, null, securityUser.getAuthorities());
         } catch (Exception e) {
@@ -102,14 +108,9 @@ public class RestAuthenticationProvider implements AuthenticationProvider {
 
     private Authentication authenticateByPublicId(UserPrincipal userPrincipal, String publicId) {
 
-        SecurityUser securityUser = new SecurityUser(new SysUser(), true, userPrincipal);
+        SecurityUser securityUser = new SecurityUser(new SysUser(), true, userPrincipal,systemSecurityService);
 
         return new UsernamePasswordAuthenticationToken(securityUser, null, securityUser.getAuthorities());
-    }
-
-    @Override
-    public boolean supports(Class<?> authentication) {
-        return (UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication));
     }
 
     private void logLoginAction(SysUser user, Authentication authentication, ActionType actionType, Exception e) {

@@ -35,18 +35,17 @@
  */
 package org.tyuan.service.application.web.controller;
 
-import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.tyuan.service.common.annotation.AuditLog;
 import org.tyuan.common.exception.ServiceException;
 import org.tyuan.common.utils.TreeUtils;
 import org.tyuan.service.application.service.OrganizationInstitutionService;
-import org.tyuan.service.application.web.PermissionConstant;
 import org.tyuan.service.application.web.RouteConstant;
+import org.tyuan.service.common.annotation.AuditLog;
 import org.tyuan.service.data.ResultData;
 import org.tyuan.service.data.audit.ActionType;
 import org.tyuan.service.data.vo.DeleteVo;
@@ -61,7 +60,7 @@ public class OrganizeInstitutionController {
     @Resource
     OrganizationInstitutionService sysInstitutionService;
 
-    @RequiresPermissions(PermissionConstant.SYS_ORGANIZATION_INSTITUTION_DEL)
+    @PreAuthorize("hasAnyAuthority('SYS_ADMIN','sys:organization:institution:del')")
     @PostMapping(RouteConstant.ROUTER_ORGANIZATION_INSTITUTION_DEL)
     @AuditLog(type = ActionType.DELETED, value = "删除机构")
     public ResultData del(@RequestBody DeleteVo deleteVo) {
@@ -75,7 +74,7 @@ public class OrganizeInstitutionController {
         }
     }
 
-    @RequiresPermissions(PermissionConstant.SYS_ORGANIZATION_INSTITUTION_ADD)
+    @PreAuthorize("hasAnyAuthority('SYS_ADMIN','sys:organization:institution:add')")
     @PostMapping(RouteConstant.ROUTER_ORGANIZATION_INSTITUTION_ADD)
     @AuditLog(type = ActionType.ADDED, value = "添加机构")
     public ResultData add(@RequestBody @Validated OrganizeInstitutionVo k) throws ServiceException {
@@ -83,7 +82,7 @@ public class OrganizeInstitutionController {
         return new ResultData();
     }
 
-    @RequiresPermissions(PermissionConstant.SYS_ORGANIZATION_INSTITUTION_EDIT)
+    @PreAuthorize("hasAnyAuthority('SYS_ADMIN','sys:organization:institution:edit')")
     @PostMapping(RouteConstant.ROUTER_ORGANIZATION_INSTITUTION_EDIT)
     @AuditLog(type = ActionType.UPDATED, value = "修改机构")
     public ResultData edit(@RequestBody OrganizeInstitutionVo k) throws ServiceException {

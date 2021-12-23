@@ -50,11 +50,6 @@ package org.tyuan.service.application.web;
 
 public class RouteConstant {
 
-    /**
-     * 登陆
-     */
-    public static final String ROUTER_SYS_LOGIN_ACCOUNT = "/api/login/account";
-
 
     /**
      * 退出

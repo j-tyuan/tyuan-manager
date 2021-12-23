@@ -16,13 +16,12 @@
 package org.tyuan.service.application.web.controller;
 
 import com.google.common.collect.Lists;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.tyuan.service.application.service.SysPermissionService;
 import org.tyuan.service.application.service.SysRoleService;
-import org.tyuan.service.application.web.PermissionConstant;
 import org.tyuan.service.application.web.RouteConstant;
 import org.tyuan.service.data.ResultData;
 
@@ -42,7 +41,7 @@ public class SysPermissionController {
     SysRoleService sysRoleService;
 
     @GetMapping(RouteConstant.ROUTER_SYS_PERMISSION_BY_ROLE_ID)
-    @RequiresPermissions(PermissionConstant.SYS_PERMISSION)
+    @PreAuthorize("hasAnyAuthority('SYS_ADMIN','sys:permission')")
     public ResultData byRoleId(@RequestParam("id") Long id) {
         ResultData resultData = new ResultData();
 
@@ -58,7 +57,7 @@ public class SysPermissionController {
     }
 
     @GetMapping(RouteConstant.ROUTER_SYS_PERMISSION)
-    @RequiresPermissions(PermissionConstant.SYS_PERMISSION)
+    @PreAuthorize("hasAnyAuthority('SYS_ADMIN','sys:permission')")
     public ResultData getAll() {
         ResultData resultData = new ResultData();
         resultData.setData(sysPowerService.getAll());

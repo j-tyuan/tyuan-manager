@@ -15,13 +15,15 @@
  */
 package org.tyuan.service.application.service.security.model;
 
+import com.beust.jcommander.internal.Lists;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.tyuan.service.application.service.security.system.SystemSecurityService;
 import org.tyuan.service.data.model.SysUser;
 
 import java.util.Collection;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.List;
 
 public class SecurityUser extends SysUser {
 
@@ -30,6 +32,7 @@ public class SecurityUser extends SysUser {
     private Collection<GrantedAuthority> authorities;
     private boolean enabled;
     private UserPrincipal userPrincipal;
+    private SystemSecurityService systemSecurityService;
 
     public SecurityUser() {
         super();
@@ -39,7 +42,7 @@ public class SecurityUser extends SysUser {
         super.setId(id);
     }
 
-    public SecurityUser(SysUser user, boolean enabled, UserPrincipal userPrincipal) {
+    public SecurityUser(SysUser user, boolean enabled, UserPrincipal userPrincipal, SystemSecurityService systemSecurityService) {
         this.setId(user.getId());
         this.setMobile(user.getMobile());
         this.setEnabled(enabled);
@@ -48,16 +51,24 @@ public class SecurityUser extends SysUser {
         this.setAdditionalInfo(user.getAdditionalInfo());
         this.setUserAccount(user.getUserAccount());
         this.userPrincipal = userPrincipal;
+        this.systemSecurityService = systemSecurityService;
     }
 
 
     public Collection<GrantedAuthority> getAuthorities() {
         if (authorities == null) {
-            authorities = Stream.of(SecurityUser.this.getAuthority())
-                    .map(authority -> new SimpleGrantedAuthority(authority))
-                    .collect(Collectors.toList());
+            authorities = Lists.newArrayList();
+            authorities.add(new SimpleGrantedAuthority(this.getAuthority()));
+            List<String> permission = systemSecurityService.getAuthorities(getId());
+            if (CollectionUtils.isNotEmpty(permission)) {
+                permission.forEach(e -> {
+                    this.authorities.add(new SimpleGrantedAuthority(e));
+                });
+            }
+
         }
-        return authorities;
+
+        return this.authorities;
     }
 
     public boolean isEnabled() {
@@ -74,5 +85,9 @@ public class SecurityUser extends SysUser {
 
     public void setUserPrincipal(UserPrincipal userPrincipal) {
         this.userPrincipal = userPrincipal;
+    }
+
+    public void setSystemSecurityService(SystemSecurityService systemSecurityService) {
+        this.systemSecurityService = systemSecurityService;
     }
 }

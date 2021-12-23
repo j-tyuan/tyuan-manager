@@ -20,6 +20,8 @@ import org.tyuan.service.dao.exception.DataValidationException;
 import org.tyuan.service.data.model.SysUserCredentials;
 import org.tyuan.service.data.security.SecuritySettings;
 
+import java.util.List;
+
 public interface SystemSecurityService {
 
 
@@ -30,4 +32,6 @@ public interface SystemSecurityService {
     void validateUserCredentials(Long userId, SysUserCredentials userCredentials, String username, String password) throws AuthenticationException;
 
     void validatePassword(Long userId, String password, SysUserCredentials userCredentials) throws DataValidationException;
+
+    List<String> getAuthorities(Long userId);
 }

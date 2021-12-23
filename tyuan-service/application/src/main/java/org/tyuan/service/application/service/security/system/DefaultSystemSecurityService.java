@@ -26,6 +26,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.tyuan.common.utils.JacksonUtil;
+import org.tyuan.service.application.service.SysPermissionService;
 import org.tyuan.service.application.service.SysUserService;
 import org.tyuan.service.application.service.impl.SysUserServiceImpl;
 import org.tyuan.service.dao.exception.DataValidationException;
@@ -54,6 +55,9 @@ public class DefaultSystemSecurityService implements SystemSecurityService {
     @Resource
     private SystemSecurityService self;
 
+    @Resource
+    private SysPermissionService sysPermissionService;
+
     @Override
     public SecuritySettings getSecuritySettings(Long userId) {
         return null;
@@ -74,6 +78,12 @@ public class DefaultSystemSecurityService implements SystemSecurityService {
             throw new DisabledException("User is not active");
         }
 
+    }
+
+    @Override
+    public List<String> getAuthorities(Long uid) {
+        List<String> byUserId = sysPermissionService.getByUserId(uid);
+        return byUserId;
     }
 
     @Override

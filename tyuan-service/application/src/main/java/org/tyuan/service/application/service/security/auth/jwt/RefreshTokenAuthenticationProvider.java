@@ -16,14 +16,14 @@
 package org.tyuan.service.application.service.security.auth.jwt;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.authentication.*;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.CredentialsExpiredException;
+import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
-import org.tyuan.service.application.service.SysPermissionService;
-import org.tyuan.service.application.service.SysRoleService;
 import org.tyuan.service.application.service.SysUserService;
 import org.tyuan.service.application.service.security.auth.RefreshAuthenticationToken;
 import org.tyuan.service.application.service.security.auth.TokenOutdatingService;
@@ -31,6 +31,7 @@ import org.tyuan.service.application.service.security.model.SecurityUser;
 import org.tyuan.service.application.service.security.model.UserPrincipal;
 import org.tyuan.service.application.service.security.model.token.JwtTokenFactory;
 import org.tyuan.service.application.service.security.model.token.RawAccessJwtToken;
+import org.tyuan.service.application.service.security.system.SystemSecurityService;
 import org.tyuan.service.data.model.SysUser;
 
 @Component
@@ -40,8 +41,7 @@ public class RefreshTokenAuthenticationProvider implements AuthenticationProvide
     private final JwtTokenFactory tokenFactory;
     private final SysUserService userService;
     private final TokenOutdatingService tokenOutdatingService;
-    private final SysRoleService roleService;
-    private final SysPermissionService permissionService;
+    private final SystemSecurityService systemSecurityService;
 
 
     @Override
@@ -64,12 +64,13 @@ public class RefreshTokenAuthenticationProvider implements AuthenticationProvide
             throw new UsernameNotFoundException("User not found by refresh token");
         }
 
-        if (user.getAuthority() == null){
+        if (user.getAuthority() == null) {
             throw new InsufficientAuthenticationException("User has no authority assigned");
         }
 
         UserPrincipal userPrincipal = new UserPrincipal(UserPrincipal.Type.USER_NAME, user.getUserAccount());
-        SecurityUser securityUser = new SecurityUser(user, true, userPrincipal);
+
+        SecurityUser securityUser = new SecurityUser(user, true, userPrincipal, systemSecurityService);
 
         return securityUser;
     }
