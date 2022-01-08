@@ -1,8 +1,8 @@
 # idea 自动补全 进入plugins 搜索spring assistant安装
 # 日志级别
 logging:
-  level:
-    com: DEBUG
+  root:
+    level: INFO
 
 scheduled:
   # 系统参数刷新时间

@@ -43,9 +43,9 @@ public class CacheConstant {
      */
     public static final String SYS_PARAM_MAP = "MANAGE:SYS:PARAM:MAP";
 
-    public static final String SYS_SOURCE_CACHE = "MANAGE:SOURCE:ROLE";
+    public static final String SYS_SOURCE_CACHE = "MANAGE:SOURCE";
 
-    public static final String SYS_PERMISSION_CACHE_ALL = "MANAGE:PERMISSION:ALL";
+    public static final String SYS_PERMISSION_CACHE = "MANAGE:PERMISSION";
 
     public static final String SYS_PERMISSION_ROLE_CACHE = "MANAGE:PERMISSION:ROLE";
 

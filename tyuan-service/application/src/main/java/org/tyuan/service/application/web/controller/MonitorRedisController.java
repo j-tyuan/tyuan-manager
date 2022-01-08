@@ -18,10 +18,10 @@ package org.tyuan.service.application.web.controller;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.tyuan.service.application.service.MonitorRedisService;
-import org.tyuan.service.application.web.RouteConstant;
 import org.tyuan.service.data.ResultData;
 import org.tyuan.service.data.vo.monitor.RedisTreeKeyVo;
 import org.tyuan.service.data.vo.monitor.RedisValueVo;
@@ -30,13 +30,14 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/monitor")
 public class MonitorRedisController {
 
     @Resource
     MonitorRedisService monitorRedisService;
 
     @PreAuthorize("hasAnyAuthority('SYS_ADMIN','monitor:redis:keys')")
-    @GetMapping(RouteConstant.ROUTER_MONITOR_REDIS_KEYS)
+    @GetMapping("/redis/keys")
     public ResultData getRedisTreeKey() {
 
         ResultData resultData = new ResultData();
@@ -47,7 +48,7 @@ public class MonitorRedisController {
     }
 
     @PreAuthorize("hasAnyAuthority('SYS_ADMIN','monitor:redis:getval')")
-    @GetMapping(RouteConstant.ROUTER_MONITOR_REDIS_GET_VALUE)
+    @GetMapping("/redis/getVal")
     public ResultData getValue(@RequestParam("key") String key) {
 
         ResultData resultData = new ResultData();

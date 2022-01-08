@@ -40,7 +40,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.tyuan.common.ITree;
 import org.tyuan.common.utils.TreeUtils;
 import org.tyuan.service.application.service.SysSourceService;
-import org.tyuan.service.application.web.RouteConstant;
 import org.tyuan.service.data.ResultData;
 import org.tyuan.service.data.model.custom.CSysSource;
 import org.tyuan.service.data.vo.sys.MenuDataItemVo;
@@ -56,7 +55,7 @@ public class NavController {
     @Resource
     SysSourceService sysMenuService;
 
-    @GetMapping(RouteConstant.ROUTER_SYS_NAV)
+    @GetMapping("/api/sys/nav")
     public ResultData getNav() {
         List<CSysSource> list = sysMenuService.authorityFilter(sysMenuService.getAll());
         List<MenuDataItemVo> newList = Lists.newArrayList();

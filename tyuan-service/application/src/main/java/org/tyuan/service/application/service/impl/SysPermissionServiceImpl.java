@@ -31,7 +31,7 @@ import javax.annotation.Resource;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.tyuan.service.data.cache.CacheConstant.SYS_PERMISSION_CACHE_ALL;
+import static org.tyuan.service.data.cache.CacheConstant.SYS_PERMISSION_CACHE;
 import static org.tyuan.service.data.cache.CacheConstant.SYS_PERMISSION_ROLE_CACHE;
 
 @Service
@@ -55,7 +55,7 @@ public class SysPermissionServiceImpl implements SysPermissionService {
     }
 
     @Override
-    @Cacheable(cacheNames = SYS_PERMISSION_CACHE_ALL, key = "ALL")
+    @Cacheable(cacheNames = SYS_PERMISSION_CACHE, key = "'ALL'")
     public List<SysPermission> getAll() {
         return sysPermissionMapper.selectByExample(null);
     }

@@ -11,7 +11,7 @@ echo "-------------current process status------------------------"
 echo $pr
 if [ -z "$pr" ];then
 	echo "-------------starting process------------------------"
-	nohup $JAVA_HOME/bin/java -jar $APP_HOME/$APP_NAME.jar --spring.profiles.active=prod  $JAVA_OPTS > $APP_HOME/nohup.out 2>&1 &
+	nohup $JAVA_HOME/bin/java -jar -Dfile.encoding=UTF-8 $APP_HOME/$APP_NAME.jar --spring.profiles.active=prod  $JAVA_OPTS > $APP_HOME/nohup.out 2>&1 &
         sleep 3
 	pr=`ps ax | grep java | grep $APP_NAME | egrep -v "grep"`
 	if [ -z "$pr" ];then

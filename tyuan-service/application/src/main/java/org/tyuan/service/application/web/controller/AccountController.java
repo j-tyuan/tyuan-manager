@@ -18,9 +18,8 @@ package org.tyuan.service.application.web.controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.tyuan.common.exception.ServiceException;
-import org.tyuan.service.common.annotation.AuditLog;
 import org.tyuan.service.application.service.AccountService;
-import org.tyuan.service.application.web.RouteConstant;
+import org.tyuan.service.common.annotation.AuditLog;
 import org.tyuan.service.data.ErrorCodeConsts;
 import org.tyuan.service.data.ResultData;
 import org.tyuan.service.data.audit.ActionType;
@@ -34,20 +33,21 @@ import java.util.Map;
  * @DateTime: 2020/6/29 17:28
  */
 @RestController
+@RequestMapping("/api/account/")
 public class AccountController {
 
     @Resource
     AccountService accountService;
 
-    @PostMapping(RouteConstant.ROUTER_ACCOUNT_CUSTOM_LAYOUT)
+    @PostMapping("/custom/layout")
     @AuditLog(type = ActionType.UPDATED, value = "用户修改自定义布局")
     public ResultData customLayout(@RequestBody Map customLayoutVo) {
         accountService.customLayout(customLayoutVo);
         return new ResultData();
     }
 
-    @PostMapping(RouteConstant.ROUTER_ACCOUNT_AVATAR)
-    @AuditLog(type =ActionType.UPDATED, value = "用户修改头像")
+    @PostMapping("/avatar")
+    @AuditLog(type = ActionType.UPDATED, value = "用户修改头像")
     public ResultData accountAvatar(@RequestParam("avatar") MultipartFile multipartFile) {
         ResultData result = new ResultData();
         try {
@@ -67,15 +67,15 @@ public class AccountController {
         }
     }
 
-    @PostMapping(RouteConstant.ROUTER_ACCOUNT_SETTING)
-    @AuditLog(type =ActionType.UPDATED, value = "用户修改设置")
+    @PostMapping("/setting")
+    @AuditLog(type = ActionType.UPDATED, value = "用户修改设置")
     public ResultData setting(@RequestBody SysUser sysUser) {
         accountService.setting(sysUser);
         return new ResultData();
     }
 
-    @GetMapping(RouteConstant.ROUTER_ACCOUNT)
-    @AuditLog(type =ActionType.UPDATED, value = "获取账号信息")
+    @GetMapping({"", "/"})
+    @AuditLog(type = ActionType.UPDATED, value = "获取账号信息")
     public ResultData account() {
         ResultData resultData = new ResultData();
         Map data = accountService.account();

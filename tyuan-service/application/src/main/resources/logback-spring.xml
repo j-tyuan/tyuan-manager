@@ -71,12 +71,9 @@
         </root>
     </springProfile>
 
-    <springProfile name="review">
-        <root level="debug">
-            <appender-ref ref="detail"/>
-            <appender-ref ref="warn"/>
-            <appender-ref ref="error"/>
-        </root>
-    </springProfile>
-
+    <root level="info">
+        <appender-ref ref="detail"/>
+        <appender-ref ref="warn"/>
+        <appender-ref ref="error"/>
+    </root>
 </configuration>

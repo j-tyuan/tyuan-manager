@@ -18,11 +18,11 @@ package org.tyuan.service.application.web.controller;
 import com.google.common.collect.Lists;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.tyuan.service.application.service.SysPermissionService;
 import org.tyuan.service.application.service.SysRoleService;
-import org.tyuan.service.application.web.RouteConstant;
 import org.tyuan.service.data.ResultData;
 
 import javax.annotation.Resource;
@@ -32,6 +32,7 @@ import javax.annotation.Resource;
  * @DateTime: 2020/7/1 15:59
  */
 @RestController
+@RequestMapping("/api/sys/permission")
 public class SysPermissionController {
 
     @Resource
@@ -40,7 +41,15 @@ public class SysPermissionController {
     @Resource
     SysRoleService sysRoleService;
 
-    @GetMapping(RouteConstant.ROUTER_SYS_PERMISSION_BY_ROLE_ID)
+    @GetMapping({"", "/"})
+    @PreAuthorize("hasAnyAuthority('SYS_ADMIN','sys:permission')")
+    public ResultData getAll() {
+        ResultData resultData = new ResultData();
+        resultData.setData(sysPowerService.getAll());
+        return resultData;
+    }
+
+    @GetMapping("/getByRoleId")
     @PreAuthorize("hasAnyAuthority('SYS_ADMIN','sys:permission')")
     public ResultData byRoleId(@RequestParam("id") Long id) {
         ResultData resultData = new ResultData();
@@ -56,11 +65,4 @@ public class SysPermissionController {
         return resultData;
     }
 
-    @GetMapping(RouteConstant.ROUTER_SYS_PERMISSION)
-    @PreAuthorize("hasAnyAuthority('SYS_ADMIN','sys:permission')")
-    public ResultData getAll() {
-        ResultData resultData = new ResultData();
-        resultData.setData(sysPowerService.getAll());
-        return resultData;
-    }
 }

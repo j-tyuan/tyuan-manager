@@ -3,6 +3,48 @@
  * @Description TODO
  * @Author dev@tyuan.design
  * @Date 2020/6/29 19:03
+ * <p>
+ * Copyright (c) 2020-2038, Jiangguiqi 齐 (author@tyuan.design).
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * <p>
+ * Copyright (c) 2020-2038, Jiangguiqi 齐 (author@tyuan.design).
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * <p>
+ * Copyright (c) 2020-2038, Jiangguiqi 齐 (author@tyuan.design).
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 /**
  * Copyright (c) 2020-2038, Jiangguiqi 齐 (author@tyuan.design).
@@ -28,7 +70,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.tyuan.common.exception.ServiceException;
 import org.tyuan.service.application.service.SysRoleService;
-import org.tyuan.service.application.web.RouteConstant;
 import org.tyuan.service.common.annotation.AuditLog;
 import org.tyuan.service.data.ErrorCodeConsts;
 import org.tyuan.service.data.ResultData;
@@ -43,14 +84,15 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/sys/role")
 public class SysRoleController {
 
     @Resource
     SysRoleService service;
 
     @PreAuthorize("hasAnyAuthority('SYS_ADMIN','sys:role:list')")
-    @PostMapping(RouteConstant.ROUTER_SYS_ROLE)
-    @AuditLog(type =ActionType.QUERY, value = "查看角色列表")
+    @PostMapping({"", "/"})
+    @AuditLog(type = ActionType.QUERY, value = "查看角色列表")
     public ResultTable list(@RequestBody SysRoleTableParamsVo requestParam) {
         ResultTable resultTable = new ResultTable();
         try {
@@ -64,8 +106,8 @@ public class SysRoleController {
 
 
     @PreAuthorize("hasAnyAuthority('SYS_ADMIN','sys:role:list')")
-    @GetMapping(RouteConstant.ROUTER_SYS_ROLE)
-    @AuditLog(type =ActionType.QUERY, value = "查看角色")
+    @GetMapping({"", "/"})
+    @AuditLog(type = ActionType.QUERY, value = "查看角色")
     public ResultData get(@RequestParam(value = "id", required = false) Long id) {
         try {
 
@@ -87,8 +129,8 @@ public class SysRoleController {
 
 
     @PreAuthorize("hasAnyAuthority('SYS_ADMIN','sys:role:del')")
-    @PostMapping(RouteConstant.ROUTER_SYS_ROLE_DEL)
-    @AuditLog(type =ActionType.DELETED, value = "删除角色")
+    @PostMapping("/del")
+    @AuditLog(type = ActionType.DELETED, value = "删除角色")
     public ResultData del(@RequestBody DeleteVo deleteVo) {
         try {
             service.del(deleteVo);
@@ -101,7 +143,7 @@ public class SysRoleController {
     }
 
     @PreAuthorize("hasAnyAuthority('SYS_ADMIN','sys:role:add')")
-    @PostMapping(RouteConstant.ROUTER_SYS_ROLE_ADD)
+    @PostMapping("/add")
     @AuditLog(type = ActionType.ADDED, value = "添加角色")
     public ResultData add(@RequestBody @Validated SysRoleVo k) {
         try {
@@ -115,8 +157,8 @@ public class SysRoleController {
     }
 
     @PreAuthorize("hasAnyAuthority('SYS_ADMIN','sys:role:edit')")
-    @PostMapping(RouteConstant.ROUTER_SYS_ROLE_EDIT)
-    @AuditLog(type =ActionType.UPDATED, value = "修改角色")
+    @PostMapping("/edit")
+    @AuditLog(type = ActionType.UPDATED, value = "修改角色")
     public ResultData edit(@RequestBody @Validated SysRoleVo k) {
         try {
             service.edit(k);
@@ -129,7 +171,7 @@ public class SysRoleController {
     }
 
     @PreAuthorize("hasAnyAuthority('SYS_ADMIN','sys:role:list')")
-    @GetMapping(RouteConstant.ROUTER_SYS_ROLE_AUTH)
+    @GetMapping("/auth/{id}")
     public ResultData getAuthByRoleId(@PathVariable("id") Long id) {
         ResultData resultData = new ResultData();
         List<Long> longs = service.getAuthIdByRoleId(id);

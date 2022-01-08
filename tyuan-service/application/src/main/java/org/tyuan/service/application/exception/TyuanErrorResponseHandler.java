@@ -109,7 +109,7 @@ public class TyuanErrorResponseHandler extends ResponseEntityExceptionHandler im
 
     @ExceptionHandler(Exception.class)
     public void handle(Exception exception, HttpServletResponse response) {
-        log.debug("Processing exception {}", exception.getMessage(), exception);
+        exception.printStackTrace();
         if (!response.isCommitted()) {
             try {
                 response.setContentType(MediaType.APPLICATION_JSON_VALUE);
