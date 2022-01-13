@@ -48,5 +48,5 @@ public class SysRoleVo extends SysRole implements Serializable {
     private String roleName;
 
 
-    private List<Long> permissionIds;
+    private List<String> permissionIds;
 }

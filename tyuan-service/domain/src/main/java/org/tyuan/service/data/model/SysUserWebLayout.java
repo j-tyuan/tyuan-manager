@@ -11,7 +11,7 @@ public class SysUserWebLayout implements Serializable {
      *
      * @mbg.generated
      */
-    private Long id;
+    private String id;
 
     /**
      *
@@ -38,7 +38,7 @@ public class SysUserWebLayout implements Serializable {
      *
      * @mbg.generated
      */
-    private Long userId;
+    private String userId;
 
     /**
      *
@@ -65,7 +65,7 @@ public class SysUserWebLayout implements Serializable {
      *
      * @mbg.generated
      */
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
@@ -77,8 +77,8 @@ public class SysUserWebLayout implements Serializable {
      *
      * @mbg.generated
      */
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(String id) {
+        this.id = id == null ? null : id.trim();
     }
 
     /**
@@ -137,7 +137,7 @@ public class SysUserWebLayout implements Serializable {
      *
      * @mbg.generated
      */
-    public Long getUserId() {
+    public String getUserId() {
         return userId;
     }
 
@@ -149,8 +149,8 @@ public class SysUserWebLayout implements Serializable {
      *
      * @mbg.generated
      */
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUserId(String userId) {
+        this.userId = userId == null ? null : userId.trim();
     }
 
     /**

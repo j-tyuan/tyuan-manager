@@ -11,7 +11,7 @@ public class SysUser implements Serializable {
      *
      * @mbg.generated
      */
-    private Long id;
+    private String id;
 
     /**
      *
@@ -83,7 +83,7 @@ public class SysUser implements Serializable {
      *
      * @mbg.generated
      */
-    private Long instId;
+    private String instId;
 
     /**
      *
@@ -191,7 +191,7 @@ public class SysUser implements Serializable {
      *
      * @mbg.generated
      */
-    private Long avatarId;
+    private String avatarId;
 
     /**
      *
@@ -218,7 +218,7 @@ public class SysUser implements Serializable {
      *
      * @mbg.generated
      */
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
@@ -230,8 +230,8 @@ public class SysUser implements Serializable {
      *
      * @mbg.generated
      */
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(String id) {
+        this.id = id == null ? null : id.trim();
     }
 
     /**
@@ -410,7 +410,7 @@ public class SysUser implements Serializable {
      *
      * @mbg.generated
      */
-    public Long getInstId() {
+    public String getInstId() {
         return instId;
     }
 
@@ -422,8 +422,8 @@ public class SysUser implements Serializable {
      *
      * @mbg.generated
      */
-    public void setInstId(Long instId) {
-        this.instId = instId;
+    public void setInstId(String instId) {
+        this.instId = instId == null ? null : instId.trim();
     }
 
     /**
@@ -698,7 +698,7 @@ public class SysUser implements Serializable {
      *
      * @mbg.generated
      */
-    public Long getAvatarId() {
+    public String getAvatarId() {
         return avatarId;
     }
 
@@ -710,8 +710,8 @@ public class SysUser implements Serializable {
      *
      * @mbg.generated
      */
-    public void setAvatarId(Long avatarId) {
-        this.avatarId = avatarId;
+    public void setAvatarId(String avatarId) {
+        this.avatarId = avatarId == null ? null : avatarId.trim();
     }
 
     /**

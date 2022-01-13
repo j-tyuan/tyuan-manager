@@ -45,6 +45,10 @@ public class SysDictSqlProvider {
         SQL sql = new SQL();
         sql.INSERT_INTO("sys_dict");
         
+        if (record.getId() != null) {
+            sql.VALUES("id", "#{id,jdbcType=VARCHAR}");
+        }
+        
         if (record.getCreateTime() != null) {
             sql.VALUES("create_time", "#{createTime,jdbcType=TIMESTAMP}");
         }
@@ -70,7 +74,7 @@ public class SysDictSqlProvider {
         }
         
         if (record.getParentId() != null) {
-            sql.VALUES("parent_id", "#{parentId,jdbcType=BIGINT}");
+            sql.VALUES("parent_id", "#{parentId,jdbcType=VARCHAR}");
         }
         
         if (record.getCreateBy() != null) {
@@ -140,7 +144,7 @@ public class SysDictSqlProvider {
         sql.UPDATE("sys_dict");
         
         if (record.getId() != null) {
-            sql.SET("id = #{record.id,jdbcType=BIGINT}");
+            sql.SET("id = #{record.id,jdbcType=VARCHAR}");
         }
         
         if (record.getCreateTime() != null) {
@@ -168,7 +172,7 @@ public class SysDictSqlProvider {
         }
         
         if (record.getParentId() != null) {
-            sql.SET("parent_id = #{record.parentId,jdbcType=BIGINT}");
+            sql.SET("parent_id = #{record.parentId,jdbcType=VARCHAR}");
         }
         
         if (record.getCreateBy() != null) {
@@ -201,14 +205,14 @@ public class SysDictSqlProvider {
         SQL sql = new SQL();
         sql.UPDATE("sys_dict");
         
-        sql.SET("id = #{record.id,jdbcType=BIGINT}");
+        sql.SET("id = #{record.id,jdbcType=VARCHAR}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
         sql.SET("dict_value = #{record.dictValue,jdbcType=VARCHAR}");
         sql.SET("dict_label = #{record.dictLabel,jdbcType=VARCHAR}");
         sql.SET("dict_type = #{record.dictType,jdbcType=VARCHAR}");
         sql.SET("dict_sort = #{record.dictSort,jdbcType=DECIMAL}");
-        sql.SET("parent_id = #{record.parentId,jdbcType=BIGINT}");
+        sql.SET("parent_id = #{record.parentId,jdbcType=VARCHAR}");
         sql.SET("create_by = #{record.createBy,jdbcType=VARCHAR}");
         sql.SET("update_by = #{record.updateBy,jdbcType=VARCHAR}");
         sql.SET("remarks = #{record.remarks,jdbcType=VARCHAR}");
@@ -254,7 +258,7 @@ public class SysDictSqlProvider {
         }
         
         if (record.getParentId() != null) {
-            sql.SET("parent_id = #{parentId,jdbcType=BIGINT}");
+            sql.SET("parent_id = #{parentId,jdbcType=VARCHAR}");
         }
         
         if (record.getCreateBy() != null) {
@@ -273,7 +277,7 @@ public class SysDictSqlProvider {
             sql.SET("del_flag = #{delFlag,jdbcType=BIT}");
         }
         
-        sql.WHERE("id = #{id,jdbcType=BIGINT}");
+        sql.WHERE("id = #{id,jdbcType=VARCHAR}");
         
         return sql.toString();
     }

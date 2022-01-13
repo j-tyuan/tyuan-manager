@@ -11,7 +11,7 @@ public class SysDict implements Serializable {
      *
      * @mbg.generated
      */
-    private Long id;
+    private String id;
 
     /**
      *
@@ -74,7 +74,7 @@ public class SysDict implements Serializable {
      *
      * @mbg.generated
      */
-    private Long parentId;
+    private String parentId;
 
     /**
      *
@@ -128,7 +128,7 @@ public class SysDict implements Serializable {
      *
      * @mbg.generated
      */
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
@@ -140,8 +140,8 @@ public class SysDict implements Serializable {
      *
      * @mbg.generated
      */
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(String id) {
+        this.id = id == null ? null : id.trim();
     }
 
     /**
@@ -296,7 +296,7 @@ public class SysDict implements Serializable {
      *
      * @mbg.generated
      */
-    public Long getParentId() {
+    public String getParentId() {
         return parentId;
     }
 
@@ -308,8 +308,8 @@ public class SysDict implements Serializable {
      *
      * @mbg.generated
      */
-    public void setParentId(Long parentId) {
-        this.parentId = parentId;
+    public void setParentId(String parentId) {
+        this.parentId = parentId == null ? null : parentId.trim();
     }
 
     /**

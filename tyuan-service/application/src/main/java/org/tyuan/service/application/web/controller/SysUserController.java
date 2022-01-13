@@ -25,9 +25,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.tyuan.common.exception.ServiceException;
 import org.tyuan.service.application.cache.LocalCache;
 import org.tyuan.service.application.cache.UserInfoCacheService;
-import org.tyuan.service.application.service.SysRoleUserService;
-import org.tyuan.service.application.service.SysUserAvatarService;
-import org.tyuan.service.application.service.SysUserService;
+import org.tyuan.service.application.service.manage.SysRoleUserService;
+import org.tyuan.service.application.service.manage.SysUserAvatarService;
+import org.tyuan.service.application.service.manage.SysUserService;
 import org.tyuan.service.common.annotation.AuditLog;
 import org.tyuan.service.data.ErrorCodeConsts;
 import org.tyuan.service.data.ResultData;
@@ -85,7 +85,7 @@ public class SysUserController {
 
     @PreAuthorize("hasAnyAuthority('SYS_ADMIN','sys:user:list')")
     @GetMapping({"", "/"})
-    public ResultData get(@RequestParam("id") Long id) {
+    public ResultData get(@RequestParam("id") String id) {
 
         return new ResultData().setData(sysUserService.getById(id));
     }
@@ -136,7 +136,7 @@ public class SysUserController {
     @PreAuthorize("hasAnyAuthority('SYS_ADMIN','sys:user:disable')")
     @PostMapping("/disable/{uid}/{disable}")
     @AuditLog(type = ActionType.UPDATED, value = "修改用户状态")
-    public ResultData disable(@PathVariable(value = "uid") Long userId,
+    public ResultData disable(@PathVariable(value = "uid") String userId,
                               @PathVariable(value = "disable", required = false) Integer disable) {
         try {
             sysUserService.disable(userId, disable);
@@ -170,7 +170,7 @@ public class SysUserController {
     public ResultData updateAvatar(@RequestParam("avatar") MultipartFile multipartFile) {
         ResultData result = new ResultData();
         try {
-            Long id = sysUserAvatarService.updateAvatar(multipartFile);
+            String id = sysUserAvatarService.updateAvatar(multipartFile);
             result.setData(id);
             return result;
         } catch (ServiceException e) {
@@ -182,7 +182,7 @@ public class SysUserController {
 
     @PreAuthorize("hasAnyAuthority('SYS_ADMIN','sys:user:list')")
     @GetMapping("/{userId}/role")
-    public ResultData getRoleIdsByUserId(@PathVariable(value = "userId") Long id) {
+    public ResultData getRoleIdsByUserId(@PathVariable(value = "userId") String id) {
         ResultData resultData = new ResultData();
         List roles = sysRoleUserService.getRoleIdsByUserId(id);
         resultData.setData(roles);

@@ -56,7 +56,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.tyuan.service.application.cache.UserInfoCacheService;
-import org.tyuan.service.application.service.SysRoleUserService;
+import org.tyuan.service.application.service.manage.SysRoleUserService;
 import org.tyuan.service.common.annotation.AuditLog;
 import org.tyuan.service.data.ResultData;
 import org.tyuan.service.data.ResultTable;
@@ -95,7 +95,7 @@ public class SysRoleUserController {
     public ResultData bindUser(@RequestBody SysRoleUserVo vo) {
         ResultData resultData = new ResultData();
         service.bindUser(vo);
-        for (Long l : vo.getUserIds()) {
+        for (String l : vo.getUserIds()) {
             userInfoCacheService.leaveMessage(l, "你的权限发生改变，请重新登陆");
         }
         return resultData;
@@ -107,7 +107,7 @@ public class SysRoleUserController {
     public ResultData unbindUser(@RequestBody SysRoleUserVo vo) {
         ResultData resultData = new ResultData();
         service.unbindUser(vo);
-        for (Long l : vo.getUserIds()) {
+        for (String l : vo.getUserIds()) {
             userInfoCacheService.leaveMessage(l, "你的权限发生改变，请重新登陆");
         }
         return resultData;

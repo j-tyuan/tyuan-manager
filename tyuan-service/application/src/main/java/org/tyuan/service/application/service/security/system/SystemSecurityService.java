@@ -1,5 +1,5 @@
 /**
- * Copyright © 2016-2021 The Thingsboard Authors
+ * Copyright (c) 2020-2038, Jiangguiqi 齐 (author@tyuan.design).
  * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,13 +25,13 @@ import java.util.List;
 public interface SystemSecurityService {
 
 
-    SecuritySettings getSecuritySettings(Long userId);
+    SecuritySettings getSecuritySettings(String userId);
 
-    SecuritySettings saveSecuritySettings(Long userId, SecuritySettings securitySettings);
+    SecuritySettings saveSecuritySettings(String userId, SecuritySettings securitySettings);
 
-    void validateUserCredentials(Long userId, SysUserCredentials userCredentials, String username, String password) throws AuthenticationException;
+    void validateUserCredentials(String userId, SysUserCredentials userCredentials, String username, String password) throws AuthenticationException;
 
-    void validatePassword(Long userId, String password, SysUserCredentials userCredentials) throws DataValidationException;
+    void validatePassword(String userId, String password, SysUserCredentials userCredentials) throws DataValidationException;
 
-    List<String> getAuthorities(Long userId);
+    List<String> getAuthorities(String userId);
 }

@@ -65,7 +65,7 @@ public class UserInfoCacheService {
      * @param value
      * @return
      */
-    public Object put(Long userId, String token, Object value, long exp) {
+    public Object put(String userId, String token, Object value, long exp) {
         String key = "MANAGE:USER:" + token + ":INFO";
         redisTemplate.opsForValue().set(key, value);
         redisTemplate.expire(key, exp, TimeUnit.SECONDS);
@@ -107,7 +107,7 @@ public class UserInfoCacheService {
      * @param id 用户ID
      * @return
      */
-    public Object getTokenById(Long id) {
+    public Object getTokenById(String id) {
         String key = "MANAGE:USER:" + id;
         return redisTemplate.opsForValue().get(key);
     }
@@ -129,7 +129,7 @@ public class UserInfoCacheService {
      *
      * @param userId
      */
-    public void clear(Long userId) {
+    public void clear(String userId) {
         String token = (String) getTokenById(userId);
         if (StringUtils.isBlank(token)) {
             return;
@@ -153,7 +153,7 @@ public class UserInfoCacheService {
      * @param userId
      * @param message
      */
-    public void leaveMessage(long userId, Object message) {
+    public void leaveMessage(String userId, Object message) {
         String token = (String) getTokenById(userId);
         if (StringUtils.isBlank(token)) {
             return;

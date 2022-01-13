@@ -123,7 +123,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.tyuan.common.exception.ServiceException;
-import org.tyuan.service.application.service.SysParamService;
+import org.tyuan.service.application.service.manage.SysParamService;
 import org.tyuan.service.common.annotation.AuditLog;
 import org.tyuan.service.data.ResultData;
 import org.tyuan.service.data.ResultTable;

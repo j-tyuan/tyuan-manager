@@ -205,52 +205,62 @@ public class SysUserExample {
             return (Criteria) this;
         }
 
-        public Criteria andIdEqualTo(Long value) {
+        public Criteria andIdEqualTo(String value) {
             addCriterion("id =", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotEqualTo(Long value) {
+        public Criteria andIdNotEqualTo(String value) {
             addCriterion("id <>", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdGreaterThan(Long value) {
+        public Criteria andIdGreaterThan(String value) {
             addCriterion("id >", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdGreaterThanOrEqualTo(Long value) {
+        public Criteria andIdGreaterThanOrEqualTo(String value) {
             addCriterion("id >=", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdLessThan(Long value) {
+        public Criteria andIdLessThan(String value) {
             addCriterion("id <", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdLessThanOrEqualTo(Long value) {
+        public Criteria andIdLessThanOrEqualTo(String value) {
             addCriterion("id <=", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdIn(List<Long> values) {
+        public Criteria andIdLike(String value) {
+            addCriterion("id like", value, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdNotLike(String value) {
+            addCriterion("id not like", value, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdIn(List<String> values) {
             addCriterion("id in", values, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotIn(List<Long> values) {
+        public Criteria andIdNotIn(List<String> values) {
             addCriterion("id not in", values, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdBetween(Long value1, Long value2) {
+        public Criteria andIdBetween(String value1, String value2) {
             addCriterion("id between", value1, value2, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotBetween(Long value1, Long value2) {
+        public Criteria andIdNotBetween(String value1, String value2) {
             addCriterion("id not between", value1, value2, "id");
             return (Criteria) this;
         }
@@ -735,52 +745,62 @@ public class SysUserExample {
             return (Criteria) this;
         }
 
-        public Criteria andInstIdEqualTo(Long value) {
+        public Criteria andInstIdEqualTo(String value) {
             addCriterion("inst_id =", value, "instId");
             return (Criteria) this;
         }
 
-        public Criteria andInstIdNotEqualTo(Long value) {
+        public Criteria andInstIdNotEqualTo(String value) {
             addCriterion("inst_id <>", value, "instId");
             return (Criteria) this;
         }
 
-        public Criteria andInstIdGreaterThan(Long value) {
+        public Criteria andInstIdGreaterThan(String value) {
             addCriterion("inst_id >", value, "instId");
             return (Criteria) this;
         }
 
-        public Criteria andInstIdGreaterThanOrEqualTo(Long value) {
+        public Criteria andInstIdGreaterThanOrEqualTo(String value) {
             addCriterion("inst_id >=", value, "instId");
             return (Criteria) this;
         }
 
-        public Criteria andInstIdLessThan(Long value) {
+        public Criteria andInstIdLessThan(String value) {
             addCriterion("inst_id <", value, "instId");
             return (Criteria) this;
         }
 
-        public Criteria andInstIdLessThanOrEqualTo(Long value) {
+        public Criteria andInstIdLessThanOrEqualTo(String value) {
             addCriterion("inst_id <=", value, "instId");
             return (Criteria) this;
         }
 
-        public Criteria andInstIdIn(List<Long> values) {
+        public Criteria andInstIdLike(String value) {
+            addCriterion("inst_id like", value, "instId");
+            return (Criteria) this;
+        }
+
+        public Criteria andInstIdNotLike(String value) {
+            addCriterion("inst_id not like", value, "instId");
+            return (Criteria) this;
+        }
+
+        public Criteria andInstIdIn(List<String> values) {
             addCriterion("inst_id in", values, "instId");
             return (Criteria) this;
         }
 
-        public Criteria andInstIdNotIn(List<Long> values) {
+        public Criteria andInstIdNotIn(List<String> values) {
             addCriterion("inst_id not in", values, "instId");
             return (Criteria) this;
         }
 
-        public Criteria andInstIdBetween(Long value1, Long value2) {
+        public Criteria andInstIdBetween(String value1, String value2) {
             addCriterion("inst_id between", value1, value2, "instId");
             return (Criteria) this;
         }
 
-        public Criteria andInstIdNotBetween(Long value1, Long value2) {
+        public Criteria andInstIdNotBetween(String value1, String value2) {
             addCriterion("inst_id not between", value1, value2, "instId");
             return (Criteria) this;
         }
@@ -1535,52 +1555,62 @@ public class SysUserExample {
             return (Criteria) this;
         }
 
-        public Criteria andAvatarIdEqualTo(Long value) {
+        public Criteria andAvatarIdEqualTo(String value) {
             addCriterion("avatar_id =", value, "avatarId");
             return (Criteria) this;
         }
 
-        public Criteria andAvatarIdNotEqualTo(Long value) {
+        public Criteria andAvatarIdNotEqualTo(String value) {
             addCriterion("avatar_id <>", value, "avatarId");
             return (Criteria) this;
         }
 
-        public Criteria andAvatarIdGreaterThan(Long value) {
+        public Criteria andAvatarIdGreaterThan(String value) {
             addCriterion("avatar_id >", value, "avatarId");
             return (Criteria) this;
         }
 
-        public Criteria andAvatarIdGreaterThanOrEqualTo(Long value) {
+        public Criteria andAvatarIdGreaterThanOrEqualTo(String value) {
             addCriterion("avatar_id >=", value, "avatarId");
             return (Criteria) this;
         }
 
-        public Criteria andAvatarIdLessThan(Long value) {
+        public Criteria andAvatarIdLessThan(String value) {
             addCriterion("avatar_id <", value, "avatarId");
             return (Criteria) this;
         }
 
-        public Criteria andAvatarIdLessThanOrEqualTo(Long value) {
+        public Criteria andAvatarIdLessThanOrEqualTo(String value) {
             addCriterion("avatar_id <=", value, "avatarId");
             return (Criteria) this;
         }
 
-        public Criteria andAvatarIdIn(List<Long> values) {
+        public Criteria andAvatarIdLike(String value) {
+            addCriterion("avatar_id like", value, "avatarId");
+            return (Criteria) this;
+        }
+
+        public Criteria andAvatarIdNotLike(String value) {
+            addCriterion("avatar_id not like", value, "avatarId");
+            return (Criteria) this;
+        }
+
+        public Criteria andAvatarIdIn(List<String> values) {
             addCriterion("avatar_id in", values, "avatarId");
             return (Criteria) this;
         }
 
-        public Criteria andAvatarIdNotIn(List<Long> values) {
+        public Criteria andAvatarIdNotIn(List<String> values) {
             addCriterion("avatar_id not in", values, "avatarId");
             return (Criteria) this;
         }
 
-        public Criteria andAvatarIdBetween(Long value1, Long value2) {
+        public Criteria andAvatarIdBetween(String value1, String value2) {
             addCriterion("avatar_id between", value1, value2, "avatarId");
             return (Criteria) this;
         }
 
-        public Criteria andAvatarIdNotBetween(Long value1, Long value2) {
+        public Criteria andAvatarIdNotBetween(String value1, String value2) {
             addCriterion("avatar_id not between", value1, value2, "avatarId");
             return (Criteria) this;
         }

@@ -25,7 +25,7 @@ public class SysLogTableVo extends DataTableParam {
 
     private String userName;
 
-    private Long userId;
+    private String userId;
 
     private String method;
 

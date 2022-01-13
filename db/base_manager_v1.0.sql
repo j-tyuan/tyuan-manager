@@ -34,18 +34,18 @@ DROP TABLE IF EXISTS `audit_log`;
 /******************************************/
 CREATE TABLE `organization_institution`
 (
-    `id`            bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
-    `create_time`   datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time`   datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+    `id`            varchar(64)  NOT NULL COMMENT 'ID',
+    `create_time`   datetime     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time`   datetime     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
 
-    `parent_id`     bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT '父ID',
-    `inst_code`     varchar(512)        NOT NULL COMMENT '机构编码',
-    `inst_name`     varchar(512)        NOT NULL COMMENT '机构名称',
-    `inst_type`     int(2)              NOT NULL COMMENT '机构类型：0：公司，1:部门',
-    `owner_user_id` bigint(20)          NOT NULL COMMENT '负责人ID',
-    `inst_sort`     int(2)              NOT NULL COMMENT '排序',
-    `inst_status`   int(2)              NOT NULL COMMENT '状态：0:启用，1:停用',
-    `remarks`       varchar(2048)                DEFAULT NULL COMMENT '描述',
+    `parent_id`     varchar(64)  NOT NULL DEFAULT '0' COMMENT '父ID',
+    `inst_code`     varchar(512) NOT NULL COMMENT '机构编码',
+    `inst_name`     varchar(512) NOT NULL COMMENT '机构名称',
+    `inst_type`     int(2)       NOT NULL COMMENT '机构类型：0：公司，1:部门',
+    `owner_user_id` varchar(64)  NOT NULL COMMENT '负责人ID',
+    `inst_sort`     int(2)       NOT NULL COMMENT '排序',
+    `inst_status`   int(2)       NOT NULL COMMENT '状态：0:启用，1:停用',
+    `remarks`       varchar(2048)         DEFAULT NULL COMMENT '描述',
     PRIMARY KEY (`id`)
 ) COMMENT = '机构表';
 /******************************************/
@@ -55,19 +55,19 @@ CREATE TABLE `organization_institution`
 
 CREATE TABLE `sys_area`
 (
-    `id`          bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
-    `create_time` datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time` datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `id`          varchar(64)    NOT NULL COMMENT 'ID',
+    `create_time` datetime       NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` datetime       NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
 
-    `parent_id`   bigint(20) unsigned NOT NULL COMMENT '父级编号',
-    `area_name`   varchar(100)        NOT NULL COMMENT '名称',
-    `area_sort`   decimal(10, 0)      NOT NULL COMMENT '排序',
-    `area_code`   varchar(100)                 DEFAULT NULL COMMENT '区域编码',
-    `area_type`   tinyint(1)                   DEFAULT NULL COMMENT '区域类型',
-    `create_by`   varchar(64)         NOT NULL COMMENT '创建者',
-    `update_by`   varchar(64)         NOT NULL COMMENT '更新者',
-    `remarks`     varchar(255)                 DEFAULT NULL COMMENT '备注信息',
-    `del_flag`    tinyint(1)          NOT NULL DEFAULT '0' COMMENT '删除标记',
+    `parent_id`   varchar(64)    NOT NULL COMMENT '父级编号',
+    `area_name`   varchar(100)   NOT NULL COMMENT '名称',
+    `area_sort`   decimal(10, 0) NOT NULL COMMENT '排序',
+    `area_code`   varchar(100)            DEFAULT NULL COMMENT '区域编码',
+    `area_type`   tinyint(1)              DEFAULT NULL COMMENT '区域类型',
+    `create_by`   varchar(64)    NOT NULL COMMENT '创建者',
+    `update_by`   varchar(64)    NOT NULL COMMENT '更新者',
+    `remarks`     varchar(255)            DEFAULT NULL COMMENT '备注信息',
+    `del_flag`    tinyint(1)     NOT NULL DEFAULT '0' COMMENT '删除标记',
     PRIMARY KEY (`id`)
 ) COMMENT = '区域表';
 /******************************************/
@@ -76,19 +76,19 @@ CREATE TABLE `sys_area`
 /******************************************/
 CREATE TABLE `sys_dict`
 (
-    `id`          bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
-    `create_time` datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time` datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `id`          varchar(64)    NOT NULL COMMENT 'ID',
+    `create_time` datetime       NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` datetime       NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
 
-    `dict_value`  varchar(100)        NOT NULL COMMENT '数据值',
-    `dict_label`  varchar(100)        NOT NULL COMMENT '标签名',
-    `dict_type`   varchar(100)        NOT NULL COMMENT '类型',
-    `dict_sort`   decimal(10, 0)      NOT NULL COMMENT '排序（升序）',
-    `parent_id`   bigint(20) unsigned          DEFAULT '0' COMMENT '父级编号',
-    `create_by`   varchar(64)         NOT NULL COMMENT '创建者',
-    `update_by`   varchar(64)         NOT NULL COMMENT '更新者',
-    `remarks`     varchar(255)                 DEFAULT NULL COMMENT '备注信息',
-    `del_flag`    tinyint(1)          NOT NULL DEFAULT '0' COMMENT '删除标记',
+    `dict_value`  varchar(100)   NOT NULL COMMENT '数据值',
+    `dict_label`  varchar(100)   NOT NULL COMMENT '标签名',
+    `dict_type`   varchar(100)   NOT NULL COMMENT '类型',
+    `dict_sort`   decimal(10, 0) NOT NULL COMMENT '排序（升序）',
+    `parent_id`   varchar(64)             DEFAULT '-' COMMENT '父级编号',
+    `create_by`   varchar(64)    NOT NULL COMMENT '创建者',
+    `update_by`   varchar(64)    NOT NULL COMMENT '更新者',
+    `remarks`     varchar(255)            DEFAULT NULL COMMENT '备注信息',
+    `del_flag`    tinyint(1)     NOT NULL DEFAULT '0' COMMENT '删除标记',
     PRIMARY KEY (`id`)
 ) COMMENT = '字典表';
 
@@ -98,16 +98,16 @@ CREATE TABLE `sys_dict`
 /******************************************/
 CREATE TABLE `sys_mdict`
 (
-    `id`          bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
-    `create_time` datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time` datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `parent_id`   bigint(20) unsigned NOT NULL COMMENT '父级编号',
-    `mdict_name`  varchar(100)        NOT NULL COMMENT '名称',
-    `mdict_sort`  decimal(10, 0)      NOT NULL COMMENT '排序',
-    `create_by`   varchar(64)         NOT NULL COMMENT '创建者',
-    `update_by`   varchar(64)         NOT NULL COMMENT '更新者',
-    `remarks`     varchar(255)                 DEFAULT NULL COMMENT '备注信息',
-    `del_flag`    tinyint(1)          NOT NULL DEFAULT '0' COMMENT '删除标记',
+    `id`          varchar(64)    NOT NULL COMMENT 'ID',
+    `create_time` datetime       NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` datetime       NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `parent_id`   varchar(64)    NOT NULL COMMENT '父级编号',
+    `mdict_name`  varchar(100)   NOT NULL COMMENT '名称',
+    `mdict_sort`  decimal(10, 0) NOT NULL COMMENT '排序',
+    `create_by`   varchar(64)    NOT NULL COMMENT '创建者',
+    `update_by`   varchar(64)    NOT NULL COMMENT '更新者',
+    `remarks`     varchar(255)            DEFAULT NULL COMMENT '备注信息',
+    `del_flag`    tinyint(1)     NOT NULL DEFAULT '0' COMMENT '删除标记',
     PRIMARY KEY (`id`)
 ) COMMENT = '多级字典表';
 /******************************************/
@@ -116,17 +116,17 @@ CREATE TABLE `sys_mdict`
 /******************************************/
 CREATE TABLE `sys_oss_file`
 (
-    `id`           bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
-    `create_time`  datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time`  datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `bucket`       varchar(124)        NOT NULL COMMENT 'oss空间',
-    `file_uid`     varchar(128)        NOT NULL COMMENT '文件Key(id)',
-    `file_name`    varchar(128)        NOT NULL COMMENT '文件名称',
-    `size`         int(10) unsigned    NOT NULL COMMENT '文件大小',
-    `file_type`    varchar(128)        NOT NULL COMMENT '文件类型',
-    `channel_code` varchar(128)        NOT NULL COMMENT '渠道编码:qiniu、aliyun、.....',
-    `create_by`    varchar(64)         NOT NULL COMMENT '创建者',
-    `update_by`    varchar(64)         NOT NULL COMMENT '更新者',
+    `id`           varchar(64)      NOT NULL COMMENT 'ID',
+    `create_time`  datetime         NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time`  datetime         NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `bucket`       varchar(124)     NOT NULL COMMENT 'oss空间',
+    `file_uid`     varchar(128)     NOT NULL COMMENT '文件Key(id)',
+    `file_name`    varchar(128)     NOT NULL COMMENT '文件名称',
+    `size`         int(10) unsigned NOT NULL COMMENT '文件大小',
+    `file_type`    varchar(128)     NOT NULL COMMENT '文件类型',
+    `channel_code` varchar(128)     NOT NULL COMMENT '渠道编码:qiniu、aliyun、.....',
+    `create_by`    varchar(64)      NOT NULL COMMENT '创建者',
+    `update_by`    varchar(64)      NOT NULL COMMENT '更新者',
     PRIMARY KEY (`id`)
 ) COMMENT = '文件表';
 /******************************************/
@@ -135,16 +135,16 @@ CREATE TABLE `sys_oss_file`
 /******************************************/
 CREATE TABLE `sys_param`
 (
-    `id`          bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
-    `create_time` datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time` datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `param_name`  varchar(255)                 DEFAULT NULL COMMENT '参数名称',
-    `param_key`   varchar(255)                 DEFAULT NULL COMMENT '参数key',
+    `id`          varchar(64) NOT NULL COMMENT 'ID',
+    `create_time` datetime    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` datetime    NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `param_name`  varchar(255)         DEFAULT NULL COMMENT '参数名称',
+    `param_key`   varchar(255)         DEFAULT NULL COMMENT '参数key',
     `param_val`   text COMMENT '参数值',
-    `is_sys`      tinyint(1)          NOT NULL DEFAULT '0' COMMENT '是否系统参数',
-    `create_by`   varchar(64)         NOT NULL COMMENT '创建者',
-    `update_by`   varchar(64)         NOT NULL COMMENT '更新者',
-    `remarks`     varchar(1024)                DEFAULT NULL COMMENT '备注信息',
+    `is_sys`      tinyint(1)  NOT NULL DEFAULT '0' COMMENT '是否系统参数',
+    `create_by`   varchar(64) NOT NULL COMMENT '创建者',
+    `update_by`   varchar(64) NOT NULL COMMENT '更新者',
+    `remarks`     varchar(1024)        DEFAULT NULL COMMENT '备注信息',
     PRIMARY KEY (`id`)
 ) COMMENT = '参数表 - 用于动态配置一些项目';
 /******************************************/
@@ -153,11 +153,11 @@ CREATE TABLE `sys_param`
 /******************************************/
 CREATE TABLE `sys_permission`
 (
-    `id`              bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
-    `parent_id`       bigint(20)          NOT NULL COMMENT '父级编号',
-    `permission`      varchar(100)        NOT NULL COMMENT '权限',
+    `id`              varchar(64)  NOT NULL COMMENT 'ID',
+    `parent_id`       bigint(20)   NOT NULL COMMENT '父级编号',
+    `permission`      varchar(100) NOT NULL COMMENT '权限',
     `permission_sort` decimal(10, 0) DEFAULT '0' COMMENT '排序',
-    `permission_name` varchar(100)        NOT NULL COMMENT '权限',
+    `permission_name` varchar(100) NOT NULL COMMENT '权限',
     `remarks`         varchar(255)   DEFAULT NULL COMMENT '备注信息',
     PRIMARY KEY (`id`)
 ) COMMENT = '权限表';
@@ -167,17 +167,17 @@ CREATE TABLE `sys_permission`
 /******************************************/
 CREATE TABLE `sys_role`
 (
-    `id`          bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
-    `create_time` datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time` datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `role_code`   varchar(100)        NOT NULL COMMENT '角色名称',
-    `role_name`   varchar(255)                 DEFAULT NULL COMMENT '英文名称',
-    `is_sys`      tinyint(1)          NOT NULL DEFAULT '0' COMMENT '是否系统数据',
-    `useable`     tinyint(1)          NOT NULL DEFAULT '0' COMMENT '是否可用',
-    `create_by`   varchar(64)         NOT NULL COMMENT '创建者',
-    `update_by`   varchar(64)         NOT NULL COMMENT '更新者',
-    `remarks`     varchar(255)                 DEFAULT NULL COMMENT '备注信息',
-    `del_flag`    tinyint(1)          NOT NULL DEFAULT '0' COMMENT '删除标记',
+    `id`          varchar(64)  NOT NULL COMMENT 'ID',
+    `create_time` datetime     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` datetime     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `role_code`   varchar(100) NOT NULL COMMENT '角色名称',
+    `role_name`   varchar(255)          DEFAULT NULL COMMENT '英文名称',
+    `is_sys`      tinyint(1)   NOT NULL DEFAULT '0' COMMENT '是否系统数据',
+    `useable`     tinyint(1)   NOT NULL DEFAULT '0' COMMENT '是否可用',
+    `create_by`   varchar(64)  NOT NULL COMMENT '创建者',
+    `update_by`   varchar(64)  NOT NULL COMMENT '更新者',
+    `remarks`     varchar(255)          DEFAULT NULL COMMENT '备注信息',
+    `del_flag`    tinyint(1)   NOT NULL DEFAULT '0' COMMENT '删除标记',
     PRIMARY KEY (`id`)
 ) COMMENT = '角色表';
 /******************************************/
@@ -186,9 +186,9 @@ CREATE TABLE `sys_role`
 /******************************************/
 CREATE TABLE `sys_role_permission`
 (
-    `id`            bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
-    `role_id`       bigint(20) unsigned NOT NULL COMMENT '角色编号',
-    `permission_id` bigint(20) unsigned NOT NULL COMMENT '权限ID',
+    `id`            varchar(64) NOT NULL COMMENT 'ID',
+    `role_id`       varchar(64) NOT NULL COMMENT '角色编号',
+    `permission_id` varchar(64) NOT NULL COMMENT '权限ID',
     PRIMARY KEY (`id`)
 ) COMMENT = '角色-权限';
 /******************************************/
@@ -197,22 +197,22 @@ CREATE TABLE `sys_role_permission`
 /******************************************/
 CREATE TABLE `sys_source`
 (
-    `id`            bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
-    `create_time`   datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time`   datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `parent_id`     bigint(20) unsigned NOT NULL COMMENT '父级编号',
-    `source_name`   varchar(100)        NOT NULL COMMENT '名称',
-    `source_sort`   decimal(10, 0)               DEFAULT '0' COMMENT '排序',
-    `source_href`   varchar(2048)                DEFAULT '' COMMENT '链接',
-    `source_target` varchar(20)                  DEFAULT '' COMMENT '目标',
-    `source_icon`   varchar(100)                 DEFAULT NULL COMMENT '图标',
-    `is_leaf`       tinyint(1)          NOT NULL DEFAULT '0' COMMENT '是否叶子节点',
-    `is_show`       tinyint(1)          NOT NULL COMMENT '是否在菜单中显示',
-    `permission_id` bigint(20) unsigned          DEFAULT '0' COMMENT '权限标识',
-    `create_by`     varchar(64)         NOT NULL COMMENT '创建者',
-    `update_by`     varchar(64)         NOT NULL COMMENT '更新者',
-    `remarks`       varchar(255)                 DEFAULT NULL COMMENT '备注信息',
-    `del_flag`      tinyint(1)          NOT NULL DEFAULT '0' COMMENT '删除标记',
+    `id`            varchar(64)  NOT NULL COMMENT 'ID',
+    `create_time`   datetime     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time`   datetime     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `parent_id`     varchar(64)  NOT NULL COMMENT '父级编号',
+    `source_name`   varchar(100) NOT NULL COMMENT '名称',
+    `source_sort`   decimal(10, 0)        DEFAULT '0' COMMENT '排序',
+    `source_href`   varchar(2048)         DEFAULT '' COMMENT '链接',
+    `source_target` varchar(20)           DEFAULT '' COMMENT '目标',
+    `source_icon`   varchar(100)          DEFAULT NULL COMMENT '图标',
+    `is_leaf`       tinyint(1)   NOT NULL DEFAULT '0' COMMENT '是否叶子节点',
+    `is_show`       tinyint(1)   NOT NULL COMMENT '是否在菜单中显示',
+    `permission_id` varchar(64)           DEFAULT '0' COMMENT '权限标识',
+    `create_by`     varchar(64)  NOT NULL COMMENT '创建者',
+    `update_by`     varchar(64)  NOT NULL COMMENT '更新者',
+    `remarks`       varchar(255)          DEFAULT NULL COMMENT '备注信息',
+    `del_flag`      tinyint(1)   NOT NULL DEFAULT '0' COMMENT '删除标记',
     PRIMARY KEY (`id`)
 ) COMMENT = '菜单表';
 /******************************************/
@@ -221,57 +221,57 @@ CREATE TABLE `sys_source`
 /******************************************/
 CREATE TABLE `sys_user`
 (
-    `id`              bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
-    `create_time`     datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time`     datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `user_account`    varchar(100)        NOT NULL COMMENT '登录名',
-    `additional_info` TEXT                NOT NULL COMMENT '用户详细信息',
-    `authority`       varchar(64)         NOT NULL COMMENT '用户类型',
-    `user_name`       varchar(100)        NOT NULL COMMENT '姓名',
-    `user_email`      varchar(200)                 DEFAULT NULL COMMENT '邮箱',
-    `user_phone`      varchar(200)                 DEFAULT NULL COMMENT '电话',
-    `inst_id`         bigint(20)                   DEFAULT NULL COMMENT '机构ID',
-    `inst_name`       varchar(100)                 DEFAULT NULL COMMENT '机构名称',
-    `mobile`          varchar(200)                 DEFAULT NULL COMMENT '手机',
-    `login_ip`        varchar(100)                 DEFAULT NULL COMMENT '最后登陆IP',
-    `login_date`      datetime                     DEFAULT NULL COMMENT '最后登陆时间',
-    `login_flag`      varchar(64)                  DEFAULT NULL COMMENT '是否可登录',
-    `create_by`       varchar(64)         NOT NULL COMMENT '创建者',
-    `update_by`       varchar(64)         NOT NULL COMMENT '更新者',
-    `remarks`         varchar(255)                 DEFAULT NULL COMMENT '备注信息',
-    `del_flag`        tinyint(1)          NOT NULL DEFAULT '0' COMMENT '删除标记',
-    `disabled`        tinyint(1)                   DEFAULT '0' COMMENT '是否禁用',
-    `user_no`         varchar(512)                 DEFAULT '' COMMENT '用户工号',
-    `avatar_id`       bigint(20)                   DEFAULT '0' COMMENT '用户头像',
+    `id`              varchar(64)  NOT NULL COMMENT 'ID',
+    `create_time`     datetime     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time`     datetime     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `user_account`    varchar(100) NOT NULL COMMENT '登录名',
+    `additional_info` TEXT         NOT NULL COMMENT '用户详细信息',
+    `authority`       varchar(64)  NOT NULL COMMENT '用户类型',
+    `user_name`       varchar(100) NOT NULL COMMENT '姓名',
+    `user_email`      varchar(200)          DEFAULT NULL COMMENT '邮箱',
+    `user_phone`      varchar(200)          DEFAULT NULL COMMENT '电话',
+    `inst_id`         varchar(64)           DEFAULT NULL COMMENT '机构ID',
+    `inst_name`       varchar(100)          DEFAULT NULL COMMENT '机构名称',
+    `mobile`          varchar(200)          DEFAULT NULL COMMENT '手机',
+    `login_ip`        varchar(100)          DEFAULT NULL COMMENT '最后登陆IP',
+    `login_date`      datetime              DEFAULT NULL COMMENT '最后登陆时间',
+    `login_flag`      varchar(64)           DEFAULT NULL COMMENT '是否可登录',
+    `create_by`       varchar(64)  NOT NULL COMMENT '创建者',
+    `update_by`       varchar(64)  NOT NULL COMMENT '更新者',
+    `remarks`         varchar(255)          DEFAULT NULL COMMENT '备注信息',
+    `del_flag`        tinyint(1)   NOT NULL DEFAULT '0' COMMENT '删除标记',
+    `disabled`        tinyint(1)            DEFAULT '0' COMMENT '是否禁用',
+    `user_no`         varchar(512)          DEFAULT '' COMMENT '用户工号',
+    `avatar_id`       bigint(20)            DEFAULT '0' COMMENT '用户头像',
     PRIMARY KEY (`id`)
 ) COMMENT = '用户表';
 
 CREATE TABLE `sys_user_credentials`
 (
-    `id`             bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
-    `create_time`    datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time`    datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `user_id`        bigint(20)                   DEFAULT '0' COMMENT '用户ID',
+    `id`             varchar(64)   NOT NULL COMMENT 'ID',
+    `create_time`    datetime      NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time`    datetime      NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `user_id`        varchar(64)            DEFAULT '-' COMMENT '用户ID',
 
-    `activate_token` varchar(1024)       NOT NULL COMMENT 'token',
-    `enabled`        tinyint(1)                   DEFAULT '0' COMMENT '是否禁用',
-    `password`       varchar(1024)       NOT NULL COMMENT '密码',
-    `reset_token`    varchar(1024)                DEFAULT NULL COMMENT 'token',
+    `activate_token` varchar(1024) NOT NULL COMMENT 'token',
+    `enabled`        tinyint(1)             DEFAULT '0' COMMENT '是否禁用',
+    `password`       varchar(1024) NOT NULL COMMENT '密码',
+    `reset_token`    varchar(1024)          DEFAULT NULL COMMENT 'token',
     PRIMARY KEY (`id`)
 ) COMMENT = '用户证书表';
 
 
 CREATE TABLE `audit_log`
 (
-    `id`                     bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
-    `create_time`            datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time`            datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `user_id`                bigint(20)                   DEFAULT '0' COMMENT '用户ID',
-    `user_name`              varchar(255)        NOT NULL COMMENT '用户名称',
-    `action_type`            varchar(255)        NOT NULL COMMENT '操作类型',
+    `id`                     varchar(64)  NOT NULL COMMENT 'ID',
+    `create_time`            datetime     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time`            datetime     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `user_id`                varchar(64)           DEFAULT '0' COMMENT '用户ID',
+    `user_name`              varchar(255) NOT NULL COMMENT '用户名称',
+    `action_type`            varchar(255) NOT NULL COMMENT '操作类型',
     `action_data`            LONGTEXT COMMENT '操作数据',
-    `action_status`          varchar(255)        NOT NULL COMMENT '操作状态',
-    `action_failure_details` text                NOT NULL COMMENT '失败详情',
+    `action_status`          varchar(255) NOT NULL COMMENT '操作状态',
+    `action_failure_details` text         NOT NULL COMMENT '失败详情',
     PRIMARY KEY (`id`)
 ) COMMENT = '审计日志';
 
@@ -281,10 +281,10 @@ CREATE TABLE `audit_log`
 /******************************************/
 CREATE TABLE `sys_user_avatar`
 (
-    `id`          bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
-    `create_time` datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time` datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `user_avatar` longtext            NOT NULL COMMENT '头像地址',
+    `id`          varchar(64) NOT NULL COMMENT 'ID',
+    `create_time` datetime    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` datetime    NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `user_avatar` longtext    NOT NULL COMMENT '头像地址',
     PRIMARY KEY (`id`),
     KEY `idx_sys_user_avatar_id` (`id`)
 ) COMMENT = '用户头像';
@@ -294,11 +294,11 @@ CREATE TABLE `sys_user_avatar`
 /******************************************/
 CREATE TABLE `sys_user_role`
 (
-    `id`          bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
-    `create_time` datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time` datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `user_id`     bigint(20) unsigned NOT NULL COMMENT '用户编号',
-    `role_id`     bigint(20) unsigned NOT NULL COMMENT '角色编号',
+    `id`          varchar(64) NOT NULL COMMENT 'ID',
+    `create_time` datetime    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` datetime    NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `user_id`     varchar(64) NOT NULL COMMENT '用户编号',
+    `role_id`     varchar(64) NOT NULL COMMENT '角色编号',
     PRIMARY KEY (`id`)
 ) COMMENT = '用户-角色';
 /******************************************/
@@ -307,10 +307,10 @@ CREATE TABLE `sys_user_role`
 /******************************************/
 CREATE TABLE `sys_user_web_layout`
 (
-    `id`               bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
-    `create_time`      datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time`      datetime            NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `user_id`          bigint(20)          NOT NULL COMMENT '用户ID',
+    `id`               varchar(64) NOT NULL COMMENT 'ID',
+    `create_time`      datetime    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time`      datetime    NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `user_id`          varchar(64) NOT NULL COMMENT '用户ID',
     `layout_structure` text COMMENT '布局结构',
     PRIMARY KEY (`id`)
 ) COMMENT = '用户自定义PC Web端义布局';

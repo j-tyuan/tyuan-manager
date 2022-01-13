@@ -45,6 +45,10 @@ public class SysUserAvatarSqlProvider {
         SQL sql = new SQL();
         sql.INSERT_INTO("sys_user_avatar");
         
+        if (record.getId() != null) {
+            sql.VALUES("id", "#{id,jdbcType=VARCHAR}");
+        }
+        
         if (record.getCreateTime() != null) {
             sql.VALUES("create_time", "#{createTime,jdbcType=TIMESTAMP}");
         }
@@ -125,7 +129,7 @@ public class SysUserAvatarSqlProvider {
         sql.UPDATE("sys_user_avatar");
         
         if (record.getId() != null) {
-            sql.SET("id = #{record.id,jdbcType=BIGINT}");
+            sql.SET("id = #{record.id,jdbcType=VARCHAR}");
         }
         
         if (record.getCreateTime() != null) {
@@ -154,7 +158,7 @@ public class SysUserAvatarSqlProvider {
         SQL sql = new SQL();
         sql.UPDATE("sys_user_avatar");
         
-        sql.SET("id = #{record.id,jdbcType=BIGINT}");
+        sql.SET("id = #{record.id,jdbcType=VARCHAR}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
         sql.SET("user_avatar = #{record.userAvatar,jdbcType=LONGVARCHAR}");
@@ -174,7 +178,7 @@ public class SysUserAvatarSqlProvider {
         SQL sql = new SQL();
         sql.UPDATE("sys_user_avatar");
         
-        sql.SET("id = #{record.id,jdbcType=BIGINT}");
+        sql.SET("id = #{record.id,jdbcType=VARCHAR}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
         
@@ -205,7 +209,7 @@ public class SysUserAvatarSqlProvider {
             sql.SET("user_avatar = #{userAvatar,jdbcType=LONGVARCHAR}");
         }
         
-        sql.WHERE("id = #{id,jdbcType=BIGINT}");
+        sql.WHERE("id = #{id,jdbcType=VARCHAR}");
         
         return sql.toString();
     }

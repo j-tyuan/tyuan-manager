@@ -45,6 +45,10 @@ public class AuditLogSqlProvider {
         SQL sql = new SQL();
         sql.INSERT_INTO("audit_log");
         
+        if (record.getId() != null) {
+            sql.VALUES("id", "#{id,jdbcType=VARCHAR}");
+        }
+        
         if (record.getCreateTime() != null) {
             sql.VALUES("create_time", "#{createTime,jdbcType=TIMESTAMP}");
         }
@@ -54,7 +58,7 @@ public class AuditLogSqlProvider {
         }
         
         if (record.getUserId() != null) {
-            sql.VALUES("user_id", "#{userId,jdbcType=BIGINT}");
+            sql.VALUES("user_id", "#{userId,jdbcType=VARCHAR}");
         }
         
         if (record.getUserName() != null) {
@@ -154,7 +158,7 @@ public class AuditLogSqlProvider {
         sql.UPDATE("audit_log");
         
         if (record.getId() != null) {
-            sql.SET("id = #{record.id,jdbcType=BIGINT}");
+            sql.SET("id = #{record.id,jdbcType=VARCHAR}");
         }
         
         if (record.getCreateTime() != null) {
@@ -166,7 +170,7 @@ public class AuditLogSqlProvider {
         }
         
         if (record.getUserId() != null) {
-            sql.SET("user_id = #{record.userId,jdbcType=BIGINT}");
+            sql.SET("user_id = #{record.userId,jdbcType=VARCHAR}");
         }
         
         if (record.getUserName() != null) {
@@ -203,10 +207,10 @@ public class AuditLogSqlProvider {
         SQL sql = new SQL();
         sql.UPDATE("audit_log");
         
-        sql.SET("id = #{record.id,jdbcType=BIGINT}");
+        sql.SET("id = #{record.id,jdbcType=VARCHAR}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
-        sql.SET("user_id = #{record.userId,jdbcType=BIGINT}");
+        sql.SET("user_id = #{record.userId,jdbcType=VARCHAR}");
         sql.SET("user_name = #{record.userName,jdbcType=VARCHAR}");
         sql.SET("action_type = #{record.actionType,jdbcType=VARCHAR}");
         sql.SET("action_status = #{record.actionStatus,jdbcType=VARCHAR}");
@@ -228,10 +232,10 @@ public class AuditLogSqlProvider {
         SQL sql = new SQL();
         sql.UPDATE("audit_log");
         
-        sql.SET("id = #{record.id,jdbcType=BIGINT}");
+        sql.SET("id = #{record.id,jdbcType=VARCHAR}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
-        sql.SET("user_id = #{record.userId,jdbcType=BIGINT}");
+        sql.SET("user_id = #{record.userId,jdbcType=VARCHAR}");
         sql.SET("user_name = #{record.userName,jdbcType=VARCHAR}");
         sql.SET("action_type = #{record.actionType,jdbcType=VARCHAR}");
         sql.SET("action_status = #{record.actionStatus,jdbcType=VARCHAR}");
@@ -260,7 +264,7 @@ public class AuditLogSqlProvider {
         }
         
         if (record.getUserId() != null) {
-            sql.SET("user_id = #{userId,jdbcType=BIGINT}");
+            sql.SET("user_id = #{userId,jdbcType=VARCHAR}");
         }
         
         if (record.getUserName() != null) {
@@ -283,7 +287,7 @@ public class AuditLogSqlProvider {
             sql.SET("action_failure_details = #{actionFailureDetails,jdbcType=LONGVARCHAR}");
         }
         
-        sql.WHERE("id = #{id,jdbcType=BIGINT}");
+        sql.WHERE("id = #{id,jdbcType=VARCHAR}");
         
         return sql.toString();
     }

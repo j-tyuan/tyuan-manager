@@ -1,12 +1,12 @@
 /**
- * Copyright © 2016-2021 The Thingsboard Authors
- *
+ * Copyright (c) 2020-2038, Jiangguiqi 齐 (author@tyuan.design).
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -24,8 +24,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.util.StringUtils;
 import org.tyuan.common.utils.JacksonUtil;
 import org.tyuan.service.application.service.security.model.SecurityUser;
-import org.tyuan.service.data.oauth2.OAuth2MapperConfig;
-import org.tyuan.service.data.oauth2.OAuth2Registration;
+import org.tyuan.service.data.model.OAuth2Registration;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -43,10 +42,7 @@ public class AppleOAuth2ClientMapper extends AbstractOAuth2ClientMapper implemen
 
     @Override
     public SecurityUser getOrCreateUserByClientPrincipal(HttpServletRequest request, OAuth2AuthenticationToken token, String providerAccessToken, OAuth2Registration registration) {
-        OAuth2MapperConfig config = registration.getMapperConfig();
-        Map<String, Object> attributes = updateAttributesFromRequestParams(request, token.getPrincipal().getAttributes());
-
-        return null;
+        throw new RuntimeException("待实现");
     }
 
     private static Map<String, Object> updateAttributesFromRequestParams(HttpServletRequest request, Map<String, Object> attributes) {
@@ -57,7 +53,8 @@ public class AppleOAuth2ClientMapper extends AbstractOAuth2ClientMapper implemen
             JsonNode user = null;
             try {
                 user = JacksonUtil.toJsonNode(userValue);
-            } catch (Exception e) {}
+            } catch (Exception e) {
+            }
             if (user != null) {
                 updated = new HashMap<>(attributes);
                 if (user.has(NAME)) {

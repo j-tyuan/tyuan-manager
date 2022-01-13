@@ -26,10 +26,10 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.tyuan.common.utils.TreeUtils;
 import org.tyuan.service.application.cache.LocalCache;
-import org.tyuan.service.dao.mapper.customize.COrganizationInstitutionMapper;
-import org.tyuan.service.dao.mapper.customize.CSysDictMapper;
-import org.tyuan.service.dao.mapper.customize.CSysParamMapper;
-import org.tyuan.service.dao.mapper.customize.ICacheInfo;
+import org.tyuan.service.dao.mapper.customize.manage.COrganizationInstitutionMapper;
+import org.tyuan.service.dao.mapper.customize.manage.CSysDictMapper;
+import org.tyuan.service.dao.mapper.customize.manage.CSysParamMapper;
+import org.tyuan.service.dao.mapper.customize.manage.ICacheInfo;
 import org.tyuan.service.data.cache.Cache;
 import org.tyuan.service.data.cache.CacheConstant;
 import org.tyuan.service.data.cache.DataCache;
@@ -76,7 +76,7 @@ public class SysScheduledTask {
     public void refreshInstitution() {
         checkLoadCache(LocalCache.SYS_INSTITUTION, cOrganizeInstitutionMapper, (cache) -> {
             List<COrganizationInstitution> sysInstitutions = cOrganizeInstitutionMapper.getAll();
-            List list = TreeUtils.tree(sysInstitutions, 0L);
+            List list = TreeUtils.tree(sysInstitutions, "-");
             cache.setData(list);
             LocalCache.SYS_INSTITUTION = cache;
         });

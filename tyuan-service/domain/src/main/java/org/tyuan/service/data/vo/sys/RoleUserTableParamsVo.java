@@ -22,7 +22,7 @@ import lombok.Setter;
 @Getter
 public class RoleUserTableParamsVo extends SysUserTableParamsVo {
 
-    private Long roleId;
+    private String roleId;
 
     // 查询类型：1.已绑定用户 2.未绑定用户
     private int searchType;

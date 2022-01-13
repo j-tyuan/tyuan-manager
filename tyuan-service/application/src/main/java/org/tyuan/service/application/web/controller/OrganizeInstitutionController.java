@@ -68,7 +68,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.tyuan.common.exception.ServiceException;
 import org.tyuan.common.utils.TreeUtils;
-import org.tyuan.service.application.service.OrganizationInstitutionService;
+import org.tyuan.service.application.service.manage.OrganizationInstitutionService;
 import org.tyuan.service.common.annotation.AuditLog;
 import org.tyuan.service.data.ResultData;
 import org.tyuan.service.data.audit.ActionType;
@@ -90,7 +90,7 @@ public class OrganizeInstitutionController {
     public ResultData getAll() throws ServiceException {
         ResultData resultData = new ResultData();
         List list = sysInstitutionService.getAll();
-        List newList = TreeUtils.tree(list, 0L);
+        List newList = TreeUtils.tree(list, "-");
         resultData.setData(newList);
         return resultData;
 

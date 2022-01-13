@@ -40,7 +40,7 @@ import org.springframework.web.bind.annotation.*;
 import org.tyuan.common.ITree;
 import org.tyuan.common.exception.ServiceException;
 import org.tyuan.common.utils.TreeUtils;
-import org.tyuan.service.application.service.SysSourceService;
+import org.tyuan.service.application.service.manage.SysSourceService;
 import org.tyuan.service.common.annotation.AuditLog;
 import org.tyuan.service.data.ResultData;
 import org.tyuan.service.data.audit.ActionType;
@@ -65,7 +65,7 @@ public class SysSourceController {
     public ResultData getAll() {
         ResultData resultData = new ResultData();
         List<CSysSource> list = sysSourceService.getAll();
-        List<ITree> newList = TreeUtils.tree(list, 0L);
+        List<ITree> newList = TreeUtils.tree(list, "-");
         // 排序
         Collections.sort(newList, Comparator.comparingLong(o -> o.getSort()));
         resultData.setData(newList);

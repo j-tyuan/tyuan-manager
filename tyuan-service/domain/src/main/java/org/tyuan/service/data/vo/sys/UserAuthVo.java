@@ -25,7 +25,7 @@ import java.util.List;
 @Getter
 public class UserAuthVo implements Serializable {
 
-    private List<Long> roleIds;
+    private List<String> roleIds;
 
-    private List<Long> permissionIds;
+    private List<String> permissionIds;
 }

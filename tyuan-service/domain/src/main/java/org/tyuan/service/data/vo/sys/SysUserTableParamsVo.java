@@ -33,5 +33,5 @@ public class SysUserTableParamsVo extends DataTableParam {
 
     private String loginDate;
 
-    private Long instId;
+    private String instId;
 }

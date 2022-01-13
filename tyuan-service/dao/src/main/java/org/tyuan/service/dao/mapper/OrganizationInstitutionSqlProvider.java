@@ -45,6 +45,10 @@ public class OrganizationInstitutionSqlProvider {
         SQL sql = new SQL();
         sql.INSERT_INTO("organization_institution");
         
+        if (record.getId() != null) {
+            sql.VALUES("id", "#{id,jdbcType=VARCHAR}");
+        }
+        
         if (record.getCreateTime() != null) {
             sql.VALUES("create_time", "#{createTime,jdbcType=TIMESTAMP}");
         }
@@ -54,7 +58,7 @@ public class OrganizationInstitutionSqlProvider {
         }
         
         if (record.getParentId() != null) {
-            sql.VALUES("parent_id", "#{parentId,jdbcType=BIGINT}");
+            sql.VALUES("parent_id", "#{parentId,jdbcType=VARCHAR}");
         }
         
         if (record.getInstCode() != null) {
@@ -70,7 +74,7 @@ public class OrganizationInstitutionSqlProvider {
         }
         
         if (record.getOwnerUserId() != null) {
-            sql.VALUES("owner_user_id", "#{ownerUserId,jdbcType=BIGINT}");
+            sql.VALUES("owner_user_id", "#{ownerUserId,jdbcType=VARCHAR}");
         }
         
         if (record.getInstSort() != null) {
@@ -135,7 +139,7 @@ public class OrganizationInstitutionSqlProvider {
         sql.UPDATE("organization_institution");
         
         if (record.getId() != null) {
-            sql.SET("id = #{record.id,jdbcType=BIGINT}");
+            sql.SET("id = #{record.id,jdbcType=VARCHAR}");
         }
         
         if (record.getCreateTime() != null) {
@@ -147,7 +151,7 @@ public class OrganizationInstitutionSqlProvider {
         }
         
         if (record.getParentId() != null) {
-            sql.SET("parent_id = #{record.parentId,jdbcType=BIGINT}");
+            sql.SET("parent_id = #{record.parentId,jdbcType=VARCHAR}");
         }
         
         if (record.getInstCode() != null) {
@@ -163,7 +167,7 @@ public class OrganizationInstitutionSqlProvider {
         }
         
         if (record.getOwnerUserId() != null) {
-            sql.SET("owner_user_id = #{record.ownerUserId,jdbcType=BIGINT}");
+            sql.SET("owner_user_id = #{record.ownerUserId,jdbcType=VARCHAR}");
         }
         
         if (record.getInstSort() != null) {
@@ -192,14 +196,14 @@ public class OrganizationInstitutionSqlProvider {
         SQL sql = new SQL();
         sql.UPDATE("organization_institution");
         
-        sql.SET("id = #{record.id,jdbcType=BIGINT}");
+        sql.SET("id = #{record.id,jdbcType=VARCHAR}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
-        sql.SET("parent_id = #{record.parentId,jdbcType=BIGINT}");
+        sql.SET("parent_id = #{record.parentId,jdbcType=VARCHAR}");
         sql.SET("inst_code = #{record.instCode,jdbcType=VARCHAR}");
         sql.SET("inst_name = #{record.instName,jdbcType=VARCHAR}");
         sql.SET("inst_type = #{record.instType,jdbcType=INTEGER}");
-        sql.SET("owner_user_id = #{record.ownerUserId,jdbcType=BIGINT}");
+        sql.SET("owner_user_id = #{record.ownerUserId,jdbcType=VARCHAR}");
         sql.SET("inst_sort = #{record.instSort,jdbcType=INTEGER}");
         sql.SET("inst_status = #{record.instStatus,jdbcType=INTEGER}");
         sql.SET("remarks = #{record.remarks,jdbcType=VARCHAR}");
@@ -228,7 +232,7 @@ public class OrganizationInstitutionSqlProvider {
         }
         
         if (record.getParentId() != null) {
-            sql.SET("parent_id = #{parentId,jdbcType=BIGINT}");
+            sql.SET("parent_id = #{parentId,jdbcType=VARCHAR}");
         }
         
         if (record.getInstCode() != null) {
@@ -244,7 +248,7 @@ public class OrganizationInstitutionSqlProvider {
         }
         
         if (record.getOwnerUserId() != null) {
-            sql.SET("owner_user_id = #{ownerUserId,jdbcType=BIGINT}");
+            sql.SET("owner_user_id = #{ownerUserId,jdbcType=VARCHAR}");
         }
         
         if (record.getInstSort() != null) {
@@ -259,7 +263,7 @@ public class OrganizationInstitutionSqlProvider {
             sql.SET("remarks = #{remarks,jdbcType=VARCHAR}");
         }
         
-        sql.WHERE("id = #{id,jdbcType=BIGINT}");
+        sql.WHERE("id = #{id,jdbcType=VARCHAR}");
         
         return sql.toString();
     }

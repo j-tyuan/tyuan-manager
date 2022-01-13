@@ -1,5 +1,5 @@
 /**
- * Copyright © 2016-2021 The Thingsboard Authors
+ * Copyright (c) 2020-2038, Jiangguiqi 齐 (author@tyuan.design).
  * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
-import org.tyuan.service.application.service.SysUserService;
+import org.tyuan.service.application.service.manage.SysUserService;
 import org.tyuan.service.application.service.security.auth.RefreshAuthenticationToken;
 import org.tyuan.service.application.service.security.auth.TokenOutdatingService;
 import org.tyuan.service.application.service.security.model.SecurityUser;
@@ -58,7 +58,7 @@ public class RefreshTokenAuthenticationProvider implements AuthenticationProvide
         return new RefreshAuthenticationToken(securityUser);
     }
 
-    private SecurityUser authenticateByUserId(Long userId) {
+    private SecurityUser authenticateByUserId(String userId) {
         SysUser user = userService.getById(userId);
         if (user == null) {
             throw new UsernameNotFoundException("User not found by refresh token");

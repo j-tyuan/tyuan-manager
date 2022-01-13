@@ -25,5 +25,5 @@ import java.util.List;
 @Setter
 public class DeleteVo implements Serializable {
 
-    List<Long> id;
+    List<String> id;
 }

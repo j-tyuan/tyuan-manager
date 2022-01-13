@@ -39,7 +39,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.tyuan.common.ITree;
 import org.tyuan.common.utils.TreeUtils;
-import org.tyuan.service.application.service.SysSourceService;
+import org.tyuan.service.application.service.manage.SysSourceService;
 import org.tyuan.service.data.ResultData;
 import org.tyuan.service.data.model.custom.CSysSource;
 import org.tyuan.service.data.vo.sys.MenuDataItemVo;
@@ -71,7 +71,7 @@ public class NavController {
             newList.add(leftMenuVo);
         });
 
-        List<ITree> leftMenuVos = TreeUtils.tree(newList, 0L);
+        List<ITree> leftMenuVos = TreeUtils.tree(newList, "-");
         Collections.sort(leftMenuVos, Comparator.comparingLong(o -> o.getSort()));
 
         ResultData resultData = new ResultData();

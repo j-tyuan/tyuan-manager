@@ -1,5 +1,5 @@
 /**
- * Copyright © 2016-2021 The Thingsboard Authors
+ * Copyright (c) 2020-2038, Jiangguiqi 齐 (author@tyuan.design).
  * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,9 +26,9 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.tyuan.common.utils.JacksonUtil;
-import org.tyuan.service.application.service.SysPermissionService;
-import org.tyuan.service.application.service.SysUserService;
-import org.tyuan.service.application.service.impl.SysUserServiceImpl;
+import org.tyuan.service.application.service.manage.SysPermissionService;
+import org.tyuan.service.application.service.manage.SysUserService;
+import org.tyuan.service.application.service.manage.impl.SysUserServiceImpl;
 import org.tyuan.service.dao.exception.DataValidationException;
 import org.tyuan.service.data.model.SysUser;
 import org.tyuan.service.data.model.SysUserCredentials;
@@ -59,17 +59,17 @@ public class DefaultSystemSecurityService implements SystemSecurityService {
     private SysPermissionService sysPermissionService;
 
     @Override
-    public SecuritySettings getSecuritySettings(Long userId) {
+    public SecuritySettings getSecuritySettings(String userId) {
         return null;
     }
 
     @Override
-    public SecuritySettings saveSecuritySettings(Long userId, SecuritySettings securitySettings) {
+    public SecuritySettings saveSecuritySettings(String userId, SecuritySettings securitySettings) {
         return null;
     }
 
     @Override
-    public void validateUserCredentials(Long userId, SysUserCredentials userCredentials, String username, String password) throws AuthenticationException {
+    public void validateUserCredentials(String userId, SysUserCredentials userCredentials, String username, String password) throws AuthenticationException {
         if (!encoder.matches(password, userCredentials.getPassword())) {
             throw new BadCredentialsException("Authentication Failed. Username or Password not valid.");
         }
@@ -81,13 +81,13 @@ public class DefaultSystemSecurityService implements SystemSecurityService {
     }
 
     @Override
-    public List<String> getAuthorities(Long uid) {
+    public List<String> getAuthorities(String uid) {
         List<String> byUserId = sysPermissionService.getByUserId(uid);
         return byUserId;
     }
 
     @Override
-    public void validatePassword(Long userId, String password, SysUserCredentials userCredentials) throws DataValidationException {
+    public void validatePassword(String userId, String password, SysUserCredentials userCredentials) throws DataValidationException {
         SecuritySettings securitySettings = self.getSecuritySettings(userId);
         UserPasswordPolicy passwordPolicy = securitySettings.getPasswordPolicy();
 

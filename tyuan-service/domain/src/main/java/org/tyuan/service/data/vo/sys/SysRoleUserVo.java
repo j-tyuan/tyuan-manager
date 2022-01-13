@@ -24,7 +24,7 @@ import java.util.List;
 @Getter
 public class SysRoleUserVo {
 
-    private Long roleId;
+    private String roleId;
 
-    private List<Long> userIds;
+    private List<String> userIds;
 }

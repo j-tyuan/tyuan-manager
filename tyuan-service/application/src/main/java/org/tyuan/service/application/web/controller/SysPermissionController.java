@@ -21,8 +21,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.tyuan.service.application.service.SysPermissionService;
-import org.tyuan.service.application.service.SysRoleService;
+import org.tyuan.service.application.service.manage.SysPermissionService;
+import org.tyuan.service.application.service.manage.SysRoleService;
 import org.tyuan.service.data.ResultData;
 
 import javax.annotation.Resource;
@@ -51,7 +51,7 @@ public class SysPermissionController {
 
     @GetMapping("/getByRoleId")
     @PreAuthorize("hasAnyAuthority('SYS_ADMIN','sys:permission')")
-    public ResultData byRoleId(@RequestParam("id") Long id) {
+    public ResultData byRoleId(@RequestParam("id") String id) {
         ResultData resultData = new ResultData();
 
         boolean b = sysRoleService.hasRoleById(id);

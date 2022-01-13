@@ -28,7 +28,7 @@ import org.tyuan.common.utils.IPUtils;
 import org.tyuan.common.utils.MDCUtils;
 import org.tyuan.service.common.RequestContext;
 import org.tyuan.service.common.annotation.AuditLog;
-import org.tyuan.service.application.service.AuditLogService;
+import org.tyuan.service.application.service.manage.AuditLogService;
 import org.tyuan.service.application.service.security.model.SecurityUser;
 import org.tyuan.service.data.LogTransport;
 
@@ -64,7 +64,7 @@ public class AuditLogAspect {
 
         SecurityContext securityContext = SecurityContextHolder.getContext();
         String userName = "anonymous";
-        Long userId = -1L;
+        String userId = "-";
         if (null != securityContext) {
             SecurityUser principal = (SecurityUser) securityContext.getAuthentication().getPrincipal();
             userName = principal.getUserName();
@@ -85,7 +85,7 @@ public class AuditLogAspect {
         String mdcKey = requestId + "-" + userId + "-" + userName + "-" + addr;
         MDCUtils.setTraceId(mdcKey);
 
-        final Long finalUserId = userId;
+        final String finalUserId = userId;
         final String finalUserName = userName;
         context.setLogConsumer(logObj -> {
             LogTransport transport = (LogTransport) logObj;

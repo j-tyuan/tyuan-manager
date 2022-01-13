@@ -45,6 +45,10 @@ public class SysSourceSqlProvider {
         SQL sql = new SQL();
         sql.INSERT_INTO("sys_source");
         
+        if (record.getId() != null) {
+            sql.VALUES("id", "#{id,jdbcType=VARCHAR}");
+        }
+        
         if (record.getCreateTime() != null) {
             sql.VALUES("create_time", "#{createTime,jdbcType=TIMESTAMP}");
         }
@@ -54,7 +58,7 @@ public class SysSourceSqlProvider {
         }
         
         if (record.getParentId() != null) {
-            sql.VALUES("parent_id", "#{parentId,jdbcType=BIGINT}");
+            sql.VALUES("parent_id", "#{parentId,jdbcType=VARCHAR}");
         }
         
         if (record.getSourceName() != null) {
@@ -86,7 +90,7 @@ public class SysSourceSqlProvider {
         }
         
         if (record.getPermissionId() != null) {
-            sql.VALUES("permission_id", "#{permissionId,jdbcType=BIGINT}");
+            sql.VALUES("permission_id", "#{permissionId,jdbcType=VARCHAR}");
         }
         
         if (record.getCreateBy() != null) {
@@ -160,7 +164,7 @@ public class SysSourceSqlProvider {
         sql.UPDATE("sys_source");
         
         if (record.getId() != null) {
-            sql.SET("id = #{record.id,jdbcType=BIGINT}");
+            sql.SET("id = #{record.id,jdbcType=VARCHAR}");
         }
         
         if (record.getCreateTime() != null) {
@@ -172,7 +176,7 @@ public class SysSourceSqlProvider {
         }
         
         if (record.getParentId() != null) {
-            sql.SET("parent_id = #{record.parentId,jdbcType=BIGINT}");
+            sql.SET("parent_id = #{record.parentId,jdbcType=VARCHAR}");
         }
         
         if (record.getSourceName() != null) {
@@ -204,7 +208,7 @@ public class SysSourceSqlProvider {
         }
         
         if (record.getPermissionId() != null) {
-            sql.SET("permission_id = #{record.permissionId,jdbcType=BIGINT}");
+            sql.SET("permission_id = #{record.permissionId,jdbcType=VARCHAR}");
         }
         
         if (record.getCreateBy() != null) {
@@ -237,10 +241,10 @@ public class SysSourceSqlProvider {
         SQL sql = new SQL();
         sql.UPDATE("sys_source");
         
-        sql.SET("id = #{record.id,jdbcType=BIGINT}");
+        sql.SET("id = #{record.id,jdbcType=VARCHAR}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
-        sql.SET("parent_id = #{record.parentId,jdbcType=BIGINT}");
+        sql.SET("parent_id = #{record.parentId,jdbcType=VARCHAR}");
         sql.SET("source_name = #{record.sourceName,jdbcType=VARCHAR}");
         sql.SET("source_sort = #{record.sourceSort,jdbcType=DECIMAL}");
         sql.SET("source_href = #{record.sourceHref,jdbcType=VARCHAR}");
@@ -248,7 +252,7 @@ public class SysSourceSqlProvider {
         sql.SET("source_icon = #{record.sourceIcon,jdbcType=VARCHAR}");
         sql.SET("is_leaf = #{record.isLeaf,jdbcType=BIT}");
         sql.SET("is_show = #{record.isShow,jdbcType=BIT}");
-        sql.SET("permission_id = #{record.permissionId,jdbcType=BIGINT}");
+        sql.SET("permission_id = #{record.permissionId,jdbcType=VARCHAR}");
         sql.SET("create_by = #{record.createBy,jdbcType=VARCHAR}");
         sql.SET("update_by = #{record.updateBy,jdbcType=VARCHAR}");
         sql.SET("remarks = #{record.remarks,jdbcType=VARCHAR}");
@@ -278,7 +282,7 @@ public class SysSourceSqlProvider {
         }
         
         if (record.getParentId() != null) {
-            sql.SET("parent_id = #{parentId,jdbcType=BIGINT}");
+            sql.SET("parent_id = #{parentId,jdbcType=VARCHAR}");
         }
         
         if (record.getSourceName() != null) {
@@ -310,7 +314,7 @@ public class SysSourceSqlProvider {
         }
         
         if (record.getPermissionId() != null) {
-            sql.SET("permission_id = #{permissionId,jdbcType=BIGINT}");
+            sql.SET("permission_id = #{permissionId,jdbcType=VARCHAR}");
         }
         
         if (record.getCreateBy() != null) {
@@ -329,7 +333,7 @@ public class SysSourceSqlProvider {
             sql.SET("del_flag = #{delFlag,jdbcType=BIT}");
         }
         
-        sql.WHERE("id = #{id,jdbcType=BIGINT}");
+        sql.WHERE("id = #{id,jdbcType=VARCHAR}");
         
         return sql.toString();
     }

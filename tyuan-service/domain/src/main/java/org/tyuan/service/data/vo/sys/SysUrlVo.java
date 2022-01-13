@@ -29,5 +29,5 @@ public class SysUrlVo extends SysSource implements Serializable {
     @NotEmpty(message = "资源名称不能为空")
     private String sourceName;
 
-    private Long parentId = 0L;
+    private String parentId ="";
 }

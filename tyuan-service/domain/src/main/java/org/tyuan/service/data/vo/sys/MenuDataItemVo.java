@@ -101,9 +101,9 @@ import java.util.List;
 @Getter
 public class MenuDataItemVo implements Serializable, ITree {
 
-    private Long id;
+    private String id;
 
-    private Long parentId;
+    private String parentId;
 
     private String name;
 

@@ -45,6 +45,10 @@ public class SysRoleSqlProvider {
         SQL sql = new SQL();
         sql.INSERT_INTO("sys_role");
         
+        if (record.getId() != null) {
+            sql.VALUES("id", "#{id,jdbcType=VARCHAR}");
+        }
+        
         if (record.getCreateTime() != null) {
             sql.VALUES("create_time", "#{createTime,jdbcType=TIMESTAMP}");
         }
@@ -135,7 +139,7 @@ public class SysRoleSqlProvider {
         sql.UPDATE("sys_role");
         
         if (record.getId() != null) {
-            sql.SET("id = #{record.id,jdbcType=BIGINT}");
+            sql.SET("id = #{record.id,jdbcType=VARCHAR}");
         }
         
         if (record.getCreateTime() != null) {
@@ -192,7 +196,7 @@ public class SysRoleSqlProvider {
         SQL sql = new SQL();
         sql.UPDATE("sys_role");
         
-        sql.SET("id = #{record.id,jdbcType=BIGINT}");
+        sql.SET("id = #{record.id,jdbcType=VARCHAR}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
         sql.SET("role_code = #{record.roleCode,jdbcType=VARCHAR}");
@@ -259,7 +263,7 @@ public class SysRoleSqlProvider {
             sql.SET("del_flag = #{delFlag,jdbcType=BIT}");
         }
         
-        sql.WHERE("id = #{id,jdbcType=BIGINT}");
+        sql.WHERE("id = #{id,jdbcType=VARCHAR}");
         
         return sql.toString();
     }

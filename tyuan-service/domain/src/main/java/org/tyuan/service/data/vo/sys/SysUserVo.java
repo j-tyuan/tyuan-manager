@@ -79,6 +79,6 @@ public class SysUserVo extends SysUser implements Serializable {
 
 
     // 角色ID
-    private List<Long> roleIds;
+    private List<String> roleIds;
 
 }

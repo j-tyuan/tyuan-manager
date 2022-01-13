@@ -45,6 +45,10 @@ public class SysPermissionSqlProvider {
         SQL sql = new SQL();
         sql.INSERT_INTO("sys_permission");
         
+        if (record.getId() != null) {
+            sql.VALUES("id", "#{id,jdbcType=VARCHAR}");
+        }
+        
         if (record.getParentId() != null) {
             sql.VALUES("parent_id", "#{parentId,jdbcType=BIGINT}");
         }
@@ -110,7 +114,7 @@ public class SysPermissionSqlProvider {
         sql.UPDATE("sys_permission");
         
         if (record.getId() != null) {
-            sql.SET("id = #{record.id,jdbcType=BIGINT}");
+            sql.SET("id = #{record.id,jdbcType=VARCHAR}");
         }
         
         if (record.getParentId() != null) {
@@ -147,7 +151,7 @@ public class SysPermissionSqlProvider {
         SQL sql = new SQL();
         sql.UPDATE("sys_permission");
         
-        sql.SET("id = #{record.id,jdbcType=BIGINT}");
+        sql.SET("id = #{record.id,jdbcType=VARCHAR}");
         sql.SET("parent_id = #{record.parentId,jdbcType=BIGINT}");
         sql.SET("permission = #{record.permission,jdbcType=VARCHAR}");
         sql.SET("permission_sort = #{record.permissionSort,jdbcType=DECIMAL}");
@@ -189,7 +193,7 @@ public class SysPermissionSqlProvider {
             sql.SET("remarks = #{remarks,jdbcType=VARCHAR}");
         }
         
-        sql.WHERE("id = #{id,jdbcType=BIGINT}");
+        sql.WHERE("id = #{id,jdbcType=VARCHAR}");
         
         return sql.toString();
     }

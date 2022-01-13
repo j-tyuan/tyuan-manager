@@ -54,7 +54,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RestController;
 import org.tyuan.service.application.cache.UserInfoCacheService;
-import org.tyuan.service.application.service.SysUserService;
+import org.tyuan.service.application.service.manage.SysUserService;
 import org.tyuan.service.data.ErrorCodeConsts;
 import org.tyuan.service.data.ResultData;
 import org.tyuan.service.data.model.SysUser;
@@ -79,7 +79,7 @@ public class SysController {
     public ResultData getUserInfo(@ModelAttribute("userToken") String userToken) {
         Map user = (Map) userTokenCacheService.get(userToken);
         String userId = String.valueOf(user.get("id"));
-        SysUser u = sysUserService.getById(Long.valueOf(userId));
+        SysUser u = sysUserService.getById(userId);
         ResultData resultData = new ResultData();
         resultData.setData(u);
         resultData.setErrorCode(ErrorCodeConsts.SUCCESS);

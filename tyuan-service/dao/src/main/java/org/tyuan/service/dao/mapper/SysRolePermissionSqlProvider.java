@@ -45,12 +45,16 @@ public class SysRolePermissionSqlProvider {
         SQL sql = new SQL();
         sql.INSERT_INTO("sys_role_permission");
         
+        if (record.getId() != null) {
+            sql.VALUES("id", "#{id,jdbcType=VARCHAR}");
+        }
+        
         if (record.getRoleId() != null) {
-            sql.VALUES("role_id", "#{roleId,jdbcType=BIGINT}");
+            sql.VALUES("role_id", "#{roleId,jdbcType=VARCHAR}");
         }
         
         if (record.getPermissionId() != null) {
-            sql.VALUES("permission_id", "#{permissionId,jdbcType=BIGINT}");
+            sql.VALUES("permission_id", "#{permissionId,jdbcType=VARCHAR}");
         }
         
         return sql.toString();
@@ -95,15 +99,15 @@ public class SysRolePermissionSqlProvider {
         sql.UPDATE("sys_role_permission");
         
         if (record.getId() != null) {
-            sql.SET("id = #{record.id,jdbcType=BIGINT}");
+            sql.SET("id = #{record.id,jdbcType=VARCHAR}");
         }
         
         if (record.getRoleId() != null) {
-            sql.SET("role_id = #{record.roleId,jdbcType=BIGINT}");
+            sql.SET("role_id = #{record.roleId,jdbcType=VARCHAR}");
         }
         
         if (record.getPermissionId() != null) {
-            sql.SET("permission_id = #{record.permissionId,jdbcType=BIGINT}");
+            sql.SET("permission_id = #{record.permissionId,jdbcType=VARCHAR}");
         }
         
         applyWhere(sql, example, true);
@@ -120,9 +124,9 @@ public class SysRolePermissionSqlProvider {
         SQL sql = new SQL();
         sql.UPDATE("sys_role_permission");
         
-        sql.SET("id = #{record.id,jdbcType=BIGINT}");
-        sql.SET("role_id = #{record.roleId,jdbcType=BIGINT}");
-        sql.SET("permission_id = #{record.permissionId,jdbcType=BIGINT}");
+        sql.SET("id = #{record.id,jdbcType=VARCHAR}");
+        sql.SET("role_id = #{record.roleId,jdbcType=VARCHAR}");
+        sql.SET("permission_id = #{record.permissionId,jdbcType=VARCHAR}");
         
         SysRolePermissionExample example = (SysRolePermissionExample) parameter.get("example");
         applyWhere(sql, example, true);
@@ -140,14 +144,14 @@ public class SysRolePermissionSqlProvider {
         sql.UPDATE("sys_role_permission");
         
         if (record.getRoleId() != null) {
-            sql.SET("role_id = #{roleId,jdbcType=BIGINT}");
+            sql.SET("role_id = #{roleId,jdbcType=VARCHAR}");
         }
         
         if (record.getPermissionId() != null) {
-            sql.SET("permission_id = #{permissionId,jdbcType=BIGINT}");
+            sql.SET("permission_id = #{permissionId,jdbcType=VARCHAR}");
         }
         
-        sql.WHERE("id = #{id,jdbcType=BIGINT}");
+        sql.WHERE("id = #{id,jdbcType=VARCHAR}");
         
         return sql.toString();
     }

@@ -11,7 +11,7 @@ public class SysSource implements Serializable {
      *
      * @mbg.generated
      */
-    private Long id;
+    private String id;
 
     /**
      *
@@ -38,7 +38,7 @@ public class SysSource implements Serializable {
      *
      * @mbg.generated
      */
-    private Long parentId;
+    private String parentId;
 
     /**
      *
@@ -110,7 +110,7 @@ public class SysSource implements Serializable {
      *
      * @mbg.generated
      */
-    private Long permissionId;
+    private String permissionId;
 
     /**
      *
@@ -164,7 +164,7 @@ public class SysSource implements Serializable {
      *
      * @mbg.generated
      */
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
@@ -176,8 +176,8 @@ public class SysSource implements Serializable {
      *
      * @mbg.generated
      */
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(String id) {
+        this.id = id == null ? null : id.trim();
     }
 
     /**
@@ -236,7 +236,7 @@ public class SysSource implements Serializable {
      *
      * @mbg.generated
      */
-    public Long getParentId() {
+    public String getParentId() {
         return parentId;
     }
 
@@ -248,8 +248,8 @@ public class SysSource implements Serializable {
      *
      * @mbg.generated
      */
-    public void setParentId(Long parentId) {
-        this.parentId = parentId;
+    public void setParentId(String parentId) {
+        this.parentId = parentId == null ? null : parentId.trim();
     }
 
     /**
@@ -428,7 +428,7 @@ public class SysSource implements Serializable {
      *
      * @mbg.generated
      */
-    public Long getPermissionId() {
+    public String getPermissionId() {
         return permissionId;
     }
 
@@ -440,8 +440,8 @@ public class SysSource implements Serializable {
      *
      * @mbg.generated
      */
-    public void setPermissionId(Long permissionId) {
-        this.permissionId = permissionId;
+    public void setPermissionId(String permissionId) {
+        this.permissionId = permissionId == null ? null : permissionId.trim();
     }
 
     /**

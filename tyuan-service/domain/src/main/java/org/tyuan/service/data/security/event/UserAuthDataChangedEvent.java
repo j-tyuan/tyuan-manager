@@ -21,13 +21,13 @@ package org.tyuan.service.data.security.event;
  * @date 2021/12/21 12:24 下午
  */
 public class UserAuthDataChangedEvent {
-    private final Long userId;
+    private final String userId;
 
-    public UserAuthDataChangedEvent(Long userId) {
+    public UserAuthDataChangedEvent(String userId) {
         this.userId = userId;
     }
 
-    public Long getUserId() {
+    public String getUserId() {
         return userId;
     }
 }

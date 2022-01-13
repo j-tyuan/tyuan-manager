@@ -25,14 +25,14 @@ public interface ITree extends Serializable {
      *
      * @return
      */
-    Long getId();
+    String getId();
 
     /**
      * parentId
      *
      * @return
      */
-    Long getParentId();
+    String getParentId();
 
     /**
      * 排序，不强制实现

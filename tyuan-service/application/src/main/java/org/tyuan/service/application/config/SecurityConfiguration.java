@@ -29,6 +29,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestResolver;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -36,9 +37,11 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.tyuan.service.application.exception.TyuanErrorResponseHandler;
 import org.tyuan.service.application.service.security.auth.jwt.*;
 import org.tyuan.service.application.service.security.auth.jwt.extractor.TokenExtractor;
+import org.tyuan.service.application.service.security.auth.oauth2.HttpCookieOAuth2AuthorizationRequestRepository;
 import org.tyuan.service.application.service.security.auth.rest.RestAuthenticationProvider;
 import org.tyuan.service.application.service.security.auth.rest.RestLoginProcessingFilter;
 import org.tyuan.service.application.service.security.auth.rest.RestPublicLoginProcessingFilter;
+import org.tyuan.service.dao.oauth2.impl.OAuth2Configuration;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -83,6 +86,22 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private JwtAuthenticationProvider jwtAuthenticationProvider;
     @Resource
     private RefreshTokenAuthenticationProvider refreshTokenAuthenticationProvider;
+
+    @Resource
+    OAuth2Configuration oauth2Configuration;
+
+    @Resource
+    private AuthenticationSuccessHandler oauth2AuthenticationSuccessHandler;
+
+    @Resource
+    private AuthenticationFailureHandler oauth2AuthenticationFailureHandler;
+
+    @Resource
+    private HttpCookieOAuth2AuthorizationRequestRepository httpCookieOAuth2AuthorizationRequestRepository;
+
+    @Resource
+    private OAuth2AuthorizationRequestResolver oAuth2AuthorizationRequestResolver;
+
 
 
     public static final String JWT_TOKEN_HEADER_PARAM = "X-Authorization";
@@ -186,6 +205,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .addFilterBefore(buildRefreshTokenProcessingFilter(), UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(buildWsJwtTokenAuthenticationProcessingFilter(), UsernamePasswordAuthenticationFilter.class)
         ;
+        if (oauth2Configuration != null) {
+            http.oauth2Login()
+                    .authorizationEndpoint()
+                    .authorizationRequestRepository(httpCookieOAuth2AuthorizationRequestRepository)
+                    .authorizationRequestResolver(oAuth2AuthorizationRequestResolver)
+                    .and()
+                    .loginPage("/oauth2Login")
+                    .loginProcessingUrl(oauth2Configuration.getLoginProcessingUrl())
+                    .successHandler(oauth2AuthenticationSuccessHandler)
+                    .failureHandler(oauth2AuthenticationFailureHandler);
+        }
 
     }
 

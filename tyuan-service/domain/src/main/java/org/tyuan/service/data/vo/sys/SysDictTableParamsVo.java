@@ -27,5 +27,5 @@ public class SysDictTableParamsVo extends DataTableParam {
 
     private String dictType;
 
-    private Long parentId;
+    private String parentId;
 }

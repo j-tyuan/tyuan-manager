@@ -205,52 +205,62 @@ public class OrganizationInstitutionExample {
             return (Criteria) this;
         }
 
-        public Criteria andIdEqualTo(Long value) {
+        public Criteria andIdEqualTo(String value) {
             addCriterion("id =", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotEqualTo(Long value) {
+        public Criteria andIdNotEqualTo(String value) {
             addCriterion("id <>", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdGreaterThan(Long value) {
+        public Criteria andIdGreaterThan(String value) {
             addCriterion("id >", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdGreaterThanOrEqualTo(Long value) {
+        public Criteria andIdGreaterThanOrEqualTo(String value) {
             addCriterion("id >=", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdLessThan(Long value) {
+        public Criteria andIdLessThan(String value) {
             addCriterion("id <", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdLessThanOrEqualTo(Long value) {
+        public Criteria andIdLessThanOrEqualTo(String value) {
             addCriterion("id <=", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdIn(List<Long> values) {
+        public Criteria andIdLike(String value) {
+            addCriterion("id like", value, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdNotLike(String value) {
+            addCriterion("id not like", value, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdIn(List<String> values) {
             addCriterion("id in", values, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotIn(List<Long> values) {
+        public Criteria andIdNotIn(List<String> values) {
             addCriterion("id not in", values, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdBetween(Long value1, Long value2) {
+        public Criteria andIdBetween(String value1, String value2) {
             addCriterion("id between", value1, value2, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotBetween(Long value1, Long value2) {
+        public Criteria andIdNotBetween(String value1, String value2) {
             addCriterion("id not between", value1, value2, "id");
             return (Criteria) this;
         }
@@ -385,52 +395,62 @@ public class OrganizationInstitutionExample {
             return (Criteria) this;
         }
 
-        public Criteria andParentIdEqualTo(Long value) {
+        public Criteria andParentIdEqualTo(String value) {
             addCriterion("parent_id =", value, "parentId");
             return (Criteria) this;
         }
 
-        public Criteria andParentIdNotEqualTo(Long value) {
+        public Criteria andParentIdNotEqualTo(String value) {
             addCriterion("parent_id <>", value, "parentId");
             return (Criteria) this;
         }
 
-        public Criteria andParentIdGreaterThan(Long value) {
+        public Criteria andParentIdGreaterThan(String value) {
             addCriterion("parent_id >", value, "parentId");
             return (Criteria) this;
         }
 
-        public Criteria andParentIdGreaterThanOrEqualTo(Long value) {
+        public Criteria andParentIdGreaterThanOrEqualTo(String value) {
             addCriterion("parent_id >=", value, "parentId");
             return (Criteria) this;
         }
 
-        public Criteria andParentIdLessThan(Long value) {
+        public Criteria andParentIdLessThan(String value) {
             addCriterion("parent_id <", value, "parentId");
             return (Criteria) this;
         }
 
-        public Criteria andParentIdLessThanOrEqualTo(Long value) {
+        public Criteria andParentIdLessThanOrEqualTo(String value) {
             addCriterion("parent_id <=", value, "parentId");
             return (Criteria) this;
         }
 
-        public Criteria andParentIdIn(List<Long> values) {
+        public Criteria andParentIdLike(String value) {
+            addCriterion("parent_id like", value, "parentId");
+            return (Criteria) this;
+        }
+
+        public Criteria andParentIdNotLike(String value) {
+            addCriterion("parent_id not like", value, "parentId");
+            return (Criteria) this;
+        }
+
+        public Criteria andParentIdIn(List<String> values) {
             addCriterion("parent_id in", values, "parentId");
             return (Criteria) this;
         }
 
-        public Criteria andParentIdNotIn(List<Long> values) {
+        public Criteria andParentIdNotIn(List<String> values) {
             addCriterion("parent_id not in", values, "parentId");
             return (Criteria) this;
         }
 
-        public Criteria andParentIdBetween(Long value1, Long value2) {
+        public Criteria andParentIdBetween(String value1, String value2) {
             addCriterion("parent_id between", value1, value2, "parentId");
             return (Criteria) this;
         }
 
-        public Criteria andParentIdNotBetween(Long value1, Long value2) {
+        public Criteria andParentIdNotBetween(String value1, String value2) {
             addCriterion("parent_id not between", value1, value2, "parentId");
             return (Criteria) this;
         }
@@ -645,52 +665,62 @@ public class OrganizationInstitutionExample {
             return (Criteria) this;
         }
 
-        public Criteria andOwnerUserIdEqualTo(Long value) {
+        public Criteria andOwnerUserIdEqualTo(String value) {
             addCriterion("owner_user_id =", value, "ownerUserId");
             return (Criteria) this;
         }
 
-        public Criteria andOwnerUserIdNotEqualTo(Long value) {
+        public Criteria andOwnerUserIdNotEqualTo(String value) {
             addCriterion("owner_user_id <>", value, "ownerUserId");
             return (Criteria) this;
         }
 
-        public Criteria andOwnerUserIdGreaterThan(Long value) {
+        public Criteria andOwnerUserIdGreaterThan(String value) {
             addCriterion("owner_user_id >", value, "ownerUserId");
             return (Criteria) this;
         }
 
-        public Criteria andOwnerUserIdGreaterThanOrEqualTo(Long value) {
+        public Criteria andOwnerUserIdGreaterThanOrEqualTo(String value) {
             addCriterion("owner_user_id >=", value, "ownerUserId");
             return (Criteria) this;
         }
 
-        public Criteria andOwnerUserIdLessThan(Long value) {
+        public Criteria andOwnerUserIdLessThan(String value) {
             addCriterion("owner_user_id <", value, "ownerUserId");
             return (Criteria) this;
         }
 
-        public Criteria andOwnerUserIdLessThanOrEqualTo(Long value) {
+        public Criteria andOwnerUserIdLessThanOrEqualTo(String value) {
             addCriterion("owner_user_id <=", value, "ownerUserId");
             return (Criteria) this;
         }
 
-        public Criteria andOwnerUserIdIn(List<Long> values) {
+        public Criteria andOwnerUserIdLike(String value) {
+            addCriterion("owner_user_id like", value, "ownerUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andOwnerUserIdNotLike(String value) {
+            addCriterion("owner_user_id not like", value, "ownerUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andOwnerUserIdIn(List<String> values) {
             addCriterion("owner_user_id in", values, "ownerUserId");
             return (Criteria) this;
         }
 
-        public Criteria andOwnerUserIdNotIn(List<Long> values) {
+        public Criteria andOwnerUserIdNotIn(List<String> values) {
             addCriterion("owner_user_id not in", values, "ownerUserId");
             return (Criteria) this;
         }
 
-        public Criteria andOwnerUserIdBetween(Long value1, Long value2) {
+        public Criteria andOwnerUserIdBetween(String value1, String value2) {
             addCriterion("owner_user_id between", value1, value2, "ownerUserId");
             return (Criteria) this;
         }
 
-        public Criteria andOwnerUserIdNotBetween(Long value1, Long value2) {
+        public Criteria andOwnerUserIdNotBetween(String value1, String value2) {
             addCriterion("owner_user_id not between", value1, value2, "ownerUserId");
             return (Criteria) this;
         }

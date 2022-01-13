@@ -1,5 +1,5 @@
 /**
- * Copyright © 2016-2021 The Thingsboard Authors
+ * Copyright (c) 2020-2038, Jiangguiqi 齐 (author@tyuan.design).
  * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Service;
 import org.tyuan.service.application.service.security.model.SecurityUser;
-import org.tyuan.service.data.oauth2.OAuth2Registration;
+import org.tyuan.service.data.model.OAuth2Registration;
 
 import javax.servlet.http.HttpServletRequest;
 

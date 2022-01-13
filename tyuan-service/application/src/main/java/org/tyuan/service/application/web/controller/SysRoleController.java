@@ -69,7 +69,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.tyuan.common.exception.ServiceException;
-import org.tyuan.service.application.service.SysRoleService;
+import org.tyuan.service.application.service.manage.SysRoleService;
 import org.tyuan.service.common.annotation.AuditLog;
 import org.tyuan.service.data.ErrorCodeConsts;
 import org.tyuan.service.data.ResultData;
@@ -108,7 +108,7 @@ public class SysRoleController {
     @PreAuthorize("hasAnyAuthority('SYS_ADMIN','sys:role:list')")
     @GetMapping({"", "/"})
     @AuditLog(type = ActionType.QUERY, value = "查看角色")
-    public ResultData get(@RequestParam(value = "id", required = false) Long id) {
+    public ResultData get(@RequestParam(value = "id", required = false) String id) {
         try {
 
             ResultData resultData = new ResultData();
@@ -172,9 +172,9 @@ public class SysRoleController {
 
     @PreAuthorize("hasAnyAuthority('SYS_ADMIN','sys:role:list')")
     @GetMapping("/auth/{id}")
-    public ResultData getAuthByRoleId(@PathVariable("id") Long id) {
+    public ResultData getAuthByRoleId(@PathVariable("id") String id) {
         ResultData resultData = new ResultData();
-        List<Long> longs = service.getAuthIdByRoleId(id);
+        List<String> longs = service.getAuthIdByRoleId(id);
         resultData.setData(longs);
         return resultData;
     }

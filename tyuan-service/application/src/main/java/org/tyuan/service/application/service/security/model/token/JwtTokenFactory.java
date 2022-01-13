@@ -1,12 +1,12 @@
 /**
- * Copyright © 2016-2021 The Thingsboard Authors
- *
+ * Copyright (c) 2020-2038, Jiangguiqi 齐 (author@tyuan.design).
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -98,7 +98,7 @@ public class JwtTokenFactory {
             throw new IllegalArgumentException("JWT Token doesn't have any scopes");
         }
 
-        SecurityUser securityUser = new SecurityUser(claims.get(USER_ID, Number.class).longValue());
+        SecurityUser securityUser = new SecurityUser(claims.get(USER_ID,String.class));
         securityUser.setUserAccount(subject);
         securityUser.setAuthority(scopes.get(0));
         securityUser.setUserName(claims.get(USER_NAME, String.class));
@@ -149,7 +149,7 @@ public class JwtTokenFactory {
         }*/
         boolean isPublic = claims.get(IS_PUBLIC, Boolean.class);
         UserPrincipal principal = new UserPrincipal(isPublic ? UserPrincipal.Type.PUBLIC_ID : UserPrincipal.Type.USER_NAME, subject);
-        SecurityUser securityUser = new SecurityUser(claims.get(USER_ID, Long.class));
+        SecurityUser securityUser = new SecurityUser(claims.get(USER_ID, String.class));
         securityUser.setUserPrincipal(principal);
         securityUser.setSystemSecurityService(systemSecurityService);
         return securityUser;

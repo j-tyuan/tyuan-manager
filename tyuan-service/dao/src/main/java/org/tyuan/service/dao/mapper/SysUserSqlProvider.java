@@ -45,6 +45,10 @@ public class SysUserSqlProvider {
         SQL sql = new SQL();
         sql.INSERT_INTO("sys_user");
         
+        if (record.getId() != null) {
+            sql.VALUES("id", "#{id,jdbcType=VARCHAR}");
+        }
+        
         if (record.getCreateTime() != null) {
             sql.VALUES("create_time", "#{createTime,jdbcType=TIMESTAMP}");
         }
@@ -74,7 +78,7 @@ public class SysUserSqlProvider {
         }
         
         if (record.getInstId() != null) {
-            sql.VALUES("inst_id", "#{instId,jdbcType=BIGINT}");
+            sql.VALUES("inst_id", "#{instId,jdbcType=VARCHAR}");
         }
         
         if (record.getInstName() != null) {
@@ -122,7 +126,7 @@ public class SysUserSqlProvider {
         }
         
         if (record.getAvatarId() != null) {
-            sql.VALUES("avatar_id", "#{avatarId,jdbcType=BIGINT}");
+            sql.VALUES("avatar_id", "#{avatarId,jdbcType=VARCHAR}");
         }
         
         if (record.getAdditionalInfo() != null) {
@@ -233,7 +237,7 @@ public class SysUserSqlProvider {
         sql.UPDATE("sys_user");
         
         if (record.getId() != null) {
-            sql.SET("id = #{record.id,jdbcType=BIGINT}");
+            sql.SET("id = #{record.id,jdbcType=VARCHAR}");
         }
         
         if (record.getCreateTime() != null) {
@@ -265,7 +269,7 @@ public class SysUserSqlProvider {
         }
         
         if (record.getInstId() != null) {
-            sql.SET("inst_id = #{record.instId,jdbcType=BIGINT}");
+            sql.SET("inst_id = #{record.instId,jdbcType=VARCHAR}");
         }
         
         if (record.getInstName() != null) {
@@ -313,7 +317,7 @@ public class SysUserSqlProvider {
         }
         
         if (record.getAvatarId() != null) {
-            sql.SET("avatar_id = #{record.avatarId,jdbcType=BIGINT}");
+            sql.SET("avatar_id = #{record.avatarId,jdbcType=VARCHAR}");
         }
         
         if (record.getAdditionalInfo() != null) {
@@ -334,7 +338,7 @@ public class SysUserSqlProvider {
         SQL sql = new SQL();
         sql.UPDATE("sys_user");
         
-        sql.SET("id = #{record.id,jdbcType=BIGINT}");
+        sql.SET("id = #{record.id,jdbcType=VARCHAR}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
         sql.SET("user_account = #{record.userAccount,jdbcType=VARCHAR}");
@@ -342,7 +346,7 @@ public class SysUserSqlProvider {
         sql.SET("user_name = #{record.userName,jdbcType=VARCHAR}");
         sql.SET("user_email = #{record.userEmail,jdbcType=VARCHAR}");
         sql.SET("user_phone = #{record.userPhone,jdbcType=VARCHAR}");
-        sql.SET("inst_id = #{record.instId,jdbcType=BIGINT}");
+        sql.SET("inst_id = #{record.instId,jdbcType=VARCHAR}");
         sql.SET("inst_name = #{record.instName,jdbcType=VARCHAR}");
         sql.SET("mobile = #{record.mobile,jdbcType=VARCHAR}");
         sql.SET("login_ip = #{record.loginIp,jdbcType=VARCHAR}");
@@ -354,7 +358,7 @@ public class SysUserSqlProvider {
         sql.SET("del_flag = #{record.delFlag,jdbcType=BIT}");
         sql.SET("disabled = #{record.disabled,jdbcType=BIT}");
         sql.SET("user_no = #{record.userNo,jdbcType=VARCHAR}");
-        sql.SET("avatar_id = #{record.avatarId,jdbcType=BIGINT}");
+        sql.SET("avatar_id = #{record.avatarId,jdbcType=VARCHAR}");
         sql.SET("additional_info = #{record.additionalInfo,jdbcType=LONGVARCHAR}");
         
         SysUserExample example = (SysUserExample) parameter.get("example");
@@ -372,7 +376,7 @@ public class SysUserSqlProvider {
         SQL sql = new SQL();
         sql.UPDATE("sys_user");
         
-        sql.SET("id = #{record.id,jdbcType=BIGINT}");
+        sql.SET("id = #{record.id,jdbcType=VARCHAR}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
         sql.SET("user_account = #{record.userAccount,jdbcType=VARCHAR}");
@@ -380,7 +384,7 @@ public class SysUserSqlProvider {
         sql.SET("user_name = #{record.userName,jdbcType=VARCHAR}");
         sql.SET("user_email = #{record.userEmail,jdbcType=VARCHAR}");
         sql.SET("user_phone = #{record.userPhone,jdbcType=VARCHAR}");
-        sql.SET("inst_id = #{record.instId,jdbcType=BIGINT}");
+        sql.SET("inst_id = #{record.instId,jdbcType=VARCHAR}");
         sql.SET("inst_name = #{record.instName,jdbcType=VARCHAR}");
         sql.SET("mobile = #{record.mobile,jdbcType=VARCHAR}");
         sql.SET("login_ip = #{record.loginIp,jdbcType=VARCHAR}");
@@ -392,7 +396,7 @@ public class SysUserSqlProvider {
         sql.SET("del_flag = #{record.delFlag,jdbcType=BIT}");
         sql.SET("disabled = #{record.disabled,jdbcType=BIT}");
         sql.SET("user_no = #{record.userNo,jdbcType=VARCHAR}");
-        sql.SET("avatar_id = #{record.avatarId,jdbcType=BIGINT}");
+        sql.SET("avatar_id = #{record.avatarId,jdbcType=VARCHAR}");
         
         SysUserExample example = (SysUserExample) parameter.get("example");
         applyWhere(sql, example, true);
@@ -438,7 +442,7 @@ public class SysUserSqlProvider {
         }
         
         if (record.getInstId() != null) {
-            sql.SET("inst_id = #{instId,jdbcType=BIGINT}");
+            sql.SET("inst_id = #{instId,jdbcType=VARCHAR}");
         }
         
         if (record.getInstName() != null) {
@@ -486,14 +490,14 @@ public class SysUserSqlProvider {
         }
         
         if (record.getAvatarId() != null) {
-            sql.SET("avatar_id = #{avatarId,jdbcType=BIGINT}");
+            sql.SET("avatar_id = #{avatarId,jdbcType=VARCHAR}");
         }
         
         if (record.getAdditionalInfo() != null) {
             sql.SET("additional_info = #{additionalInfo,jdbcType=LONGVARCHAR}");
         }
         
-        sql.WHERE("id = #{id,jdbcType=BIGINT}");
+        sql.WHERE("id = #{id,jdbcType=VARCHAR}");
         
         return sql.toString();
     }

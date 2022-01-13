@@ -32,9 +32,9 @@ public class UserInfoHolder {
         return JSONObject.parseObject(JSONObject.toJSONString(principal)).getString("userName");
     }
 
-    public static Long getUserId() {
+    public static String getUserId() {
         SecurityContext context = SecurityContextHolder.getContext();
         Object principal = context.getAuthentication().getPrincipal();
-        return JSONObject.parseObject(JSONObject.toJSONString(principal)).getLong("id");
+        return JSONObject.parseObject(JSONObject.toJSONString(principal)).getString("id");
     }
 }

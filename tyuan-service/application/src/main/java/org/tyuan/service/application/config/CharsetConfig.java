@@ -55,7 +55,7 @@ public class CharsetConfig extends WebMvcConfigurationSupport {
                 SerializerFeature.PrettyFormat
         );
         List<MediaType> fastMediaTypes = new ArrayList<>();
-        fastMediaTypes.add(MediaType.APPLICATION_JSON);
+        fastMediaTypes.add(MediaType.APPLICATION_JSON_UTF8);
         fastConverter.setSupportedMediaTypes(fastMediaTypes);
         fastConverter.setFastJsonConfig(fastJsonConfig);
 

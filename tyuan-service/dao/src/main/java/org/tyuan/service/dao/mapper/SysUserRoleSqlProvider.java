@@ -45,6 +45,10 @@ public class SysUserRoleSqlProvider {
         SQL sql = new SQL();
         sql.INSERT_INTO("sys_user_role");
         
+        if (record.getId() != null) {
+            sql.VALUES("id", "#{id,jdbcType=VARCHAR}");
+        }
+        
         if (record.getCreateTime() != null) {
             sql.VALUES("create_time", "#{createTime,jdbcType=TIMESTAMP}");
         }
@@ -54,11 +58,11 @@ public class SysUserRoleSqlProvider {
         }
         
         if (record.getUserId() != null) {
-            sql.VALUES("user_id", "#{userId,jdbcType=BIGINT}");
+            sql.VALUES("user_id", "#{userId,jdbcType=VARCHAR}");
         }
         
         if (record.getRoleId() != null) {
-            sql.VALUES("role_id", "#{roleId,jdbcType=BIGINT}");
+            sql.VALUES("role_id", "#{roleId,jdbcType=VARCHAR}");
         }
         
         return sql.toString();
@@ -105,7 +109,7 @@ public class SysUserRoleSqlProvider {
         sql.UPDATE("sys_user_role");
         
         if (record.getId() != null) {
-            sql.SET("id = #{record.id,jdbcType=BIGINT}");
+            sql.SET("id = #{record.id,jdbcType=VARCHAR}");
         }
         
         if (record.getCreateTime() != null) {
@@ -117,11 +121,11 @@ public class SysUserRoleSqlProvider {
         }
         
         if (record.getUserId() != null) {
-            sql.SET("user_id = #{record.userId,jdbcType=BIGINT}");
+            sql.SET("user_id = #{record.userId,jdbcType=VARCHAR}");
         }
         
         if (record.getRoleId() != null) {
-            sql.SET("role_id = #{record.roleId,jdbcType=BIGINT}");
+            sql.SET("role_id = #{record.roleId,jdbcType=VARCHAR}");
         }
         
         applyWhere(sql, example, true);
@@ -138,11 +142,11 @@ public class SysUserRoleSqlProvider {
         SQL sql = new SQL();
         sql.UPDATE("sys_user_role");
         
-        sql.SET("id = #{record.id,jdbcType=BIGINT}");
+        sql.SET("id = #{record.id,jdbcType=VARCHAR}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
-        sql.SET("user_id = #{record.userId,jdbcType=BIGINT}");
-        sql.SET("role_id = #{record.roleId,jdbcType=BIGINT}");
+        sql.SET("user_id = #{record.userId,jdbcType=VARCHAR}");
+        sql.SET("role_id = #{record.roleId,jdbcType=VARCHAR}");
         
         SysUserRoleExample example = (SysUserRoleExample) parameter.get("example");
         applyWhere(sql, example, true);
@@ -168,14 +172,14 @@ public class SysUserRoleSqlProvider {
         }
         
         if (record.getUserId() != null) {
-            sql.SET("user_id = #{userId,jdbcType=BIGINT}");
+            sql.SET("user_id = #{userId,jdbcType=VARCHAR}");
         }
         
         if (record.getRoleId() != null) {
-            sql.SET("role_id = #{roleId,jdbcType=BIGINT}");
+            sql.SET("role_id = #{roleId,jdbcType=VARCHAR}");
         }
         
-        sql.WHERE("id = #{id,jdbcType=BIGINT}");
+        sql.WHERE("id = #{id,jdbcType=VARCHAR}");
         
         return sql.toString();
     }

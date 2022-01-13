@@ -11,7 +11,7 @@ public class OrganizationInstitution implements Serializable {
      *
      * @mbg.generated
      */
-    private Long id;
+    private String id;
 
     /**
      *
@@ -38,7 +38,7 @@ public class OrganizationInstitution implements Serializable {
      *
      * @mbg.generated
      */
-    private Long parentId;
+    private String parentId;
 
     /**
      *
@@ -74,7 +74,7 @@ public class OrganizationInstitution implements Serializable {
      *
      * @mbg.generated
      */
-    private Long ownerUserId;
+    private String ownerUserId;
 
     /**
      *
@@ -119,7 +119,7 @@ public class OrganizationInstitution implements Serializable {
      *
      * @mbg.generated
      */
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
@@ -131,8 +131,8 @@ public class OrganizationInstitution implements Serializable {
      *
      * @mbg.generated
      */
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(String id) {
+        this.id = id == null ? null : id.trim();
     }
 
     /**
@@ -191,7 +191,7 @@ public class OrganizationInstitution implements Serializable {
      *
      * @mbg.generated
      */
-    public Long getParentId() {
+    public String getParentId() {
         return parentId;
     }
 
@@ -203,8 +203,8 @@ public class OrganizationInstitution implements Serializable {
      *
      * @mbg.generated
      */
-    public void setParentId(Long parentId) {
-        this.parentId = parentId;
+    public void setParentId(String parentId) {
+        this.parentId = parentId == null ? null : parentId.trim();
     }
 
     /**
@@ -287,7 +287,7 @@ public class OrganizationInstitution implements Serializable {
      *
      * @mbg.generated
      */
-    public Long getOwnerUserId() {
+    public String getOwnerUserId() {
         return ownerUserId;
     }
 
@@ -299,8 +299,8 @@ public class OrganizationInstitution implements Serializable {
      *
      * @mbg.generated
      */
-    public void setOwnerUserId(Long ownerUserId) {
-        this.ownerUserId = ownerUserId;
+    public void setOwnerUserId(String ownerUserId) {
+        this.ownerUserId = ownerUserId == null ? null : ownerUserId.trim();
     }
 
     /**

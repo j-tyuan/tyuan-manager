@@ -45,6 +45,10 @@ public class SysUserCredentialsSqlProvider {
         SQL sql = new SQL();
         sql.INSERT_INTO("sys_user_credentials");
         
+        if (record.getId() != null) {
+            sql.VALUES("id", "#{id,jdbcType=VARCHAR}");
+        }
+        
         if (record.getCreateTime() != null) {
             sql.VALUES("create_time", "#{createTime,jdbcType=TIMESTAMP}");
         }
@@ -54,7 +58,7 @@ public class SysUserCredentialsSqlProvider {
         }
         
         if (record.getUserId() != null) {
-            sql.VALUES("user_id", "#{userId,jdbcType=BIGINT}");
+            sql.VALUES("user_id", "#{userId,jdbcType=VARCHAR}");
         }
         
         if (record.getActivateToken() != null) {
@@ -120,7 +124,7 @@ public class SysUserCredentialsSqlProvider {
         sql.UPDATE("sys_user_credentials");
         
         if (record.getId() != null) {
-            sql.SET("id = #{record.id,jdbcType=BIGINT}");
+            sql.SET("id = #{record.id,jdbcType=VARCHAR}");
         }
         
         if (record.getCreateTime() != null) {
@@ -132,7 +136,7 @@ public class SysUserCredentialsSqlProvider {
         }
         
         if (record.getUserId() != null) {
-            sql.SET("user_id = #{record.userId,jdbcType=BIGINT}");
+            sql.SET("user_id = #{record.userId,jdbcType=VARCHAR}");
         }
         
         if (record.getActivateToken() != null) {
@@ -165,10 +169,10 @@ public class SysUserCredentialsSqlProvider {
         SQL sql = new SQL();
         sql.UPDATE("sys_user_credentials");
         
-        sql.SET("id = #{record.id,jdbcType=BIGINT}");
+        sql.SET("id = #{record.id,jdbcType=VARCHAR}");
         sql.SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         sql.SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
-        sql.SET("user_id = #{record.userId,jdbcType=BIGINT}");
+        sql.SET("user_id = #{record.userId,jdbcType=VARCHAR}");
         sql.SET("activate_token = #{record.activateToken,jdbcType=VARCHAR}");
         sql.SET("enabled = #{record.enabled,jdbcType=BIT}");
         sql.SET("password = #{record.password,jdbcType=VARCHAR}");
@@ -198,7 +202,7 @@ public class SysUserCredentialsSqlProvider {
         }
         
         if (record.getUserId() != null) {
-            sql.SET("user_id = #{userId,jdbcType=BIGINT}");
+            sql.SET("user_id = #{userId,jdbcType=VARCHAR}");
         }
         
         if (record.getActivateToken() != null) {
@@ -217,7 +221,7 @@ public class SysUserCredentialsSqlProvider {
             sql.SET("reset_token = #{resetToken,jdbcType=VARCHAR}");
         }
         
-        sql.WHERE("id = #{id,jdbcType=BIGINT}");
+        sql.WHERE("id = #{id,jdbcType=VARCHAR}");
         
         return sql.toString();
     }

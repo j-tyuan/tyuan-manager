@@ -18,7 +18,7 @@ package org.tyuan.service.application.web.controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.tyuan.common.exception.ServiceException;
-import org.tyuan.service.application.service.AccountService;
+import org.tyuan.service.application.service.manage.AccountService;
 import org.tyuan.service.common.annotation.AuditLog;
 import org.tyuan.service.data.ErrorCodeConsts;
 import org.tyuan.service.data.ResultData;

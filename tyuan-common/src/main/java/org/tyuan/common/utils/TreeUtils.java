@@ -33,11 +33,11 @@ public class TreeUtils {
      * @param id
      * @return
      */
-    public static List getChild(List<? extends ITree> data, final Long id) {
+    public static List getChild(List<? extends ITree> data, final String id) {
         List ids = Lists.newArrayList();
         for (ITree iTree : data) {
-            Long pid = iTree.getParentId();
-            long newId = id;
+            String pid = iTree.getParentId();
+            String newId = id;
             if (pid == newId) {
                 ids.add(iTree);
                 newId = iTree.getId();
@@ -57,7 +57,7 @@ public class TreeUtils {
      * @param id
      * @return
      */
-    public static List getChildAndFlat(List<? extends ITree> data, final Long id) {
+    public static List getChildAndFlat(List<? extends ITree> data, final String id) {
         List child = getChild(data, id);
         if (CollectionUtils.isEmpty(child)) {
             return Lists.newArrayList();
@@ -72,12 +72,12 @@ public class TreeUtils {
      * @param id
      * @return
      */
-    public static List getChildIdAndFlat(List<? extends ITree> data, final Long id) {
+    public static List getChildIdAndFlat(List<? extends ITree> data, final String id) {
         List<ITree> childAndFlat = getChildAndFlat(data, id);
         if (CollectionUtils.isEmpty(childAndFlat)) {
             return Lists.newArrayList();
         }
-        return childAndFlat.stream().mapToLong(e -> e.getId()).collect(ArrayList::new, ArrayList::add, ArrayList::addAll);
+        return childAndFlat.stream().map(e -> e.getId()).collect(ArrayList::new, ArrayList::add, ArrayList::addAll);
     }
 
 
@@ -106,7 +106,7 @@ public class TreeUtils {
      * @param pid
      * @return
      */
-    public static List<ITree> tree(List<? extends ITree> list, Long pid) {
+    public static List<ITree> tree(List<? extends ITree> list, String pid) {
         List<ITree> result = Lists.newArrayList();
         list.forEach(e -> {
             ITree item = e;
