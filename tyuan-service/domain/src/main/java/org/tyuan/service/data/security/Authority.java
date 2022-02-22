@@ -18,7 +18,7 @@ package org.tyuan.service.data.security;
 public enum Authority {
 
     SYS_ADMIN(0),
-    TENANT_ADMIN(1),
+    NORMAL_USER(1),
     CUSTOMER_USER(2),
     REFRESH_TOKEN(10);
 

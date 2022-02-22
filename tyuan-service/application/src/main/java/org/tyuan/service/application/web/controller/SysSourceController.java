@@ -65,7 +65,7 @@ public class SysSourceController {
     public ResultData getAll() {
         ResultData resultData = new ResultData();
         List<CSysSource> list = sysSourceService.getAll();
-        List<ITree> newList = TreeUtils.tree(list, "-");
+        List<ITree> newList = TreeUtils.tree(list, "0");
         // 排序
         Collections.sort(newList, Comparator.comparingLong(o -> o.getSort()));
         resultData.setData(newList);

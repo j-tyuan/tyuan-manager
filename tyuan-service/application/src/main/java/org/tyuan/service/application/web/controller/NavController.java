@@ -71,7 +71,7 @@ public class NavController {
             newList.add(leftMenuVo);
         });
 
-        List<ITree> leftMenuVos = TreeUtils.tree(newList, "-");
+        List<ITree> leftMenuVos = TreeUtils.tree(newList, "0");
         Collections.sort(leftMenuVos, Comparator.comparingLong(o -> o.getSort()));
 
         ResultData resultData = new ResultData();

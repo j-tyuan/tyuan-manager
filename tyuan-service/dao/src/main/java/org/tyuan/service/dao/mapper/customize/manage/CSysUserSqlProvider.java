@@ -21,6 +21,7 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 public class CSysUserSqlProvider extends SysUserSqlProvider {
 
@@ -40,8 +41,9 @@ public class CSysUserSqlProvider extends SysUserSqlProvider {
         builder.append("insert into sys_user_role(`user_id`,`role_id`) ");
         builder.append("values ");
         for (int i = 0; i < roleIds.size(); i++) {
-            builder.append("(")
-                    .append("#{userId},")
+            builder.append("('")
+                    .append(UUID.randomUUID().toString())
+                    .append("',")
                     .append("#{roleIds[" + i + "]}),");
         }
         builder.deleteCharAt(builder.length() - 1);

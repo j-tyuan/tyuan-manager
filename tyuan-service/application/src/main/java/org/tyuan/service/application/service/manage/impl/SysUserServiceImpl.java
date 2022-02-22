@@ -117,8 +117,6 @@ public class SysUserServiceImpl implements SysUserService {
                 criteria.andInstIdEqualTo(param.getInstId());
             }
         }
-        // 只允许查看普通用户
-        criteria.andAuthorityEqualTo(Authority.SYS_ADMIN.name());
         return example;
     }
 
@@ -159,8 +157,11 @@ public class SysUserServiceImpl implements SysUserService {
 
 
         // 只允许创建普通用户
-        sysUser.setAuthority(Authority.TENANT_ADMIN.name());
+        sysUser.setAuthority(Authority.NORMAL_USER.name());
         sysUser.setId(UUID.randomUUID().toString());
+        if (StringUtils.isBlank(sysUser.getAdditionalInfo())){
+            sysUser.setAdditionalInfo("{}");
+        }
         cSysUserMapper.insertSelective(sysUser);
 
         // 插入完成后，得到最后一个ID，根据最后一个ID生成员工编号
@@ -206,7 +207,7 @@ public class SysUserServiceImpl implements SysUserService {
         sysUser.setUpdateBy(UserInfoHolder.getUserName());
 
         // 只允许修改普通用户
-        sysUser.setAuthority(Authority.TENANT_ADMIN.name());
+        sysUser.setAuthority(Authority.NORMAL_USER.name());
         cSysUserMapper.updateByPrimaryKeySelective(sysUser);
 
         // 先解除绑定后在绑定
@@ -324,7 +325,6 @@ public class SysUserServiceImpl implements SysUserService {
         }).collect(Collectors.toList());
         return newUserList;
     }
-
 
 
     @Override

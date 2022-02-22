@@ -58,27 +58,6 @@ public class UserInfoCacheService {
 
 
     /**
-     * 缓存Token
-     *
-     * @param userId
-     * @param token
-     * @param value
-     * @return
-     */
-    public Object put(String userId, String token, Object value, long exp) {
-        String key = "MANAGE:USER:" + token + ":INFO";
-        redisTemplate.opsForValue().set(key, value);
-        redisTemplate.expire(key, exp, TimeUnit.SECONDS);
-
-        // 用于踢出登陆
-        key = "MANAGE:USER:" + userId;
-        redisTemplate.opsForValue().set(key, token);
-        redisTemplate.expire(key, exp, TimeUnit.SECONDS);
-
-        return value;
-    }
-
-    /**
      * 获取权限
      *
      * @param key

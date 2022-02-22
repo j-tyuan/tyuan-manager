@@ -16,8 +16,6 @@
 package org.tyuan.service.application.web.controller;
 
 import com.github.pagehelper.PageInfo;
-import org.springframework.data.redis.core.HashOperations;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -32,9 +30,7 @@ import org.tyuan.service.common.annotation.AuditLog;
 import org.tyuan.service.data.ErrorCodeConsts;
 import org.tyuan.service.data.ResultData;
 import org.tyuan.service.data.ResultTable;
-import org.tyuan.service.data.SysParamConsts;
 import org.tyuan.service.data.audit.ActionType;
-import org.tyuan.service.data.cache.CacheConstant;
 import org.tyuan.service.data.model.custom.COrganizationInstitution;
 import org.tyuan.service.data.vo.DeleteVo;
 import org.tyuan.service.data.vo.sys.SysUserTableParamsVo;
@@ -61,8 +57,6 @@ public class SysUserController {
     @Resource
     private UserInfoCacheService userInfoCacheService;
 
-    @Resource
-    private RedisTemplate redisTemplate;
 
     @Resource
     private SysRoleUserService sysRoleUserService;
@@ -120,7 +114,7 @@ public class SysUserController {
     }
 
     @PreAuthorize("hasAnyAuthority('SYS_ADMIN','sys:user:edit')")
-    @PostMapping("edit")
+    @PostMapping("/edit")
     @AuditLog(type = ActionType.UPDATED, value = "修改用户")
     public ResultData edit(@RequestBody @Validated SysUserVo k) {
         try {
@@ -188,12 +182,4 @@ public class SysUserController {
         resultData.setData(roles);
         return resultData;
     }
-
-    @GetMapping("/watermark")
-    public ResultData watermark() {
-        HashOperations operations = redisTemplate.opsForHash();
-        Object o = operations.get(CacheConstant.SYS_PARAM_MAP, SysParamConsts.SYS_WATER_MARK);
-        return new ResultData().setData(o);
-    }
-
 }

@@ -90,7 +90,7 @@ public class OrganizeInstitutionController {
     public ResultData getAll() throws ServiceException {
         ResultData resultData = new ResultData();
         List list = sysInstitutionService.getAll();
-        List newList = TreeUtils.tree(list, "-");
+        List newList = TreeUtils.tree(list, "0");
         resultData.setData(newList);
         return resultData;
 

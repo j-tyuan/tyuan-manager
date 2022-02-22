@@ -19,7 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
-import org.tyuan.service.application.exception.TyuanErrorResponseHandler;
+import org.tyuan.service.application.web.controller.GlobalExceptionHandlerController;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -29,10 +29,10 @@ import java.io.IOException;
 @Component(value = "defaultAuthenticationFailureHandler")
 public class RestAwareAuthenticationFailureHandler implements AuthenticationFailureHandler {
 
-    private final TyuanErrorResponseHandler errorResponseHandler;
+    private final GlobalExceptionHandlerController errorResponseHandler;
 
     @Autowired
-    public RestAwareAuthenticationFailureHandler(TyuanErrorResponseHandler errorResponseHandler) {
+    public RestAwareAuthenticationFailureHandler(GlobalExceptionHandlerController errorResponseHandler) {
         this.errorResponseHandler = errorResponseHandler;
     }
 

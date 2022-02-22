@@ -114,7 +114,6 @@ public class SysParamServerImpl implements SysParamService {
     public void add(SysParam sysParam) throws ServiceException {
         String key = sysParam.getParamKey();
         if (StringUtils.isBlank(key)) {
-
             throw new ServiceException(ErrorCodeConsts.ERROR_NOT_EXIST, "添加失败，缺少关键信息");
         }
 
@@ -122,7 +121,6 @@ public class SysParamServerImpl implements SysParamService {
         example.createCriteria().andParamKeyEqualTo(key);
         List<SysParam> list = cSysParamMapper.selectByExample(example);
         if (CollectionUtils.isNotEmpty(list)) {
-
             throw new ServiceException(ErrorCodeConsts.ERROR_EXIST, "添加失败，key重复");
         }
 

@@ -191,7 +191,7 @@ public class SysParamController {
     }
 
     @PreAuthorize("hasAnyAuthority('SYS_ADMIN','sys:param:edit')")
-    @GetMapping("/{key}")
+    @GetMapping("/{key:[a-zA-Z0-0\\.\\-\\_\\;\\\\]+}")
     public ResultData getByKey(@PathVariable("key") String key) throws ServiceException {
         SysParam record = paramService.getByKey(key);
         return new ResultData().setData(record);

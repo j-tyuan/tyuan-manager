@@ -15,10 +15,16 @@
  */
 package org.tyuan.service.application.web.controller;
 
+import com.google.common.collect.Maps;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.tyuan.common.exception.ServiceException;
 import org.tyuan.service.application.service.manage.AccountService;
+import org.tyuan.service.application.service.manage.SysPermissionService;
+import org.tyuan.service.application.service.manage.SysRoleUserService;
+import org.tyuan.service.application.service.manage.SysUserService;
+import org.tyuan.service.common.UserInfoHolder;
 import org.tyuan.service.common.annotation.AuditLog;
 import org.tyuan.service.data.ErrorCodeConsts;
 import org.tyuan.service.data.ResultData;
@@ -26,6 +32,7 @@ import org.tyuan.service.data.audit.ActionType;
 import org.tyuan.service.data.model.SysUser;
 
 import javax.annotation.Resource;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -33,20 +40,35 @@ import java.util.Map;
  * @DateTime: 2020/6/29 17:28
  */
 @RestController
-@RequestMapping("/api/account/")
+@RequestMapping
 public class AccountController {
 
     @Resource
     AccountService accountService;
 
-    @PostMapping("/custom/layout")
+
+    @Resource
+    private SysUserService sysUserService;
+
+    @Resource
+    SysPermissionService sysPermissionService;
+
+    @Resource
+    SysRoleUserService sysRoleUserService;
+
+
+    @Resource
+    private RedisTemplate redisTemplate;
+
+
+    @PostMapping("/api/account/custom/layout")
     @AuditLog(type = ActionType.UPDATED, value = "用户修改自定义布局")
     public ResultData customLayout(@RequestBody Map customLayoutVo) {
         accountService.customLayout(customLayoutVo);
         return new ResultData();
     }
 
-    @PostMapping("/avatar")
+    @PostMapping("/api/account/avatar")
     @AuditLog(type = ActionType.UPDATED, value = "用户修改头像")
     public ResultData accountAvatar(@RequestParam("avatar") MultipartFile multipartFile) {
         ResultData result = new ResultData();
@@ -67,19 +89,45 @@ public class AccountController {
         }
     }
 
-    @PostMapping("/setting")
+    @PostMapping("/api/account/setting")
     @AuditLog(type = ActionType.UPDATED, value = "用户修改设置")
     public ResultData setting(@RequestBody SysUser sysUser) {
         accountService.setting(sysUser);
         return new ResultData();
     }
 
-    @GetMapping({"", "/"})
+    @GetMapping({"/api/account"})
     @AuditLog(type = ActionType.UPDATED, value = "获取账号信息")
     public ResultData account() {
         ResultData resultData = new ResultData();
         Map data = accountService.account();
         resultData.setData(data);
+        return resultData;
+    }
+
+    @GetMapping("/api/currentUser")
+    public ResultData getUserInfo() {
+        String userId = UserInfoHolder.getUserId();
+        SysUser u = sysUserService.getById(userId);
+        ResultData resultData = new ResultData();
+        resultData.setData(u);
+        resultData.setErrorCode(ErrorCodeConsts.SUCCESS);
+        return resultData;
+    }
+
+    @GetMapping("/api/permission")
+    public ResultData permission() {
+        String userId = UserInfoHolder.getUserId();
+        ResultData resultData = new ResultData();
+        Map map = Maps.newHashMap();
+        List<String> permissions = sysPermissionService.getByUserId(userId);
+        SysUser user = sysUserService.getById(userId);
+        permissions.add(user.getAuthority());
+
+        map.put("permission", permissions);
+        map.put("role", sysRoleUserService.getRoleByUserId(userId));
+        resultData.setData(map);
+        resultData.setErrorCode(ErrorCodeConsts.SUCCESS);
         return resultData;
     }
 }

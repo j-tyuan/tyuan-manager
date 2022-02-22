@@ -2,7 +2,7 @@
 # 日志级别
 logging:
   root:
-    level: INFO
+    level: Debug
 
 scheduled:
   # 系统参数刷新时间

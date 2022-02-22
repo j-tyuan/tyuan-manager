@@ -20,6 +20,7 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 public class CSysRolePermissionSqlProvider extends SysRolePermissionSqlProvider {
 
@@ -31,11 +32,13 @@ public class CSysRolePermissionSqlProvider extends SysRolePermissionSqlProvider 
         }
 
         StringBuilder builder = new StringBuilder();
-        builder.append("insert into sys_role_permission(`role_id`,`permission_id`) ");
+        builder.append("insert into sys_role_permission(`id`,`role_id`,`permission_id`) ");
         builder.append("values");
 
         for (int i = 0; i < permissionIds.size(); i++) {
-            builder.append("(")
+            builder.append("('")
+                    .append(UUID.randomUUID().toString())
+                    .append("',")
                     .append("#{roleId},")
                     .append("#{permissionIds[" + i + "]}),");
         }

@@ -16,6 +16,7 @@
 package org.tyuan.service.application.web.aop;
 
 import com.google.common.collect.Lists;
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -26,10 +27,10 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.tyuan.common.utils.IPUtils;
 import org.tyuan.common.utils.MDCUtils;
-import org.tyuan.service.common.RequestContext;
-import org.tyuan.service.common.annotation.AuditLog;
 import org.tyuan.service.application.service.manage.AuditLogService;
 import org.tyuan.service.application.service.security.model.SecurityUser;
+import org.tyuan.service.common.RequestContext;
+import org.tyuan.service.common.annotation.AuditLog;
 import org.tyuan.service.data.LogTransport;
 
 import javax.annotation.Resource;
@@ -43,6 +44,7 @@ import java.util.concurrent.CompletableFuture;
  */
 @Aspect
 @Component
+@Slf4j
 public class AuditLogAspect {
 
     @Resource
@@ -108,6 +110,7 @@ public class AuditLogAspect {
                     try {
                         String classMethod = className + "." + methodName;
                         auditLogService.logAction(finalUserId, finalUserName, var.type(), transport.getException(), classMethod, title, params, transport.getDuration(), requestId, addr);
+                        log.info("用户：{}-{} operationType：{}  classMethod：{} title：{} IP：{}", finalUserId, finalUserName, var.type(), classMethod, title, addr);
                     } catch (Exception e) {
                         e.fillInStackTrace();
                     }

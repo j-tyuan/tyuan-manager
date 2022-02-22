@@ -34,13 +34,13 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.tyuan.service.application.exception.TyuanErrorResponseHandler;
 import org.tyuan.service.application.service.security.auth.jwt.*;
 import org.tyuan.service.application.service.security.auth.jwt.extractor.TokenExtractor;
 import org.tyuan.service.application.service.security.auth.oauth2.HttpCookieOAuth2AuthorizationRequestRepository;
 import org.tyuan.service.application.service.security.auth.rest.RestAuthenticationProvider;
 import org.tyuan.service.application.service.security.auth.rest.RestLoginProcessingFilter;
 import org.tyuan.service.application.service.security.auth.rest.RestPublicLoginProcessingFilter;
+import org.tyuan.service.application.web.controller.GlobalExceptionHandlerController;
 import org.tyuan.service.dao.oauth2.impl.OAuth2Configuration;
 
 import javax.annotation.Resource;
@@ -60,7 +60,7 @@ import java.util.List;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Resource
-    private TyuanErrorResponseHandler restAccessDeniedHandler;
+    private GlobalExceptionHandlerController restAccessDeniedHandler;
 
     @Resource
     private AuthenticationSuccessHandler defaultAuthenticationSuccessHandler;
